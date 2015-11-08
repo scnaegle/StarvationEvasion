@@ -1,4 +1,4 @@
-package sample;
+package starvationevasion.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
