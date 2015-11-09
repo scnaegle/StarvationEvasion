@@ -8,28 +8,50 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane alignment="CENTER" hgap="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0000999999975" prefWidth="704.9999000000025" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.main.Controller">
+<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1024.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.main.Controller">
   <children>
-    <GridPane prefHeight="340.0" prefWidth="704.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Pane prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <ImageView id="Screen Shot 2015-11-08 at 7.24.04 PM.png" fitHeight="180.0" fitWidth="382.9998779296875" GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <StackPane id="map" layoutX="418.0" layoutY="0.0" prefHeight="182.0" prefWidth="286.0" />
+        <HBox layoutX="14.0" layoutY="681.0" prefHeight="91.0" prefWidth="1010.0">
+          <children>
+            <StackPane prefHeight="100.0" prefWidth="96.0">
+              <children>
+                <ImageView id="FarmProduct_Fruit_64x64.png" fitHeight="61.0" fitWidth="58.0">
+                  <image>
+                    <Image url="@../../../assets/farmProductIcons/FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </children>
+            </StackPane>
+            <StackPane prefHeight="100.0" prefWidth="96.0">
+              <children>
+                <ImageView id="FarmProduct_Grains_64x64.png" fitHeight="61.0" fitWidth="64.0">
+                  <image>
+                    <Image url="@../../../assets/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </children>
+            </StackPane>
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+            <StackPane prefHeight="100.0" prefWidth="96.0" />
+          </children>
+        </HBox>
+        <ImageView id="map.png" fitHeight="260.66334357164993" fitWidth="437.9998779296875" layoutX="572.0" layoutY="15.0" preserveRatio="true">
           <image>
-            <Image url="@../../../../../Screen%20Shot%202015-11-08%20at%207.24.04%20PM.png" preserveRatio="true" smooth="true" />
+            <Image url="@../../../assets/images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
       </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="199.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="123.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.0" minWidth="10.0" prefWidth="382.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="236.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="236.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="179.0" minHeight="10.0" prefHeight="125.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="180.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
-      </rowConstraints>
-    </GridPane>
+    </Pane>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
