@@ -48,24 +48,32 @@
             <Label alignment="CENTER" prefWidth="277.0" text="Cards drafted" />
           </children>
         </HBox>
-        <HBox layoutX="14.0" layoutY="681.0" prefHeight="91.0" prefWidth="1010.0">
+        <HBox layoutX="14.0" layoutY="663.0" prefHeight="109.0" prefWidth="1010.0">
           <children>
             <StackPane prefHeight="100.0" prefWidth="96.0">
               <children>
-                <ImageView id="apple" fitHeight="61.0" fitWidth="58.0">
-                  <image>
-                    <Image url="@FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
+                <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" minWidth="84.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="77.0" prefWidth="84.0" text="">
+                  <graphic>
+                    <ImageView id="apple" fitHeight="71.00006103515625" fitWidth="73.99996948242188">
+                      <image>
+                        <Image url="@FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
               </children>
             </StackPane>
-            <StackPane prefHeight="100.0" prefWidth="96.0">
+            <StackPane prefHeight="109.0001220703125" prefWidth="97.0">
               <children>
-                <ImageView id="grains" fitHeight="61.0" fitWidth="64.0">
-                  <image>
-                    <Image url="@FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
+                <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minWidth="82.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="77.0" prefWidth="85.0" text="">
+                  <graphic>
+                    <ImageView id="grains" fitHeight="64.0" fitWidth="74.0">
+                      <image>
+                        <Image url="@FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
               </children>
             </StackPane>
             <StackPane prefHeight="100.0" prefWidth="96.0" />
@@ -92,7 +100,7 @@
         </Label>
         <ImageView id="mapImage" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" preserveRatio="true" style="-fx-graphic: url('map.png');">
           <image>
-            <Image url="@map.png" preserveRatio="true" smooth="true"  />
+            <Image url="@map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
       </children>
