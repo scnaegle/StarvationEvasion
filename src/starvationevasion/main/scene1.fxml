@@ -17,53 +17,84 @@
   <children>
     <Pane prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <Pane layoutX="14.0" layoutY="382.0" prefHeight="121.0" prefWidth="101.0" />
         <Pane layoutX="19.0" layoutY="22.0" prefHeight="244.0" prefWidth="247.00009999999747">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="787.9998779296875" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1023.9998779296875" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="262.0" layoutX="-5.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="266.0000999999975" />
-          </children>
-        </Pane>
-        <Pane layoutX="140.0" layoutY="402.0" prefHeight="216.0" prefWidth="485.049072265625">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99ffa9" height="258.0000915527344" layoutX="-19.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="233.0" layoutX="-6.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
-            <Label layoutX="195.0" layoutY="-4.0" prefWidth="97.0" text="Your cards">
-              <font>
-                <Font size="15.0" fx:id="x1" />
-              </font>
-            </Label>
-          </children>
-        </Pane>
-        <Pane layoutX="686.0" layoutY="388.0" prefHeight="224.0" prefWidth="274.0">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33e7ff" height="252.0" layoutX="-17.0" layoutY="-15.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="223.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="277.0" />
-            <Label font="$x1" layoutX="99.0" layoutY="8.0" prefHeight="24.0" prefWidth="77.0" text="Statistics" />
-          </children>
-        </Pane>
-        <Pane layoutX="14.0" layoutY="518.0" prefHeight="121.0" prefWidth="101.0" />
-        <HBox blendMode="SRC_OVER" cache="false" depthTest="DISABLE" fillHeight="false" layoutX="231.0" layoutY="275.0" mouseTransparent="false" prefHeight="98.0" prefWidth="266.0">
-          <children>
-            <Label alignment="CENTER" prefWidth="277.0" text="Cards drafted" />
-          </children>
-        </HBox>
-        <HBox layoutX="14.0" layoutY="663.0" prefHeight="109.0" prefWidth="1010.0">
-          <children>
-            <StackPane prefHeight="100.0" prefWidth="96.0">
+            <Pane fx:id="draw" layoutX="-5.0" layoutY="372.0" prefHeight="121.0" prefWidth="101.0">
               <children>
-                <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" minWidth="84.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="77.0" prefWidth="84.0" text="">
-                  <graphic>
-                    <ImageView id="apple" fitHeight="71.00006103515625" fitWidth="73.99996948242188">
-                      <image>
-                        <Image url="@FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                  </graphic>
-                </Button>
+                <Button fx:id="drawCardButton" layoutX="-1.0" layoutY="-5.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
               </children>
-            </StackPane>
-            <StackPane prefHeight="109.0001220703125" prefWidth="97.0">
+            </Pane>
+            <HBox fx:id="fruitPane" layoutX="1.0" layoutY="641.0" prefHeight="109.0" prefWidth="1023.9998779296875">
+              <children>
+                <StackPane prefHeight="100.0" prefWidth="96.0">
+                  <children>
+                    <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" minWidth="84.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="77.0" prefWidth="84.0" text="">
+                      <graphic>
+                        <ImageView id="apple" fitHeight="71.00006103515625" fitWidth="73.99996948242188">
+                          <image>
+                            <Image url="@FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
+                          </image>
+                        </ImageView>
+                      </graphic>
+                    </Button>
+                  </children>
+                </StackPane>
+                <StackPane prefHeight="109.0" prefWidth="84.0" />
+                <StackPane prefHeight="109.0" prefWidth="85.0">
+                  <children>
+                    <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="73.99996948242188" text="Button" />
+                  </children>
+                </StackPane>
+                <StackPane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="74.0" text="Button" />
+                  </children>
+                </StackPane>
+                <StackPane prefHeight="109.0" prefWidth="84.0">
+                  <children>
+                    <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="74.0" text="Button" />
+                  </children>
+                </StackPane>
+                <StackPane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="74.0" text="Button" />
+                  </children>
+                </StackPane>
+                <Pane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button layoutX="2.0" layoutY="18.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="77.0" text="Button" />
+                  </children>
+                </Pane>
+                <Pane prefHeight="109.0" prefWidth="85.0">
+                  <children>
+                    <Button layoutX="6.0" layoutY="18.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="74.0" text="Button" />
+                  </children>
+                </Pane>
+                <Pane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button layoutX="2.0" layoutY="16.0" mnemonicParsing="false" prefHeight="76.9998779296875" prefWidth="73.9998779296875" text="Button" />
+                  </children>
+                </Pane>
+                <Pane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button layoutX="2.0" layoutY="16.0" mnemonicParsing="false" prefHeight="76.9998779296875" prefWidth="73.9998779296875" text="Button" />
+                  </children>
+                </Pane>
+                <Pane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button layoutX="2.0" layoutY="16.0" mnemonicParsing="false" prefHeight="76.9998779296875" prefWidth="73.9998779296875" text="Button" />
+                  </children>
+                </Pane>
+                <Pane prefHeight="109.0" prefWidth="77.0">
+                  <children>
+                    <Button layoutX="2.0" layoutY="16.0" mnemonicParsing="false" prefHeight="76.9998779296875" prefWidth="73.9998779296875" text="Button" />
+                  </children>
+                </Pane>
+              </children>
+            </HBox>
+            <StackPane layoutX="90.0" layoutY="641.0" prefHeight="109.0001220703125" prefWidth="97.0">
               <children>
                 <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minWidth="82.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="77.0" prefWidth="85.0" text="">
                   <graphic>
@@ -76,24 +107,42 @@
                 </Button>
               </children>
             </StackPane>
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
-            <StackPane prefHeight="100.0" prefWidth="96.0" />
+          </children>
+        </Pane>
+        <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="223.0" prefWidth="485.049072265625">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99ffa9" height="258.0000915527344" layoutX="-19.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
+            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="233.0" layoutX="-6.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
+            <Label layoutX="195.0" layoutY="-4.0" prefWidth="97.0" text="Your cards">
+              <font>
+                <Font size="15.0" fx:id="x1" />
+              </font>
+            </Label>
+          </children>
+        </Pane>
+        <Pane fx:id="statisticsPane" layoutX="686.0" layoutY="388.0" prefHeight="224.0" prefWidth="274.0">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33e7ff" height="252.0" layoutX="-17.0" layoutY="-15.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="223.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="277.0" />
+            <Label font="$x1" layoutX="99.0" layoutY="8.0" prefHeight="24.0" prefWidth="77.0" text="Statistics" />
+          </children>
+        </Pane>
+        <Pane fx:id="discard" layoutX="14.0" layoutY="518.0" prefHeight="121.0" prefWidth="101.0">
+          <children>
+            <Label fx:id="discardLabel" layoutX="12.0" layoutY="45.0" prefHeight="35.0" prefWidth="84.0" text="Discard Pile" />
+          </children>
+        </Pane>
+        <HBox fx:id="draftCardPane" blendMode="SRC_OVER" cache="false" depthTest="DISABLE" fillHeight="false" layoutX="231.0" layoutY="275.0" mouseTransparent="false" prefHeight="98.0" prefWidth="266.0">
+          <children>
+            <Label alignment="CENTER" prefWidth="277.0" text="Cards drafted" />
           </children>
         </HBox>
-        <Label alignment="CENTER" layoutX="400.0" layoutY="69.0" prefHeight="44.310546875" prefWidth="97.0" text="Time">
+        <Label fx:id="time" alignment="CENTER" layoutX="400.0" layoutY="69.0" prefHeight="44.310546875" prefWidth="97.0" text="Time">
           <font>
             <Font name="System Bold Italic" size="18.0" />
           </font>
         </Label>
-        <Label layoutX="291.0" layoutY="7.0" prefHeight="31.310546875" prefWidth="497.0" text="Year, World/Region Population and HDI">
+        <Label fx:id="mainLabel" layoutX="291.0" layoutY="7.0" prefHeight="31.310546875" prefWidth="497.0" text="Year, World/Region Population and HDI">
           <font>
             <Font name="System Bold" size="20.0" />
           </font>
