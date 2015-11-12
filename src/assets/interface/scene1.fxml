@@ -34,7 +34,7 @@
                       <graphic>
                         <ImageView id="apple" fitHeight="71.00006103515625" fitWidth="73.99996948242188">
                           <image>
-                            <Image url="@../images/FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -100,7 +100,7 @@
                   <graphic>
                     <ImageView id="grains" fitHeight="64.0" fitWidth="74.0">
                       <image>
-                        <Image url="@../images/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                        <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
                       </image>
                     </ImageView>
                   </graphic>
