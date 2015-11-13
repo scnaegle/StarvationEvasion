@@ -10,10 +10,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1024.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.main.Controller">
+<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.9998779296875" prefWidth="-1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.main.Controller">
   <children>
     <Pane prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
@@ -26,7 +27,7 @@
                 <Button fx:id="drawCardButton" layoutX="-1.0" layoutY="-5.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
               </children>
             </Pane>
-            <HBox fx:id="fruitPane" layoutX="1.0" layoutY="641.0" prefHeight="109.0" prefWidth="1023.9998779296875">
+            <HBox fx:id="fruitPane" layoutX="1.0" layoutY="641.0" prefHeight="-1.0" prefWidth="-1.0">
               <children>
                 <StackPane prefHeight="100.0" prefWidth="96.0">
                   <children>
@@ -107,6 +108,50 @@
                 </Button>
               </children>
             </StackPane>
+            <Label fx:id="regionLabel" layoutX="601.0" layoutY="309.0" prefWidth="247.0001220703125" text="Current Region:">
+              <font>
+                <Font name="Avenir Next Demi Bold Italic" size="16.0" />
+              </font>
+            </Label>
+            <Label fx:id="caliLabel" contentDisplay="CENTER" layoutX="448.0" layoutY="122.0" prefWidth="73.9998779296875" text="California" textAlignment="LEFT" textFill="#1400ff" visible="false">
+              <graphic>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.856002807617188" opacity="0.37" stroke="BLACK" strokeType="INSIDE" width="73.9998779296875" />
+              </graphic>
+              <labelFor>
+                <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="534.0" layoutY="113.0" mouseTransparent="false" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <image>
+                    <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </labelFor>
+            </Label>
+            <Label id="" fx:id="neLabel" contentDisplay="CENTER" layoutX="859.0" layoutY="14.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="137.0" text="Northern Crescent" textAlignment="LEFT" visible="false">
+              <graphic>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
+              </graphic>
+              <labelFor>
+                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <image>
+                    <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </labelFor>
+              <textFill>
+                <Color blue="1.000" green="0.000" red="0.078" fx:id="x2" />
+              </textFill>
+            </Label>
+            <Label id="caliLabel" fx:id="seLabel" contentDisplay="CENTER" layoutX="896.0" layoutY="219.0" minWidth="67.0" prefHeight="39.310447692871094" prefWidth="101.0" text="Southeast" textAlignment="LEFT" textFill="$x2" visible="false">
+              <graphic>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="101.0" />
+              </graphic>
+              <labelFor>
+                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <image>
+                    <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </labelFor>
+            </Label>
           </children>
         </Pane>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="223.0" prefWidth="485.049072265625">
@@ -139,54 +184,98 @@
         </HBox>
         <Label fx:id="time" alignment="CENTER" layoutX="400.0" layoutY="69.0" prefHeight="44.310546875" prefWidth="97.0" text="Time">
           <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="Avenir Next Demi Bold Italic" size="18.0" />
           </font>
         </Label>
-        <Label fx:id="mainLabel" layoutX="291.0" layoutY="7.0" prefHeight="31.310546875" prefWidth="497.0" text="Year, World/Region Population and HDI">
-          <font>
-            <Font name="System Bold" size="20.0" />
-          </font>
-        </Label>
-        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" preserveRatio="true" style="-fx-graphic: url('map.png');">
+        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseClicked="#findPolygon" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="north" fx:id="northSt" fitHeight="133.44630432128906" fitWidth="225.30876639000599" layoutX="776.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" visible="false">
-          <image>
-            <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-        <ImageView id="northplains" fx:id="nPlains" fitHeight="184.189453125" fitWidth="182.00193421684043" layoutX="661.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false">
-          <image>
-            <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-        <ImageView id="southeast" fx:id="southEast" fitHeight="188.44805815957454" fitWidth="198.13275146484375" layoutX="776.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" visible="false">
-          <image>
-            <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-        <ImageView id="southplains" fx:id="sPlains" fitHeight="155.0" fitWidth="218.4679706280048" layoutX="646.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" visible="false">
-          <image>
-            <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-        <ImageView id="mountain" fx:id="mountSt" fitHeight="255.06699857430118" fitWidth="253.0" layoutX="516.0" layoutY="31.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="541.0" layoutY="44.0" mouseTransparent="true" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="heartland" fitHeight="121.95266084282257" fitWidth="145.65370178222656" layoutX="741.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="789.0" layoutY="64.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+          <image>
+            <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="701.0" layoutY="69.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+          <image>
+            <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="" fx:id="sPlainLabel" contentDisplay="CENTER" layoutX="581.0" layoutY="258.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Southern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+        </Label>
+        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="798.0" layoutY="152.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+          <image>
+            <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="666.0" layoutY="200.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+          <image>
+            <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="754.0" layoutY="131.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
-          <image>
-            <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
+        <Label id="" fx:id="mountLabel" contentDisplay="CENTER" layoutX="625.0" layoutY="39.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Mountain States" textAlignment="LEFT" textFill="$x2" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+        </Label>
+        <fx:reference source="cali" />
+        <Label fx:id="mainLabel" layoutX="291.0" layoutY="7.0" prefHeight="31.310546875" prefWidth="497.0" text="Year, World/Region Population and HDI">
+          <font>
+            <Font name="Avenir Next Demi Bold Italic" size="25.0" />
+          </font>
+        </Label>
+        <Label id="" fx:id="nPlainLabel" contentDisplay="CENTER" layoutX="740.0" layoutY="58.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="115.0" text="Northern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+        </Label>
+        <Label id="" fx:id="heartLabel" contentDisplay="CENTER" layoutX="781.0" layoutY="124.0" minWidth="67.0" prefHeight="39.310447692871094" prefWidth="73.9998779296875" text="Heartland" textAlignment="LEFT" textFill="$x2" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="77.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+        </Label>
       </children>
     </Pane>
   </children>
