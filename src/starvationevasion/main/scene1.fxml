@@ -147,42 +147,42 @@
             <Font name="System Bold" size="20.0" />
           </font>
         </Label>
-        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" preserveRatio="true" style="-fx-graphic: url('map.png');">
+        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" preserveRatio="true" style="-fx-graphic: url('map.png');">
           <image>
             <Image url="@images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="north" fx:id="northSt" fitHeight="133.44630432128906" fitWidth="225.30876639000599" layoutX="776.0" layoutY="60.0" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="north" fx:id="northSt" fitHeight="133.44630432128906" fitWidth="225.30876639000599" layoutX="776.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/north.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="northplains" fx:id="nPlains" fitHeight="184.189453125" fitWidth="182.00193421684043" layoutX="661.0" layoutY="56.0" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="northplains" fx:id="nPlains" fitHeight="184.189453125" fitWidth="182.00193421684043" layoutX="661.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/northplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="southeast" fx:id="southEast" fitHeight="188.44805815957454" fitWidth="198.13275146484375" layoutX="776.0" layoutY="148.0" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southeast" fx:id="southEast" fitHeight="188.44805815957454" fitWidth="198.13275146484375" layoutX="776.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/southeast.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="southplains" fx:id="sPlains" fitHeight="155.0" fitWidth="218.4679706280048" layoutX="646.0" layoutY="184.0" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southplains" fx:id="sPlains" fitHeight="155.0" fitWidth="218.4679706280048" layoutX="646.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/southplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="mountain" fx:id="mountSt" fitHeight="255.06699857430118" fitWidth="253.0" layoutX="516.0" layoutY="31.0" mouseTransparent="true" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="mountain" fx:id="mountSt" fitHeight="255.06699857430118" fitWidth="253.0" layoutX="516.0" layoutY="31.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/mountain.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="heartland" fitHeight="121.95266084282257" fitWidth="145.65370178222656" layoutX="741.0" layoutY="118.0" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="heartland" fitHeight="121.95266084282257" fitWidth="145.65370178222656" layoutX="741.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/heartland.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseEntered="#mouseEntered" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@images/cali.png" preserveRatio="true" smooth="true" />
           </image>

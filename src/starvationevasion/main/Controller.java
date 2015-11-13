@@ -65,14 +65,14 @@ public class Controller
   }
 
 
-  @FXML
-  public void mouseEntered(MouseEvent event)
-  {
-    System.out.println("reached here");
-    ImageView image = (ImageView)event.getSource();
-
-
-  }
+//  @FXML
+//  public void mouseEntered(MouseEvent event)
+//  {
+//    System.out.println("reached here");
+//    ImageView image = (ImageView)event.getSource();
+//
+//
+//  }
 
   @FXML
   public void mouseMoved(MouseEvent event)
@@ -86,9 +86,17 @@ public class Controller
     {
       cali.setVisible(true);
     }
-    else if/*(x>=10 && x<200 && y>=5 && y<200 ||*/( x>70 && x<200 && y>=5 && y<200)
+    else if/*(x>=10 && x<200 && y>=5 && y<200 ||*/( x>40 && x<200 && y>=0 && y<210)
     {
       mountSt.setVisible(true);
+    }
+    else if(x>=200 && x<300 && y>=5 && y<=160 || x>=200 && x<250 && y>=5 && y<=160)
+    {
+      nPlains.setVisible(true);
+    }
+    else if(y>160 && y<=280 && x>150 && x<=300)
+    {
+      sPlains.setVisible(true);
     }
     //southEast.setVisible(true);
   }
@@ -100,6 +108,8 @@ public class Controller
 
     cali.setVisible(false);
     mountSt.setVisible(false);
+    nPlains.setVisible(false);
+    sPlains.setVisible(false);
   }
 }
 
