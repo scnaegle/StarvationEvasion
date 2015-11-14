@@ -16,11 +16,17 @@ public class Hand {
   Deck deck = new Deck(region);
   ArrayList<PolicyCard> cardsInHand = new ArrayList<>();
 
+  /**
+   * Creates a Hand based on the player
+   * @param player player who owns this hand
+   */
   public Hand(Player player) {
     this.player = player;
   }
 
-  // fills a hand till it is full with 7 cards.
+  /**
+   * Fills a hand till it is full with 7 cards.
+   */
   public void fillHand()
   {
     if(cardsInHand.size()<7)
@@ -31,7 +37,7 @@ public class Hand {
   }
 
   /**
-   * uses a policy to be acted on by a player.
+   * Uses a policy to be acted on by a player.
    * @param card chooses which card we are using
    */
   public void usePolicy(int card)
