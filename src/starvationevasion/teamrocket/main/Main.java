@@ -19,7 +19,7 @@ public class Main extends Application {
     //System.out.println("resouce: " + getClass().getClassLoader().getResource("assets/interface/scene1.fxml"));
 
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(new Scene(chooseRegion, 1024, 768));
+    primaryStage.setScene(new Scene(main1, 1024, 768));
 
 
 

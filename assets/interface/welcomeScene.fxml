@@ -9,15 +9,15 @@
 
 <AnchorPane id="AnchorPane" fx:id="welcomeScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
-    <Text layoutX="418.0" layoutY="160.0" scaleX="4.810863293820562" scaleY="6.680659157017527" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Starvation Evasion!" />
-    <Text layoutX="414.0" layoutY="269.0" scaleX="2.40562738585904" scaleY="1.9797166627806604" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your gameplay:" />
-    <RadioButton layoutX="357.0" layoutY="360.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="286.0" text="New Game Single Player">
+    <Text layoutX="420.0" layoutY="127.0" scaleX="5.025121266958967" scaleY="6.28877241776266" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Starvation Evasion!" />
+    <Text layoutX="422.0" layoutY="280.0" scaleX="2.405625760247459" scaleY="2.5273917932998806" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your gameplay:" />
+    <RadioButton layoutX="365.0" layoutY="360.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="286.0" text="New Game Single Player">
       <font>
         <Font size="18.0" fx:id="x1" />
       </font>
     </RadioButton>
-    <RadioButton font="$x1" layoutX="357.0" layoutY="445.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="294.0" text="New Game Multi-Player" />
-    <Button layoutX="424.0" layoutY="568.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" text="READY">
+    <RadioButton font="$x1" layoutX="365.0" layoutY="445.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="294.0" text="New Game Multi-Player" />
+    <Button fx:id="ready" layoutX="432.0" layoutY="568.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" text="READY">
       <font>
         <Font size="20.0" />
       </font>

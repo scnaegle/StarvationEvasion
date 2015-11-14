@@ -118,7 +118,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.856002807617188" opacity="0.37" stroke="BLACK" strokeType="INSIDE" width="73.9998779296875" />
               </graphic>
               <labelFor>
-                <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="534.0" layoutY="113.0" mouseTransparent="false" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="534.0" layoutY="113.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
                   <image>
                     <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
                   </image>
@@ -130,7 +130,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
               </graphic>
               <labelFor>
-                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
                   <image>
                     <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
                   </image>
@@ -145,7 +145,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="101.0" />
               </graphic>
               <labelFor>
-                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false"  onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
                   <image>
                     <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
                   </image>
@@ -187,22 +187,22 @@
             <Font name="Avenir Next Demi Bold Italic" size="18.0" />
           </font>
         </Label>
-        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseClicked="#findPolygon" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');">
+        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="541.0" layoutY="44.0" mouseTransparent="true" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="541.0" layoutY="44.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="789.0" layoutY="64.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="789.0" layoutY="64.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="701.0" layoutY="69.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="701.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
           </image>
@@ -212,24 +212,24 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
           <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
               <image>
                 <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
           </labelFor>
         </Label>
-        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="798.0" layoutY="152.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="798.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="666.0" layoutY="200.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="666.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="754.0" layoutY="131.0" onMouseClicked="#clickedRegion" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="754.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
           </image>
@@ -239,7 +239,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
           <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false"  onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
               <image>
                 <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
               </image>
@@ -257,7 +257,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
           <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
               <image>
                 <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
               </image>
@@ -269,7 +269,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="77.0" />
           </graphic>
           <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
               <image>
                 <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
               </image>
