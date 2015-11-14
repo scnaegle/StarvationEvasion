@@ -9,7 +9,10 @@ import java.util.ArrayList;
  * Created by scnaegl on 11/14/15.
  */
 public class Hand {
-  Deck deck = new Deck(EnumRegion.CALIFORNIA);
+
+  private EnumRegion region;
+  
+  Deck deck = new Deck(region);
   ArrayList<PolicyCard> cardsInHand = new ArrayList<>();
 
   // fills a hand till it is full with 7 cards.
