@@ -5,6 +5,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by scnaegl on 11/14/15.
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 public class Deck {
   ArrayList<PolicyCard> cards = new ArrayList<>();
   ArrayList<PolicyCard> discard = new ArrayList<>();
+  Random rand = new Random();
+
 
   private EnumRegion region;
 
@@ -22,7 +25,8 @@ public class Deck {
   }
 
   public PolicyCard drawCard() {
-    PolicyCard card = cards.get(0);
+    checkIfEmpty();
+    PolicyCard card = cards.get(rand.nextInt(cards.size()));
     return card;
   }
 
@@ -30,5 +34,15 @@ public class Deck {
     ArrayList<PolicyCard> cards = new ArrayList<>();
     // TODO pull cards from XML file
     return cards;
+  }
+
+  private void checkIfEmpty()
+  {
+    if(cards.isEmpty()){
+      for(PolicyCard discardPile : discard)
+      {
+        cards.add(discardPile);
+      }
+    }
   }
 }
