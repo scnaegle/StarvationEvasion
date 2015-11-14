@@ -12,8 +12,13 @@ public class Hand {
 
   private EnumRegion region;
 
+  private Player player;
   Deck deck = new Deck(region);
   ArrayList<PolicyCard> cardsInHand = new ArrayList<>();
+
+  public Hand(Player player) {
+    this.player = player;
+  }
 
   // fills a hand till it is full with 7 cards.
   private void fillHand()
@@ -34,7 +39,7 @@ public class Hand {
     // use way to use policy in code
     deck.discard.add(cardsInHand.get(card));
     cardsInHand.remove(card);
-    fillHand();
+//    fillHand();
   }
 
   /**
@@ -46,6 +51,8 @@ public class Hand {
   {
     return cardsInHand.get(card);
   }
+
+
 
 
 }
