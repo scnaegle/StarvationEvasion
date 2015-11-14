@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="chooseRegion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.main.GuiController">
+<AnchorPane id="AnchorPane" fx:id="chooseRegion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
     <Text layoutX="445.0" layoutY="102.0" scaleX="5.947190978924539" scaleY="5.531445339673558" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE YOUR REGION" />
     <ImageView id="map" fx:id="fullmap1" fitHeight="548.068359375" fitWidth="769.0" layoutX="128.0" layoutY="226.0" onMouseClicked="#clickedRegion" pickOnBounds="true" preserveRatio="true" visible="true">

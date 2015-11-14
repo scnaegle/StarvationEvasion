@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="welcomeScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.main.GuiController">
+<AnchorPane id="AnchorPane" fx:id="welcomeScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
     <Text layoutX="418.0" layoutY="160.0" scaleX="4.810863293820562" scaleY="6.680659157017527" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Starvation Evasion!" />
     <Text layoutX="414.0" layoutY="269.0" scaleX="2.40562738585904" scaleY="1.9797166627806604" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your gameplay:" />
