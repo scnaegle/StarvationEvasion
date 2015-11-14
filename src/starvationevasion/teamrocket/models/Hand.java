@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class Hand {
 
   private EnumRegion region;
-  
+
   Deck deck = new Deck(region);
   ArrayList<PolicyCard> cardsInHand = new ArrayList<>();
 
   // fills a hand till it is full with 7 cards.
   private void fillHand()
   {
-    if(cardsInHand.size()<=7)
+    if(cardsInHand.size()<7)
     {
       cardsInHand.add(deck.drawCard());
       fillHand();
@@ -32,6 +32,7 @@ public class Hand {
   public void usePolicy(int card)
   {
     // use way to use policy in code
+    deck.discard.add(cardsInHand.get(card));
     cardsInHand.remove(card);
     fillHand();
   }
@@ -45,8 +46,6 @@ public class Hand {
   {
     return cardsInHand.get(card);
   }
-
-
 
 
 }
