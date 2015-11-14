@@ -1,6 +1,5 @@
 package starvationevasion.teamrocket.models;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
@@ -12,14 +11,14 @@ import java.util.Random;
  */
 public class Deck {
   ArrayList<PolicyCard> cards = new ArrayList<>();
-  ArrayList<PolicyCard> discard = new ArrayList<>();
+  ArrayList<PolicyCard> discard_pile = new ArrayList<>();
 
   private EnumRegion region;
 
   public Deck(EnumRegion region) {
     this.region = region;
     this.cards = createDeck(region);
-    this.discard = new ArrayList<>();
+    this.discard_pile = new ArrayList<>();
   }
 
   public PolicyCard drawCard() {
@@ -28,7 +27,7 @@ public class Deck {
   }
 
   public void shuffle() {
-    for(PolicyCard card : discard) {
+    for(PolicyCard card : discard_pile) {
       this.cards.add(card);
     }
   }

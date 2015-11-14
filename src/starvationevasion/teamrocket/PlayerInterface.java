@@ -44,7 +44,7 @@ public interface PlayerInterface
    * the given card number
    * @param cardNum number of the card
    */
-  public void discarCard(int cardNum);
+  public void discardCard(int cardNum);
 
   /**
    * Player draws up to the number of draws

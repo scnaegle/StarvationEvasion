@@ -11,15 +11,13 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception{
     //System.out.println("resouce: " + getClass().getClassLoader().getResource("assets/interface/main1.fxml"));
-    Parent main1 = FXMLLoader.load(getClass().getClassLoader().getResource(
-        "assets/interface/main1.fxml"));
+    Parent main1 = FXMLLoader.load(Main.class.getResource("/interface/main1.fxml"));
 
-    Parent welcomeScene = FXMLLoader.load(getClass().getClassLoader().getResource(
-        "assets/interface/welcomeScene.fxml"));
+    Parent welcomeScene = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
 
-    Parent chooseRegion = FXMLLoader.load(
-        getClass().getClassLoader().getResource(
-            "assets/interface/chooseRegionScene.fxml"));
+    Parent chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
+    //System.out.println("resouce: " + getClass().getClassLoader().getResource("assets/interface/scene1.fxml"));
+
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(new Scene(chooseRegion, 1024, 768));
 
