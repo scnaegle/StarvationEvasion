@@ -30,6 +30,10 @@ public class Deck {
 
   }
 
+  public void discard(PolicyCard card) {
+    this.discard.add(card);
+  }
+
   public void shuffle() {
     for(PolicyCard card : discard) {
       this.cards.add(card);
