@@ -1,4 +1,4 @@
-package starvationevasion.teamrocket;
+package starvationevasion.teamrocket.models;
 
 /**
  * Created by Tyler on 11/14/2015.
