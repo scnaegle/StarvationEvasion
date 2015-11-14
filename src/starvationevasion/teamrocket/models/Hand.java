@@ -21,7 +21,7 @@ public class Hand {
   }
 
   // fills a hand till it is full with 7 cards.
-  private void fillHand()
+  public void fillHand()
   {
     if(cardsInHand.size()<7)
     {

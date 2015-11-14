@@ -1,6 +1,9 @@
 package starvationevasion.teamrocket.main;
 
+import starvationevasion.common.EnumRegion;
+import starvationevasion.teamrocket.models.Deck;
 import starvationevasion.teamrocket.models.Hand;
+import starvationevasion.teamrocket.models.Player;
 
 import java.util.LinkedList;
 
@@ -9,12 +12,19 @@ import java.util.LinkedList;
  */
 public class GameController
 {
-  /**
-   * Fills  the hand to have 7 cards. Called at start of turn.
-   */
-  public void fillHand()
-  {
+  private Player player;
 
+  GameController()
+  {
+    this.player = new Player(EnumRegion.CALIFORNIA);
+  }
+
+  /**
+   * Starts the turn.
+   */
+  public void startTurn()
+  {
+    //Fill player hand
   }
 
   /**
