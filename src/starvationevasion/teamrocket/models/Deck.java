@@ -15,7 +15,6 @@ public class Deck {
   ArrayList<PolicyCard> discard = new ArrayList<>();
   Random rand = new Random();
 
-
   private EnumRegion region;
 
   public Deck(EnumRegion region) {
@@ -26,8 +25,15 @@ public class Deck {
 
   public PolicyCard drawCard() {
     checkIfEmpty();
-    PolicyCard card = cards.get(rand.nextInt(cards.size()));
+    Random rand = new Random();
+    cards.get(rand.nextInt(cards.size()));
     return card;
+  }
+
+  public void shuffle() {
+    for(PolicyCard card : discard_pile) {
+      this.cards.add(card);
+    }
   }
 
   private ArrayList<PolicyCard> createDeck(EnumRegion region) {
