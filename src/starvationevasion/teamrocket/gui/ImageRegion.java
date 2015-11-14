@@ -1,4 +1,4 @@
-package starvationevasion.teamrocket.main;
+package starvationevasion.teamrocket.gui;
 
 import javafx.scene.shape.Polygon;
 

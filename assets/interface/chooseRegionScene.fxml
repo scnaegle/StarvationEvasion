@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="chooseRegion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+  <children>
+    <Text layoutX="445.0" layoutY="102.0" scaleX="5.947190978924539" scaleY="5.531445339673558" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE YOUR REGION" />
+    <ImageView id="map" fx:id="fullmap1" fitHeight="548.068359375" fitWidth="769.0" layoutX="128.0" layoutY="226.0" onMouseClicked="#clickedRegion" pickOnBounds="true" preserveRatio="true" visible="true">
+      <image>
+        <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="cali" fitHeight="209.42855834960938" fitWidth="124.86435272684781" layoutX="141.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="heartland" fitHeight="153.56159697047863" fitWidth="185.07861328125" layoutX="492.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView id="mountain" fx:id="mountSt" fitHeight="366.6310858366475" fitWidth="301.065673828125" layoutX="143.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView id="northplains" fx:id="nPlains" fitHeight="247.5104740332364" fitWidth="203.99998474121094" layoutX="404.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView id="north" fx:id="northSt" fitHeight="208.0" fitWidth="336.47056928140864" layoutX="539.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView id="southeast" fx:id="southEast" fitHeight="284.0897668537338" fitWidth="247.6521759033203" layoutX="558.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView id="southplains" fx:id="sPlains" fitHeight="231.65475838451178" fitWidth="305.0" layoutX="342.0" layoutY="457.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+  </children>
+</AnchorPane>

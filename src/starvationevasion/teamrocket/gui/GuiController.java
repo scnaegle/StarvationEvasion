@@ -1,4 +1,4 @@
-package starvationevasion.teamrocket.main;
+package starvationevasion.teamrocket.gui;
 
 import javafx.event.*;
 import javafx.fxml.FXML;
