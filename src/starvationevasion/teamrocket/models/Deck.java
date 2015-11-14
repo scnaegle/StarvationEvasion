@@ -33,11 +33,11 @@ public class Deck {
 
   }
 
-  public void discard(PolicyCard card) {
+  public void discardToDiscardDeck(PolicyCard card) {
     this.discard.add(card);
   }
 
-  public void shuffle() {
+  public void refillDeck() {
     for(PolicyCard card : discard) {
       this.cards.add(card);
     }
@@ -52,7 +52,7 @@ public class Deck {
   private void checkIfEmpty()
   {
     if(cards.isEmpty()){
-      shuffle();
+      refillDeck();
     }
   }
 }
