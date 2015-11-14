@@ -1,4 +1,4 @@
-package starvationevasion.main;
+package starvationevasion.teamrocket;
 
 import javafx.animation.FadeTransition;
 import javafx.event.*;

@@ -1,4 +1,4 @@
-package starvationevasion.main;
+package starvationevasion.teamrocket;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
