@@ -9,13 +9,21 @@ import java.util.ArrayList;
  * Created by scnaegl on 11/14/15.
  */
 public class Hand {
-  Deck deck = new Deck(EnumRegion.CALIFORNIA);
+
+  private EnumRegion region;
+
+  private Player player;
+  Deck deck = new Deck(region);
   ArrayList<PolicyCard> cardsInHand = new ArrayList<>();
 
+  public Hand(Player player) {
+    this.player = player;
+  }
+
   // fills a hand till it is full with 7 cards.
-  private void fillHand()
+  public void fillHand()
   {
-    if(cardsInHand.size()<=7)
+    if(cardsInHand.size()<7)
     {
       cardsInHand.add(deck.drawCard());
       fillHand();
@@ -29,8 +37,9 @@ public class Hand {
   public void usePolicy(int card)
   {
     // use way to use policy in code
+    deck.discard.add(cardsInHand.get(card));
     cardsInHand.remove(card);
-    fillHand();
+//    fillHand();
   }
 
   /**
