@@ -13,7 +13,7 @@ import java.util.Random;
 public class Deck {
   ArrayList<PolicyCard> cards = new ArrayList<>();
   ArrayList<PolicyCard> discard = new ArrayList<>();
-  Random rand = new Random();
+
 
   private EnumRegion region;
 
@@ -26,12 +26,12 @@ public class Deck {
   public PolicyCard drawCard() {
     checkIfEmpty();
     Random rand = new Random();
-    cards.get(rand.nextInt(cards.size()));
-    return card;
+    return  cards.get(rand.nextInt(cards.size()));
+
   }
 
   public void shuffle() {
-    for(PolicyCard card : discard_pile) {
+    for(PolicyCard card : discard) {
       this.cards.add(card);
     }
   }
@@ -45,10 +45,7 @@ public class Deck {
   private void checkIfEmpty()
   {
     if(cards.isEmpty()){
-      for(PolicyCard discardPile : discard)
-      {
-        cards.add(discardPile);
-      }
+      shuffle();
     }
   }
 }
