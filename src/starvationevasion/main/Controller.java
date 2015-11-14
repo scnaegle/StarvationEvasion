@@ -70,7 +70,7 @@ public class Controller
 
   private boolean[] mouseOn = {mouseOnCali,mouseOnMount,mouseOnNE,
       mouseOnSE,mouseOnNPlains,mouseOnSPlains,mouseOnHeart};
-  
+
   private boolean caliSelected = false;
   private boolean heartlandSelected = false;
   private boolean mountainSelected = false;

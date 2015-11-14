@@ -154,7 +154,7 @@
             </Label>
           </children>
         </Pane>
-        <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="223.0" prefWidth="485.049072265625">
+        <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="216.0" prefWidth="485.049072265625">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99ffa9" height="258.0000915527344" layoutX="-19.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
             <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="233.0" layoutX="-6.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
