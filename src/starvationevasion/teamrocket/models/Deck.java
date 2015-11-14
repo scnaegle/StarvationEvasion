@@ -1,4 +1,4 @@
-package starvationevasion.teamrocket;
+package starvationevasion.teamrocket.models;
 
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
