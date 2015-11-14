@@ -11,9 +11,14 @@ import java.util.ArrayList;
 public class Hand {
 
   private EnumRegion region;
-  
+
+  private Player player;
   Deck deck = new Deck(region);
   ArrayList<PolicyCard> cardsInHand = new ArrayList<>();
+
+  public Hand(Player player) {
+    this.player = player;
+  }
 
   // fills a hand till it is full with 7 cards.
   private void fillHand()
