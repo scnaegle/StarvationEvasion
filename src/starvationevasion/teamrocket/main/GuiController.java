@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 
-public class Controller
+public class GuiController
 {
 
 
@@ -204,44 +204,47 @@ public class Controller
   public void clickedRegion(MouseEvent event)
   {
 
-   if(event.getSource() == cali)
+    double x = event.getX();
+    double y = event.getY();
+
+   if(ImageRegion.CALIFORNIA.contains(x,y))
    {
      cali.setVisible(true);
      caliSelected = true;
      System.out.println("Selected cali");
    }
-    else if(event.getSource() == heartland)
+    else if(ImageRegion.HEARTLAND.contains(x,y))
    {
      heartland.setVisible(true);
      heartlandSelected = true;
      System.out.println("Selected heartland");
    }
-    else if(event.getSource() == mountSt)
+    else if(ImageRegion.MOUNTAINST.contains(x,y))
    {
      mountSt.setVisible(true);
      mountainSelected = true;
      System.out.println("Selected Mountain States");
    }
-    else if(event.getSource() == nPlains)
+    else if(ImageRegion.NORTHPLAINS.contains(x,y))
    {
      nPlains.setVisible(true);
      nPlainSelected = true;
      System.out.println("Selected North Plains");
    }
-    else if(event.getSource() == northSt)
+    else if(ImageRegion.NORTHEAST.contains(x,y))
    {
      northSt.setVisible(true);
      northeastSelected = true;
      System.out.println("Selected Northeast");
    }
-   else if(event.getSource() == southEast)
+   else if(ImageRegion.SOUTHEAST.contains(x,y))
    {
      southEast.setVisible(true);
      southeastSelected = true;
      System.out.println("Selected Southeast");
 
    }
-   else if(event.getSource() == sPlains)
+   else if(ImageRegion.SOUTHPLAINS.contains(x,y))
    {
      sPlains.setVisible(true);
      sPlainSelected = true;
