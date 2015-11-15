@@ -11,7 +11,7 @@ public class Player {
 
   private EnumRegion region;
 
-  private Deck deck = new Deck(region);
+  private Deck deck;
   private Hand playerHand;
 
   /**
@@ -22,6 +22,7 @@ public class Player {
   public Player(EnumRegion region)
   {
     this.region = region;
+    deck = new Deck(region);
   }
 
 
