@@ -2,23 +2,30 @@ package starvationevasion.teamrocket.gui;
 
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.teamrocket.main.Main;
 
 
 public class GuiController
 {
 
-
+  Main main = new Main();
   @FXML
   private Button drawCardButton;
   @FXML
   private Button appleButton;
   @FXML
   private Button grainsButton;
+  @FXML
+  private Button pickedRegion;
+  @FXML
+  private Button ready;
 
   @FXML
   private ImageView cali;
@@ -49,9 +56,13 @@ public class GuiController
   private Label sPlainLabel;
   @FXML
   private Label nPlainLabel;
+  @FXML
+  private Label nothingSelected;
+  @FXML
+  private Label currentRegion;
 
-  private boolean initialRegionSelected = false;
-  private boolean clickedRegion = false;
+
+  private EnumRegion playerRegion;
 
 
   private boolean caliSelected;
@@ -70,7 +81,39 @@ public class GuiController
   public void buttonPressed(ActionEvent event)
   {
     Button button = (Button) event.getSource();
-    if (button == drawCardButton)
+    if(button == ready)
+    {
+      //load selected version of game (single or multi-player)
+      try
+      {
+        main.switchScenes(2);
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+
+    }
+    else if(button == pickedRegion)
+    {
+      saveRegion();
+      //Go to next scene
+      try
+      {
+        main.switchScenes(3);
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else if (button == drawCardButton)
     {
       System.out.println("Drawing card from deck");
     }
@@ -82,8 +125,52 @@ public class GuiController
     {
       System.out.println("Pressed grains button");
     }
+    //add in other crop buttons
 
 
+  }
+
+  private void saveRegion()
+  {
+    nothingSelected.setVisible(false);
+
+    if(caliSelected)
+    {
+      playerRegion = EnumRegion.CALIFORNIA;
+    }
+    else if(mountainSelected)
+    {
+      playerRegion = EnumRegion.MOUNTAIN;
+    }
+    else if(heartlandSelected)
+    {
+      playerRegion = EnumRegion.HEARTLAND;
+    }
+    else if(northeastSelected)
+    {
+      playerRegion = EnumRegion.NORTHERN_CRESCENT;
+    }
+    else if(southeastSelected)
+    {
+      playerRegion = EnumRegion.SOUTHEAST;
+    }
+    else if(nPlainSelected)
+    {
+      playerRegion = EnumRegion.NORTHERN_PLAINS;
+    }
+    else if(sPlainSelected)
+    {
+      playerRegion = EnumRegion.SOUTHERN_PLAINS;
+    }
+    else
+    {
+      //show error label
+      nothingSelected.setVisible(true);
+      //don't go to next stage until they select something
+    }
+
+    //currentRegion.setText("Current Region: "+playerRegion);
+    System.out.println("I have chosen "+playerRegion);
   }
 
   @FXML
@@ -96,21 +183,25 @@ public class GuiController
   @FXML
   public void mouseMoved(MouseEvent event)
   {
-    System.out.println("MOVING");
     double x = event.getX();
     double y = event.getY();
 
     hideLabels();
+    showLabel(x, y);
 
-    if (ImageRegion.CALIFORNIA.contains(x, y))//(x>25 && x <80 && y>70 && y<150)
+  }
+
+  private void showLabel(double x, double y)
+  {
+    if (ImageRegion.CALIFORNIA.contains(x, y))
     {
       caliLabel.setVisible(true);
     }
-    if (ImageRegion.MOUNTAINST.contains(x, y))
+    else if (ImageRegion.MOUNTAINST.contains(x, y))
     {
       mountLabel.setVisible(true);
     }
-    if (ImageRegion.NORTHPLAINS.contains(x, y))// || x>200 && x<250 && y>=5 && y<=160)
+    else if (ImageRegion.NORTHPLAINS.contains(x, y))
     {
       nPlainLabel.setVisible(true);
     }
@@ -130,7 +221,6 @@ public class GuiController
     {
       seLabel.setVisible(true);
     }
-    // }
   }
 
   /**
@@ -204,50 +294,69 @@ public class GuiController
     double y = event.getY();
 
     makeAllInvisible();
+    deselectAllRegions();
 
     if (ImageRegion.CALIFORNIA1.contains(x, y))
     {
       cali.setVisible(true);
-      initialRegionSelected = true;
+      caliSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected cali");
     }
     else if (ImageRegion.HEARTLAND1.contains(x, y))
     {
       heartland.setVisible(true);
-      initialRegionSelected = true;
+      heartlandSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected heartland");
     }
     else if (ImageRegion.MOUNTAINST1.contains(x, y))
     {
       mountSt.setVisible(true);
-      initialRegionSelected = true;
+      mountainSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected Mountain States");
     }
     else if (ImageRegion.NORTHPLAINS1.contains(x, y))
     {
       nPlains.setVisible(true);
-      initialRegionSelected = true;
+      nPlainSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected North Plains");
     }
     else if (ImageRegion.NORTHEAST1.contains(x, y))
     {
       northSt.setVisible(true);
-      initialRegionSelected = true;
+      northeastSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected Northeast");
     }
     else if (ImageRegion.SOUTHEAST1.contains(x, y))
     {
       southEast.setVisible(true);
-      initialRegionSelected = true;
+      southeastSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected Southeast");
 
     }
     else if (ImageRegion.SOUTHPLAINS1.contains(x, y))
     {
       sPlains.setVisible(true);
-      initialRegionSelected = true;
+      sPlainSelected = true;
+      //initialRegionSelected = true;
       System.out.println("Selected South Plains");
     }
+  }
+
+  private void deselectAllRegions()
+  {
+    caliSelected = false;
+    mountainSelected = false;
+    nPlainSelected = false;
+    sPlainSelected = false;
+    heartlandSelected = false;
+    northeastSelected = false;
+    southeastSelected = false;
   }
 
   private void makeAllInvisible()
@@ -280,6 +389,11 @@ public class GuiController
     double y = event.getY();
 
     System.out.println(x + "," + y + ",");
+  }
+
+  public EnumRegion getSelectedRegion()
+  {
+    return playerRegion;
   }
 }
 

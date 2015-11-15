@@ -108,7 +108,7 @@
                 </Button>
               </children>
             </StackPane>
-            <Label fx:id="regionLabel" layoutX="601.0" layoutY="309.0" prefWidth="247.0001220703125" text="Current Region:">
+            <Label id="regionLabel" fx:id="currentRegion" layoutX="601.0" layoutY="309.0" prefWidth="247.0001220703125" text="Current Region:">
               <font>
                 <Font name="Avenir Next Demi Bold Italic" size="16.0" />
               </font>
@@ -145,7 +145,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="101.0" />
               </graphic>
               <labelFor>
-                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false"  onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
                   <image>
                     <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
                   </image>
@@ -239,7 +239,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
           <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false"  onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
               <image>
                 <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
               </image>

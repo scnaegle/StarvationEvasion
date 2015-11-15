@@ -46,7 +46,7 @@
         <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <Button fx:id="pickedRegion" layoutX="429.0" layoutY="684.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="118.0" text="READY">
+    <Button fx:id="pickedRegion" layoutX="429.0" layoutY="684.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="40.0" prefWidth="118.0" text="READY">
       <font>
         <Font size="20.0" />
       </font>
@@ -56,5 +56,10 @@
         <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
+    <Label fx:id="nothingSelected" layoutX="325.0" layoutY="167.0" text="You must choose a region to start playing" textFill="RED" visible="false">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
   </children>
 </AnchorPane>
