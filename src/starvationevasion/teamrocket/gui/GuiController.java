@@ -23,6 +23,27 @@ public class GuiController
   @FXML
   private Button grainsButton;
   @FXML
+  private Button citrusButton;
+  @FXML
+  private Button feedButton;
+  @FXML
+  private Button dairyButton;
+  @FXML
+  private Button fishButton;
+  @FXML
+  private Button meatButton;
+  @FXML
+  private Button nutButton;
+  @FXML
+  private Button oilButton;
+  @FXML
+  private Button poultryButton;
+  @FXML
+  private Button veggieButton;
+  @FXML
+  private Button specialButton;
+
+  @FXML
   private Button pickedRegion;
   @FXML
   private Button ready;
@@ -60,6 +81,30 @@ public class GuiController
   private Label nothingSelected;
   @FXML
   private Label currentRegion;
+  @FXML
+  private Label appleLabel;
+  @FXML
+  private Label grainLabel;
+  @FXML
+  private Label citrusLabel;
+  @FXML
+  private Label feedLabel;
+  @FXML
+  private Label dairyLabel;
+  @FXML
+  private Label fishLabel;
+  @FXML
+  private Label meatLabel;
+  @FXML
+  private Label nutLabel;
+  @FXML
+  private Label oilLabel;
+  @FXML
+  private Label poultryLabel;
+  @FXML
+  private Label veggieLabel;
+  @FXML
+  private Label specialLabel;
 
 
   private EnumRegion playerRegion;
@@ -187,6 +232,67 @@ public class GuiController
   }
 
   @FXML
+  public void mouseOnButton(MouseEvent event)
+  {
+    hideCropLabels();
+
+    if(event.getSource() == appleButton)
+    {
+      appleLabel.setVisible(true);
+    }
+    else if(event.getSource() == grainsButton)
+    {
+      grainLabel.setVisible(true);
+    }
+    else if(event.getSource() == citrusButton)
+    {
+      citrusLabel.setVisible(true);
+    }
+    else if(event.getSource() == feedButton)
+    {
+      feedLabel.setVisible(true);
+    }
+    else if(event.getSource() == dairyButton)
+    {
+      dairyLabel.setVisible(true);
+    }
+    else if(event.getSource() == fishButton)
+    {
+      fishLabel.setVisible(true);
+    }
+    else if(event.getSource() == meatButton)
+    {
+      meatLabel.setVisible(true);
+    }
+    else if(event.getSource() == nutButton)
+    {
+      nutLabel.setVisible(true);
+    }
+    else if(event.getSource() == oilButton)
+    {
+      oilLabel.setVisible(true);
+    }
+    else if(event.getSource() == poultryButton)
+    {
+      poultryLabel.setVisible(true);
+    }
+    else if(event.getSource() == veggieButton)
+    {
+      veggieLabel.setVisible(true);
+    }
+    else if(event.getSource() == specialButton)
+    {
+      specialLabel.setVisible(true);
+    }
+
+  }
+  @FXML
+  public void mouseExitedButton()
+  {
+    hideCropLabels();
+  }
+
+  @FXML
   public void updateLabel()
   {
 
@@ -199,7 +305,7 @@ public class GuiController
     double x = event.getX();
     double y = event.getY();
 
-    hideLabels();
+    hideRegionLabels();
     showLabel(x, y);
 
   }
@@ -390,7 +496,7 @@ public class GuiController
     northSt.setVisible(false);
   }
 
-  private void hideLabels()
+  private void hideRegionLabels()
   {
     caliLabel.setVisible(false);
     mountLabel.setVisible(false);
@@ -399,6 +505,22 @@ public class GuiController
     heartLabel.setVisible(false);
     neLabel.setVisible(false);
     seLabel.setVisible(false);
+  }
+
+  private void hideCropLabels()
+  {
+    appleLabel.setVisible(false);
+    grainLabel.setVisible(false);
+    citrusLabel.setVisible(false);
+    dairyLabel.setVisible(false);
+    fishLabel.setVisible(false);
+    meatLabel.setVisible(false);
+    nutLabel.setVisible(false);
+    oilLabel.setVisible(false);
+    feedLabel.setVisible(false);
+    poultryLabel.setVisible(false);
+    veggieLabel.setVisible(false);
+    specialLabel.setVisible(false);
   }
 
 

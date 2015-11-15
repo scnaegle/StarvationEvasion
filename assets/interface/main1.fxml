@@ -27,11 +27,11 @@
                 <Button fx:id="drawCardButton" layoutX="-1.0" layoutY="-5.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
               </children>
             </Pane>
-            <HBox fx:id="fruitPane" layoutX="0.0" layoutY="641.0" prefHeight="-1.0" prefWidth="986.9998779296875">
+            <HBox fx:id="fruitPane" layoutX="0.0" layoutY="642.0" prefHeight="-1.0" prefWidth="986.9998779296875">
               <children>
-                <StackPane prefHeight="109.0" prefWidth="97.0">
+                <StackPane prefHeight="109.0" prefWidth="85.0">
                   <children>
-                    <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="64.0" maxWidth="64.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="64.0" maxWidth="64.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="apple" fitHeight="64.0" fitWidth="64.0">
                           <image>
@@ -44,11 +44,11 @@
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="82.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="grains" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/grains.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -57,37 +57,24 @@
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="84.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="citrusButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="citrus" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/citrus.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
                     </Button>
-                    <StackPane prefHeight="109.0" prefWidth="97.0">
-                      <children>
-                        <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
-                          <graphic>
-                            <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
-                              <image>
-                                <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
-                              </image>
-                            </ImageView>
-                          </graphic>
-                        </Button>
-                      </children>
-                    </StackPane>
                   </children>
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="85.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="feedButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="corn" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/corn.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -96,11 +83,11 @@
                 </StackPane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="dairy" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/dairy.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -109,11 +96,11 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="85.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="11.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="fishButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="11.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="fish" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/fish.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -122,11 +109,11 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="meatButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="meat" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/meat.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -135,11 +122,11 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="nutButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="nuts" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/nuts.jpg" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -148,11 +135,11 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="oilButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="oil" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/oil.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -161,11 +148,11 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="84.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="poultryButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
-                        <ImageView id="grains" fitHeight="64.0" fitWidth="64.0">
+                        <ImageView id="poultry" pickOnBounds="true">
                           <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Grains_64x64.png" preserveRatio="true" smooth="true" />
+                            <Image url="@../images/farmProductIcons/poultry.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
@@ -174,12 +161,28 @@
                 </Pane>
                 <StackPane prefHeight="109.0" prefWidth="76.0">
                   <children>
-                    <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="" />
+                    <Button id="grainsButton" fx:id="veggieButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                      <graphic>
+                        <ImageView id="veggies" pickOnBounds="true">
+                          <image>
+                            <Image url="@../images/farmProductIcons/veggies.png" preserveRatio="true" smooth="true" />
+                          </image>
+                        </ImageView>
+                      </graphic>
+                    </Button>
                   </children>
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="84.0">
                   <children>
-                    <Button id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="64.0" prefWidth="64.0" text="" />
+                    <Button id="grainsButton" fx:id="specialButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                      <graphic>
+                        <ImageView id="special" pickOnBounds="true">
+                          <image>
+                            <Image url="@../images/farmProductIcons/special.png" preserveRatio="true" smooth="true" />
+                          </image>
+                        </ImageView>
+                      </graphic>
+                    </Button>
                   </children>
                 </StackPane>
               </children>
@@ -228,6 +231,18 @@
                 </ImageView>
               </labelFor>
             </Label>
+            <Label fx:id="appleLabel" alignment="TOP_CENTER" labelFor="$appleButton" layoutX="-17.0" layoutY="622.0" prefHeight="20.0" prefWidth="121.0" text="Non-citrus fruits" visible="false" />
+            <Label fx:id="grainLabel" alignment="CENTER" contentDisplay="CENTER" labelFor="$grainsButton" layoutX="94.0" layoutY="627.0" prefWidth="64.0" text="Grains" visible="false" />
+            <Label fx:id="citrusLabel" labelFor="$citrusButton" layoutX="171.0" layoutY="627.0" prefWidth="76.0" text="Citrus fruits" visible="false" />
+            <Label fx:id="feedLabel" labelFor="$feedButton" layoutX="260.0" layoutY="627.0" text="Feed crops" visible="false" />
+            <Label fx:id="dairyLabel" labelFor="$dairyButton" layoutX="359.0" layoutY="627.0" text="Dairy" visible="false" />
+            <Label fx:id="fishLabel" labelFor="$fishButton" layoutX="443.0" layoutY="627.0" text="Fish" visible="false" />
+            <Label fx:id="meatLabel" labelFor="$meatButton" layoutX="504.0" layoutY="627.0" text="Red meats" visible="false" />
+            <Label fx:id="nutLabel" labelFor="$nutButton" layoutX="599.0" layoutY="627.0" text="Nuts" visible="false" />
+            <Label fx:id="oilLabel" labelFor="$oilButton" layoutX="662.0" layoutY="627.0" text="Oil plants" visible="false" />
+            <Label fx:id="poultryLabel" alignment="CENTER" contentDisplay="CENTER" labelFor="$poultryButton" layoutX="741.0" layoutY="627.0" prefWidth="55.0" text="Poultry" visible="false" />
+            <Label fx:id="veggieLabel" labelFor="$veggieButton" layoutX="818.0" layoutY="627.0" text="Vegitables" visible="false" />
+            <Label fx:id="specialLabel" labelFor="$specialButton" layoutX="889.0" layoutY="627.0" text="Special crops" visible="false" />
           </children>
         </Pane>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="216.0" prefWidth="485.049072265625">
