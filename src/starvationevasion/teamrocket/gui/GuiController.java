@@ -99,7 +99,11 @@ public class GuiController
     }
     else if(button == pickedRegion)
     {
-      saveRegion();
+      EnumRegion myRegion = saveRegion();
+      if(myRegion == null)
+      {
+        return;
+      }
       //Go to next scene
       try
       {
@@ -107,6 +111,7 @@ public class GuiController
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
+        highlightMyRegion(myRegion);
       }
       catch (Exception e)
       {
@@ -130,7 +135,13 @@ public class GuiController
 
   }
 
-  private void saveRegion()
+  private void highlightMyRegion(EnumRegion myRegion)
+  {
+    if(myRegion == EnumRegion.CALIFORNIA) cali.setVisible(true);
+    else if(myRegion == EnumRegion.MOUNTAIN) mountSt.setVisible(true);
+  }
+
+  private EnumRegion saveRegion()
   {
     nothingSelected.setVisible(false);
 
@@ -168,9 +179,11 @@ public class GuiController
       nothingSelected.setVisible(true);
       //don't go to next stage until they select something
     }
-
     //currentRegion.setText("Current Region: "+playerRegion);
     System.out.println("I have chosen "+playerRegion);
+
+
+    return playerRegion;
   }
 
   @FXML
@@ -240,36 +253,42 @@ public class GuiController
     {
       cali.setVisible(true);
       caliLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.CALIFORNIA);
       System.out.println("Selected cali");
     }
     else if (ImageRegion.HEARTLAND.contains(x, y))
     {
       heartland.setVisible(true);
       heartLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.HEARTLAND);
       System.out.println("Selected heartland");
     }
     else if (ImageRegion.MOUNTAINST.contains(x, y))
     {
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.MOUNTAIN);
       System.out.println("Selected Mountain States");
     }
     else if (ImageRegion.NORTHPLAINS.contains(x, y))
     {
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.NORTHERN_PLAINS);
       System.out.println("Selected North Plains");
     }
     else if (ImageRegion.NORTHEAST.contains(x, y))
     {
       northSt.setVisible(true);
       neLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.NORTHERN_CRESCENT);
       System.out.println("Selected Northeast");
     }
     else if (ImageRegion.SOUTHEAST.contains(x, y))
     {
       southEast.setVisible(true);
       seLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.SOUTHEAST);
       System.out.println("Selected Southeast");
 
     }
@@ -277,6 +296,7 @@ public class GuiController
     {
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
+      currentRegion.setText("Current Region:  "+EnumRegion.SOUTHERN_PLAINS);
       System.out.println("Selected South Plains");
     }
 
