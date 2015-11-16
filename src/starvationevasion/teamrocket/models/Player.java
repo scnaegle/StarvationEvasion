@@ -7,22 +7,25 @@ import java.net.PortUnreachableException;
 /**
  * Created by scnaegl on 11/14/15.
  */
-public class Player {
+public class Player
+{
 
-  private EnumRegion region;
+  private EnumRegion enumRegion;
 
+  private Region region;
   private Deck deck;
   private Hand playerHand;
 
   /**
    * Declares a player to a specific language.
    *
-   * @param region the region that the player controls
+   * @param enumRegion the region that the player controls
    */
-  public Player(EnumRegion region)
+  public Player(EnumRegion enumRegion, Region region)
   {
     this.region = region;
-    deck = new Deck(region);
+    this.enumRegion = enumRegion;
+    deck = new Deck(enumRegion);
   }
 
 
@@ -33,6 +36,6 @@ public class Player {
    */
   public Enum getPlayerRegionEnum()
   {
-    return region;
+    return enumRegion;
   }
 }

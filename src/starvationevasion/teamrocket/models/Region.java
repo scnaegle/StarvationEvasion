@@ -21,6 +21,25 @@ public class Region
   private double poultryYield;
   private double dairyYield;
 
+  public Region(double citrusYield, double fruitYield, double nutYield,
+                double oilYield, double veggieYield, double speicalYield,
+                double feedYield,
+                double fishYield, double meatYield, double poultryYield,
+                double dairyYield)
+  {
+    this.citrusYield = citrusYield;
+    this.fruitYield = fruitYield;
+    this.fishYield = fishYield;
+    this.dairyYield = dairyYield;
+    this.meatYield = meatYield;
+    this.poultryYield = poultryYield;
+    this.speicalYield = speicalYield;
+    this.oilYield = oilYield;
+    this.veggieYield = veggieYield;
+    this.nutYield = nutYield;
+    this.feedYield = feedYield;
+  }
+
   private String getRegionStats()
   {
     String regionStats;
@@ -46,12 +65,12 @@ public class Region
 
   public void setCitrusYield(double citrusYield)
   {
-    this.citrusYield =  citrusYield;
+    this.citrusYield = citrusYield;
   }
 
   public void setNutYield(double nutYield)
   {
-    this.nutYield=nutYield;
+    this.nutYield = nutYield;
   }
 
   public void setOilYield(double oilYield)
@@ -76,12 +95,12 @@ public class Region
 
   public void setFishYield(double fishYield)
   {
-    this.fishYield=fishYield;
+    this.fishYield = fishYield;
   }
 
   public void setMeatYield(double meatYield)
   {
-    this.meatYield=meatYield;
+    this.meatYield = meatYield;
   }
 
   public void setPoultryYield(double poultryYield)
@@ -91,9 +110,8 @@ public class Region
 
   public void setDairyYield(double dairyYield)
   {
-    this.dairyYield=dairyYield;
+    this.dairyYield = dairyYield;
   }
-
 
 
   public double getCitrusYield()
