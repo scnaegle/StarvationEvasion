@@ -39,10 +39,10 @@ public class Main extends Application {
     {
       nextStage.setScene(new Scene(chooseRegion));
     }
-    if(scene == 3){
+    else if(scene == 3){
       nextStage.setScene(new Scene(main1));
     }
-    if(scene == 4){
+    else if(scene == 4){
       nextStage.setScene(new Scene(main2));
     }
     nextStage.show();

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -53,6 +54,13 @@ public class GuiController
   private Button doneWithCards;
   @FXML
   private Button doneVoting;
+
+  @FXML
+  private RadioButton singlePlayer;
+  @FXML
+  private RadioButton multiPlayer;
+  @FXML
+  private Label gamePlayError;
 
 
   @FXML
@@ -122,6 +130,7 @@ public class GuiController
   private Label specialLabel;
 
 
+
   private EnumRegion playerRegion;
 
 
@@ -138,11 +147,33 @@ public class GuiController
           , southeastSelected, sPlainSelected};
 
   @FXML
+  public void chooseGamePlay(ActionEvent event)
+  {
+    RadioButton gamePlay = (RadioButton)event.getSource();
+    if(gamePlay == singlePlayer)
+    {
+      multiPlayer.setSelected(false);
+      //tell game control theres only one player
+    }
+    else if(gamePlay == multiPlayer)
+    {
+      singlePlayer.setSelected(false);
+      //tell game control there's many players
+    }
+  }
+  @FXML
   public void buttonPressed(ActionEvent event)
   {
     Button button = (Button) event.getSource();
+
     if(button == ready)
     {
+      //make sure something was selected
+      boolean selectedGame = verifyGamePlay();
+      if(!selectedGame)
+      {
+        return;
+      }
       //load selected version of game (single or multi-player)
       try
       {
@@ -294,6 +325,20 @@ public class GuiController
 
 
 
+  }
+
+  /**
+   * @return true if something is selected
+   */
+  private boolean verifyGamePlay()
+  {
+    gamePlayError.setVisible(false);
+    if(!singlePlayer.isSelected() && !multiPlayer.isSelected())
+    {
+      gamePlayError.setVisible(true);
+      return false;
+    }
+    return true;
   }
 
   private void highlightMyRegion(EnumRegion myRegion)

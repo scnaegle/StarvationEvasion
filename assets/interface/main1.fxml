@@ -240,9 +240,9 @@
             <Label fx:id="poultryLabel" alignment="CENTER" contentDisplay="CENTER" labelFor="$poultryButton" layoutX="741.0" layoutY="627.0" prefWidth="55.0" text="Poultry" visible="false" />
             <Label fx:id="veggieLabel" labelFor="$veggieButton" layoutX="818.0" layoutY="627.0" text="Vegitables" visible="false" />
             <Label fx:id="specialLabel" labelFor="$specialButton" layoutX="889.0" layoutY="627.0" text="Special crops" visible="false" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="59.0" layoutX="-5.0" layoutY="262.0" stroke="WHITE" strokeType="INSIDE" width="256.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="59.0" layoutX="-5.0" layoutY="262.0" stroke="WHITE" strokeType="INSIDE" width="266.0001220703125" />
             <Button fx:id="undo" layoutX="7.0" layoutY="276.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.00000762939453" prefWidth="76.0" text="UNDO" />
-            <Button fx:id="doneWithCards" layoutX="90.0" layoutY="277.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
+            <Button fx:id="doneWithCards" layoutX="96.0" layoutY="277.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
             <Label fx:id="time" alignment="CENTER" layoutX="336.0" layoutY="88.0" prefHeight="80.310546875" prefWidth="125.0" text="Time">
               <font>
                 <Font name="Avenir Next Demi Bold Italic" size="22.0" />
