@@ -38,7 +38,64 @@ public class Region
     return regionStats;
 
   }
-  
+
+  public void setFruitYield(double fruitYield)
+  {
+    this.fruitYield = fruitYield;
+  }
+
+  public void setCitrusYield(double citrusYield)
+  {
+    this.citrusYield =  citrusYield;
+  }
+
+  public void setNutYield(double nutYield)
+  {
+    this.nutYield=nutYield;
+  }
+
+  public void setOilYield(double oilYield)
+  {
+    this.oilYield = oilYield;
+  }
+
+  public void setVeggieYield(double veggieYield)
+  {
+    this.veggieYield = veggieYield;
+  }
+
+  public void setSpeicalYield(double speicalYield)
+  {
+    this.speicalYield = speicalYield;
+  }
+
+  public void setFeedYield(double feedYield)
+  {
+    this.feedYield = feedYield;
+  }
+
+  public void setFishYield(double fishYield)
+  {
+    this.fishYield=fishYield;
+  }
+
+  public void setMeatYield(double meatYield)
+  {
+    this.meatYield=meatYield;
+  }
+
+  public void setPoultryYield(double poultryYield)
+  {
+    this.poultryYield = poultryYield;
+  }
+
+  public void setDairyYield(double dairyYield)
+  {
+    this.dairyYield=dairyYield;
+  }
+
+
+
   public double getCitrusYield()
   {
     return citrusYield;
