@@ -1,48 +1,40 @@
-<?xml version="1.0" encoding="UTF-8">
+<Region region="all">
+  <cards>
+    <Card name="GMO Seed Insect Resistance Research" type="vote">
+      <image url=""/>
+      <attributes>
+        <gameText value="Each participating region spends X million dollars to fund GMO seed research
+          * for increasing insect resistance of target crop." />
+        <affects value="When drafting this policy, player selects a crop and an amount X to be paid by EACH player
+          who approves the policy."/>
+        <description value="Starting 10 years after research, permanent reduction in kg/km 2
+          of pesticides for target crop. All player and non-player regions in world
+          who permit GMO in their region receive this benefit.<br>
+          Benefit yield is an ease-in-out cubic bezier function of effective
+          dollars spent and target crop." />
+        <effects text="5% bonus to effectiveness of total dollars spent per participating region.">
+        </effects>
+        <votesRequired value="1" />
+        <waitForAll value="true" />
+      </attributes>
+    </Card>
+    <Card name="Iternational Food Relief Program" type="vote">
+      <image url=""/>
+      <attributes>
+        <gameText value="Each participating region spends X million dollars to purchase their own region's commodity
+          food for relief of world hunger." />
+        <affects value="When drafting this policy, player selects an amount X to be paid by EACH player who approves
+          the policy."/>
+        <description value="Food purchased for relief inflates the global sell price of the food type by a direct
+          reduction of supply without effect on demand (since those to whom relief is delivered are presumed to lack
+          the resources to have been part of the demand)."/>
+        <effects text="Commodity food is distributed to relief world hunger in the most efficient manor discovered
+          by the simulator where efficiency calculation is based on the type of commodity, each country's nutritional
+          need and each country's import penalty function.">
 
-<CardType type="Vote">
-  <Region region="all">
-    <cards>
-      <Card name="GMO Seed Insect Resistance Research">
-        <image url=""/>
-        <attributes>
-          <gameText value="Each participating region spends X million dollars to fund GMO seed research
-            * for increasing insect resistance of target crop." />
-          <affects value="When drafting this policy, player selects a crop and an amount X to be paid by EACH player
-            who approves the policy."/>
-          <description value="Starting 10 years after research, permanent reduction in kg/km 2
-            of pesticides for target crop. All player and non-player regions in world
-            who permit GMO in their region receive this benefit.<br>
-            Benefit yield is an ease-in-out cubic bezier function of effective
-            dollars spent and target crop." />
-          <effects text="5% bonus to effectiveness of total dollars spent per participating region.">
-          </effects>
-          <votesRequired value="1" />
-          <waitForAll value="true" />
-        </attributes>
-      </Card>
-      <Card name="Iternational Food Relief Program">
-        <image url=""/>
-        <attributes>
-          <gameText value="Each participating region spends X million dollars to purchase their own region's commodity
-            food for relief of world hunger." />
-          <affects value="When drafting this policy, player selects an amount X to be paid by EACH player who approves
-            the policy."/>
-          <description value="Food purchased for relief inflates the global sell price of the food type by a direct
-            reduction of supply without effect on demand (since those to whom relief is delivered are presumed to lack
-            the resources to have been part of the demand)."/>
-          <effects text="Commodity food is distributed to relief world hunger in the most efficient manor discovered
-            by the simulator where efficiency calculation is based on the type of commodity, each country's nutritional
-            need and each country's import penalty function.">
-            
-          </effects>
-        </attributes>
-      </Card>
-    </cards>
-  </Region>
-</CardType>
+        </effects>
+      </attributes>
+    </Card>
+  </cards>
+</Region>
 
-<CardType type="Policy">
-  <Region region="all">
-  </Region>
-</CardType>
