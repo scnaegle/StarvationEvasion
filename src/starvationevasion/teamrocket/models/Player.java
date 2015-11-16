@@ -15,14 +15,18 @@ public class Player
   private Region region;
   private Deck deck;
   private Hand playerHand;
+  private double wealth;
+  private double happiness;
 
   /**
    * Declares a player to a specific language.
    *
    * @param enumRegion the region that the player controls
    */
-  public Player(EnumRegion enumRegion, Region region)
+  public Player(EnumRegion enumRegion, Region region, double wealth, double happiness)
   {
+    this.happiness = happiness;
+    this.wealth = wealth;
     this.region = region;
     this.enumRegion = enumRegion;
     deck = new Deck(enumRegion);
