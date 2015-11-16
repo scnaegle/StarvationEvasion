@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.main;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ public class Main extends Application {
   Parent welcomeScene;
   Parent chooseRegion;
   Parent main1;
+  Parent main2;
 
   @Override
   public void start(Stage primaryStage) throws Exception{
@@ -27,8 +29,10 @@ public class Main extends Application {
 
   public void switchScenes(int scene) throws Exception{
     Stage nextStage = new Stage();
-    main1 = FXMLLoader.load(Main.class.getResource("/interface/main1.fxml"));
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
+    main1 = FXMLLoader.load(Main.class.getResource("/interface/main1.fxml"));
+    main2 = FXMLLoader.load(Main.class.getResource("/interface/main2.fxml"));
+
     nextStage.setTitle("Starvasion Evasion");
 
     if(scene == 2)
@@ -37,6 +41,9 @@ public class Main extends Application {
     }
     if(scene == 3){
       nextStage.setScene(new Scene(main1));
+    }
+    if(scene == 4){
+      nextStage.setScene(new Scene(main2));
     }
     nextStage.show();
 

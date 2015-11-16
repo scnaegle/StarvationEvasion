@@ -21,12 +21,9 @@
         <Pane layoutX="19.0" layoutY="22.0" prefHeight="244.0" prefWidth="247.00009999999747">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="787.9998779296875" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1023.9998779296875" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="262.0" layoutX="-5.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="266.0000999999975" />
-            <Pane fx:id="draw" layoutX="-5.0" layoutY="372.0" prefHeight="121.0" prefWidth="101.0">
-              <children>
-                <Button fx:id="drawCardButton" layoutX="-1.0" layoutY="-5.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
-              </children>
-            </Pane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="262.0" layoutX="-5.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="266.0000999999975" />
+            <Pane layoutX="0.0" layoutY="0.0" prefHeight="244.00009999999747" prefWidth="251.00009999999747" />
+            <Button fx:id="drawCardButton" layoutX="-7.0" layoutY="372.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
             <HBox fx:id="fruitPane" layoutX="0.0" layoutY="642.0" prefHeight="-1.0" prefWidth="986.9998779296875">
               <children>
                 <StackPane prefHeight="109.0" prefWidth="85.0">
@@ -243,6 +240,14 @@
             <Label fx:id="poultryLabel" alignment="CENTER" contentDisplay="CENTER" labelFor="$poultryButton" layoutX="741.0" layoutY="627.0" prefWidth="55.0" text="Poultry" visible="false" />
             <Label fx:id="veggieLabel" labelFor="$veggieButton" layoutX="818.0" layoutY="627.0" text="Vegitables" visible="false" />
             <Label fx:id="specialLabel" labelFor="$specialButton" layoutX="889.0" layoutY="627.0" text="Special crops" visible="false" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="59.0" layoutX="-5.0" layoutY="262.0" stroke="WHITE" strokeType="INSIDE" width="256.0" />
+            <Button fx:id="undo" layoutX="7.0" layoutY="276.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.00000762939453" prefWidth="76.0" text="UNDO" />
+            <Button fx:id="doneWithCards" layoutX="90.0" layoutY="277.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
+            <Label fx:id="time" alignment="CENTER" layoutX="336.0" layoutY="88.0" prefHeight="80.310546875" prefWidth="125.0" text="Time">
+              <font>
+                <Font name="Avenir Next Demi Bold Italic" size="22.0" />
+              </font>
+            </Label>
           </children>
         </Pane>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="216.0" prefWidth="485.049072265625">
@@ -268,16 +273,11 @@
             <Label fx:id="discardLabel" layoutX="12.0" layoutY="45.0" prefHeight="35.0" prefWidth="84.0" text="Discard Pile" />
           </children>
         </Pane>
-        <HBox fx:id="draftCardPane" blendMode="SRC_OVER" cache="false" depthTest="DISABLE" fillHeight="false" layoutX="231.0" layoutY="275.0" mouseTransparent="false" prefHeight="98.0" prefWidth="266.0">
+        <HBox fx:id="draftCardPane" blendMode="SRC_OVER" cache="false" depthTest="DISABLE" fillHeight="false" layoutX="291.0" layoutY="252.0" mouseTransparent="false" prefHeight="121.0" prefWidth="285.0">
           <children>
             <Label alignment="CENTER" prefWidth="277.0" text="Cards drafted" />
           </children>
         </HBox>
-        <Label fx:id="time" alignment="CENTER" layoutX="400.0" layoutY="69.0" prefHeight="44.310546875" prefWidth="97.0" text="Time">
-          <font>
-            <Font name="Avenir Next Demi Bold Italic" size="18.0" />
-          </font>
-        </Label>
         <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />

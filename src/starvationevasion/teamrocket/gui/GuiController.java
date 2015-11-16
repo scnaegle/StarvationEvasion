@@ -47,6 +47,13 @@ public class GuiController
   private Button pickedRegion;
   @FXML
   private Button ready;
+  @FXML
+  private Button undo;
+  @FXML
+  private Button doneWithCards;
+  @FXML
+  private Button doneVoting;
+
 
   @FXML
   private ImageView cali;
@@ -63,6 +70,12 @@ public class GuiController
   @FXML
   private ImageView southEast;
 
+  @FXML
+  private Label mainLabel;
+  @FXML
+  private Label time;
+
+  /* REGION LABELS */
   @FXML
   private Label caliLabel;
   @FXML
@@ -81,6 +94,8 @@ public class GuiController
   private Label nothingSelected;
   @FXML
   private Label currentRegion;
+
+  /* CROP LABELS */
   @FXML
   private Label appleLabel;
   @FXML
@@ -163,19 +178,120 @@ public class GuiController
         e.printStackTrace();
       }
     }
+    else if(button == doneWithCards)
+    {
+      //make sure card has been played, show error label if not
+      try
+      {
+        main.switchScenes(4);
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else if(button == undo)
+    {
+      //undo card action
+    }
+    else if(button == doneVoting)
+    {
+      //save choices
+      //update variables
+      try
+      {
+        main.switchScenes(3);
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
     else if (button == drawCardButton)
     {
-      System.out.println("Drawing card from deck");
+      //draw card from deck.
+      //start animation to slide them across pane
     }
     else if (button == appleButton)
     {
-      System.out.println("Pressed apple button");
+      //see whether it's for a policy card or for viewing
+        //if policy card, use product for card
+        //else display facts
+
     }
     else if (button == grainsButton)
     {
-      System.out.println("Pressed grains button");
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
     }
-    //add in other crop buttons
+    else if(button == citrusButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == feedButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == dairyButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == meatButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == poultryButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == oilButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == specialButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == veggieButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == nutButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+    else if(button == fishButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+    }
+
 
 
   }
