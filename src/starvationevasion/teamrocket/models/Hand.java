@@ -32,6 +32,7 @@ public class Hand {
     if(cardsInHand.size()<7)
     {
       cardsInHand.add(deck.drawCard());
+
       fillHand();
     }
   }
