@@ -19,16 +19,13 @@ public class Player
   private double happiness;
 
   /**
-   * Declares a player to a specific language.
+   * Creates a new player based on selected region.
    *
-   * @param enumRegion the region that the player controls
+   * @param enumRegion the region that the player controls all stats are determined by this.
    */
-  public Player(EnumRegion enumRegion, Region region, double wealth, double happiness)
+  public Player(EnumRegion enumRegion)
   {
-    this.happiness = happiness;
-    this.wealth = wealth;
-    this.region = region;
-    this.enumRegion = enumRegion;
+    this.region = new Region(enumRegion);
     deck = new Deck(enumRegion);
   }
 

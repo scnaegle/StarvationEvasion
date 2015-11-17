@@ -1,10 +1,16 @@
 package starvationevasion.teamrocket.models;
 
+import starvationevasion.common.EnumRegion;
+
 /**
  * Created by scnaegl on 11/14/15.
  */
 public class Region
 {
+  /**
+   * Keeps track of the originally selected Region.
+   */
+  private final EnumRegion ENUM_REGION;
   /**
    * we need to make the stats for this region.
    */
@@ -21,23 +27,41 @@ public class Region
   private double poultryYield;
   private double dairyYield;
 
-  public Region(double citrusYield, double fruitYield, double nutYield,
-                double oilYield, double veggieYield, double speicalYield,
-                double feedYield,
-                double fishYield, double meatYield, double poultryYield,
-                double dairyYield)
+  /**
+   * Creates a new Region with defaults based upon an EnumRegion. This will only be called at the start of the game.
+   *
+   * @param enumRegion Deterines starting wealth and crops.
+   */
+  public Region(EnumRegion enumRegion)
   {
-    this.citrusYield = citrusYield;
-    this.fruitYield = fruitYield;
-    this.fishYield = fishYield;
-    this.dairyYield = dairyYield;
-    this.meatYield = meatYield;
-    this.poultryYield = poultryYield;
-    this.speicalYield = speicalYield;
-    this.oilYield = oilYield;
-    this.veggieYield = veggieYield;
-    this.nutYield = nutYield;
-    this.feedYield = feedYield;
+    this.ENUM_REGION = enumRegion;
+
+    //This is where a regions starting crops are determined.
+    //This might be replaced with something from the simulator or possibly server. But I figure a switch statement is
+    // fine for now.
+    //It defaults to 0s until we have actual starting values.
+    switch (enumRegion)
+    {
+      case CALIFORNIA:
+      case HEARTLAND:
+      case NORTHERN_PLAINS:
+      case SOUTHEAST:
+      case NORTHERN_CRESCENT:
+      case SOUTHERN_PLAINS:
+      case MOUNTAIN:
+      default:
+        this.citrusYield = 0;
+        this.fruitYield = 0;
+        this.fishYield = 0;
+        this.dairyYield = 0;
+        this.meatYield = 0;
+        this.poultryYield = 0;
+        this.speicalYield = 0;
+        this.oilYield = 0;
+        this.veggieYield = 0;
+        this.nutYield = 0;
+        this.feedYield = 0;
+    }
   }
 
   private String getRegionStats()
