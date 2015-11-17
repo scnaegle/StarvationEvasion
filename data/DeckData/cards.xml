@@ -13,7 +13,13 @@
           Benefit yield is an ease-in-out cubic bezier function of effective
           dollars spent and target crop." />
         <effects text="5% bonus to effectiveness of total dollars spent per participating region.">
+          <targetRegion value="participating regions"/>
+          <targetFood value="selectable"/>
         </effects>
+        <validations>
+          <validate field="targetFood" presence="true" instance_of="crop" message="must have a target food that is a crop (not livestock)."/>
+          <validate field="dollarValue" presence="true" min_value="1000000" max_value="1000000000" message="{dollarValue} must be between 1 and 1000 million dollars."/>
+        </validations>
         <votesRequired value="1" />
         <waitForAll value="true" />
       </attributes>
@@ -31,8 +37,13 @@
         <effects text="Commodity food is distributed to relief world hunger in the most efficient manor discovered
           by the simulator where efficiency calculation is based on the type of commodity, each country's nutritional
           need and each country's import penalty function.">
-
+          <targetRegion value="participating regions"/>
+          <targetFood value="Commodity"/>
         </effects>
+        <validations>
+          <validate field="targetFood" presence="true" instance_of="crop" message="must have a target food that is a crop (not livestock)."/>
+          <validate field="dollarValue" presence="true" min_value="1000000" max_value="1000000000" message="{dollarValue} must be between 1 and 1000 million dollars."/>
+        </validations>
       </attributes>
     </Card>
   </cards>
