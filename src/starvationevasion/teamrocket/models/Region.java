@@ -10,7 +10,7 @@ public class Region
   /**
    * Keeps track of the originally selected Region.
    */
-  private final EnumRegion ENUM_REGION;
+  public final EnumRegion ENUM_REGION;
   /**
    * we need to make the stats for this region.
    */
@@ -28,6 +28,10 @@ public class Region
   private double meatYield;
   private double poultryYield;
   private double dairyYield;
+
+  private double wealth; //wealth of the player and there country (a way of measuring score)
+  private double happiness; // happiness of the people in the region (a way of measuring
+  // score)
 
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will only be called at the start of the game.
