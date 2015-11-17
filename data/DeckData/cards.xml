@@ -44,7 +44,33 @@
           <validate field="targetFood" presence="true" instance_of="crop" message="must have a target food that is a crop (not livestock)."/>
           <validate field="dollarValue" presence="true" min_value="1000000" max_value="1000000000" message="{dollarValue} must be between 1 and 1000 million dollars."/>
         </validations>
+        <votesRequired value="1" />
+        <waitForAll value="true" />
       </attributes>
+    </Card>
+
+    <Card name="Foreign Aid for Farm Infrastructure" type="vote">
+      <image url=""/>
+      <attributes>
+        <gameText value="The US sends 7X million dollars in foreign aid for capital development of farming infrastructure of target world region."/>
+        <affects value="When drafting this policy, player selects target world region and X million dollars."/>
+        <description value="The US sends 7X million dollars in foreign aid for capital development of farming infrastructure of target world region."/>
+        <effects text="model needs four control points of each ease-in-out cubic Bezier function giving investment verses
+          food trade penalty function reduction. This one time spending permanently reduces the regions penalty function.
+          If approved, each US region must pay X million.">
+          <targetRegion value="foreign region"/>
+          <targetFood value="farming"/>
+        </effects>
+        <validations>
+          <validate field="targetFood" presence="true" instance_of="crop" message="must have a target food that is a crop (not livestock)."/>
+          <validate field="dollarValue" presence="true" min_value="1000000" max_value="1000000000" message="{dollarValue} must be between 1 and 1000 million dollars."/>
+        </validations>
+        <votesRequired value="4" />
+        <waitForAll value="true" />
+      </attributes>
+      <requiredInputs>
+        <value1 attribute="X"/>
+      </requiredInputs>
     </Card>
   </cards>
 </Region>
