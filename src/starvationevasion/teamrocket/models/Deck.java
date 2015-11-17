@@ -23,7 +23,7 @@ public class Deck {
    */
   public Deck(Player player) {
     this.player = player;
-    this.deck = createDeck(player.getPlayerRegionEnum());
+  //  this.deck = createDeck(player.getPlayerRegionEnum());
     this.hand = new ArrayList<>();
     this.discard = new ArrayList<>();
     this.played = new ArrayList<>();

@@ -29,6 +29,10 @@ public class Region
   private double poultryYield;
   private double dairyYield;
 
+  private double wealth; //wealth of the player and there country (a way of measuring score)
+  private double happiness; // happiness of the people in the region (a way of measuring
+  // score)
+
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will only be called at the start of the game.
    *

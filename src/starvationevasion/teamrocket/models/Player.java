@@ -16,8 +16,6 @@ public class Player
 
   private Region region;
   private Deck deck;
-  private double wealth;
-  private double happiness;
 
   /**
    * Creates a new player based on selected region.
@@ -40,7 +38,6 @@ public class Player
 
   /**
    * returns the region that the player is in
-   *
    * @return returns the region that the player is in
    */
   public Enum getPlayerRegionEnum()
