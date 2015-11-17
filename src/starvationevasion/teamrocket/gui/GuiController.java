@@ -12,12 +12,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
+import starvationevasion.teamrocket.models.Player;
 
 
 public class GuiController
 {
-
-  Main main = new Main();
   @FXML
   private Button drawCardButton;
   @FXML
@@ -159,6 +158,8 @@ public class GuiController
 
   private EnumRegion playerRegion;
 
+  private Player player;
+
 
   private boolean caliSelected;
   private boolean heartlandSelected;
@@ -204,10 +205,7 @@ public class GuiController
       //load selected version of game (single or multi-player)
       try
       {
-        main.switchScenes(2);
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
+        Main.gameController.switchToSelectRegion();
       }
       catch (Exception e)
       {
@@ -225,10 +223,7 @@ public class GuiController
       //Go to next scene
       try
       {
-        main.switchScenes(3);
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
+        this.player = Main.gameController.startNewGame(this.playerRegion);
         highlightMyRegion(myRegion);
       }
       catch (Exception e)
@@ -241,10 +236,7 @@ public class GuiController
       //make sure card has been played, show error label if not
       try
       {
-        main.switchScenes(4);
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
+        Main.gameController.finishedCardDraft();
       }
       catch (Exception e)
       {
@@ -261,10 +253,7 @@ public class GuiController
       //update variables
       try
       {
-        main.switchScenes(3);
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        Main.gameController.finishedVoting();
       }
       catch (Exception e)
       {

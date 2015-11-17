@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket.main;
 
+import javafx.fxml.FXMLLoader;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.models.Deck;
@@ -14,18 +15,32 @@ import java.util.LinkedList;
 public class GameController
 {
   private Player player;
+  private final Main MAIN;
 
-  GameController()
+  GameController(Main main)
   {
-    this.player = new Player(EnumRegion.CALIFORNIA);
+    this.MAIN = main;
   }
 
+
   /**
-   * Starts the turn.
+   * Destroys any old games, starts a new game with selected region.
+    * @param region player's starting region
+   * @return a copy of the new player for convenience.
    */
-  public void startTurn()
+  public Player startNewGame(EnumRegion region)
   {
-    //Fill player hand
+    destroyGame(); //Destroy old game if exists.
+    this.player = new Player(region);
+
+    MAIN.switchScenes(3);
+
+    return this.player;
+  }
+
+  public void switchToSelectRegion()
+  {
+    MAIN.switchScenes(2);
   }
 
   /**
@@ -35,5 +50,23 @@ public class GameController
   public ArrayList<PolicyCard> getHand()
   {
     return player.getDeck().getHand();
+  }
+
+  /**
+   * Destroys the current game cleanly.
+   */
+  private void destroyGame()
+  {
+    //Destruction code for old game. Make sure it is garbage collectable, end any timers, threads, etc.
+  }
+
+  public void finishedCardDraft()
+  {
+    MAIN.switchScenes(4);
+  }
+
+  public void finishedVoting()
+  {
+    MAIN.switchScenes(3);
   }
 }
