@@ -79,6 +79,30 @@ public class GuiController
   private Button doneWithCards;
   @FXML
   private Button doneVoting;
+  @FXML
+  private Button closeWindow;
+  @FXML
+  private Button closeWindow2;
+  @FXML
+  private Button closeWindow3;
+  @FXML
+  private Button closeWindow4;
+  @FXML
+  private Button closeWindow5;
+  @FXML
+  private Button closeWindow6;
+  @FXML
+  private Button closeWindow7;
+  @FXML
+  private Button closeWindow8;
+  @FXML
+  private Button closeWindow9;
+  @FXML
+  private Button closeWindow10;
+  @FXML
+  private Button closeWindow11;
+  @FXML
+  private Button closeWindow12;
 
   @FXML
   private RadioButton singlePlayer;
@@ -192,7 +216,7 @@ public class GuiController
   public void buttonPressed(ActionEvent event)
   {
     Button button = (Button) event.getSource();
-    closeProduceWindows();
+
 
     if(button == ready)
     {
@@ -259,6 +283,19 @@ public class GuiController
       {
         e.printStackTrace();
       }
+    }
+    else if(button == closeWindow || button == closeWindow2 || button == closeWindow3 ||
+        button == closeWindow4 ||
+        button == closeWindow5 ||
+        button == closeWindow6 ||
+        button == closeWindow7 ||
+        button == closeWindow8 ||
+        button == closeWindow9 ||
+        button == closeWindow10 ||
+        button == closeWindow11 ||
+        button == closeWindow12 )
+    {
+      closeProduceWindows();
     }
     else if (button == drawCardButton)
     {
