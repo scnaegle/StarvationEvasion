@@ -179,9 +179,6 @@ public class GuiController
       try
       {
         Main.gameController.switchToSelectRegion();
-       // Node source = (Node)  event.getSource();
-       // Stage stage  = (Stage) source.getScene().getWindow();
-        //stage.close();
       }
       catch (Exception e)
       {
@@ -200,9 +197,6 @@ public class GuiController
       try
       {
         this.player = Main.gameController.startNewGame(this.playerRegion);
-       // Node source = (Node)  event.getSource();
-       // Stage stage  = (Stage) source.getScene().getWindow();
-        //stage.close();
         highlightMyRegion(myRegion);
       }
       catch (Exception e)
@@ -216,9 +210,6 @@ public class GuiController
       try
       {
         Main.gameController.finishedCardDraft();
-      //  Node source = (Node)  event.getSource();
-      //  Stage stage  = (Stage) source.getScene().getWindow();
-      //  stage.close();
       }
       catch (Exception e)
       {
@@ -236,9 +227,6 @@ public class GuiController
       try
       {
         Main.gameController.finishedVoting();
-      //  Node source = (Node) event.getSource();
-      //  Stage stage = (Stage) source.getScene().getWindow();
-      //  stage.close();
       }
       catch (Exception e)
       {

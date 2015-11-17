@@ -43,7 +43,7 @@ public class Player
    *
    * @return returns the region that the player is in
    */
-  public Enum getPlayerRegionEnum()
+  public EnumRegion getPlayerRegionEnum()
   {
     return enumRegion;
   }

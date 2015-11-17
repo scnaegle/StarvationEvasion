@@ -18,7 +18,6 @@ public class Main extends Application {
   Scene cardDraft;
   Parent main2;
   Scene voting;
-  Stage currentStage;
 
   @Override
   public void start(Stage primaryStage) throws Exception{
@@ -39,16 +38,10 @@ public class Main extends Application {
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(new Scene(welcomeScene));
     primaryStage.show();
-
-    currentStage = primaryStage;
-
   }
 
-  void switchScenes(int scene){
-    //currentStage.close();
-    //currentStage = new Stage();
-    //currentStage.setTitle("Starvasion Evasion");
-
+  void switchScenes(int scene)
+  {
     if(scene == 2)
     {
       primaryStage.setScene(new Scene(chooseRegion));
@@ -59,8 +52,6 @@ public class Main extends Application {
     else if(scene == 4){
       primaryStage.setScene(voting);
     }
-    //currentStage.show();
-
   }
 
   public static void main(String[] args) {
