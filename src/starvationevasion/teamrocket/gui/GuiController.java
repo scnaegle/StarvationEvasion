@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
@@ -43,6 +44,31 @@ public class GuiController
   private Button veggieButton;
   @FXML
   private Button specialButton;
+
+  @FXML
+  private Pane appleWindow;
+  @FXML
+  private Pane grainWindow;
+  @FXML
+  private Pane citrusWindow;
+  @FXML
+  private Pane feedWindow;
+  @FXML
+  private Pane meatWindow;
+  @FXML
+  private Pane dairyWindow;
+  @FXML
+  private Pane nutWindow;
+  @FXML
+  private Pane oilWindow;
+  @FXML
+  private Pane poultryWindow;
+  @FXML
+  private Pane veggieWindow;
+  @FXML
+  private Pane specialWindow;
+  @FXML
+  private Pane fishWindow;
 
   @FXML
   private Button pickedRegion;
@@ -165,6 +191,7 @@ public class GuiController
   public void buttonPressed(ActionEvent event)
   {
     Button button = (Button) event.getSource();
+    closeProduceWindows();
 
     if(button == ready)
     {
@@ -254,6 +281,7 @@ public class GuiController
       //see whether it's for a policy card or for viewing
         //if policy card, use product for card
         //else display facts
+      appleWindow.setVisible(true);
 
     }
     else if (button == grainsButton)
@@ -261,69 +289,97 @@ public class GuiController
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      grainWindow.setVisible(true);
     }
     else if(button == citrusButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      citrusWindow.setVisible(true);
     }
     else if(button == feedButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      feedWindow.setVisible(true);
     }
     else if(button == dairyButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      dairyWindow.setVisible(true);
     }
     else if(button == meatButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      meatWindow.setVisible(true);
     }
     else if(button == poultryButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      poultryWindow.setVisible(true);
     }
     else if(button == oilButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      oilWindow.setVisible(true);
     }
     else if(button == specialButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      specialWindow.setVisible(true);
     }
     else if(button == veggieButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      veggieWindow.setVisible(true);
     }
     else if(button == nutButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      nutWindow.setVisible(true);
     }
     else if(button == fishButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      fishWindow.setVisible(true);
     }
 
 
+
+  }
+
+  private void closeProduceWindows()
+  {
+    appleWindow.setVisible(false);
+    grainWindow.setVisible(false);
+    citrusWindow.setVisible(false);
+    feedWindow.setVisible(false);
+    meatWindow.setVisible(false);
+    fishWindow.setVisible(false);
+    nutWindow.setVisible(false);
+    poultryWindow.setVisible(false);
+    oilWindow.setVisible(false);
+    veggieWindow.setVisible(false);
+    specialWindow.setVisible(false);
+    dairyWindow.setVisible(false);
 
   }
 

@@ -4,6 +4,7 @@
 <?import java.net.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -16,11 +17,11 @@
 
 <GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.9998779296875" prefWidth="-1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
-    <Pane prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Pane minWidth="1024.0" prefHeight="-1.0" prefWidth="1024.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
         <Pane layoutX="19.0" layoutY="22.0" prefHeight="244.0" prefWidth="247.00009999999747">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="787.9998779296875" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1023.9998779296875" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="787.9998779296875" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="262.0" layoutX="-5.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="266.0000999999975" />
             <Pane layoutX="0.0" layoutY="0.0" prefHeight="244.00009999999747" prefWidth="251.00009999999747" />
             <Button fx:id="drawCardButton" layoutX="-7.0" layoutY="372.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
@@ -367,6 +368,269 @@
             </ImageView>
           </labelFor>
         </Label>
+        <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="946.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" layoutX="0.0" layoutY="0.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1023.9998779296875" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb199" height="473.0" layoutX="187.0" layoutY="157.0" strokeType="INSIDE" width="651.0">
+              <stroke>
+                <Color blue="0.800" green="0.800" red="1.000" fx:id="x3" />
+              </stroke>
+            </Rectangle>
+            <Label alignment="CENTER" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Non-citrus Fruits">
+              <font>
+                <Font name="Avenir Next Demi Bold" size="25.0" fx:id="x4" />
+              </font>
+            </Label>
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <ImageView id="FarmProduct_Fruit_256x256" layoutX="219.0" layoutY="203.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/FarmProduct_Fruit_256x256.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+          </children>
+        </Pane>
+        <Pane fx:id="grainWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" visible="true" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0">
+              <fill>
+                <Color blue="0.600" green="0.694" red="1.000" fx:id="x5" />
+              </fill>
+            </Rectangle>
+            <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Grains" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="grains2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/grains2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="citrusWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Citrus Fruits" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="citrus2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/citrus2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="feedWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Category Name" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+          </children>
+        </Pane>
+        <Pane fx:id="dairyWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Category Name" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <ImageView id="FarmProduct_Fruit_256x256" layoutX="219.0" layoutY="203.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/FarmProduct_Fruit_256x256.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+          </children>
+        </Pane>
+        <Pane fx:id="fishWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Category Name" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <ImageView id="FarmProduct_Fruit_256x256" layoutX="219.0" layoutY="203.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/FarmProduct_Fruit_256x256.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+          </children>
+        </Pane>
+        <Pane fx:id="meatWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0">
+              <fill>
+                <Color blue="0.600" green="0.694" red="1.000" fx:id="x6" />
+              </fill>
+            </Rectangle>
+            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Red Meats" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="meat2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/meat2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="nutWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Nuts" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="nuts2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/nuts2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="oilWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x6" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Oil Crops" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="oil2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/oil2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="poultryWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x6" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Poultry and Eggs" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="poultry2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/poultry2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="veggieWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x6" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Vegetables" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="veggies2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/veggies2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
+        <Pane fx:id="specialWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x6" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Specialty Crops" />
+            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ImageView id="misc2" layoutX="219.0" layoutY="212.0" pickOnBounds="true">
+              <image>
+                <Image url="@../images/farmProductIcons/misc2.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
       </children>
     </Pane>
   </children>
