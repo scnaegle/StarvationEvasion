@@ -78,7 +78,7 @@ public class Region
         "Nut yield" + getNutYield() + "\n" +
         "Oil yield" + getOilYield() + "\n" +
         "Veggie yield" + getVeggieYield() + "\n" +
-        "Speical yield" + getSpecialYield() + "\n" +
+        "Special yield" + getSpecialYield() + "\n" +
         "Feed yield" + getFeedYield() + "\n" +
         "Fish yield" + getFishYield() + "\n" +
         "Meat yield" + getMeatYield() + "\n" +
