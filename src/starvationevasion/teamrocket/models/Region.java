@@ -9,6 +9,8 @@ public class Region
    * we need to make the stats for this region.
    */
 
+  private Player player;
+
   private double citrusYield;
   private double fruitYield;
   private double nutYield;
