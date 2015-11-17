@@ -9,43 +9,57 @@ import javafx.stage.Stage;
 import starvationevasion.teamrocket.gui.GuiController;
 
 public class Main extends Application {
+  public static GameController gameController;
 
   Stage primaryStage;
   Parent welcomeScene;
   Parent chooseRegion;
   Parent main1;
+  Scene cardDraft;
   Parent main2;
+  Scene voting;
+  Stage currentStage;
 
   @Override
   public void start(Stage primaryStage) throws Exception{
+    if(Main.gameController == null)
+    {
+      this.gameController = new GameController(this);
+    }
     this.primaryStage = primaryStage;
     welcomeScene = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
+
+    chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
+    main1 = FXMLLoader.load(Main.class.getResource("/interface/main1.fxml"));
+    main2 = FXMLLoader.load(Main.class.getResource("/interface/main2.fxml"));
+
+    cardDraft = new Scene(main1);
+    voting = new Scene(main2);
 
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(new Scene(welcomeScene));
     primaryStage.show();
 
+    currentStage = primaryStage;
+
   }
 
-  public void switchScenes(int scene) throws Exception{
-    Stage nextStage = new Stage();
-    chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
-    main1 = FXMLLoader.load(Main.class.getResource("/interface/main1.fxml"));
-    main2 = FXMLLoader.load(Main.class.getResource("/interface/main2.fxml"));
-
-    nextStage.setTitle("Starvasion Evasion");
+  void switchScenes(int scene){
+    currentStage.close();
+    currentStage = new Stage();
+    currentStage.setTitle("Starvasion Evasion");
 
     if(scene == 2)
     {
-      nextStage.setScene(new Scene(chooseRegion));
+      currentStage.setScene(new Scene(chooseRegion));
     }
     else if(scene == 3){
-      nextStage.setScene(new Scene(main1));
+      currentStage.setScene(cardDraft);
     }
     else if(scene == 4){
-      nextStage.setScene(new Scene(main2));
+      currentStage.setScene(voting);
     }
-    nextStage.show();
+    currentStage.show();
 
   }
 
