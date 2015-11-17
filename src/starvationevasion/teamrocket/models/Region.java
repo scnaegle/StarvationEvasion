@@ -22,7 +22,7 @@ public class Region
   private double nutYield;
   private double oilYield;
   private double veggieYield;
-  private double speicalYield;
+  private double specialYield;
   private double feedYield;
   private double fishYield;
   private double meatYield;
@@ -62,7 +62,7 @@ public class Region
         this.dairyYield = 0;
         this.meatYield = 0;
         this.poultryYield = 0;
-        this.speicalYield = 0;
+        this.specialYield = 0;
         this.oilYield = 0;
         this.veggieYield = 0;
         this.nutYield = 0;
@@ -78,7 +78,7 @@ public class Region
         "Nut yield" + getNutYield() + "\n" +
         "Oil yield" + getOilYield() + "\n" +
         "Veggie yield" + getVeggieYield() + "\n" +
-        "Speical yield" + getSpeicalYield() + "\n" +
+        "Speical yield" + getSpecialYield() + "\n" +
         "Feed yield" + getFeedYield() + "\n" +
         "Fish yield" + getFishYield() + "\n" +
         "Meat yield" + getMeatYield() + "\n" +
@@ -113,9 +113,9 @@ public class Region
     this.veggieYield = veggieYield;
   }
 
-  public void setSpeicalYield(double speicalYield)
+  public void setSpecialYield(double specialYield)
   {
-    this.speicalYield = speicalYield;
+    this.specialYield = specialYield;
   }
 
   public void setFeedYield(double feedYield)
@@ -174,9 +174,9 @@ public class Region
     return veggieYield;
   }
 
-  public double getSpeicalYield()
+  public double getSpecialYield()
   {
-    return speicalYield;
+    return specialYield;
   }
 
   public double getFishYield()
