@@ -24,7 +24,7 @@
         <waitForAll value="true" />
       </attributes>
     </Card>
-    <Card name="Iternational Food Relief Program" type="vote">
+    <Card name="International Food Relief Program" type="vote">
       <image url=""/>
       <attributes>
         <gameText value="Each participating region spends X million dollars to purchase their own region's commodity
