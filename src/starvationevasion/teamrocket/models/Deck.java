@@ -10,6 +10,7 @@ import java.util.Random;
  * Created by scnaegl on 11/14/15.
  */
 public class Deck {
+  private static final int MAX_CARDS_IN_HAND = 7;
   private ArrayList<PolicyCard> deck = new ArrayList<>();
   private ArrayList<PolicyCard> hand = new ArrayList<>();
   private ArrayList<PolicyCard> discard = new ArrayList<>();
@@ -51,6 +52,7 @@ public class Deck {
    */
   public PolicyCard drawCard() {
     if (outOfCards()) shuffle();
+    if (hasMaxCardsInHand()) throw new RuntimeException("Too many cards in hand already.");
     Random rand = new Random();
     return deck.remove(rand.nextInt(deck.size()));
   }
@@ -78,11 +80,19 @@ public class Deck {
    * Fills a hand till it is full with 7 cards.
    */
   public void fillHand() {
-    if(hand.size()<7) {
+    if(!hasMaxCardsInHand()) {
       hand.add(drawCard());
 
       fillHand();
     }
+  }
+
+  /**
+   * Check to see if the player has the max number of cards in their hand
+   * @return True if player has max, False if not
+   */
+  private boolean hasMaxCardsInHand() {
+    return hand.size() >= MAX_CARDS_IN_HAND;
   }
 
   /**
@@ -102,6 +112,23 @@ public class Deck {
   public void playCard(PolicyCard card) {
     played.add(card);
     hand.remove(card);
+  }
+
+  /**
+   * Return a played card to the player's hand
+   * @param card Card to return to player's hand
+   */
+  public void returnCardToHand(PolicyCard card) {
+    hand.add(card);
+    played.remove(card);
+  }
+
+  /**
+   * Return a played card to the player's hand
+   * @param card_index Index of card in the played pile
+   */
+  public void returnCardToHand(int card_index) {
+    hand.add(played.remove(card_index));
   }
 
   /**
