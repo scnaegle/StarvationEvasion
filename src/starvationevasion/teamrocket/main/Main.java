@@ -45,21 +45,21 @@ public class Main extends Application {
   }
 
   void switchScenes(int scene){
-    currentStage.close();
-    currentStage = new Stage();
-    currentStage.setTitle("Starvasion Evasion");
+    //currentStage.close();
+    //currentStage = new Stage();
+    //currentStage.setTitle("Starvasion Evasion");
 
     if(scene == 2)
     {
-      currentStage.setScene(new Scene(chooseRegion));
+      primaryStage.setScene(new Scene(chooseRegion));
     }
     else if(scene == 3){
-      currentStage.setScene(cardDraft);
+      primaryStage.setScene(cardDraft);
     }
     else if(scene == 4){
-      currentStage.setScene(voting);
+      primaryStage.setScene(voting);
     }
-    currentStage.show();
+    //currentStage.show();
 
   }
 
