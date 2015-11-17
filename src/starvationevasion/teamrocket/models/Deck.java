@@ -24,20 +24,16 @@ public class Deck {
   }
 
   public PolicyCard drawCard() {
-    checkIfEmpty();
+    if (outOfCards()) shuffle();
     Random rand = new Random();
-    int tempCardIndex = rand.nextInt(cards.size());
-    PolicyCard temp = cards.get(tempCardIndex);
-    cards.remove(tempCardIndex);
-    return  temp;
-
+    return cards.remove(rand.nextInt(cards.size()));
   }
 
-  public void discardToDiscardDeck(PolicyCard card) {
+  public void discard(PolicyCard card) {
     this.discard.add(card);
   }
 
-  public void refillDeck() {
+  public void shuffle() {
     for(PolicyCard card : discard) {
       this.cards.add(card);
     }
@@ -49,10 +45,7 @@ public class Deck {
     return cards;
   }
 
-  private void checkIfEmpty()
-  {
-    if(cards.isEmpty()){
-      refillDeck();
-    }
+  private boolean outOfCards() {
+    return cards.isEmpty();
   }
 }
