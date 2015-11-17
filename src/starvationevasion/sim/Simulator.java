@@ -1,12 +1,11 @@
 package starvationevasion.sim;
 
+
 import starvationevasion.common.*;
-import starvationevasion.sim.datamodels.State;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * This is the main API point of the Starvation Evasion Simulator.
@@ -14,11 +13,10 @@ import java.util.regex.Pattern;
  */
 public class Simulator
 {
+  private final static Logger LOGGER = Logger.getLogger(Simulator.class.getName());
+
   private final int startYear;
   private int year;
-
-  //private final String stateDataPath = System.getenv("PWD")+"/data/sim/UnitedStatesData/UnitedStatesFarmAreaAndIncome.csv";
-  private BufferedReader reader;
 
   /**
    * This constructor should be called once at the start of each game by the Server.
@@ -28,42 +26,24 @@ public class Simulator
    */
   public Simulator(int startYear)
   {
+    LOGGER.setLevel(Level.ALL);
+
     if (startYear < Constant.FIRST_YEAR || startYear > Constant.LAST_YEAR)
     {
-      throw new IllegalArgumentException("Simulator(startYear="+startYear+
-        ") start year must be between [" +
-        Constant.FIRST_YEAR + ", " + Constant.LAST_YEAR+"].");
+      String errMsg = "Simulator(startYear=" + startYear +
+                      ") start year must be between [" +
+                      Constant.FIRST_YEAR + ", " + Constant.LAST_YEAR + "].";
+      LOGGER.severe(errMsg);
+      throw new IllegalArgumentException(errMsg);
     }
 
     this.startYear = startYear;
     year = startYear;
-    String stateDataPath = "/Users/miggens/Developer/StarvationEvasion/data/sim/UnitedStatesData/UnitedStatesFarmAreaAndIncome.csv";
-    System.out.println("DATA PATH " + stateDataPath);
 
-    //read in data
-    //for each line pass to create a new state.
-    Pattern stateDataPattern = Pattern.compile("^\\w+,\"");
-    try
-    {
-      reader = new BufferedReader(new FileReader(stateDataPath));
-      String line = null;
-      while ((line = reader.readLine()) != null)
-      {
-        Matcher stateDataMatcher = stateDataPattern.matcher(line);
-        if (stateDataMatcher.find())
-        {
-          System.out.println(line);
-          State s = new State(line);
-          System.exit(2);
-        }
 
-      }
-    }
-    catch (Throwable t)
-    {
-      System.err.println("File Reader Exception: "+ t);
-    }
-
+    ArrayList<String> stateData = DataReader.retrieveStateData("data/sim/UnitedStatesData/UnitedStatesFarmAreaAndIncome.csv");
+    instantiateRegions(stateData);
+    LOGGER.info("Starting Simulation at year " + startYear);
   }
 
   /**
@@ -87,21 +67,13 @@ public class Simulator
    */
   public int nextTurn(ArrayList<PolicyCard> cards)
   {
+    LOGGER.info("Advancing Turn...");
     nextYear();
     nextYear();
     nextYear();
-
+    LOGGER.info("Turn complete, year is now " + year);
     return year;
   }
-
-
-
-  private int nextYear()
-  {
-    year++;
-    return year;
-  }
-
 
   /**
    * @param region Any US or world region.
@@ -110,7 +82,62 @@ public class Simulator
    */
   public int getLandUsed(EnumRegion region, EnumFood food)
   {
-    return 0;
+    int landUsed = 0;
+    LOGGER.info("Land used for food " + food + " in region " + region + " = "
+                + landUsed + " km^2");
+    return landUsed;
+  }
+
+  private int nextYear()
+  {
+    year++;
+    LOGGER.info("Advancing year to " + year);
+    return year;
+  }
+
+  /**
+   * This method is used to create State objects along with <br></>
+   * the Region data structure
+   *
+   * @param data
+   */
+  private void instantiateRegions(ArrayList<String> data)
+  {
+    if (data.size() == 0) return;
+
+    ArrayList<State> states = new ArrayList<>();
+
+    float[] avgConversionFactors = new float[Constant.TOTAL_AGRO_CATEGORIES];
+    for (String state : data)
+    {
+      State currentState = new State(state);
+      states.add(currentState);
+      float[] currentStatePercentages = currentState.getPercentages();
+
+      for (int i = 0; i < Constant.TOTAL_AGRO_CATEGORIES; i++)
+      {
+        avgConversionFactors[i] += currentStatePercentages[i];
+      }
+    }
+
+    float sum = 0.f;
+    for (int i = 0; i < Constant.TOTAL_AGRO_CATEGORIES; i++)
+    {
+      avgConversionFactors[i] /= 50.f;
+      sum += avgConversionFactors[i];
+      //System.out.println("AVG CATEGORY "+avgConversionFactors[i]);
+    }
+
+    float averageConversionFactor = sum/Constant.TOTAL_AGRO_CATEGORIES;
+
+    for (State state : states)
+    {
+      state.setAverageConversionFactor(averageConversionFactor);
+    }
+
+    //Still need to reorganize and create a mechanism to set
+    //the region field of each state and which data structure
+    //to use for the regions.
   }
 
   //Temporary main for testing & debugging Simulator and State Objs.
