@@ -14,7 +14,6 @@ public class Player
 
   private Region region;
   private Deck deck;
-  private Hand playerHand;
   private double wealth;
   private double happiness;
 
@@ -26,7 +25,7 @@ public class Player
   public Player(EnumRegion enumRegion)
   {
     this.region = new Region(enumRegion);
-    deck = new Deck(enumRegion);
+    deck = new Deck(this);
   }
 
 
@@ -35,7 +34,7 @@ public class Player
    *
    * @return returns the region that the player is in
    */
-  public Enum getPlayerRegionEnum()
+  public EnumRegion getPlayerRegionEnum()
   {
     return enumRegion;
   }

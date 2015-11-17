@@ -10,15 +10,39 @@ import java.util.Random;
  * Created by scnaegl on 11/14/15.
  */
 public class Deck {
-  ArrayList<PolicyCard> deck = new ArrayList<>();
-  ArrayList<PolicyCard> discard = new ArrayList<>();
+  private ArrayList<PolicyCard> deck = new ArrayList<>();
+  private ArrayList<PolicyCard> hand = new ArrayList<>();
+  private ArrayList<PolicyCard> discard = new ArrayList<>();
+  private ArrayList<PolicyCard> played = new ArrayList<>();
 
-  private EnumRegion region;
+  private Player player;
 
-  public Deck(EnumRegion region) {
-    this.region = region;
-    this.deck = createDeck(region);
+  /**
+   * Create a new deck with reference to the player it was created for.
+   * @param player Player this deck belongs to.
+   */
+  public Deck(Player player) {
+    this.player = player;
+    this.deck = createDeck(player.getPlayerRegionEnum());
+    this.hand = new ArrayList<>();
     this.discard = new ArrayList<>();
+    this.played = new ArrayList<>();
+  }
+
+  /**
+   * Get the cards that are currently in the player's hand
+   * @return ArrayList of card in the players hand
+   */
+  public ArrayList<PolicyCard> getHand() {
+    return hand;
+  }
+
+  /**
+   * Get the cards that are currently selected to be played.
+   * @return ArrayList of cards selected to be played.
+   */
+  public ArrayList<PolicyCard> getPlayed() {
+    return played;
   }
 
   /**
@@ -48,6 +72,46 @@ public class Deck {
       discard.remove(card);
       deck.add(card);
     }
+  }
+
+  /**
+   * Fills a hand till it is full with 7 cards.
+   */
+  public void fillHand() {
+    if(hand.size()<7) {
+      hand.add(drawCard());
+
+      fillHand();
+    }
+  }
+
+  /**
+   * Plays the card corresponding to the given index in the player's hand.
+   * @param card_index Index of PolicyCard in players hand to be played
+   */
+  public void playCard(int card_index)
+  {
+    // use way to use policy in code
+    played.add(hand.remove(card_index));
+  }
+
+  /**
+   * Plays the given card
+   * @param card PolicyCard that player wants to play.
+   */
+  public void playCard(PolicyCard card) {
+    played.add(card);
+    hand.remove(card);
+  }
+
+  /**
+   * This is getting a card from his hand
+   * @param card the card number in the array list
+   * @return a card in your hand
+   */
+  public PolicyCard getCardInHand(int card)
+  {
+    return hand.get(card);
   }
 
   /**
