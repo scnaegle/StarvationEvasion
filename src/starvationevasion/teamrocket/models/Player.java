@@ -42,6 +42,6 @@ public class Player
    */
   public EnumRegion getPlayerRegionEnum()
   {
-    return enumRegion;
+    return region.ENUM_REGION;
   }
 }

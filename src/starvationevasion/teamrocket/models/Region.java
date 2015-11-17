@@ -10,7 +10,7 @@ public class Region
   /**
    * Keeps track of the originally selected Region.
    */
-  private final EnumRegion ENUM_REGION;
+  public final EnumRegion ENUM_REGION;
   /**
    * we need to make the stats for this region.
    */
