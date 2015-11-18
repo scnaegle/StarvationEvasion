@@ -23,24 +23,15 @@ public class Region
 
   private Player player;
 
-  private double citrusYield;
-  private double fruitYield;
-  private double nutYield;
-  private double oilYield;
-  private double veggieYield;
-  private double specialYield;
-  private double feedYield;
-  private double fishYield;
-  private double meatYield;
-  private double poultryYield;
-  private double dairyYield;
-
   private double wealth;
       //wealth of the player and there country (a way of measuring score)
   private double happiness;
       // happiness of the people in the region (a way of measuring score)
 
-  private ArrayList<ArrayList<Double>> farmStats = new ArrayList<>();
+  /**
+   * A arraylist of the farm stats to keep track of them throughout the turns.
+   */
+  private  ArrayList<ArrayList<Double>> farmStats = new ArrayList<>();
 
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will
@@ -53,12 +44,11 @@ public class Region
     this.ENUM_REGION = enumRegion;
     deck = new Deck(this);
 
-    farmStats.get(EnumFood.CITRUS.ordinal()).add(3.45);
-    //This is where a regions starting crops are determined.
-    //This might be replaced with something from the simulator or possibly
+    // This is where a regions starting crops are determined.
+    // This might be replaced with something from the simulator or possibly
     // server. But I figure a switch statement is
     // fine for now.
-    //It defaults to 0s until we have actual starting values.
+    // It defaults to 0s until we have actual starting values.
     switch (enumRegion)
     {
       case CALIFORNIA:
@@ -69,17 +59,17 @@ public class Region
       case SOUTHERN_PLAINS:
       case MOUNTAIN:
       default:
-        this.citrusYield = 0;
-        this.fruitYield = 0;
-        this.fishYield = 0;
-        this.dairyYield = 0;
-        this.meatYield = 0;
-        this.poultryYield = 0;
-        this.specialYield = 0;
-        this.oilYield = 0;
-        this.veggieYield = 0;
-        this.nutYield = 0;
-        this.feedYield = 0;
+        setCitrusYield(0);
+        setFruitYield(0);
+        setFishYield(0);
+        setDairyYield(0);
+        setMeatYield(0);
+        setPoultryYield(0);
+        setSpecialYield(0);
+        setOilYield(0);
+        setVeggieYield(0);
+        setNutYield(0);
+        setFeedYield(0);
     }
   }
 
@@ -111,109 +101,197 @@ public class Region
 
   }
 
+  /**
+   * sets the fruit produced
+   * @param fruitYield the amount of fruit produced
+   */
   public void setFruitYield(double fruitYield)
   {
     farmStats.get(EnumFood.FRUIT.ordinal()).add(fruitYield);
   }
 
+
+  /**
+   * sets the fruit produced.
+   * @param citrusYield the amount of fruit produced
+   */
   public void setCitrusYield(double citrusYield)
   {
     farmStats.get(EnumFood.CITRUS.ordinal()).add(citrusYield);
   }
 
+  /**
+   * sets the nut produced.
+   * @param nutYield the amount of nut produced
+   */
   public void setNutYield(double nutYield)
   {
     farmStats.get(EnumFood.NUT.ordinal()).add(nutYield);}
 
+  /**
+   * sets the oil produced.
+   * @param oilYield the amount of oil produced
+   */
   public void setOilYield(double oilYield)
   {
     farmStats.get(EnumFood.OIL.ordinal()).add(oilYield);}
 
+  /**
+   * sets the veggie produced.
+   * @param veggieYield the amount of veggie produced
+   */
   public void setVeggieYield(double veggieYield)
   {
     farmStats.get(EnumFood.VEGGIES.ordinal()).add(veggieYield);}
 
+  /**
+   * sets the special produced.
+   * @param specialYield the amount of special produced
+   */
   public void setSpecialYield(double specialYield)
   {
     farmStats.get(EnumFood.SPECIAL.ordinal()).add(specialYield);
   }
 
+  /**
+   * sets the feed produced.
+   * @param feedYield the amount of feed produced
+   */
   public void setFeedYield(double feedYield)
   {
     farmStats.get(EnumFood.FEED.ordinal()).add(feedYield);
   }
 
+  /**
+   * sets the fish produced.
+   * @param fishYield the amount of fish produced
+   */
   public void setFishYield(double fishYield)
   {
     farmStats.get(EnumFood.FISH.ordinal()).add(fishYield);
   }
 
+  /**
+   * sets the meat produced.
+   * @param meatYield the amount of meat produced
+   */
   public void setMeatYield(double meatYield)
   {
     farmStats.get(EnumFood.MEAT.ordinal()).add(meatYield);
   }
 
+  /**
+   * sets the poultry produced.
+   * @param poultryYield the amount of poultry produced
+   */
   public void setPoultryYield(double poultryYield)
   {
     farmStats.get(EnumFood.POULTRY.ordinal()).add(poultryYield);
   }
 
+  /**
+   * sets the dairy produced.
+   * @param dairyYield the amount of dairy produced
+   */
   public void setDairyYield(double dairyYield)
   {
     farmStats.get(EnumFood.DAIRY.ordinal()).add(dairyYield);
   }
 
-
+  /**
+   * Gets the citrus produced for the last turn.
+   * @return citrus produced for the last turn.
+   */
   public double getCitrusYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.CITRUS.ordinal()));
   }
 
+  /**
+   * Gets the fruit produced for last turn.
+   * @return fruit produced for last turn.
+   */
   public double getFruitYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.FRUIT.ordinal()));
   }
 
+  /**
+   * Gets the nuts produced for last turn
+   * @return Nuts produced for last turn
+   */
   public double getNutYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.NUT.ordinal()));
   }
 
+  /**
+   * Gets the feed produced for the last turn
+   * @return Feed produced for the last turn
+   */
   public double getFeedYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.FEED.ordinal()));
   }
 
+  /**
+   * Gets the oil produced for the last turn
+   * @return Oil produced for the last turn
+   */
   public double getOilYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.OIL.ordinal()));
   }
 
+  /**
+   * Gets the veggies produced for the last turn
+   * @return Veggies produced for the last turn
+   */
   public double getVeggieYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.VEGGIES.ordinal()));
   }
 
+  /**
+   * Gets the special produced for the last turn
+   * @return Special produced for the last turn
+   */
   public double getSpecialYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.SPECIAL.ordinal()));
   }
 
+  /**
+   * Gets the fish produced for the last turn
+   * @return Fish produced for the last turn
+   */
   public double getFishYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.FISH.ordinal()));
   }
 
+  /**
+   * Gets the meat produced for the last turn
+   * @return Meat produced for the last turn
+   */
   public double getMeatYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.MEAT.ordinal()));
   }
 
+  /**
+   * Gets the poultry produced for the last turn
+   * @return Poultry produced for the last turn
+   */
   public double getPoultryYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.POULTRY.ordinal()));
   }
 
+  /**
+   * Gets the dairy produced for the last turn
+   * @return Dairy produced for the last turn
+   */
   public double getDairyYield()
   {
     return Iterables.getLast(farmStats.get(EnumFood.DAIRY.ordinal()));
