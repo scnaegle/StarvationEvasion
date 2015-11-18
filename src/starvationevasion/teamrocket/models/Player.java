@@ -32,9 +32,9 @@ public class Player
    * Get the player's deck of cards
    * @return Player's deck of cards
    */
-//  public Deck getDeck() {
-//    return deck;
-//  }
+  public Deck getDeck() {
+    return region.getDeck();
+  }
 
   public Region getRegion()
   {
