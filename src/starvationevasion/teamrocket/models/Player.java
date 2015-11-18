@@ -15,7 +15,7 @@ public class Player
   private EnumRegion enumRegion;
 
   private Region region;
-  private Deck deck;
+//  private Deck deck;
 
   /**
    * Creates a new player based on selected region.
@@ -25,16 +25,22 @@ public class Player
   public Player(EnumRegion enumRegion)
   {
     this.region = new Region(enumRegion);
-    deck = new Deck(this);
+//    deck = new Deck(this);
   }
 
   /**
    * Get the player's deck of cards
    * @return Player's deck of cards
    */
-  public Deck getDeck() {
-    return deck;
+//  public Deck getDeck() {
+//    return deck;
+//  }
+
+  public Region getRegion()
+  {
+    return region;
   }
+
 
   /**
    * returns the region that the player is in

@@ -11,11 +11,14 @@ public class Region
    * Keeps track of the originally selected Region.
    */
   public final EnumRegion ENUM_REGION;
+
+  private Deck deck;
   /**
    * we need to make the stats for this region.
    */
-
   private Player player;
+
+//  deck = new Deck();
 
   private double citrusYield;
   private double fruitYield;
@@ -29,21 +32,25 @@ public class Region
   private double poultryYield;
   private double dairyYield;
 
-  private double wealth; //wealth of the player and there country (a way of measuring score)
-  private double happiness; // happiness of the people in the region (a way of measuring
+  private double wealth;
+      //wealth of the player and there country (a way of measuring score)
+  private double happiness;
+      // happiness of the people in the region (a way of measuring
   // score)
 
   /**
-   * Creates a new Region with defaults based upon an EnumRegion. This will only be called at the start of the game.
+   * Creates a new Region with defaults based upon an EnumRegion. This will
+   * only be called at the start of the game.
    *
    * @param enumRegion Deterines starting wealth and crops.
    */
   public Region(EnumRegion enumRegion)
   {
     this.ENUM_REGION = enumRegion;
-
+    deck = new Deck(this);
     //This is where a regions starting crops are determined.
-    //This might be replaced with something from the simulator or possibly server. But I figure a switch statement is
+    //This might be replaced with something from the simulator or possibly
+    // server. But I figure a switch statement is
     // fine for now.
     //It defaults to 0s until we have actual starting values.
     switch (enumRegion)
@@ -70,6 +77,16 @@ public class Region
     }
   }
 
+  /**
+   * Get the player's deck of cards
+   *
+   * @return Player's deck of cards
+   */
+  public Deck getDeck()
+  {
+    return deck;
+  }
+
   private String getRegionStats()
   {
     String regionStats;
@@ -93,10 +110,7 @@ public class Region
     this.fruitYield = fruitYield;
   }
 
-  public void setCitrusYield(double citrusYield)
-  {
-    this.citrusYield = citrusYield;
-  }
+  public void setCitrusYield(double citrusYield) { this.citrusYield = citrusYield; }
 
   public void setNutYield(double nutYield)
   {
@@ -108,15 +122,9 @@ public class Region
     this.oilYield = oilYield;
   }
 
-  public void setVeggieYield(double veggieYield)
-  {
-    this.veggieYield = veggieYield;
-  }
+  public void setVeggieYield(double veggieYield) { this.veggieYield = veggieYield; }
 
-  public void setSpecialYield(double specialYield)
-  {
-    this.specialYield = specialYield;
-  }
+  public void setSpecialYield(double specialYield) { this.specialYield = specialYield; }
 
   public void setFeedYield(double feedYield)
   {
@@ -133,10 +141,7 @@ public class Region
     this.meatYield = meatYield;
   }
 
-  public void setPoultryYield(double poultryYield)
-  {
-    this.poultryYield = poultryYield;
-  }
+  public void setPoultryYield(double poultryYield) { this.poultryYield = poultryYield; }
 
   public void setDairyYield(double dairyYield)
   {

@@ -49,7 +49,7 @@ public class GameController
    */
   public ArrayList<PolicyCard> getHand()
   {
-    return player.getDeck().getHand();
+    return player.getRegion().getDeck().getHand();
   }
 
   /**
