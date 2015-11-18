@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.main;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,6 +19,7 @@ public class Main extends Application {
   Scene cardDraft;
   Parent main2;
   Scene voting;
+
 
   @Override
   public void start(Stage primaryStage) throws Exception{
@@ -52,6 +54,10 @@ public class Main extends Application {
     else if(scene == 4){
       primaryStage.setScene(voting);
     }
+  }
+  public Stage getCurrentStage()
+  {
+    return primaryStage;
   }
 
   public static void main(String[] args) {

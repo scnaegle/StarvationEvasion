@@ -1,6 +1,8 @@
 package starvationevasion.teamrocket.main;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.models.Deck;
@@ -69,4 +71,5 @@ public class GameController
   {
     MAIN.switchScenes(3);
   }
+
 }

@@ -29,7 +29,7 @@
               <children>
                 <StackPane prefHeight="109.0" prefWidth="85.0">
                   <children>
-                    <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="64.0" maxWidth="64.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="64.0" maxWidth="64.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="apple" fitHeight="64.0" fitWidth="64.0">
                           <image>
@@ -42,7 +42,7 @@
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="82.0">
                   <children>
-                    <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="grains" pickOnBounds="true">
                           <image>
@@ -55,7 +55,7 @@
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="84.0">
                   <children>
-                    <Button id="grainsButton" fx:id="citrusButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="citrusButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="citrus" pickOnBounds="true">
                           <image>
@@ -68,7 +68,7 @@
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="85.0">
                   <children>
-                    <Button id="grainsButton" fx:id="feedButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="feedButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="corn" pickOnBounds="true">
                           <image>
@@ -81,7 +81,7 @@
                 </StackPane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="dairy" pickOnBounds="true">
                           <image>
@@ -94,7 +94,7 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="85.0">
                   <children>
-                    <Button id="grainsButton" fx:id="fishButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="11.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="fishButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="11.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="fish" pickOnBounds="true">
                           <image>
@@ -107,7 +107,7 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" fx:id="meatButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="meatButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="meat" pickOnBounds="true">
                           <image>
@@ -120,7 +120,7 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" fx:id="nutButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="nutButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="nuts" pickOnBounds="true">
                           <image>
@@ -133,7 +133,7 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="77.0">
                   <children>
-                    <Button id="grainsButton" fx:id="oilButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="oilButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="oil" pickOnBounds="true">
                           <image>
@@ -146,7 +146,7 @@
                 </Pane>
                 <Pane prefHeight="109.0" prefWidth="84.0">
                   <children>
-                    <Button id="grainsButton" fx:id="poultryButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="poultryButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="poultry" pickOnBounds="true">
                           <image>
@@ -159,7 +159,7 @@
                 </Pane>
                 <StackPane prefHeight="109.0" prefWidth="76.0">
                   <children>
-                    <Button id="grainsButton" fx:id="veggieButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="veggieButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="veggies" pickOnBounds="true">
                           <image>
@@ -172,7 +172,7 @@
                 </StackPane>
                 <StackPane prefHeight="109.0" prefWidth="84.0">
                   <children>
-                    <Button id="grainsButton" fx:id="specialButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOnButton" onMouseExited="#mouseExitedButton" prefHeight="64.0" prefWidth="64.0" text="">
+                    <Button id="grainsButton" fx:id="specialButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
                       <graphic>
                         <ImageView id="special" pickOnBounds="true">
                           <image>
@@ -381,14 +381,14 @@
                 <Font name="Avenir Next Demi Bold" size="25.0" fx:id="x4" />
               </font>
             </Label>
-            <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
+            <TextArea disable="false" editable="false" layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <ImageView id="FarmProduct_Fruit_256x256" layoutX="219.0" layoutY="203.0" pickOnBounds="true">
               <image>
                 <Image url="@../images/farmProductIcons/FarmProduct_Fruit_256x256.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="172.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="#606060" />
-            <Button fx:id="closeWindow" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="157.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close" disable="false" layoutX="219.0" layoutY="172.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="#606060" />
+            <Button fx:id="closeWindow" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="157.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
@@ -422,12 +422,12 @@
                 <Image url="@../images/farmProductIcons/grains2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]">
+            <Label fx:id="close2" disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]">
               <textFill>
                 <Color blue="0.376" green="0.376" red="0.376" fx:id="x6" />
               </textFill>
             </Label>
-            <Button id="closeWindow" fx:id="closeWindow2" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Button id="closeWindow" fx:id="closeWindow2" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="citrusWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -449,8 +449,8 @@
                 <Image url="@../images/farmProductIcons/citrus2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="179.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow3" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="164.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close3" disable="false" layoutX="219.0" layoutY="179.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow3" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="164.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="feedWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -472,8 +472,8 @@
                 <Image url="@../images/farmProductIcons/feed2.jpg" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow4" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close4" disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow4" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="dairyWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -495,8 +495,8 @@
                 <Image url="@../images/farmProductIcons/dairy2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow5" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close5" disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow5" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="fishWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -518,8 +518,8 @@
                 <Image url="@../images/farmProductIcons/fish2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow6" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close6" disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow6" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="meatWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -541,8 +541,8 @@
                 <Image url="@../images/farmProductIcons/meat2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow7" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close7" disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow7" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="nutWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -564,8 +564,8 @@
                 <Image url="@../images/farmProductIcons/nuts2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="179.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow8" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="164.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close8" disable="false" layoutX="219.0" layoutY="179.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow8" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="164.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="oilWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -587,8 +587,8 @@
                 <Image url="@../images/farmProductIcons/oil2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow9" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close9" disable="false" layoutX="219.0" layoutY="178.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow9" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="poultryWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -610,7 +610,7 @@
                 <Image url="@../images/farmProductIcons/poultry2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="179.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Label fx:id="close10" disable="false" layoutX="219.0" layoutY="179.0" mouseTransparent="false" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" text="CLOSE [ X ]" textFill="$x6" />
             <Button id="closeWindow" fx:id="closeWindow10" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="164.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
@@ -633,8 +633,8 @@
                 <Image url="@../images/farmProductIcons/veggies2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="181.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow11" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close11" disable="false" layoutX="219.0" layoutY="181.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow11" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
         <Pane fx:id="specialWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
@@ -656,8 +656,8 @@
                 <Image url="@../images/farmProductIcons/misc2.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label disable="false" layoutX="219.0" layoutY="181.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
-            <Button id="closeWindow" fx:id="closeWindow12" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <Label fx:id="close12" disable="false" layoutX="219.0" layoutY="181.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Button id="closeWindow" fx:id="closeWindow12" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOver" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
       </children>

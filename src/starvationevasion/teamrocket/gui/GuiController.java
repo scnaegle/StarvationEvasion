@@ -2,6 +2,7 @@ package starvationevasion.teamrocket.gui;
 
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
@@ -103,6 +105,30 @@ public class GuiController
   private Button closeWindow11;
   @FXML
   private Button closeWindow12;
+  @FXML
+  private Label close;
+  @FXML
+  private Label close2;
+  @FXML
+  private Label close3;
+  @FXML
+  private Label close4;
+  @FXML
+  private Label close5;
+  @FXML
+  private Label close6;
+  @FXML
+  private Label close7;
+  @FXML
+  private Label close8;
+  @FXML
+  private Label close9;
+  @FXML
+  private Label close10;
+  @FXML
+  private Label close11;
+  @FXML
+  private Label close12;
 
   @FXML
   private RadioButton singlePlayer;
@@ -178,6 +204,7 @@ public class GuiController
   @FXML
   private Label specialLabel;
 
+  private Stage stage;
 
 
   private EnumRegion playerRegion;
@@ -196,6 +223,7 @@ public class GuiController
   private boolean[] regionSelected =
       {caliSelected, heartlandSelected, mountainSelected, nPlainSelected, northeastSelected
           , southeastSelected, sPlainSelected};
+  private Main main;
 
   @FXML
   public void chooseGamePlay(ActionEvent event)
@@ -387,9 +415,17 @@ public class GuiController
       //else display facts
       fishWindow.setVisible(true);
     }
+  }
 
 
+  private void handCursor()
+  {
+    main.getCurrentStage().getScene().getRoot().setCursor(Cursor.HAND);
+  }
 
+  private void defaultCursor()
+  {
+    main.getCurrentStage().getScene().getRoot().setCursor(Cursor.DEFAULT);
   }
 
   private void closeProduceWindows()
@@ -468,14 +504,14 @@ public class GuiController
       //don't go to next stage until they select something
     }
     //currentRegion.setText("Current Region: "+playerRegion);
-    System.out.println("I have chosen "+playerRegion);
+    System.out.println("I have chosen " + playerRegion);
 
 
     return playerRegion;
   }
 
   @FXML
-  public void mouseOnButton(MouseEvent event)
+  public void mouseOver(MouseEvent event)
   {
     hideCropLabels();
 
@@ -527,12 +563,51 @@ public class GuiController
     {
       specialLabel.setVisible(true);
     }
+    else if(event.getSource() == closeWindow || event.getSource() == closeWindow2 ||
+        event.getSource() == closeWindow3 ||
+        event.getSource() == closeWindow4 ||
+        event.getSource() == closeWindow5 ||
+        event.getSource() == closeWindow6 ||
+        event.getSource() == closeWindow7 ||
+        event.getSource() == closeWindow8 ||
+        event.getSource() == closeWindow9 ||
+        event.getSource() == closeWindow10 ||
+        event.getSource() == closeWindow11 ||
+        event.getSource() == closeWindow12 )
+    {
+      changeTextColor(Color.BLUE);
+
+    }
 
   }
+
   @FXML
-  public void mouseExitedButton()
+  private void vote(MouseEvent event)
+  {
+
+  }
+
+  private void changeTextColor(Color color)
+  {
+    close.setTextFill(color);
+    close2.setTextFill(color);
+    close3.setTextFill(color);
+    close4.setTextFill(color);
+    close5.setTextFill(color);
+    close6.setTextFill(color);
+    close7.setTextFill(color);
+    close8.setTextFill(color);
+    close9.setTextFill(color);
+    close10.setTextFill(color);
+    close11.setTextFill(color);
+    close12.setTextFill(color);
+  }
+
+  @FXML
+  public void mouseExit()
   {
     hideCropLabels();
+    changeTextColor(Color.BLACK);
   }
 
   @FXML
