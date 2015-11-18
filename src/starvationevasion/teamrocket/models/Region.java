@@ -1,6 +1,10 @@
 package starvationevasion.teamrocket.models;
 
+import com.google.common.collect.Iterables;
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
+
+import java.util.ArrayList;
 
 /**
  * Created by scnaegl on 11/14/15.
@@ -16,6 +20,8 @@ public class Region
    */
 
   private Player player;
+
+  private ArrayList<ArrayList<Double>> farm_stats = new ArrayList<>();
 
   private double citrusYield;
   private double fruitYield;
@@ -42,6 +48,7 @@ public class Region
   {
     this.ENUM_REGION = enumRegion;
 
+    farm_stats.get(EnumFood.CITRUS.ordinal()).add(3.45);
     //This is where a regions starting crops are determined.
     //This might be replaced with something from the simulator or possibly server. But I figure a switch statement is
     // fine for now.
@@ -146,7 +153,7 @@ public class Region
 
   public double getCitrusYield()
   {
-    return citrusYield;
+    return Iterables.getLast(farm_stats.get(EnumFood.CITRUS.ordinal()));
   }
 
   public double getFruitYield()
