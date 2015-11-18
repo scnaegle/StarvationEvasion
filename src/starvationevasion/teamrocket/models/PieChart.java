@@ -19,17 +19,30 @@ public class PieChart extends ApplicationFrame
 {
   private Region region;
 
-  public PieChart(String title, Region region)
+  public PieChart(String title)
   {
     super(title);
-    this.region = region;
-    setContentPane(createRootPane());
+    setContentPane(createDemoPanel());
   }
 
   private static PieDataset createDataset()
   {
     DefaultPieDataset dataset = new DefaultPieDataset();
-    dataset.setValue(EnumFood.CITRUS.name(), new Double(20));
+    dataset.setValue(EnumFood.CITRUS.name(), new Double(1));
+    dataset.setValue(EnumFood.FRUIT.name(), new Double(1));
+    dataset.setValue(EnumFood.FEED.name(), new Double(1));
+    dataset.setValue(EnumFood.DAIRY.name(), new Double(1));
+    dataset.setValue(EnumFood.GRAIN.name(), new Double(1));
+    dataset.setValue(EnumFood.FISH.name(), new Double(1));
+    dataset.setValue(EnumFood.MEAT.name(), new Double(1));
+    dataset.setValue(EnumFood.SPECIAL.name(), new Double(1));
+    dataset.setValue(EnumFood.VEGGIES.name(), new Double(1));
+    dataset.setValue(EnumFood.NUT.name(), new Double(1));
+    dataset.setValue(EnumFood.OIL.name(), new Double(1));
+    dataset.setValue(EnumFood.POULTRY.name(), new Double(89));
+
+
+
     return dataset;
   }
 
@@ -49,7 +62,7 @@ public class PieChart extends ApplicationFrame
 
   public static void main( String[ ] args )
   {
-    PieChart demo = new PieChart( "Crop Yeild", new Region(EnumRegion.CALIFORNIA));
+    PieChart demo = new PieChart( "Crop Yeild" );
     demo.setSize( 560 , 367 );
     RefineryUtilities.centerFrameOnScreen(demo);
     demo.setVisible( true );
