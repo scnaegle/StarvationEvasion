@@ -3,7 +3,6 @@ package starvationevasion.teamrocket.gui;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -45,6 +44,65 @@ public class GuiController
   private Button veggieButton;
   @FXML
   private Button specialButton;
+
+  @FXML
+  private Button caliCard1;
+  @FXML
+  private Button caliCard2;
+  @FXML
+  private Button mountCard1;
+  @FXML
+  private Button mountCard2;
+  @FXML
+  private Button nPlainCard1;
+  @FXML
+  private Button nPlainCard2;
+  @FXML
+  private Button sPlainCard1;
+  @FXML
+  private Button sPlainCard2;
+  @FXML
+  private Button heartCard1;
+  @FXML
+  private Button heartCard2;
+  @FXML
+  private Button neCard1;
+  @FXML
+  private Button neCard2;
+  @FXML
+  private Button seCard1;
+  @FXML
+  private Button seCard2;
+
+  @FXML
+  private Button subVote;
+  @FXML
+  private Pane caliCardPane1;
+
+  @FXML
+  private Button support;
+  @FXML
+  private Button oppose;
+  @FXML
+  private Button abstain;
+
+  @FXML
+  private Label sVotes;
+  @FXML
+  private Label oVotes;
+  @FXML
+  private Label aVotes;
+
+  @FXML
+  private Label sLabel;
+  @FXML
+  private Label oLabel;
+  @FXML
+  private Label aLabel;
+
+  private int caliSupportVotes1;
+  private int caliOpposeVotes1;
+  private int caliAbstainVotes1;
 
   @FXML
   private Pane appleWindow;
@@ -276,7 +334,7 @@ public class GuiController
       try
       {
         this.player = Main.gameController.startNewGame(this.playerRegion);
-        highlightMyRegion(myRegion);
+        //highlightMyRegion(myRegion);
       }
       catch (Exception e)
       {
@@ -324,6 +382,15 @@ public class GuiController
         button == closeWindow12 )
     {
       closeProduceWindows();
+    }
+    else if(button == caliCard1)
+    {
+      caliCardPane1.setVisible(true);
+    }
+    else if(button == subVote)
+    {
+      caliCardPane1.setVisible(false);
+      //Do other stuff?
     }
     else if (button == drawCardButton)
     {
@@ -511,7 +578,7 @@ public class GuiController
   }
 
   @FXML
-  public void mouseOver(MouseEvent event)
+  public void mouseOverProduce(MouseEvent event)
   {
     hideCropLabels();
 
@@ -580,11 +647,44 @@ public class GuiController
     }
 
   }
+  @FXML
+  private void vote(ActionEvent event)
+  {
+    Button button = (Button)event.getSource();
+
+    if(button == support)
+    {
+      caliSupportVotes1++;
+      sVotes.setText("" + caliSupportVotes1);
+    }
+    else if(button == oppose)
+    {
+      caliOpposeVotes1++;
+      oVotes.setText("" + caliOpposeVotes1);
+    }
+    else if(button == abstain)
+    {
+      caliAbstainVotes1++;
+      aVotes.setText("" + caliAbstainVotes1);
+    }
+
+  }
 
   @FXML
-  private void vote(MouseEvent event)
+  public void mouseOverCards(MouseEvent event)
   {
-
+    if(event.getSource() == support)
+    {
+      sLabel.setVisible(true);
+    }
+    else if(event.getSource() == oppose)
+    {
+      oLabel.setVisible(true);
+    }
+    else if(event.getSource() == abstain)
+    {
+     aLabel.setVisible(true);
+    }
   }
 
   private void changeTextColor(Color color)
@@ -608,6 +708,13 @@ public class GuiController
   {
     hideCropLabels();
     changeTextColor(Color.BLACK);
+  }
+
+  private void hideVoteLabels()
+  {
+    sLabel.setVisible(false);
+    oLabel.setVisible(false);
+    aLabel.setVisible(false);
   }
 
   @FXML
