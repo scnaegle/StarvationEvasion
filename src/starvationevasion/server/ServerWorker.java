@@ -82,8 +82,17 @@ public class ServerWorker extends Thread
 
       }
       // player ready (sends cards played)
+      if (msg.toLowerCase().startsWith("ready:")) {
+
+      }
       // player vote selection
+      if (msg.toLowerCase().startsWith("vote:")) {
+
+      }
       // chat message
+      if (msg.toLowerCase().startsWith("chat:")) {
+
+      }
 
 //      if (message.toLowerCase().startsWith("buy:") || message.toLowerCase().startsWith("sell:")) {
 //        try {
