@@ -1,6 +1,10 @@
 package starvationevasion.teamrocket.models;
 
+import com.google.common.collect.Iterables;
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
+
+import java.util.ArrayList;
 
 /**
  * Created by scnaegl on 11/14/15.
@@ -16,9 +20,8 @@ public class Region
   /**
    * we need to make the stats for this region.
    */
-  private Player player;
 
-//  deck = new Deck();
+  private Player player;
 
   private double citrusYield;
   private double fruitYield;
@@ -32,10 +35,8 @@ public class Region
   private double poultryYield;
   private double dairyYield;
 
-  private double wealth;
-      //wealth of the player and there country (a way of measuring score)
-  private double happiness;
-      // happiness of the people in the region (a way of measuring
+  private double wealth; //wealth of the player and there country (a way of measuring score)
+  private double happiness; // happiness of the people in the region (a way of measuring
   // score)
 
   /**
@@ -47,7 +48,9 @@ public class Region
   public Region(EnumRegion enumRegion)
   {
     this.ENUM_REGION = enumRegion;
-    deck = new Deck(this);
+        deck = new Deck(this);
+
+    farm_stats.get(EnumFood.CITRUS.ordinal()).add(3.45);
     //This is where a regions starting crops are determined.
     //This might be replaced with something from the simulator or possibly
     // server. But I figure a switch statement is
@@ -151,7 +154,7 @@ public class Region
 
   public double getCitrusYield()
   {
-    return citrusYield;
+    return Iterables.getLast(farm_stats.get(EnumFood.CITRUS.ordinal()));
   }
 
   public double getFruitYield()
