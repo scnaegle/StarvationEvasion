@@ -44,6 +44,9 @@ public class Region
     this.ENUM_REGION = enumRegion;
     deck = new Deck(this);
 
+    for(int i = 0; i < EnumFood.SIZE; i++) {
+      farmStats.add(new ArrayList<Double>());
+    }
     // This is where a regions starting crops are determined.
     // This might be replaced with something from the simulator or possibly
     // server. But I figure a switch statement is
