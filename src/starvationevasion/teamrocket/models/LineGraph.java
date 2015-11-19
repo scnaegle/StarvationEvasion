@@ -9,6 +9,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
+import starvationevasion.common.EnumRegion;
 
 
 import javax.swing.*;
@@ -20,6 +21,12 @@ import java.awt.*;
  */
 public class LineGraph extends ApplicationFrame
 {
+  /**
+   * This makes the Line Graph
+   *
+   * @param title Adds the title to the GUI. This may be changed later.
+   * @param graphTitle This is the title to of the graph.
+   */
   public LineGraph(String title, String graphTitle)
   {
     super(title);
@@ -31,11 +38,31 @@ public class LineGraph extends ApplicationFrame
     setContentPane(graphPanel);
   }
 
+  private DefaultCategoryDataset makeCropDataset(EnumRegion region)
+  {
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    if(region.name().equals("Citrus"))
+    {
+//      for ()
+      {
+
+      }
+    }
+    return dataset;
+
+  }
+
   private DefaultCategoryDataset createDataset()
   {
     DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    makeCropDataset(EnumRegion.CALIFORNIA);
+
     dataset.addValue(new Double(50), "Crop Output", "1980");
     dataset.addValue(new Double(30), "Crop Output", "1981");
+    dataset.addValue(new Double(22), "Money", "1980");
+    dataset.addValue(new Double(21), "Money", "1981");
     return dataset;
   }
 

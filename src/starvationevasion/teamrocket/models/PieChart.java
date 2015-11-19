@@ -8,6 +8,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 import starvationevasion.common.EnumFood;
+import starvationevasion.common.EnumRegion;
 
 import javax.swing.*;
 
@@ -18,27 +19,28 @@ public class PieChart extends ApplicationFrame
 {
   private Region region;
 
-  public PieChart(String title)
+  public PieChart(String title, Region region)
   {
     super(title);
+    this.region = region;
     setContentPane(createPanel());
   }
 
-  private static PieDataset createDataset()
+  private PieDataset createDataset()
   {
     DefaultPieDataset dataset = new DefaultPieDataset();
-    dataset.setValue(EnumFood.CITRUS.name(), new Double(1));
-    dataset.setValue(EnumFood.FRUIT.name(), new Double(1));
-    dataset.setValue(EnumFood.FEED.name(), new Double(1));
-    dataset.setValue(EnumFood.DAIRY.name(), new Double(1));
-    dataset.setValue(EnumFood.GRAIN.name(), new Double(1));
-    dataset.setValue(EnumFood.FISH.name(), new Double(1));
-    dataset.setValue(EnumFood.MEAT.name(), new Double(1));
-    dataset.setValue(EnumFood.SPECIAL.name(), new Double(1));
-    dataset.setValue(EnumFood.VEGGIES.name(), new Double(1));
-    dataset.setValue(EnumFood.NUT.name(), new Double(1));
-    dataset.setValue(EnumFood.OIL.name(), new Double(1));
-    dataset.setValue(EnumFood.POULTRY.name(), new Double(89));
+    dataset.setValue(EnumFood.CITRUS.name(), region.getCitrusYield());
+    dataset.setValue(EnumFood.FRUIT.name(), region.getFruitYield());
+    dataset.setValue(EnumFood.FEED.name(), region.getFeedYield());
+    dataset.setValue(EnumFood.DAIRY.name(), region.getDairyYield());
+    dataset.setValue(EnumFood.GRAIN.name(), region.getGrainYeild());
+    dataset.setValue(EnumFood.FISH.name(), region.getFishYield());
+    dataset.setValue(EnumFood.MEAT.name(), region.getMeatYield());
+    dataset.setValue(EnumFood.SPECIAL.name(), region.getSpecialYield());
+    dataset.setValue(EnumFood.VEGGIES.name(), region.getVeggieYield());
+    dataset.setValue(EnumFood.NUT.name(), region.getNutYield());
+    dataset.setValue(EnumFood.OIL.name(), region.getOilYield());
+    dataset.setValue(EnumFood.POULTRY.name(), region.getPoultryYield());
 
 
 
@@ -52,7 +54,7 @@ public class PieChart extends ApplicationFrame
     return chart;
   }
 
-  public static JPanel createPanel()
+  public JPanel createPanel()
   {
     JFreeChart chart = createPieChart(createDataset());
     return  new ChartPanel(chart);
@@ -61,7 +63,21 @@ public class PieChart extends ApplicationFrame
 
   public static void main( String[ ] args )
   {
-    PieChart demo = new PieChart( "Crop Yeild" );
+    Region region = new Region(EnumRegion.CALIFORNIA);
+//    region = new Region()
+    region.setCitrusYield(10);
+    region.setFruitYield(10);
+    region.setFishYield(10);
+    region.setDairyYield(10);
+    region.setMeatYield(10);
+    region.setPoultryYield(10);
+    region.setSpecialYield(10);
+    region.setOilYield(10);
+    region.setVeggieYield(10);
+    region.setNutYield(5);
+    region.setFeedYield(3);
+    region.setGrainYield(2);
+    PieChart demo = new PieChart( "Crop Yeild", region );
     demo.setSize( 560 , 367 );
     RefineryUtilities.centerFrameOnScreen(demo);
     demo.setVisible( true );

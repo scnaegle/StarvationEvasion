@@ -55,6 +55,9 @@ public class Region
     switch (enumRegion)
     {
       case CALIFORNIA:
+
+        break;
+
       case HEARTLAND:
       case NORTHERN_PLAINS:
       case SOUTHEAST:
@@ -62,17 +65,17 @@ public class Region
       case SOUTHERN_PLAINS:
       case MOUNTAIN:
       default:
-        setCitrusYield(0);
-        setFruitYield(0);
-        setFishYield(0);
-        setDairyYield(0);
-        setMeatYield(0);
-        setPoultryYield(0);
-        setSpecialYield(0);
-        setOilYield(0);
-        setVeggieYield(0);
-        setNutYield(0);
-        setFeedYield(0);
+        setCitrusYield(10);
+        setFruitYield(10);
+        setFishYield(10);
+        setDairyYield(10);
+        setMeatYield(10);
+        setPoultryYield(10);
+        setSpecialYield(10);
+        setOilYield(10);
+        setVeggieYield(10);
+        setNutYield(5);
+        setFeedYield(5);
     }
   }
 
@@ -202,6 +205,16 @@ public class Region
   }
 
   /**
+   * sets the dairy produced.
+   * @param grainYield The amount of Grain produced
+   */
+  public void setGrainYield(double grainYield)
+  {
+    farmStats.get(EnumFood.GRAIN.ordinal()).add(grainYield);
+  }
+
+
+  /**
    * Gets the citrus produced for the last turn.
    * @return citrus produced for the last turn.
    */
@@ -299,4 +312,15 @@ public class Region
   {
     return Iterables.getLast(farmStats.get(EnumFood.DAIRY.ordinal()));
   }
+
+
+  /**
+   * Gets the grain produced for the last turn
+   * @return Grain produced for the last turn
+   */
+  public double getGrainYeild()
+  {
+    return Iterables.getLast(farmStats.get(EnumFood.GRAIN.ordinal()));
+  }
+
 }
