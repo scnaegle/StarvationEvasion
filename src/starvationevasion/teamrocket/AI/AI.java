@@ -9,8 +9,12 @@ import java.util.Random;
 
 public class AI implements PlayerInterface
 {
+  /*AI info*/
   private EnumRegion region;
   private EnumAITypes level;
+  //TODO: need to handle money exchange for ai
+//TODO: needs to know the crops
+  /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
   private Random generator;
@@ -35,6 +39,7 @@ public class AI implements PlayerInterface
     for(int i = 0; i < NUM_US_REGIONS; i++)
     {
       PlayerRecord record = new PlayerRecord(EnumRegion.US_REGIONS[i]);
+      records[i] = record;
     }
   }
 
@@ -55,18 +60,13 @@ public class AI implements PlayerInterface
     return level.vote(records[cardPlayedRegion.ordinal()], generator);
   }
 
-  @Override//TODO: needs to be done in EnumAITypes
+  @Override//TODO: needs to be done in EnumAITypes, return card number to discard, will need hand
   public void discardCard(int cardNum) {
 
   }
 
   @Override
   public void drawCards(int numOfDraws) {
-
-  }
-
-  @Override
-  public void shuffleDeck() {
 
   }
 }

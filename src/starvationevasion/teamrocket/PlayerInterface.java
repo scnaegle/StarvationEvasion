@@ -53,9 +53,4 @@ public interface PlayerInterface
    */
   public void drawCards(int numOfDraws);
 
-  /**
-   * Player shuffles their deck
-   */
-  public void shuffleDeck();
-
 }
