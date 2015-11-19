@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.models.Deck;
 import starvationevasion.teamrocket.models.Player;
 
