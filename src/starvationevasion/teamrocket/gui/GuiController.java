@@ -18,6 +18,7 @@ import starvationevasion.teamrocket.models.Player;
 
 public class GuiController
 {
+  /* PRODUCE AND DRAWING A CARD BUTTONS */
   @FXML
   private Button drawCardButton;
   @FXML
@@ -45,6 +46,7 @@ public class GuiController
   @FXML
   private Button specialButton;
 
+  /* ALL PLAYING CARDS. 2 FOR EACH REGION */
   @FXML
   private Button caliCard1;
   @FXML
@@ -74,10 +76,11 @@ public class GuiController
   @FXML
   private Button seCard2;
 
+  /* CARD PANE WHEN CARD IS CLICKED ON. ALLOWS FOR VOTING */
   @FXML
-  private Button subVote;
+  private Button submitVote;
   @FXML
-  private Pane caliCardPane1;
+  private Pane CardPane;
 
   @FXML
   private Button support;
@@ -94,16 +97,70 @@ public class GuiController
   private Label aVotes;
 
   @FXML
-  private Label sLabel;
+  private Label supportLabel;
   @FXML
-  private Label oLabel;
+  private Label opposeLabel;
   @FXML
-  private Label aLabel;
+  private Label abstainLabel;
 
-  private int caliSupportVotes1;
-  private int caliOpposeVotes1;
-  private int caliAbstainVotes1;
+  /* VARIABLES TO KEEP TRACK OF USER'S VOTE FOR EACH CARD */
+  private int caliSupportVotes1 = 0;
+  private int caliOpposeVotes1 = 0;
+  private int caliAbstainVotes1 = 0;
 
+  private int caliSupportVotes2 = 0;
+  private int caliOpposeVotes2 = 0;
+  private int caliAbstainVotes2 = 0;
+
+  private int mountSupportVotes1 = 0;
+  private int mountOpposeVotes1 = 0;
+  private int mountAbstainVotes1 = 0;
+
+  private int mountSupportVotes2 = 0;
+  private int mountOpposeVotes2 = 0;
+  private int mountAbstainVotes2 = 0;
+
+  private int nPlainSupportVotes1 = 0;
+  private int nPlainOpposeVotes1 = 0;
+  private int nPlainAbstainVotes1 = 0;
+
+  private int nPlainSupportVotes2 = 0;
+  private int nPlainOpposeVotes2 = 0;
+  private int nPlainAbstainVotes2 = 0;
+
+  private int sPlainSupportVotes1 = 0;
+  private int sPlainOpposeVotes1 = 0;
+  private int sPlainAbstainVotes1 = 0;
+
+  private int sPlainSupportVotes2 = 0;
+  private int sPlainOpposeVotes2 = 0;
+  private int sPlainAbstainVotes2 = 0;
+
+  private int neSupportVotes1 = 0;
+  private int neOpposeVotes1 = 0;
+  private int neAbstainVotes1 = 0;
+
+  private int neSupportVotes2 = 0;
+  private int neOpposeVotes2 = 0;
+  private int neAbstainVotes2 = 0;
+
+  private int seSupportVotes1 = 0;
+  private int seOpposeVotes1 = 0;
+  private int seAbstainVotes1 = 0;
+
+  private int seSupportVotes2 = 0;
+  private int seOpposeVotes2 = 0;
+  private int seAbstainVotes2 = 0;
+
+  private int heartSupportVotes1 = 0;
+  private int heartOpposeVotes1 = 0;
+  private int heartAbstainVotes1 = 0;
+
+  private int heartSupportVotes2 = 0;
+  private int heartOpposeVotes2 = 0;
+  private int heartAbstainVotes2 = 0;
+
+  /* PRODUCE INFORMATION WINDOWS */
   @FXML
   private Pane appleWindow;
   @FXML
@@ -128,17 +185,6 @@ public class GuiController
   private Pane specialWindow;
   @FXML
   private Pane fishWindow;
-
-  @FXML
-  private Button pickedRegion;
-  @FXML
-  private Button ready;
-  @FXML
-  private Button undo;
-  @FXML
-  private Button doneWithCards;
-  @FXML
-  private Button doneVoting;
   @FXML
   private Button closeWindow;
   @FXML
@@ -187,6 +233,18 @@ public class GuiController
   private Label close11;
   @FXML
   private Label close12;
+
+  /* BEGINNING SCENES AND THEIR BUTTONS */
+  @FXML
+  private Button pickedRegion;
+  @FXML
+  private Button ready;
+  @FXML
+  private Button undo;
+  @FXML
+  private Button doneWithCards;
+  @FXML
+  private Button doneVoting;
 
   @FXML
   private RadioButton singlePlayer;
@@ -262,7 +320,6 @@ public class GuiController
   @FXML
   private Label specialLabel;
 
-  private Stage stage;
 
 
   private EnumRegion playerRegion;
@@ -278,10 +335,21 @@ public class GuiController
   private boolean southeastSelected;
   private boolean sPlainSelected;
 
-  private boolean[] regionSelected =
-      {caliSelected, heartlandSelected, mountainSelected, nPlainSelected, northeastSelected
-          , southeastSelected, sPlainSelected};
-  private Main main;
+
+  private boolean caliCard1Selected = false;
+  private boolean caliCard2Selected = false;
+  private boolean mountCard1Selected = false;
+  private boolean mountCard2Selected = false;
+  private boolean nPlainCard1Selected = false;
+  private boolean nPlainCard2Selected = false;
+  private boolean sPlainCard1Selected = false;
+  private boolean sPlainCard2Selected = false;
+  private boolean neCard1Selected = false;
+  private boolean neCard2Selected = false;
+  private boolean seCard1Selected = false;
+  private boolean seCard2Selected = false;
+  private boolean heartCard1Selected = false;
+  private boolean heartCard2Selected = false;
 
   @FXML
   public void chooseGamePlay(ActionEvent event)
@@ -385,12 +453,94 @@ public class GuiController
     }
     else if(button == caliCard1)
     {
-      caliCardPane1.setVisible(true);
+      caliCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(caliSupportVotes1, caliOpposeVotes1, caliAbstainVotes1);
     }
-    else if(button == subVote)
+    else if(button == caliCard2)
     {
-      caliCardPane1.setVisible(false);
-      //Do other stuff?
+      caliCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(caliSupportVotes2, caliOpposeVotes2, caliAbstainVotes2);
+    }
+    else if(button == mountCard1)
+    {
+      mountCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(mountSupportVotes1, mountOpposeVotes1, mountAbstainVotes1);
+    }
+    else if(button == mountCard2)
+    {
+      mountCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(mountSupportVotes2, mountOpposeVotes2, mountAbstainVotes2);
+    }
+    else if(button == nPlainCard1)
+    {
+      nPlainCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(nPlainSupportVotes1, nPlainOpposeVotes1, nPlainAbstainVotes1);
+    }
+    else if(button == nPlainCard2)
+    {
+      nPlainCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(nPlainSupportVotes2, nPlainOpposeVotes2, nPlainAbstainVotes2);
+    }
+    else if(button == sPlainCard1)
+    {
+      sPlainCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sPlainAbstainVotes1);
+    }
+    else if(button == sPlainCard2)
+    {
+      sPlainCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sPlainAbstainVotes2);
+    }
+    else if(button == neCard1)
+    {
+      neCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(neSupportVotes1, neOpposeVotes1, neAbstainVotes1);
+    }
+    else if(button == neCard2)
+    {
+      neCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(neSupportVotes2, neOpposeVotes2, neAbstainVotes2);
+    }
+    else if(button == seCard1)
+    {
+      seCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(seSupportVotes1, seOpposeVotes1, seAbstainVotes1);
+    }
+    else if(button == seCard2)
+    {
+      seCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(seSupportVotes2, seOpposeVotes2, seAbstainVotes2);
+    }
+    else if(button == heartCard1)
+    {
+      heartCard1Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(heartSupportVotes1, heartOpposeVotes1, heartAbstainVotes1);
+    }
+    else if(button == heartCard2)
+    {
+      heartCard2Selected = true;
+      CardPane.setVisible(true);
+      updateLabels(heartSupportVotes2, heartOpposeVotes2, heartAbstainVotes2);
+    }
+
+    else if(button == submitVote)
+    {
+      CardPane.setVisible(false);
+      deselectCards();
+      //update main labels
     }
     else if (button == drawCardButton)
     {
@@ -484,16 +634,16 @@ public class GuiController
     }
   }
 
-
-  private void handCursor()
+  private void updateLabels(int supportVotes, int opposeVotes, int abstainVotes)
   {
-    main.getCurrentStage().getScene().getRoot().setCursor(Cursor.HAND);
+    sVotes.setText("" + supportVotes);
+    oVotes.setText("" + opposeVotes);
+    aVotes.setText("" + abstainVotes);
+
   }
 
-  private void defaultCursor()
-  {
-    main.getCurrentStage().getScene().getRoot().setCursor(Cursor.DEFAULT);
-  }
+
+
 
   private void closeProduceWindows()
   {
@@ -526,7 +676,7 @@ public class GuiController
     return true;
   }
 
-  private void highlightMyRegion(EnumRegion myRegion)
+  public void highlightMyRegion(EnumRegion myRegion)
   {
     if(myRegion == EnumRegion.CALIFORNIA) cali.setVisible(true);
     else if(myRegion == EnumRegion.MOUNTAIN) mountSt.setVisible(true);
@@ -654,37 +804,412 @@ public class GuiController
 
     if(button == support)
     {
-      caliSupportVotes1++;
-      sVotes.setText("" + caliSupportVotes1);
+      if(caliCard1Selected)
+      {
+        caliSupportVotes1 = 1;
+        resetVotesAndLabels(caliAbstainVotes1, caliOpposeVotes1, aVotes, oVotes);
+        caliAbstainVotes1 = 0;
+        caliOpposeVotes1 = 0;
+        sVotes.setText("" + caliSupportVotes1);
+      }
+      else if(caliCard2Selected)
+      {
+        caliSupportVotes2 = 1;
+        resetVotesAndLabels(caliAbstainVotes2, caliOpposeVotes2, aVotes, oVotes);
+        caliAbstainVotes2 = 0;
+        caliOpposeVotes2 = 0;
+        sVotes.setText("" + caliSupportVotes2);
+      }
+      else if(mountCard1Selected)
+      {
+        mountSupportVotes1 = 1;
+        resetVotesAndLabels(mountAbstainVotes1, mountOpposeVotes1, aVotes, oVotes);
+        mountAbstainVotes1 = 0;
+        mountOpposeVotes1 = 0;
+        sVotes.setText("" + mountSupportVotes1);
+      }
+      else if(mountCard2Selected)
+      {
+        mountSupportVotes2 = 1;
+        resetVotesAndLabels(mountAbstainVotes2, mountOpposeVotes2, aVotes, oVotes);
+        mountAbstainVotes2 = 0;
+        mountOpposeVotes2 = 0;
+        sVotes.setText("" + mountSupportVotes2);
+      }
+      else if(nPlainCard1Selected)
+      {
+        nPlainSupportVotes1 = 1;
+        resetVotesAndLabels(nPlainAbstainVotes1, nPlainOpposeVotes1, aVotes, oVotes);
+        nPlainAbstainVotes1 = 0;
+        nPlainOpposeVotes1 = 0;
+        sVotes.setText("" + nPlainSupportVotes1);
+      }
+      else if(nPlainCard2Selected)
+      {
+        nPlainSupportVotes2 = 1;
+        resetVotesAndLabels(nPlainAbstainVotes2, nPlainOpposeVotes2, aVotes, oVotes);
+        nPlainAbstainVotes2 = 0;
+        nPlainOpposeVotes2 = 0;
+        sVotes.setText("" + nPlainSupportVotes2);
+      }
+      else if(sPlainCard1Selected)
+      {
+        sPlainSupportVotes1 = 1;
+        resetVotesAndLabels(sPlainAbstainVotes1, sPlainOpposeVotes1, aVotes, oVotes);
+        sPlainAbstainVotes1 = 0;
+        sPlainOpposeVotes1 = 0;
+        sVotes.setText("" + sPlainSupportVotes1);
+      }
+      else if(sPlainCard2Selected)
+      {
+        sPlainSupportVotes2 = 1;
+        resetVotesAndLabels(sPlainAbstainVotes2, sPlainOpposeVotes2, aVotes, oVotes);
+        sPlainAbstainVotes2 = 0;
+        sPlainOpposeVotes2 = 0;
+        sVotes.setText("" + sPlainSupportVotes2);
+      }
+      else if(neCard1Selected)
+      {
+        neSupportVotes1 = 1;
+        resetVotesAndLabels(neAbstainVotes1, neOpposeVotes1, aVotes, oVotes);
+        neAbstainVotes1 = 0;
+        neOpposeVotes1 = 0;
+        sVotes.setText("" + neSupportVotes1);
+      }
+      else if(neCard2Selected)
+      {
+        neSupportVotes2 = 1;
+        resetVotesAndLabels(neAbstainVotes2, neOpposeVotes2, aVotes, oVotes);
+        neAbstainVotes2 = 0;
+        neOpposeVotes2 = 0;
+        sVotes.setText("" + neSupportVotes2);
+      }
+      else if(seCard1Selected)
+      {
+        seSupportVotes1 = 1;
+        resetVotesAndLabels(seAbstainVotes1, seOpposeVotes1, aVotes, oVotes);
+        seAbstainVotes1 = 0;
+        seOpposeVotes1 = 0;
+        sVotes.setText("" + seSupportVotes1);
+      }
+      else if(seCard2Selected)
+      {
+        seSupportVotes2 = 1;
+        resetVotesAndLabels(seAbstainVotes2, seOpposeVotes2, aVotes, oVotes);
+        seAbstainVotes2 = 0;
+        seOpposeVotes2 = 0;
+        sVotes.setText("" + seSupportVotes2);
+      }
+      else if(heartCard1Selected)
+      {
+        heartSupportVotes1 = 1;
+        resetVotesAndLabels(heartAbstainVotes1, heartOpposeVotes1, aVotes, oVotes);
+        heartAbstainVotes1 = 0;
+        heartOpposeVotes1 = 0;
+        sVotes.setText("" + heartSupportVotes1);}
+      else if(heartCard2Selected)
+      {
+        heartSupportVotes2 = 1;
+        resetVotesAndLabels(heartAbstainVotes2, heartOpposeVotes2, aVotes, oVotes);
+        heartAbstainVotes2 = 0;
+        heartOpposeVotes2 = 0;
+        sVotes.setText("" + heartSupportVotes2);
+      }
     }
     else if(button == oppose)
     {
-      caliOpposeVotes1++;
-      oVotes.setText("" + caliOpposeVotes1);
+      if(caliCard1Selected)
+      {
+        caliOpposeVotes1 = 1;
+        resetVotesAndLabels(caliSupportVotes1, caliAbstainVotes1, sVotes, aVotes);
+        caliSupportVotes1 = 0;
+        caliAbstainVotes1 = 0;
+        oVotes.setText("" + caliOpposeVotes1);
+      }
+      else if(caliCard2Selected)
+      {
+        caliOpposeVotes2 = 1;
+        resetVotesAndLabels(caliSupportVotes2, caliAbstainVotes2, sVotes, aVotes);
+        caliSupportVotes2 = 0;
+        caliAbstainVotes2 = 0;
+        oVotes.setText("" + caliOpposeVotes2);
+      }
+      else if(mountCard1Selected)
+      {
+        mountOpposeVotes1 = 1;
+        resetVotesAndLabels(mountSupportVotes1, mountAbstainVotes1, sVotes, aVotes);
+        mountSupportVotes1 = 0;
+        mountAbstainVotes1 = 0;
+        oVotes.setText("" + mountOpposeVotes1);
+      }
+      else if(mountCard2Selected)
+      {
+        mountOpposeVotes2 = 1;
+        resetVotesAndLabels(mountSupportVotes2, mountAbstainVotes2, sVotes, aVotes);
+        mountSupportVotes2 = 0;
+        mountAbstainVotes2 = 0;
+        oVotes.setText("" + mountOpposeVotes2);
+      }
+      else if(nPlainCard1Selected)
+      {
+        nPlainOpposeVotes1 = 1;
+        resetVotesAndLabels(nPlainSupportVotes1, nPlainAbstainVotes1, sVotes, aVotes);
+        nPlainSupportVotes1 = 0;
+        nPlainAbstainVotes1 = 0;
+        oVotes.setText("" + nPlainOpposeVotes1);
+      }
+      else if(nPlainCard2Selected)
+      {
+        nPlainOpposeVotes2 = 1;
+        resetVotesAndLabels(nPlainSupportVotes2, nPlainAbstainVotes2, sVotes, aVotes);
+        nPlainSupportVotes2 = 0;
+        nPlainAbstainVotes2 = 0;
+        oVotes.setText("" + nPlainOpposeVotes2);
+      }
+      else if(sPlainCard1Selected)
+      {
+        sPlainOpposeVotes1 = 1;
+        resetVotesAndLabels(sPlainSupportVotes1, sPlainAbstainVotes1, sVotes, aVotes);
+        sPlainSupportVotes1 = 0;
+        sPlainAbstainVotes1 = 0;
+        oVotes.setText("" + sPlainOpposeVotes1);
+      }
+      else if(sPlainCard2Selected)
+      {
+        sPlainOpposeVotes2 = 1;
+        resetVotesAndLabels(sPlainSupportVotes2, sPlainAbstainVotes2, sVotes, aVotes);
+        sPlainSupportVotes2 = 0;
+        sPlainAbstainVotes2 = 0;
+        oVotes.setText("" + sPlainOpposeVotes2);
+      }
+      else if(neCard1Selected)
+      {
+        neOpposeVotes1 = 1;
+        resetVotesAndLabels(neSupportVotes1, neAbstainVotes1, sVotes, aVotes);
+        neSupportVotes1 = 0;
+        neAbstainVotes1 = 0;
+        oVotes.setText("" + neOpposeVotes1);
+      }
+      else if(neCard2Selected)
+      {
+        neOpposeVotes1 = 1;
+        resetVotesAndLabels(neSupportVotes1, neAbstainVotes1, sVotes, aVotes);
+        neSupportVotes1 = 0;
+        neAbstainVotes1 = 0;
+        oVotes.setText("" + neOpposeVotes1);
+      }
+      else if(seCard1Selected)
+      {
+        seOpposeVotes1 = 1;
+        resetVotesAndLabels(seSupportVotes1, seAbstainVotes1, sVotes, aVotes);
+        seSupportVotes1 = 0;
+        seAbstainVotes1 = 0;
+        oVotes.setText("" + seOpposeVotes1);
+      }
+      else if(seCard2Selected)
+      {
+        seOpposeVotes2 = 1;
+        resetVotesAndLabels(seSupportVotes2, seAbstainVotes2, sVotes, aVotes);
+        seSupportVotes2 = 0;
+        seAbstainVotes2 = 0;
+        oVotes.setText("" + seOpposeVotes2);
+      }
+      else if(heartCard1Selected)
+      {
+        heartOpposeVotes1 = 1;
+        resetVotesAndLabels(heartSupportVotes1, heartAbstainVotes1, sVotes, aVotes);
+        heartSupportVotes1 = 0;
+        heartAbstainVotes1 = 0;
+        oVotes.setText("" + heartOpposeVotes1);
+      }
+      else if(heartCard2Selected)
+      {
+        heartOpposeVotes2 = 1;
+        resetVotesAndLabels(heartSupportVotes2, heartAbstainVotes2, sVotes, aVotes);
+        heartSupportVotes2 = 0;
+        heartAbstainVotes2 = 0;
+        oVotes.setText("" + heartOpposeVotes2);
+      }
     }
     else if(button == abstain)
     {
-      caliAbstainVotes1++;
-      aVotes.setText("" + caliAbstainVotes1);
+      if(caliCard1Selected)
+      {
+        caliAbstainVotes1 = 1;
+        resetVotesAndLabels(caliSupportVotes1, caliOpposeVotes1, sVotes, oVotes);
+        caliSupportVotes1 = 0;
+        caliOpposeVotes1 = 0;
+        aVotes.setText("" + caliAbstainVotes1);
+      }
+      else if(caliCard2Selected)
+      {
+        caliAbstainVotes2 = 1;
+        resetVotesAndLabels(caliSupportVotes2, caliOpposeVotes2, sVotes, oVotes);
+        caliSupportVotes2 = 0;
+        caliOpposeVotes2 = 0;
+        aVotes.setText("" + caliAbstainVotes2);
+      }
+      else if(mountCard1Selected)
+      {
+        mountAbstainVotes1 = 1;
+        resetVotesAndLabels(mountSupportVotes1, mountOpposeVotes1, sVotes, oVotes);
+        mountSupportVotes1 = 0;
+        mountOpposeVotes1 = 0;
+        aVotes.setText("" + mountAbstainVotes1);
+      }
+      else if(mountCard2Selected)
+      {
+        mountAbstainVotes2 = 1;
+        resetVotesAndLabels(mountSupportVotes2, mountOpposeVotes2, sVotes, oVotes);
+        mountSupportVotes2 = 0;
+        mountOpposeVotes2 = 0;
+        aVotes.setText("" + mountAbstainVotes2);
+      }
+      else if(nPlainCard1Selected)
+      {
+        nPlainAbstainVotes1 = 1;
+        resetVotesAndLabels(nPlainSupportVotes1, nPlainOpposeVotes1, sVotes, oVotes);
+        nPlainSupportVotes1 = 0;
+        nPlainOpposeVotes1 = 0;
+        aVotes.setText("" + nPlainAbstainVotes1);
+      }
+      else if(nPlainCard2Selected)
+      {
+        nPlainAbstainVotes2 = 1;
+        resetVotesAndLabels(nPlainSupportVotes2, nPlainOpposeVotes2, sVotes, oVotes);
+        nPlainSupportVotes2 = 0;
+        nPlainOpposeVotes2 = 0;
+        aVotes.setText("" + nPlainAbstainVotes2);
+      }
+      else if(sPlainCard1Selected)
+      {
+        sPlainAbstainVotes1 = 1;
+        resetVotesAndLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sVotes, oVotes);
+        sPlainSupportVotes1 = 0;
+        sPlainOpposeVotes1 = 0;
+        aVotes.setText("" + sPlainAbstainVotes1);
+      }
+      else if(sPlainCard2Selected)
+      {
+        sPlainAbstainVotes2 = 1;
+        resetVotesAndLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sVotes, oVotes);
+        sPlainSupportVotes2 = 0;
+        sPlainOpposeVotes2 = 0;
+        aVotes.setText("" + sPlainAbstainVotes2);
+      }
+      else if(neCard1Selected)
+      {
+        neAbstainVotes1 = 1;
+        resetVotesAndLabels(neSupportVotes1, neOpposeVotes1, sVotes, oVotes);
+        neSupportVotes1 = 0;
+        neOpposeVotes1 = 0;
+        aVotes.setText("" + neAbstainVotes1);
+      }
+      else if(neCard2Selected)
+      {
+        neAbstainVotes2 = 1;
+        resetVotesAndLabels(neSupportVotes2, neOpposeVotes2, sVotes, oVotes);
+        neSupportVotes2 = 0;
+        neOpposeVotes2 = 0;
+        aVotes.setText("" + neAbstainVotes2);
+      }
+      else if(seCard1Selected)
+      {
+        seAbstainVotes1 = 1;
+        resetVotesAndLabels(seSupportVotes1, seOpposeVotes1, sVotes, oVotes);
+        seSupportVotes1 = 0;
+        seOpposeVotes1 = 0;
+        aVotes.setText("" + seAbstainVotes1);
+      }
+      else if(seCard2Selected)
+      {
+        seAbstainVotes2 = 1;
+        resetVotesAndLabels(seSupportVotes2, seOpposeVotes2, sVotes, oVotes);
+        seSupportVotes2 = 0;
+        seOpposeVotes2 = 0;
+        aVotes.setText("" + seAbstainVotes2);
+      }
+      else if(heartCard1Selected)
+      {
+        heartAbstainVotes1 = 1;
+        resetVotesAndLabels(heartSupportVotes1, heartOpposeVotes1, sVotes, oVotes);
+        heartSupportVotes1 = 0;
+        heartOpposeVotes1 = 0;
+        aVotes.setText("" + heartAbstainVotes1);
+      }
+      else if(heartCard2Selected)
+      {
+        heartAbstainVotes2 = 1;
+        resetVotesAndLabels(heartSupportVotes2, heartOpposeVotes2, sVotes, oVotes);
+        heartSupportVotes2 = 0;
+        heartOpposeVotes2 = 0;
+        aVotes.setText("" + heartAbstainVotes2);
+      }
     }
+//    System.out.println("support 1 = "+caliSupportVotes1);
+//    System.out.println("oppose 1 = "+caliOpposeVotes1);
+//    System.out.println("abstain 1 = "+caliAbstainVotes1);
+//    System.out.println("*********************************");
+//    System.out.println("support 2 = "+caliSupportVotes2);
+//    System.out.println("oppose 2 = "+caliOpposeVotes2);
+//    System.out.println("abstain 2 = "+caliAbstainVotes2);
+//    System.out.println("*********************************");
+
+
+  }
+
+
+  private void deselectCards()
+  {
+    caliCard1Selected = false;
+    caliCard2Selected = false;
+    mountCard1Selected = false;
+    mountCard2Selected = false;
+    nPlainCard1Selected = false;
+    nPlainCard2Selected = false;
+    sPlainCard1Selected = false;
+    sPlainCard2Selected = false;
+    neCard1Selected = false;
+    neCard2Selected = false;
+    seCard1Selected = false;
+    seCard2Selected = false;
+    heartCard1Selected = false;
+    heartCard2Selected = false;
+  }
+
+  private void resetVotesAndLabels(int reset1, int reset2, Label text1, Label text2)
+  {
+    reset1 = 0;
+    reset2 = 0;
+
+    text1.setText(""+reset1);
+    text2.setText(""+reset2);
 
   }
 
   @FXML
-  public void mouseOverCards(MouseEvent event)
+  public void mouseOverVote(MouseEvent event)
   {
     if(event.getSource() == support)
     {
-      sLabel.setVisible(true);
+      supportLabel.setVisible(true);
     }
     else if(event.getSource() == oppose)
     {
-      oLabel.setVisible(true);
+      opposeLabel.setVisible(true);
     }
     else if(event.getSource() == abstain)
     {
-     aLabel.setVisible(true);
+     abstainLabel.setVisible(true);
     }
+  }
+
+  @FXML
+  public void mouseExitVote()
+  {
+    supportLabel.setVisible(false);
+    opposeLabel.setVisible(false);
+    abstainLabel.setVisible(false);
   }
 
   private void changeTextColor(Color color)
@@ -712,9 +1237,9 @@ public class GuiController
 
   private void hideVoteLabels()
   {
-    sLabel.setVisible(false);
-    oLabel.setVisible(false);
-    aLabel.setVisible(false);
+    supportLabel.setVisible(false);
+    opposeLabel.setVisible(false);
+    abstainLabel.setVisible(false);
   }
 
   @FXML
