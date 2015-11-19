@@ -9,6 +9,10 @@ import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.models.Region;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 /**
  *
  */
@@ -19,14 +23,18 @@ public class CropChart
   {
     PieChart pieChart;
 //    pieChart = getPieChartData(region.getEnumRegion());
+    HashMap<EnumFood, Double> data = region.getLastCropData();
+
+    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+
+    for(EnumFood food : EnumFood.values())
+    {
+      dataList.add(new PieChart.Data(food.name(), data.get(food)));
+    }
     ObservableList<PieChart.Data> pieChartData =
-        FXCollections.observableArrayList(
-            new PieChart.Data("Grapefruit", 13),
-            new PieChart.Data("Oranges", 25),
-            new PieChart.Data("Plums", 10),
-            new PieChart.Data("Pears", 22),
-            new PieChart.Data("Apples", 30));
+        FXCollections.observableArrayList(dataList);
     PieChart chart = new PieChart(pieChartData);
+//    chart.
     chart.setTitle("Crops");
     chart.setLegendSide(Side.RIGHT);
     return chart;

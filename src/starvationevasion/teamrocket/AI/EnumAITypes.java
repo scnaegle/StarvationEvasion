@@ -1,7 +1,5 @@
 package starvationevasion.teamrocket.AI;
 
-import starvationevasion.teamrocket.models.Card;
-
 import java.util.Random;
 
 /**
@@ -10,28 +8,55 @@ import java.util.Random;
  */
 public enum EnumAITypes
 {
+  /**
+   * DUMB level of AI
+   * Randomly chooses a vote
+   * Discard will favor voting cards
+   * Will try to avoid playing voting cards if possible
+   */
   DUMB
     {
       @Override
       public int vote(PlayerRecord record, Random generator)
       {
-        return generator.nextInt(3);
+        return generator.nextInt(3) - 1;
       }
     },
+
+  /**
+   * Average level of AI
+   * If player is cooperative, then 2/3 chance of AI to cooperate
+   * or 1/3 chance of AI to abstain, otherwise it will not cooperate
+   * Equal chance of playing voting or non voting cards
+   * Equal chance of discarding voting or non voting cards
+   */
   AVERAGE
     {
       @Override
       public int vote(PlayerRecord record, Random generator)
       {
-        return 0;
+        if(record.isPlayerCooperative())
+        {
+          if(generator.nextInt(3) != 2) return 1;
+          else return 0;
+        }
+        return -1;
       }
     },
+
+  /**
+   * Smart level of AI
+   * If player is cooperative, and pending vote card benefits AI's region
+   * then AI will cooperate, else if pending vote card doesn't benefit region
+   * then AI has 2/3 chance of cooperating, other wise AI will not cooperate
+   * with player that isn't cooperative
+   */
   SMART
     {
       @Override
       public int vote(PlayerRecord record, Random generator)
       {
-        return 0;
+        return -1;
       }
     };
 
