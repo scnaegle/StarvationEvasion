@@ -8,7 +8,6 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 import starvationevasion.common.EnumFood;
-import starvationevasion.common.EnumRegion;
 
 import javax.swing.*;
 
@@ -22,7 +21,7 @@ public class PieChart extends ApplicationFrame
   public PieChart(String title)
   {
     super(title);
-    setContentPane(createDemoPanel());
+    setContentPane(createPanel());
   }
 
   private static PieDataset createDataset()
@@ -46,16 +45,16 @@ public class PieChart extends ApplicationFrame
     return dataset;
   }
 
-  private static JFreeChart createChart(PieDataset dataset)
+  private static JFreeChart createPieChart(PieDataset dataset)
   {
     JFreeChart chart =
         ChartFactory.createPieChart("Crop Yield", dataset, true, true, false);
     return chart;
   }
 
-  public static JPanel createDemoPanel()
+  public static JPanel createPanel()
   {
-    JFreeChart chart = createChart(createDataset());
+    JFreeChart chart = createPieChart(createDataset());
     return  new ChartPanel(chart);
   }
 
