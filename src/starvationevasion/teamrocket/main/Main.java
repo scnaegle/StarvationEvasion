@@ -25,7 +25,7 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception{
     if(Main.gameController == null)
     {
-      this.gameController = new GameController(this);
+      gameController = new GameController(this);
     }
     this.primaryStage = primaryStage;
     welcomeScene = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
