@@ -28,14 +28,6 @@ public class Player
 //    deck = new Deck(this);
   }
 
-  /**
-   * Get the player's deck of cards
-   * @return Player's deck of cards
-   */
-  public Deck getDeck() {
-    return region.getDeck();
-  }
-
   public Region getRegion()
   {
     return region;
