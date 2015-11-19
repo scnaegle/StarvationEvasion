@@ -20,6 +20,10 @@ public class PieChartJavaFX /*extends Application*/
 //    stage.setWidth(500);
 //    stage.setHeight(500);
 //
+
+//    Data will include a String, and A double or int. Hopefully a double
+//    We will have to look at the documentation.
+
 //    Observable<PieChart.Data> pieChartData =
 //        FXCollections.observableArrayList(
 //            new PieChart.Data("Crop", 13),
