@@ -116,4 +116,9 @@ public class Region
     return latestData;
   }
 
+  public HashMap<EnumFood, Stack<Double>> getCropValues()
+  {
+    return new HashMap<>(cropValues);
+  }
+
 }
