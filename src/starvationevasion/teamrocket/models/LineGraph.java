@@ -13,12 +13,6 @@ public class LineGraph extends ApplicationFrame
   public LineGraph(String title)
   {
     super(title);
-    setContentPane(createPanel());
   }
-
-  public static JPanel createPanel()
-  {
-  }
-
 
 }
