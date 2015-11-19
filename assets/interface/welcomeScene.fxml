@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="welcomeScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<AnchorPane id="AnchorPane" fx:id="welcomeScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="213.0" layoutX="339.0" layoutY="339.0" opacity="0.66" stroke="BLACK" strokeType="INSIDE" width="294.0" />
     <Text layoutX="420.0" layoutY="127.0" scaleX="5.025121266958967" scaleY="6.28877241776266" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Starvation Evasion!" underline="false">

@@ -15,17 +15,21 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.9998779296875" prefWidth="-1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="-1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
     <Pane minWidth="1024.0" prefHeight="-1.0" prefWidth="1024.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
         <Pane layoutX="19.0" layoutY="22.0" prefHeight="244.0" prefWidth="247.00009999999747">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="787.9998779296875" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="760.0" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1024.0">
+              <fill>
+                <Color blue="1.000" green="0.976" red="0.800" fx:id="x7" />
+              </fill>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="262.0" layoutX="-5.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="266.0000999999975" />
             <Pane layoutX="0.0" layoutY="0.0" prefHeight="244.00009999999747" prefWidth="251.00009999999747" />
             <Button fx:id="drawCardButton" layoutX="-7.0" layoutY="372.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
-            <HBox fx:id="fruitPane" layoutX="0.0" layoutY="642.0" prefHeight="-1.0" prefWidth="986.9998779296875">
+            <HBox fx:id="fruitPane" layoutX="0.0" layoutY="635.0" prefHeight="-1.0" prefWidth="986.9998779296875">
               <children>
                 <StackPane prefHeight="109.0" prefWidth="85.0">
                   <children>
@@ -249,12 +253,18 @@
                 <Font name="Avenir Next Demi Bold Italic" size="22.0" />
               </font>
             </Label>
+            <Label alignment="CENTER" layoutX="322.0" layoutY="222.0" prefWidth="178.0" text="Cards drafted" />
+            <Pane layoutX="275.0" layoutY="244.0" prefHeight="101.999755859375" prefWidth="274.0">
+              <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="109.0" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
+              </children>
+            </Pane>
           </children>
         </Pane>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="216.0" prefWidth="485.049072265625">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99ffa9" height="258.0000915527344" layoutX="-19.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
-            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="233.0" layoutX="-6.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
+            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="233.0" layoutX="-6.0" layoutY="-11.0" opacity="0.82" stroke="BLACK" strokeType="INSIDE" width="497.0" />
             <Label layoutX="195.0" layoutY="-4.0" prefWidth="97.0" text="Your cards">
               <font>
                 <Font size="15.0" fx:id="x1" />
@@ -265,7 +275,7 @@
         <Pane fx:id="statisticsPane" layoutX="686.0" layoutY="388.0" prefHeight="224.0" prefWidth="274.0">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33e7ff" height="252.0" layoutX="-17.0" layoutY="-15.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="223.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="277.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="223.0" layoutX="0.0" layoutY="0.0" opacity="0.81" stroke="BLACK" strokeType="INSIDE" width="277.0" />
             <Label font="$x1" layoutX="99.0" layoutY="8.0" prefHeight="24.0" prefWidth="77.0" text="Statistics" />
           </children>
         </Pane>
@@ -274,11 +284,6 @@
             <Label fx:id="discardLabel" layoutX="12.0" layoutY="45.0" prefHeight="35.0" prefWidth="84.0" text="Discard Pile" />
           </children>
         </Pane>
-        <HBox fx:id="draftCardPane" blendMode="SRC_OVER" cache="false" depthTest="DISABLE" fillHeight="false" layoutX="291.0" layoutY="252.0" mouseTransparent="false" prefHeight="121.0" prefWidth="285.0">
-          <children>
-            <Label alignment="CENTER" prefWidth="277.0" text="Cards drafted" />
-          </children>
-        </HBox>
         <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
