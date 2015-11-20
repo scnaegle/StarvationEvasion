@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.teamrocket.models.Region;
 
 
 public class GuiController
@@ -323,6 +324,7 @@ public class GuiController
 
 
   private EnumRegion playerRegion;
+  private Pane statisticsPane;
 
   private Player player;
 
@@ -1309,7 +1311,9 @@ public class GuiController
     {
       cali.setVisible(true);
       caliLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.CALIFORNIA);
+      currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
+      //statisticsPane.getChildren().add(CropChart.makePieChart(new Region(playerRegion)));
+      //CropChart.makePieChart();
       System.out.println("Selected cali");
     }
     else if (ImageRegion.HEARTLAND.contains(x, y))

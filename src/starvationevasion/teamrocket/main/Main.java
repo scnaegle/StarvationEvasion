@@ -50,6 +50,7 @@ public class Main extends Application {
     }
     else if(scene == 3){
       primaryStage.setScene(cardDraft);
+
     }
     else if(scene == 4){
       primaryStage.setScene(voting);
