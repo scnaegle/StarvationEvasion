@@ -1,12 +1,17 @@
 package starvationevasion.teamrocket.main;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.teamrocket.AI.AI;
+import starvationevasion.teamrocket.AI.EnumAITypes;
+import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -14,6 +19,7 @@ import java.util.HashMap;
 public class GameController
 {
   private Player player;
+  private AI ai;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
 
@@ -37,7 +43,16 @@ public class GameController
   {
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region);
-
+    LinkedList<Card>hand = new LinkedList<>();
+    Card card1 = new Card(EnumPolicy.Clean_River_Incentive);
+    hand.add(card1);
+    for(int i = 0; i < 6; i++)
+    {
+      Card card2 = new Card(EnumPolicy.GMO_Seed_Insect_Resistance_Research);
+      hand.add(card2);
+    }
+    ai = new AI(EnumRegion.MIDDLE_AMERICA, EnumAITypes.DUMB, this, hand);
+    ai.discardCard(3);
     MAIN.switchScenes(3);
 
     return this.player;

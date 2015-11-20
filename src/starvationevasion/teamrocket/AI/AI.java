@@ -70,7 +70,8 @@ public class AI implements PlayerInterface
   @Override
   public void discardCard(int discardXNumCards)
   {
-    level.discardCards(discardXNumCards,hand,generator);
+    hand = level.discardCards(discardXNumCards,hand,generator);
+    System.out.println("Hand size: " + hand.size());
   }
 
   @Override
