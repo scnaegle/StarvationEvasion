@@ -259,6 +259,9 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="109.0" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
               </children>
             </Pane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a3ff" height="269.0" layoutX="659.0" layoutY="346.0" opacity="0.57" stroke="BLACK" strokeType="INSIDE" width="296.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="244.00010681152344" layoutX="671.0" layoutY="359.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="274.0" />
+            <BorderPane fx:id="statisticsPane" layoutX="663.0" layoutY="356.0" prefHeight="252.0001220703125" prefWidth="288.0" />
           </children>
         </Pane>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="216.0" prefWidth="485.049072265625">
@@ -270,13 +273,6 @@
                 <Font size="15.0" fx:id="x1" />
               </font>
             </Label>
-          </children>
-        </Pane>
-        <Pane fx:id="statisticsPane" layoutX="686.0" layoutY="388.0" prefHeight="224.0" prefWidth="274.0">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33e7ff" height="252.0" layoutX="-17.0" layoutY="-15.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="223.0" layoutX="0.0" layoutY="0.0" opacity="0.81" stroke="BLACK" strokeType="INSIDE" width="277.0" />
-            <Label font="$x1" layoutX="99.0" layoutY="8.0" prefHeight="24.0" prefWidth="77.0" text="Statistics" />
           </children>
         </Pane>
         <Pane fx:id="discard" layoutX="14.0" layoutY="518.0" prefHeight="121.0" prefWidth="101.0">

@@ -21,7 +21,7 @@ public class CropChart
 
   public static PieChart makePieChart(Region region)
   {
-    PieChart pieChart;
+    ;
 //    pieChart = getPieChartData(region.getEnumRegion());
     HashMap<EnumFood, Double> data = region.getLastCropData();
 
@@ -34,9 +34,10 @@ public class CropChart
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
     PieChart chart = new PieChart(pieChartData);
-//    chart.
+
     chart.setTitle("Crops");
-    chart.setLegendSide(Side.RIGHT);
+    chart.setLegendSide(Side.BOTTOM);
+    chart.setVisible(true);
     return chart;
   }
 
