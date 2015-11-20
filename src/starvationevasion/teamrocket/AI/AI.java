@@ -2,6 +2,7 @@ package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.PlayerInterface;
+import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Card;
 
 import java.util.Random;
@@ -18,9 +19,11 @@ public class AI implements PlayerInterface
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
   private Random generator;
+  private GameController controller;
 
-  public AI(EnumRegion controlledRegion, EnumAITypes aiLevel)
+  public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController)
   {
+    controller = gameController;
     region = controlledRegion;
     level = aiLevel;
     generator = new Random();
@@ -61,7 +64,7 @@ public class AI implements PlayerInterface
   }
 
   @Override//TODO: needs to be done in EnumAITypes, return card number to discard, will need hand
-  public void discardCard(int cardNum) {
+  public void discardCard(int discardXNumCards) {
 
   }
 

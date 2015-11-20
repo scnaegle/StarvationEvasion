@@ -42,9 +42,9 @@ public interface PlayerInterface
   /**
    * Player discards the card associated with
    * the given card number
-   * @param cardNum number of the card
+   * @param discardXNumCards discard x number of cards
    */
-  public void discardCard(int cardNum);
+  public void discardCard(int discardXNumCards);
 
   /**
    * Player draws up to the number of draws
