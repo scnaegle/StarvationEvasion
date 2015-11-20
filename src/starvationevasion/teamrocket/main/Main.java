@@ -1,13 +1,10 @@
 package starvationevasion.teamrocket.main;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import starvationevasion.teamrocket.gui.GuiController;
 
 public class Main extends Application {
   public static GameController gameController;
@@ -15,10 +12,8 @@ public class Main extends Application {
   Stage primaryStage;
   Parent welcomeScene;
   Parent chooseRegion;
-  Parent main1;
-  Scene cardDraft;
-  Parent main2;
-  Scene voting;
+  Parent cardDraft;
+  Parent voting;
 
 
   @Override
@@ -31,11 +26,8 @@ public class Main extends Application {
     welcomeScene = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
 
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
-    main1 = FXMLLoader.load(Main.class.getResource("/interface/main1.fxml"));
-    main2 = FXMLLoader.load(Main.class.getResource("/interface/main2.fxml"));
-
-    cardDraft = new Scene(main1);
-    voting = new Scene(main2);
+    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
+    voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
 
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(new Scene(welcomeScene));
@@ -49,11 +41,11 @@ public class Main extends Application {
       primaryStage.setScene(new Scene(chooseRegion));
     }
     else if(scene == 3){
-      primaryStage.setScene(cardDraft);
+      primaryStage.setScene(new Scene(cardDraft));
 
     }
     else if(scene == 4){
-      primaryStage.setScene(voting);
+      primaryStage.setScene(new Scene(voting));
     }
   }
   public Stage getCurrentStage()

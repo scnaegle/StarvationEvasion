@@ -1295,7 +1295,7 @@ public class GuiController
   }
 
   /**
-   * Method specifically for the smaller map inside of main1.fxml.
+   * Method specifically for the smaller map inside of cardDraft.fxml.
    *
    * @param event Mouse clicked event
    */
