@@ -1,16 +1,12 @@
 package starvationevasion.teamrocket.main;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.teamrocket.gui.GuiController;
-import starvationevasion.teamrocket.models.Deck;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.teamrocket.models.Region;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -19,16 +15,22 @@ public class GameController
 {
   private Player player;
   private final Main MAIN;
+  private HashMap<EnumRegion, Region> regions = new HashMap<>();
 
   GameController(Main main)
   {
     this.MAIN = main;
+    for (EnumRegion enumRegion : EnumRegion.values())
+    {
+      regions.put(enumRegion, new Region(enumRegion));
+    }
   }
 
 
   /**
    * Destroys any old games, starts a new game with selected region.
-    * @param region player's starting region
+   *
+   * @param region player's starting region
    * @return a copy of the new player for convenience.
    */
   public Player startNewGame(EnumRegion region)
@@ -48,6 +50,7 @@ public class GameController
 
   /**
    * Returns the current hand of cards for the player.
+   *
    * @return a Hand containing this client's hand.
    */
   public ArrayList<PolicyCard> getHand()
@@ -71,6 +74,11 @@ public class GameController
   public void finishedVoting()
   {
     MAIN.switchScenes(3);
+  }
+
+  public Region getRegion(EnumRegion enumRegion)
+  {
+    return regions.get(enumRegion);
   }
 
 }
