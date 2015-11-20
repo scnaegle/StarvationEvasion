@@ -1,5 +1,8 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.teamrocket.models.Card;
+
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -20,6 +23,11 @@ public enum EnumAITypes
       public int vote(PlayerRecord record, Random generator)
       {
         return generator.nextInt(3) - 1;
+      }
+
+      @Override
+      public void discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator) {
+
       }
     },
 
@@ -42,6 +50,11 @@ public enum EnumAITypes
         }
         return -1;
       }
+
+      @Override
+      public void discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator) {
+
+      }
     },
 
   /**
@@ -58,10 +71,16 @@ public enum EnumAITypes
       {
         return -1;
       }
+
+      @Override
+      public void discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator) {
+
+      }
     };
 
 
   public abstract int vote(PlayerRecord record, Random generator);
+  public abstract void discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator);
   //TODO: how to vote
   //TODO: how to play cards
   //TODO: how to discard cards

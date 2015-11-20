@@ -47,10 +47,8 @@ public interface PlayerInterface
   public void discardCard(int discardXNumCards);
 
   /**
-   * Player draws up to the number of draws
-   * allowed
-   * @param numOfDraws max number of cards player can draw
+   * Adds a single card to the player's hand
    */
-  public void drawCards(int numOfDraws);
+  public void addCard(Card card);
 
 }
