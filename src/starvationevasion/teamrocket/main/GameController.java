@@ -5,6 +5,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.AI.AI;
 import starvationevasion.teamrocket.AI.EnumAITypes;
+import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
@@ -22,6 +23,8 @@ public class GameController
   private AI ai;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
+  private EnumRegion myRegion;
+  private GuiController gui;
 
   GameController(Main main)
   {
@@ -42,6 +45,7 @@ public class GameController
   public Player startNewGame(EnumRegion region)
   {
     destroyGame(); //Destroy old game if exists.
+    myRegion = region;
     this.player = new Player(region);
     LinkedList<Card>hand = new LinkedList<>();
     Card card1 = new Card(EnumPolicy.Clean_River_Incentive);
@@ -94,6 +98,15 @@ public class GameController
   public Region getRegion(EnumRegion enumRegion)
   {
     return regions.get(enumRegion);
+  }
+
+  /**
+   * For GuiController use.
+   * @return saved region.
+   */
+  public EnumRegion getMyRegion()
+  {
+   return myRegion;
   }
 
 }

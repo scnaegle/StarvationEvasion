@@ -331,9 +331,10 @@ public class GuiController
   @FXML
   private Label specialLabel;
 
+  @FXML
+  private Label playerRegion;
 
-
-  private EnumRegion playerRegion;
+  private EnumRegion myRegion;
 
   @FXML
   private BorderPane statisticsPane;
@@ -407,21 +408,24 @@ public class GuiController
     }
     else if(button == pickedRegion)
     {
-      EnumRegion myRegion = saveRegion();
+      myRegion = saveRegion();
+      System.out.println("my region is now: " + myRegion);
       if(myRegion == null)
       {
         return;
       }
+
       //Go to next scene
       try
       {
-        this.player = Main.gameController.startNewGame(this.playerRegion);
-        //highlightMyRegion(myRegion);
+        this.player = Main.gameController.startNewGame(this.myRegion);
+
       }
       catch (Exception e)
       {
         e.printStackTrace();
       }
+
     }
     else if(button == doneWithCards)
     {
@@ -657,6 +661,13 @@ public class GuiController
   }
 
 
+  @FXML
+  public void showMyRegion()
+  {
+    highlightMyRegion(Main.gameController.getMyRegion());
+    playerRegion.setText("My Region: " + Main.gameController.getMyRegion());
+    currentRegion.setText("Current Region: "+Main.gameController.getMyRegion());
+  }
 
 
   private void closeProduceWindows()
@@ -699,6 +710,7 @@ public class GuiController
   private EnumRegion saveRegion()
   {
     nothingSelected.setVisible(false);
+    EnumRegion playerRegion;
 
     if(caliSelected)
     {
@@ -731,6 +743,7 @@ public class GuiController
     else
     {
       //show error label
+      playerRegion = null;
       nothingSelected.setVisible(true);
       //don't go to next stage until they select something
     }
@@ -1317,6 +1330,8 @@ public class GuiController
     double x = event.getX();
     double y = event.getY();
 
+    System.out.println("myRegion: " + Main.gameController.getMyRegion());
+
     makeAllInvisible();
 
     if (ImageRegion.CALIFORNIA.contains(x, y))
@@ -1535,9 +1550,5 @@ public class GuiController
     System.out.println(x + "," + y + ",");
   }
 
-  public EnumRegion getSelectedRegion()
-  {
-    return playerRegion;
-  }
 }
 

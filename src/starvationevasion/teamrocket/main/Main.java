@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import starvationevasion.teamrocket.gui.GuiController;
 
 public class Main extends Application {
   public static GameController gameController;
+  public GuiController gui;
 
   Stage primaryStage;
   Parent welcome;
@@ -54,7 +56,6 @@ public class Main extends Application {
     }
     else if(scene == 3){
       primaryStage.setScene(cardDraftScene);
-
     }
     else if(scene == 4){
       primaryStage.setScene(votingScene);
