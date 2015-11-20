@@ -10,10 +10,15 @@ public class Main extends Application {
   public static GameController gameController;
 
   Stage primaryStage;
-  Parent welcomeScene;
+  Parent welcome;
   Parent chooseRegion;
   Parent cardDraft;
   Parent voting;
+
+  Scene welcomeScene;
+  Scene regionScene;
+  Scene cardDraftScene;
+  Scene votingScene;
 
 
   @Override
@@ -23,29 +28,36 @@ public class Main extends Application {
       gameController = new GameController(this);
     }
     this.primaryStage = primaryStage;
-    welcomeScene = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
+    welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
 
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
     cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
 
+    welcomeScene = new Scene(welcome);
+    regionScene = new Scene(chooseRegion);
+    cardDraftScene = new Scene(cardDraft);
+    votingScene = new Scene(voting);
+
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(new Scene(welcomeScene));
+    primaryStage.setScene(welcomeScene);
     primaryStage.show();
+
+
   }
 
   void switchScenes(int scene)
   {
     if(scene == 2)
     {
-      primaryStage.setScene(new Scene(chooseRegion));
+      primaryStage.setScene(regionScene);
     }
     else if(scene == 3){
-      primaryStage.setScene(new Scene(cardDraft));
+      primaryStage.setScene(cardDraftScene);
 
     }
     else if(scene == 4){
-      primaryStage.setScene(new Scene(voting));
+      primaryStage.setScene(votingScene);
     }
   }
   public Stage getCurrentStage()
