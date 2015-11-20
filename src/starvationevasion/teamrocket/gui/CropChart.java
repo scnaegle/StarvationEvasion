@@ -49,7 +49,14 @@ public class CropChart
     return chart;
   }
 
-
+  /**
+   * Makes a line chart of the data from our crops and regions, which spans the entire
+   * turns
+   *
+   * @param region the region of the food
+   * @param food the type of food we are graphinf
+   * @return a line chart for being displayed.
+   */
   public static LineChart makeLineChart(Region region, EnumFood food)
   {
     final NumberAxis xAxis = new NumberAxis(1980,2055,3);
