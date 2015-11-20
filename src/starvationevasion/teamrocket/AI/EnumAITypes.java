@@ -26,8 +26,18 @@ public enum EnumAITypes
       }
 
       @Override
-      public void discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator) {
+      public void discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator)
+      {
+        int discardedCardCount = 0;
 
+        for(Card card : hand)
+        {
+          if(card.needsVotes() && discardedCardCount < discardXNumCards)
+          {
+            hand.remove(card);
+            discardedCardCount++;
+          }
+        }
       }
     },
 
