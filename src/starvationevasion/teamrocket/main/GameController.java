@@ -99,6 +99,10 @@ public class GameController
    return player.ENUM_REGION;
   }
 
+  /**
+   * Stores our login information for the server.
+   * @param login information of logins
+   */
   public void setLogin(Login login)
   {
 
