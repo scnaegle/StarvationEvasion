@@ -69,43 +69,6 @@ public class ServerWorker extends Thread
   private void read() {
 //    String msg = null;
     ServerEvent.parse(clientReader);
-//    try {
-//      msg = clientReader.readLine();
-//      startNanoSec = System.nanoTime();
-//      messageHandler(msg);
-
-//      if (message.toLowerCase().startsWith("buy:") || message.toLowerCase().startsWith("sell:")) {
-//        try {
-//          String[] parts = message.split(" ");
-//          if (parts.length < 3) {
-//            send("Error: Invalid message: " + message);
-//            return;
-//          }
-//          int quantity = Integer.parseInt(parts[1]);
-//          double unit_price = Double.parseDouble(parts[2]);
-//          // truncate to 2 decimal places.
-//          unit_price = (int)(unit_price * 100) / 100.0;
-//          if (parts[0].equalsIgnoreCase("buy:")) {
-////            server_master.thneed_store.buy(quantity, unit_price);
-//            send("Success: You just bought " + quantity + " Thneeds at $" + unit_price + " per Thneed.");
-//          } else if (parts[0].equalsIgnoreCase("sell:")) {
-////            server_master.thneed_store.sell(quantity, unit_price);
-//            send("Success: You just sold " + quantity + " Thneeds at $" + unit_price + " per Thneed.");
-//          }
-//          sendBroadcast();
-//        } catch (Exception e) {
-//          send("Error: " + e.getMessage());
-//        }
-//      } else if (message.toLowerCase().startsWith("inventory")) {
-//        send(storeInfoMessage());
-//      } else if (message.toLowerCase().startsWith("q")) {
-//        close();
-//      } else {
-//        send("Error: Unrecognized message: " + message);
-//      }
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
   }
 
 //  private void messageHandler(String msg) {

@@ -1,6 +1,7 @@
 package starvationevasion.common.messages;
 
 import starvationevasion.common.PolicyCard;
+import starvationevasion.server.Stopwatch;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -46,7 +47,7 @@ public enum ServerEvent {
         case START_GAME:
           return (T) (String)message.getPayload();
         case TIMER:
-          return (T) (Timer)message.getPayload();
+          return (T) (Stopwatch)message.getPayload();
         case SIM_STATS:
         case CARDS_CHOSEN:
           return (T) (ArrayList<PolicyCard>)message.getPayload();
@@ -67,12 +68,4 @@ public enum ServerEvent {
     }
   }
 
-  public static ServerEvent getServerEvent(String msg) throws IllegalArgumentException {
-    for(ServerEvent event : ServerEvent.values()) {
-      if (msg.startsWith(event.toString())) {
-        return event;
-      }
-    }
-    throw new IllegalArgumentException("Unknown message type: " + msg);
-  }
 }
