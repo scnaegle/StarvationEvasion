@@ -5,9 +5,7 @@ import starvationevasion.common.PolicyCard;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Timer;
 
 /**
@@ -16,11 +14,12 @@ import java.util.Timer;
 public enum ServerEvent {
   LOGIN,
   SELECT_REGION,
-  PLAY,
+  START_GAME,
   TIMER,
   SIM_STATS,
   CARDS_CHOSEN,
   READY,
+  GAME_STAGE,
   VOTE,
   DRAW,
   CHAT;
@@ -43,7 +42,7 @@ public enum ServerEvent {
           return (T) (Login)message.getPayload();
         case SELECT_REGION:
           return (T) (RegionChoice)message.getPayload();
-        case PLAY:
+        case START_GAME:
           return (T) (String)message.getPayload();
         case TIMER:
           return (T) (Timer)message.getPayload();
