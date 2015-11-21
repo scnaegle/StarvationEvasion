@@ -668,7 +668,7 @@ public class GuiController
   {
     highlightMyRegion(Main.gameController.getMyRegion());
     playerRegion.setText("My Region: " + Main.gameController.getMyRegion());
-    currentRegion.setText("Current Region: "+Main.gameController.getMyRegion());
+    currentRegion.setText("Current Region: " + Main.gameController.getMyRegion());
   }
 
 
@@ -705,13 +705,34 @@ public class GuiController
 
   public void highlightMyRegion(EnumRegion myRegion)
   {
-    if(myRegion == EnumRegion.CALIFORNIA) cali.setVisible(true);
-    else if(myRegion == EnumRegion.MOUNTAIN) mountSt.setVisible(true);
-    else if(myRegion == EnumRegion.NORTHERN_CRESCENT) northSt.setVisible(true);
-    else if(myRegion == EnumRegion.NORTHERN_PLAINS) nPlains.setVisible(true);
-    else if(myRegion == EnumRegion.SOUTHEAST) southEast.setVisible(true);
-    else if(myRegion == EnumRegion.SOUTHERN_PLAINS) sPlains.setVisible(true);
-    else if(myRegion == EnumRegion.HEARTLAND) heartland.setVisible(true);
+    if(myRegion == EnumRegion.CALIFORNIA){
+      cali.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
+    else if(myRegion == EnumRegion.MOUNTAIN){
+      mountSt.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
+    else if(myRegion == EnumRegion.NORTHERN_CRESCENT) {
+      northSt.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
+    else if(myRegion == EnumRegion.NORTHERN_PLAINS){
+      nPlains.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
+    else if(myRegion == EnumRegion.SOUTHEAST){
+      southEast.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
+    else if(myRegion == EnumRegion.SOUTHERN_PLAINS){
+      sPlains.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
+    else if(myRegion == EnumRegion.HEARTLAND){
+      heartland.setVisible(true);
+      statisticsPane.setCenter(testPieChart());
+    }
   }
 
   private EnumRegion saveRegion()
