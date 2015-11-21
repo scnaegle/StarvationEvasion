@@ -23,7 +23,6 @@ public class GameController
   private AI ai;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  private EnumRegion myRegion;
   private GuiController gui;
 
   GameController(Main main)
@@ -45,7 +44,6 @@ public class GameController
   public Player startNewGame(EnumRegion region)
   {
     destroyGame(); //Destroy old game if exists.
-    myRegion = region;
     this.player = new Player(region, null, this, null);
     LinkedList<Card>hand = new LinkedList<>();
     Card card1 = new Card(EnumPolicy.Clean_River_Incentive);
@@ -106,7 +104,7 @@ public class GameController
    */
   public EnumRegion getMyRegion()
   {
-   return myRegion;
+   return player.ENUM_REGION;
   }
 
 }
