@@ -1,7 +1,6 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumRegion;
-import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
@@ -12,9 +11,6 @@ import java.util.Random;
 
 public class AI extends Player
 {
-  /*AI info*/
-
-  //TODO: need to handle money exchange for ai
 //TODO: needs to know the crops
   /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
@@ -46,9 +42,9 @@ public class AI extends Player
     }
   }
 
-  @Override//TODO: needs to be done in EnumAITypes
+  @Override
   public Card[] playSelectedCards() {
-    return new Card[0];
+    return AI.selectCards(getHand(),generator);
   }
 
   @Override
@@ -60,10 +56,5 @@ public class AI extends Player
   public void discardCard(int discardXNumCards)
   {
     setHand(AI.discardCards(discardXNumCards,getHand(),generator));
-  }
-
-  @Override
-  public void addCard(Card card) {
-    getHand().add(card);
   }
 }

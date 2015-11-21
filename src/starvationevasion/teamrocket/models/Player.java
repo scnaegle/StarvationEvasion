@@ -104,7 +104,8 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public void addCard(Card card) {
-
+  public void addCard(Card card)
+  {
+    hand.add(card);
   }
 }
