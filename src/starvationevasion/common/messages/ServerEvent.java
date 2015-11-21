@@ -22,7 +22,8 @@ public enum ServerEvent {
   GAME_STAGE,
   VOTE,
   DRAW,
-  CHAT;
+  CHAT,
+  SHOW_CARD;
 
   public static void send(ObjectOutputStream outputStream, Message message) {
     try {
