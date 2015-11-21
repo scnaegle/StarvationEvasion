@@ -1,4 +1,4 @@
-package starvationevasion.common.messages;
+package starvationevasion.teamrocket.messages;
 
 
 /**

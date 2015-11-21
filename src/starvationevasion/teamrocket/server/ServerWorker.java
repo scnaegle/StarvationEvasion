@@ -1,6 +1,6 @@
-package starvationevasion.server;
+package starvationevasion.teamrocket.server;
 
-import starvationevasion.common.messages.ServerEvent;
+import starvationevasion.server.MessageHandler;
 import starvationevasion.teamrocket.models.Player;
 
 import java.io.*;

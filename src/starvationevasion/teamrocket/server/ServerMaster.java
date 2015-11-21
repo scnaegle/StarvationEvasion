@@ -1,4 +1,4 @@
-package starvationevasion.server;
+package starvationevasion.teamrocket.server;
 
 import java.io.IOException;
 import java.net.InetAddress;
