@@ -15,6 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
@@ -28,59 +30,13 @@ public class GuiController
   @FXML
   private Button drawCardButton;
   @FXML
-  private Button appleButton;
-  @FXML
-  private Button grainsButton;
-  @FXML
-  private Button citrusButton;
-  @FXML
-  private Button feedButton;
-  @FXML
-  private Button dairyButton;
-  @FXML
-  private Button fishButton;
-  @FXML
-  private Button meatButton;
-  @FXML
-  private Button nutButton;
-  @FXML
-  private Button oilButton;
-  @FXML
-  private Button poultryButton;
-  @FXML
-  private Button veggieButton;
-  @FXML
-  private Button specialButton;
+  private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton, 
+                 fishButton, meatButton, nutButton, oilButton, poultryButton, veggieButton, specialButton;
 
   /* ALL PLAYING CARDS. 2 FOR EACH REGION */
   @FXML
-  private Button caliCard1;
-  @FXML
-  private Button caliCard2;
-  @FXML
-  private Button mountCard1;
-  @FXML
-  private Button mountCard2;
-  @FXML
-  private Button nPlainCard1;
-  @FXML
-  private Button nPlainCard2;
-  @FXML
-  private Button sPlainCard1;
-  @FXML
-  private Button sPlainCard2;
-  @FXML
-  private Button heartCard1;
-  @FXML
-  private Button heartCard2;
-  @FXML
-  private Button neCard1;
-  @FXML
-  private Button neCard2;
-  @FXML
-  private Button seCard1;
-  @FXML
-  private Button seCard2;
+  private Button caliCard1, caliCard2, mountCard1, mountCard2, nPlainCard1, nPlainCard2, sPlainCard1, 
+                 sPlainCard2, heartCard1, heartCard2, neCard1, neCard2, seCard1, seCard2;
 
   /* CARD PANE WHEN CARD IS CLICKED ON. ALLOWS FOR VOTING */
   @FXML
@@ -89,159 +45,108 @@ public class GuiController
   private Pane CardPane;
 
   @FXML
-  private Button support;
-  @FXML
-  private Button oppose;
-  @FXML
-  private Button abstain;
+  private Button support, oppose, abstain;
 
   @FXML
-  private Label sVotes;
-  @FXML
-  private Label oVotes;
-  @FXML
-  private Label aVotes;
+  private Label sVotes, oVotes, aVotes;
 
   @FXML
-  private Label supportLabel;
-  @FXML
-  private Label opposeLabel;
-  @FXML
-  private Label abstainLabel;
+  private Label supportLabel, opposeLabel, abstainLabel;
 
   /* VARIABLES TO KEEP TRACK OF USER'S VOTE FOR EACH CARD */
-  private int caliSupportVotes1 = 0;
-  private int caliOpposeVotes1 = 0;
-  private int caliAbstainVotes1 = 0;
+  private int caliSupportVotes1, caliOpposeVotes1, caliAbstainVotes1 = 0;
 
-  private int caliSupportVotes2 = 0;
-  private int caliOpposeVotes2 = 0;
-  private int caliAbstainVotes2 = 0;
+  private int caliSupportVotes2, caliOpposeVotes2, caliAbstainVotes2 = 0;
 
-  private int mountSupportVotes1 = 0;
-  private int mountOpposeVotes1 = 0;
-  private int mountAbstainVotes1 = 0;
+  private int mountSupportVotes1, mountOpposeVotes1, mountAbstainVotes1 = 0;
 
-  private int mountSupportVotes2 = 0;
-  private int mountOpposeVotes2 = 0;
-  private int mountAbstainVotes2 = 0;
+  private int mountSupportVotes2, mountOpposeVotes2, mountAbstainVotes2 = 0;
 
-  private int nPlainSupportVotes1 = 0;
-  private int nPlainOpposeVotes1 = 0;
-  private int nPlainAbstainVotes1 = 0;
+  private int nPlainSupportVotes1, nPlainOpposeVotes1, nPlainAbstainVotes1 = 0;
 
-  private int nPlainSupportVotes2 = 0;
-  private int nPlainOpposeVotes2 = 0;
-  private int nPlainAbstainVotes2 = 0;
+  private int nPlainSupportVotes2, nPlainOpposeVotes2, nPlainAbstainVotes2 = 0;
 
-  private int sPlainSupportVotes1 = 0;
-  private int sPlainOpposeVotes1 = 0;
-  private int sPlainAbstainVotes1 = 0;
+  private int sPlainSupportVotes1, sPlainOpposeVotes1, sPlainAbstainVotes1 = 0;
 
-  private int sPlainSupportVotes2 = 0;
-  private int sPlainOpposeVotes2 = 0;
-  private int sPlainAbstainVotes2 = 0;
+  private int sPlainSupportVotes2, sPlainOpposeVotes2, sPlainAbstainVotes2 = 0;
 
-  private int neSupportVotes1 = 0;
-  private int neOpposeVotes1 = 0;
-  private int neAbstainVotes1 = 0;
+  private int neSupportVotes1, neOpposeVotes1, neAbstainVotes1 = 0;
 
-  private int neSupportVotes2 = 0;
-  private int neOpposeVotes2 = 0;
-  private int neAbstainVotes2 = 0;
+  private int neSupportVotes2, neOpposeVotes2, neAbstainVotes2 = 0;
 
-  private int seSupportVotes1 = 0;
-  private int seOpposeVotes1 = 0;
-  private int seAbstainVotes1 = 0;
+  private int seSupportVotes1, seOpposeVotes1, seAbstainVotes1 = 0;
 
-  private int seSupportVotes2 = 0;
-  private int seOpposeVotes2 = 0;
-  private int seAbstainVotes2 = 0;
+  private int seSupportVotes2, seOpposeVotes2, seAbstainVotes2 = 0;
 
-  private int heartSupportVotes1 = 0;
-  private int heartOpposeVotes1 = 0;
-  private int heartAbstainVotes1 = 0;
+  private int heartSupportVotes1, heartOpposeVotes1, heartAbstainVotes1 = 0;
 
-  private int heartSupportVotes2 = 0;
-  private int heartOpposeVotes2 = 0;
-  private int heartAbstainVotes2 = 0;
+  private int heartSupportVotes2, heartOpposeVotes2, heartAbstainVotes2 = 0;
+
+  /* VOTING LABELS THAT SHOW HOW MANY VOTES EVERYONE GAVE */
+  @FXML
+  private HBox c1Votes, c2Votes, m1Votes, m2Votes, np1Votes, np2Votes, ne1Votes, ne2Votes, s1Votes, s2Votes, 
+               sp1Votes, sp2Votes, h1Votes, h2Votes;
 
   @FXML
-  private HBox c1Votes;
+  private Rectangle c1rect, c2rect, m1rect, m2rect, np1rect, np2rect, ne1rect, ne2rect, sp1rect, sp2rect, se1rect,
+                    se2rect, h1rect, h2rect;
+
+  //Actual labels displaying total votes
+  @FXML
+  private Label c1support, c1oppose, c1abstain;
+  @FXML
+  private Label c2abstain, c2support, c2oppose;
+  @FXML
+  private Label m1support, m1oppose, m1abstain;
+  @FXML
+  private Label m2support, m2oppose, m2abstain;
+  @FXML
+  private Label ne1support, ne1oppose, ne1abstain;
+  @FXML
+  private Label ne2support, ne2oppose, ne2abstain;
+  @FXML
+  private Label np1support, np1oppose, np1abstain;
+  @FXML
+  private Label np2support, np2oppose, np2abstain;
+  @FXML
+  private Label se1abstain, se1support, se1oppose;
+  @FXML
+  private Label se2abstain, se2support, se2oppose;
+  @FXML
+  private Label sp1abstain, sp1support, sp1oppose;
+  @FXML
+  private Label sp2abstain, sp2support, sp2oppose;
+  @FXML
+  private Label h1support, h1oppose, h1abstain;
+  @FXML
+  private Label h2support,h2oppose,h2abstain;
+  
+  private int supc1votes,oppc1votes,abstc1votes = 0;
+  private int supc2votes,oppc2votes,abstc2votes = 0;
+  private int supm1votes,oppm1votes,abstm1votes = 0;
+  private int supm2votes,oppm2votes,abstm2votes = 0;
+  private int supnp1votes,oppnp1votes,abstnp1votes = 0;
+  private int supnp2votes,oppnp2votes,abstnp2votes = 0;
+  private int supne1votes,oppne1votes,abstne1votes = 0;
+  private int supne2votes,oppne2votes,abstne2votes = 0;
+  private int supsp1votes,oppsp1votes,abstsp1votes = 0;
+  private int supsp2votes,oppsp2votes,abstsp2votes = 0;
+  private int supse1votes,oppse1votes,abstse1votes = 0;
+  private int supse2votes,oppse2votes,abstse2votes = 0;
+  private int suph1votes,opph1votes,absth1votes = 0;
+  private int suph2votes,opph2votes,absth2votes = 0;
+  
+
 
   /* PRODUCE INFORMATION WINDOWS */
   @FXML
-  private Pane appleWindow;
+  private Pane appleWindow, grainWindow, citrusWindow, feedWindow, meatWindow, dairyWindow, nutWindow, oilWindow,
+               poultryWindow, veggieWindow, specialWindow, fishWindow;
   @FXML
-  private Pane grainWindow;
+  private Button closeWindow, closeWindow2, closeWindow3, closeWindow4, closeWindow5, closeWindow6, closeWindow7,
+                 closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12;
   @FXML
-  private Pane citrusWindow;
-  @FXML
-  private Pane feedWindow;
-  @FXML
-  private Pane meatWindow;
-  @FXML
-  private Pane dairyWindow;
-  @FXML
-  private Pane nutWindow;
-  @FXML
-  private Pane oilWindow;
-  @FXML
-  private Pane poultryWindow;
-  @FXML
-  private Pane veggieWindow;
-  @FXML
-  private Pane specialWindow;
-  @FXML
-  private Pane fishWindow;
-  @FXML
-  private Button closeWindow;
-  @FXML
-  private Button closeWindow2;
-  @FXML
-  private Button closeWindow3;
-  @FXML
-  private Button closeWindow4;
-  @FXML
-  private Button closeWindow5;
-  @FXML
-  private Button closeWindow6;
-  @FXML
-  private Button closeWindow7;
-  @FXML
-  private Button closeWindow8;
-  @FXML
-  private Button closeWindow9;
-  @FXML
-  private Button closeWindow10;
-  @FXML
-  private Button closeWindow11;
-  @FXML
-  private Button closeWindow12;
-  @FXML
-  private Label close;
-  @FXML
-  private Label close2;
-  @FXML
-  private Label close3;
-  @FXML
-  private Label close4;
-  @FXML
-  private Label close5;
-  @FXML
-  private Label close6;
-  @FXML
-  private Label close7;
-  @FXML
-  private Label close8;
-  @FXML
-  private Label close9;
-  @FXML
-  private Label close10;
-  @FXML
-  private Label close11;
-  @FXML
-  private Label close12;
+  private Label close, close2, close3, close4, close5, close6, close7, close8, close9, close10, close11, close12;
 
   /* BEGINNING SCENES AND THEIR BUTTONS */
   @FXML
@@ -262,21 +167,9 @@ public class GuiController
   @FXML
   private Label gamePlayError;
 
-
+/* HIGHLIGHTED IMAGES OF THE REGIONS */
   @FXML
-  private ImageView cali;
-  @FXML
-  private ImageView heartland;
-  @FXML
-  private ImageView mountSt;
-  @FXML
-  private ImageView northSt;
-  @FXML
-  private ImageView nPlains;
-  @FXML
-  private ImageView sPlains;
-  @FXML
-  private ImageView southEast;
+  private ImageView cali, heartland, mountSt, northSt, nPlains, sPlains, southEast;
 
   @FXML
   private Label mainLabel;
@@ -285,19 +178,7 @@ public class GuiController
 
   /* REGION LABELS */
   @FXML
-  private Label caliLabel;
-  @FXML
-  private Label seLabel;
-  @FXML
-  private Label neLabel;
-  @FXML
-  private Label mountLabel;
-  @FXML
-  private Label heartLabel;
-  @FXML
-  private Label sPlainLabel;
-  @FXML
-  private Label nPlainLabel;
+  private Label caliLabel, seLabel, neLabel, mountLabel, heartLabel, sPlainLabel, nPlainLabel;
   @FXML
   private Label nothingSelected;
   @FXML
@@ -305,29 +186,8 @@ public class GuiController
 
   /* CROP LABELS */
   @FXML
-  private Label appleLabel;
-  @FXML
-  private Label grainLabel;
-  @FXML
-  private Label citrusLabel;
-  @FXML
-  private Label feedLabel;
-  @FXML
-  private Label dairyLabel;
-  @FXML
-  private Label fishLabel;
-  @FXML
-  private Label meatLabel;
-  @FXML
-  private Label nutLabel;
-  @FXML
-  private Label oilLabel;
-  @FXML
-  private Label poultryLabel;
-  @FXML
-  private Label veggieLabel;
-  @FXML
-  private Label specialLabel;
+  private Label appleLabel, grainLabel, citrusLabel, feedLabel, dairyLabel, fishLabel, meatLabel, nutLabel,
+                oilLabel, poultryLabel, veggieLabel, specialLabel;
 
   @FXML
   private Label playerRegion;
@@ -348,7 +208,6 @@ public class GuiController
   private boolean southeastSelected;
   private boolean sPlainSelected;
 
-
   private boolean caliCard1Selected = false;
   private boolean caliCard2Selected = false;
   private boolean mountCard1Selected = false;
@@ -363,6 +222,277 @@ public class GuiController
   private boolean seCard2Selected = false;
   private boolean heartCard1Selected = false;
   private boolean heartCard2Selected = false;
+
+  private boolean votable = false;
+
+  @FXML
+  public void highlightCards()
+  {
+    if(Main.gameController.getMyRegion() == EnumRegion.CALIFORNIA)
+    {
+      Color purple = new Color(.69,.59,.72,1);
+      c1rect.setFill(purple);
+      c2rect.setFill(purple);
+      m1rect.setFill(purple);
+      m2rect.setFill(purple);
+      np1rect.setFill(purple);
+      np2rect.setFill(purple);
+      ne1rect.setFill(purple);
+      ne2rect.setFill(purple);
+      sp1rect.setFill(purple);
+      sp2rect.setFill(purple);
+      se1rect.setFill(purple);
+      se2rect.setFill(purple);
+      h1rect.setFill(purple);
+      h2rect.setFill(purple);
+    }
+    else if(Main.gameController.getMyRegion() == EnumRegion.MOUNTAIN)
+    {
+      Color brown = new Color(.68,.54,.43,1);
+      c1rect.setFill(brown);
+      c2rect.setFill(brown);
+      m1rect.setFill(brown);
+      m2rect.setFill(brown);
+      np1rect.setFill(brown);
+      np2rect.setFill(brown);
+      ne1rect.setFill(brown);
+      ne2rect.setFill(brown);
+      sp1rect.setFill(brown);
+      sp2rect.setFill(brown);
+      se1rect.setFill(brown);
+      se2rect.setFill(brown);
+      h1rect.setFill(brown);
+      h2rect.setFill(brown);
+    }
+    else if(Main.gameController.getMyRegion() == EnumRegion.NORTHERN_PLAINS)
+    {
+      Color blue = new Color(.7,.81,.89,1);
+      c1rect.setFill(blue);
+      c2rect.setFill(blue);
+      m1rect.setFill(blue);
+      m2rect.setFill(blue);
+      np1rect.setFill(blue);
+      np2rect.setFill(blue);
+      ne1rect.setFill(blue);
+      ne2rect.setFill(blue);
+      sp1rect.setFill(blue);
+      sp2rect.setFill(blue);
+      se1rect.setFill(blue);
+      se2rect.setFill(blue);
+      h1rect.setFill(blue);
+      h2rect.setFill(blue);
+    }
+    else if(Main.gameController.getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
+    {
+      Color red = new Color(.91,.6,.6,1);
+      c1rect.setFill(red);
+      c2rect.setFill(red);
+      m1rect.setFill(red);
+      m2rect.setFill(red);
+      np1rect.setFill(red);
+      np2rect.setFill(red);
+      ne1rect.setFill(red);
+      ne2rect.setFill(red);
+      sp1rect.setFill(red);
+      sp2rect.setFill(red);
+      se1rect.setFill(red);
+      se2rect.setFill(red);
+      h1rect.setFill(red);
+      h2rect.setFill(red);
+    }
+    else if(Main.gameController.getMyRegion() == EnumRegion.HEARTLAND)
+    {
+      Color yellow = new Color(.99,.92,.62,1);
+      c1rect.setFill(yellow);
+      c2rect.setFill(yellow);
+      m1rect.setFill(yellow);
+      m2rect.setFill(yellow);
+      np1rect.setFill(yellow);
+      np2rect.setFill(yellow);
+      ne1rect.setFill(yellow);
+      ne2rect.setFill(yellow);
+      sp1rect.setFill(yellow);
+      sp2rect.setFill(yellow);
+      se1rect.setFill(yellow);
+      se2rect.setFill(yellow);
+      h1rect.setFill(yellow);
+      h2rect.setFill(yellow);
+    }
+    else if(Main.gameController.getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
+    {
+      Color green = new Color(.75,.8,.62,1);
+      c1rect.setFill(green);
+      c2rect.setFill(green);
+      m1rect.setFill(green);
+      m2rect.setFill(green);
+      np1rect.setFill(green);
+      np2rect.setFill(green);
+      ne1rect.setFill(green);
+      ne2rect.setFill(green);
+      sp1rect.setFill(green);
+      sp2rect.setFill(green);
+      se1rect.setFill(green);
+      se2rect.setFill(green);
+      h1rect.setFill(green);
+      h2rect.setFill(green);
+    }
+    else if(Main.gameController.getMyRegion() == EnumRegion.SOUTHEAST)
+    {
+      Color orange = new Color(.97,.66,.37,1);
+      c1rect.setFill(orange);
+      c2rect.setFill(orange);
+      m1rect.setFill(orange);
+      m2rect.setFill(orange);
+      np1rect.setFill(orange);
+      np2rect.setFill(orange);
+      ne1rect.setFill(orange);
+      ne2rect.setFill(orange);
+      sp1rect.setFill(orange);
+      sp2rect.setFill(orange);
+      se1rect.setFill(orange);
+      se2rect.setFill(orange);
+      h1rect.setFill(orange);
+      h2rect.setFill(orange);
+    }
+    disableCards();
+    if(isVotable(caliCard1))
+    {
+      caliCard1.setDisable(false);
+      c1rect.setVisible(true);
+    }
+    if(isVotable(caliCard2))
+    {
+      caliCard2.setDisable(false);
+      c2rect.setVisible(true);
+    }
+    if(isVotable(mountCard1))
+    {
+      mountCard1.setDisable(false);
+      m1rect.setVisible(true);
+    }
+    if(isVotable(mountCard2))
+    {
+      mountCard2.setDisable(false);
+      m2rect.setVisible(true);
+    }
+    if(isVotable(nPlainCard1))
+    {
+      nPlainCard1.setDisable(false);
+      np1rect.setVisible(true);
+    }
+    if(isVotable(nPlainCard2))
+    {
+      nPlainCard2.setDisable(false);
+      np2rect.setVisible(true);
+    }
+    if(isVotable(neCard1))
+    {
+      neCard1.setDisable(false);
+      ne1rect.setVisible(true);
+    }
+    if(isVotable(neCard2))
+    {
+      neCard2.setDisable(false);
+      ne2rect.setVisible(true);
+    }
+    if(isVotable(sPlainCard1))
+    {
+      sPlainCard1.setDisable(false);
+      sp1rect.setVisible(true);
+    }
+    if(isVotable(sPlainCard2))
+    {
+      sPlainCard2.setDisable(false);
+      sp2rect.setVisible(true);
+    }
+    if(isVotable(seCard1))
+    {
+      seCard1.setDisable(false);
+      se1rect.setVisible(true);
+    }
+    if(isVotable(seCard2))
+    {
+      seCard2.setDisable(false);
+      se2rect.setVisible(true);
+    }
+    if(isVotable(heartCard1))
+    {
+      heartCard1.setDisable(false);
+      h1rect.setVisible(true);
+    }
+    if(isVotable(heartCard2))
+    {
+      heartCard2.setDisable(false);
+      h2rect.setVisible(true);
+    }
+  }
+
+
+  private void disableCards()
+  {
+    caliCard1.setDisable(true);
+    c1rect.setVisible(false);
+
+    caliCard2.setDisable(true);
+    c2rect.setVisible(false);
+
+    mountCard1.setDisable(true);
+    m1rect.setVisible(false);
+
+    mountCard2.setDisable(true);
+    m2rect.setVisible(false);
+
+    nPlainCard1.setDisable(true);
+    np1rect.setVisible(false);
+
+    nPlainCard2.setDisable(true);
+    np2rect.setVisible(false);
+
+    neCard1.setDisable(true);
+    ne1rect.setVisible(false);
+
+    neCard2.setDisable(true);
+    ne2rect.setVisible(false);
+
+    seCard1.setDisable(true);
+    se1rect.setVisible(false);
+
+    seCard2.setDisable(true);
+    se1rect.setVisible(false);
+
+    sPlainCard1.setDisable(true);
+    sp1rect.setVisible(false);
+
+    sPlainCard2.setDisable(true);
+    sp1rect.setVisible(false);
+
+    heartCard1.setDisable(true);
+    h1rect.setVisible(false);
+
+    heartCard2.setDisable(true);
+    h1rect.setVisible(false);
+
+  }
+
+  private boolean isVotable(Button card)
+  {
+    if(card == caliCard1 ) return true;
+    if(card == caliCard2) return false;
+    if(card == mountCard1) return false;
+    if(card == mountCard2) return true;
+    if(card == nPlainCard1) return false;
+    if(card == nPlainCard2) return false;
+    if(card == neCard1) return true;
+    if(card == neCard2) return false;
+    if(card == sPlainCard1) return true;
+    if(card == sPlainCard2) return false;
+    if(card == seCard1) return false;
+    if(card == seCard2) return true;
+    if(card == heartCard1) return true;
+    if(card == heartCard2) return false;
+
+    else return false;
+  }
 
   @FXML
   public void chooseGamePlay(ActionEvent event)
@@ -443,6 +573,7 @@ public class GuiController
     }
     else if(button == doneVoting)
     {
+      hideAllVoteLabels();
       //save choices
       //update variables
       try
@@ -479,83 +610,237 @@ public class GuiController
       caliCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes2, caliOpposeVotes2, caliAbstainVotes2);
+      c2Votes.setVisible(true);
     }
     else if(button == mountCard1)
     {
       mountCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes1, mountOpposeVotes1, mountAbstainVotes1);
+      m1Votes.setVisible(true);
     }
     else if(button == mountCard2)
     {
       mountCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes2, mountOpposeVotes2, mountAbstainVotes2);
+      m2Votes.setVisible(true);
     }
     else if(button == nPlainCard1)
     {
       nPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes1, nPlainOpposeVotes1, nPlainAbstainVotes1);
+      np1Votes.setVisible(true);
     }
     else if(button == nPlainCard2)
     {
       nPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes2, nPlainOpposeVotes2, nPlainAbstainVotes2);
+      np2Votes.setVisible(true);
     }
     else if(button == sPlainCard1)
     {
       sPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sPlainAbstainVotes1);
+      sp1Votes.setVisible(true);
     }
     else if(button == sPlainCard2)
     {
       sPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sPlainAbstainVotes2);
+      sp2Votes.setVisible(true);
     }
     else if(button == neCard1)
     {
       neCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes1, neOpposeVotes1, neAbstainVotes1);
+      ne1Votes.setVisible(true);
     }
     else if(button == neCard2)
     {
       neCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes2, neOpposeVotes2, neAbstainVotes2);
+      ne2Votes.setVisible(true);
     }
     else if(button == seCard1)
     {
       seCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes1, seOpposeVotes1, seAbstainVotes1);
+      s1Votes.setVisible(true);
     }
     else if(button == seCard2)
     {
       seCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes2, seOpposeVotes2, seAbstainVotes2);
+      s2Votes.setVisible(true);
     }
     else if(button == heartCard1)
     {
       heartCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes1, heartOpposeVotes1, heartAbstainVotes1);
+      h1Votes.setVisible(true);
     }
     else if(button == heartCard2)
     {
       heartCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes2, heartOpposeVotes2, heartAbstainVotes2);
+      h2Votes.setVisible(true);
     }
 
     else if(button == submitVote)
     {
       CardPane.setVisible(false);
+      if(caliCard1Selected)
+      {
+        supc1votes = caliSupportVotes1;
+        oppc1votes = caliOpposeVotes1;
+        abstc1votes = caliAbstainVotes1;
+
+        c1support.setText(""+supc1votes);
+        c1oppose.setText(""+oppc1votes);
+        c1abstain.setText(""+abstc1votes);
+      }
+      else if(caliCard2Selected)
+      {
+        supc2votes = caliSupportVotes2;
+        oppc2votes = caliOpposeVotes2;
+        abstc2votes = caliAbstainVotes2;
+
+        c2support.setText(""+supc2votes);
+        c2oppose.setText(""+oppc2votes);
+        c2abstain.setText(""+abstc2votes);
+      }
+      else if(mountCard1Selected)
+      {
+        supm1votes = mountSupportVotes1;
+        oppm1votes = mountOpposeVotes1;
+        abstm1votes = mountAbstainVotes1;
+
+        m1support.setText(""+supm1votes);
+        m1oppose.setText(""+oppm1votes);
+        m1abstain.setText(""+abstm1votes);
+      }
+      else if(mountCard2Selected)
+      {
+        supm2votes = mountSupportVotes2;
+        oppm2votes = mountOpposeVotes2;
+        abstm2votes = mountAbstainVotes2;
+
+        m2support.setText(""+supm2votes);
+        m2oppose.setText(""+oppm2votes);
+        m2abstain.setText(""+abstm2votes);
+      }
+      else if(nPlainCard1Selected)
+      {
+        supnp1votes = nPlainSupportVotes1;
+        oppnp1votes = nPlainOpposeVotes1;
+        abstnp1votes = nPlainAbstainVotes1;
+
+        np1support.setText(""+supnp1votes);
+        np1oppose.setText(""+oppnp1votes);
+        np1abstain.setText(""+abstnp1votes);
+      }
+      else if(nPlainCard2Selected)
+      {
+        supnp2votes = nPlainSupportVotes2;
+        oppnp2votes = nPlainOpposeVotes2;
+        abstnp2votes = nPlainAbstainVotes2;
+
+        np2support.setText(""+supnp2votes);
+        np2oppose.setText(""+oppnp2votes);
+        np2abstain.setText(""+abstnp2votes);
+      }
+      else if(neCard1Selected)
+      {
+        supne1votes = neSupportVotes1;
+        oppne1votes = neOpposeVotes1;
+        abstne1votes = neAbstainVotes1;
+
+        ne1support.setText(""+supne1votes);
+        ne1oppose.setText(""+oppne1votes);
+        ne1abstain.setText(""+abstne1votes);
+      }
+      else if(neCard2Selected)
+      {
+        supne2votes = neSupportVotes2;
+        oppne2votes = neOpposeVotes2;
+        abstne2votes = neAbstainVotes2;
+
+        ne2support.setText(""+supne2votes);
+        ne2oppose.setText(""+oppne2votes);
+        ne2abstain.setText(""+abstne2votes);
+      }
+      else if(sPlainCard1Selected)
+      {
+        supsp1votes = sPlainSupportVotes1;
+        oppsp1votes = sPlainOpposeVotes1;
+        abstsp1votes = sPlainAbstainVotes1;
+
+        sp1support.setText(""+supsp1votes);
+        sp1oppose.setText(""+oppsp1votes);
+        sp1abstain.setText(""+abstsp1votes);
+      }
+      else if(sPlainCard2Selected)
+      {
+        supsp2votes = sPlainSupportVotes2;
+        oppsp2votes = sPlainOpposeVotes2;
+        abstsp2votes = sPlainAbstainVotes2;
+
+        sp2support.setText(""+supsp2votes);
+        sp2oppose.setText(""+oppsp2votes);
+        sp2abstain.setText(""+abstsp2votes);
+      }
+      else if(seCard1Selected)
+      {
+        supse1votes = seSupportVotes1;
+        oppse1votes = seOpposeVotes1;
+        abstse1votes = seAbstainVotes1;
+
+        se1support.setText(""+supse1votes);
+        se1oppose.setText(""+oppse1votes);
+        se1abstain.setText(""+abstse1votes);
+      }
+      else if(seCard2Selected)
+      {
+        supse2votes = seSupportVotes2;
+        oppse2votes = seOpposeVotes2;
+        abstse2votes = seAbstainVotes2;
+
+        se2support.setText(""+supse2votes);
+        se2oppose.setText(""+oppse2votes);
+        se2abstain.setText(""+abstse2votes);
+      }
+      else if(heartCard1Selected)
+      {
+        suph1votes = heartSupportVotes1;
+        opph1votes = heartOpposeVotes1;
+        absth1votes = heartAbstainVotes1;
+
+        h1support.setText(""+suph1votes);
+        h1oppose.setText(""+opph1votes);
+        h1abstain.setText(""+absth1votes);
+      }
+      else if(heartCard2Selected)
+      {
+        suph2votes = heartSupportVotes2;
+        opph2votes = heartOpposeVotes2;
+        absth2votes = heartAbstainVotes2;
+
+        h2support.setText(""+suph2votes);
+        h2oppose.setText(""+opph2votes);
+        h2abstain.setText(""+absth2votes);
+      }
+
       deselectCards();
       //update main labels
     }
@@ -649,6 +934,24 @@ public class GuiController
       //else display facts
       fishWindow.setVisible(true);
     }
+  }
+
+  private void hideAllVoteLabels()
+  {
+    c1Votes.setVisible(false);
+    c2Votes.setVisible(false);
+    m1Votes.setVisible(false);
+    m2Votes.setVisible(false);
+    np1Votes.setVisible(false);
+    np2Votes.setVisible(false);
+    ne1Votes.setVisible(false);
+    ne2Votes.setVisible(false);
+    s1Votes.setVisible(false);
+    s2Votes.setVisible(false);
+    sp1Votes.setVisible(false);
+    sp2Votes.setVisible(false);
+    h1Votes.setVisible(false);
+    h2Votes.setVisible(false);
   }
 
   private void updateLabels(int supportVotes, int opposeVotes, int abstainVotes)
@@ -852,6 +1155,7 @@ public class GuiController
     }
 
   }
+
   @FXML
   private void vote(ActionEvent event)
   {

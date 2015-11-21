@@ -11,8 +11,22 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="main2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<AnchorPane id="AnchorPane" fx:id="votingScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#highlightCards" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
+    <Rectangle id="c1rect" fx:id="se2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="866.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="se1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="866.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="ne2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="719.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="ne1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="719.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="h2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="568.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="h1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="568.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="sp2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="424.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="sp1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="423.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="np2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="287.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="np1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="286.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="m2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="150.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="m1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="152.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle id="c1rect" fx:id="c2rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="19.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
+    <Rectangle fx:id="c1rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="19.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
     <Label fx:id="voteTime" contentDisplay="CENTER" layoutX="64.0" layoutY="61.0" prefWidth="142.77740478515625" text="Time" textFill="#00cc21">
       <font>
         <Font name="Avenir Next Demi Bold" size="40.0" />
@@ -121,7 +135,7 @@
     <Button fx:id="nPlainCard2" layoutX="306.0" layoutY="588.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="124.0" prefWidth="89.37939453125" text="" />
     <Button fx:id="mountCard2" layoutX="168.0" layoutY="588.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="124.0" prefWidth="89.37939453125" text="" />
     <Button fx:id="caliCard2" layoutX="38.0" layoutY="588.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="124.0" prefWidth="89.37939453125" text="" />
-    <HBox fx:id="c1Votes" layoutX="15.0" layoutY="543.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+    <HBox fx:id="c1Votes" layoutX="15.0" layoutY="543.0" minHeight="19.0" minWidth="116.0" prefHeight="24.0" prefWidth="129.00009999999747" visible="false">
       <children>
         <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
           <image>
@@ -134,14 +148,14 @@
           </font>
         </Label>
         <Pane prefHeight="48.0" prefWidth="48.0" />
-        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="arrowDown" fitHeight="23.99999237060547" fitWidth="23.99999237060547" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <Label id="oVotes" fx:id="c1oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
         <Pane prefHeight="48.0" prefWidth="48.0" />
-        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="abstain" fitHeight="24.000122888181068" fitWidth="24.000122888181068" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
           </image>
@@ -218,7 +232,247 @@
             <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <Label id="aVotes" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+        <Label id="aVotes" fx:id="m2abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="np1Votes" layoutX="287.0" layoutY="540.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="np1support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="np1oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="np1abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="ne1Votes" layoutX="719.0" layoutY="540.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="ne1support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="ne1oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="ne1abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="h2Votes" layoutX="568.0" layoutY="712.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="h2support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="h2oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="h2abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="h1Votes" layoutX="568.0" layoutY="540.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="h1support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="h1oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="h1abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="sp2Votes" layoutX="422.0" layoutY="712.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="sp2support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="sp2oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="sp2abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="np2Votes" layoutX="287.0" layoutY="712.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="np2support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="np2oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="np2abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="ne2Votes" layoutX="719.0" layoutY="712.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="ne2support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="ne2oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="ne2abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="s1Votes" layoutX="866.0" layoutY="540.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="se1support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="se1oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="se1abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="s2Votes" layoutX="866.0" layoutY="712.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="se2support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="se2oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="se2abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
+      </children>
+    </HBox>
+    <HBox id="cali1Votes" fx:id="sp1Votes" layoutX="421.0" layoutY="540.0" minHeight="19.0" minWidth="116.0" prefHeight="25.0" prefWidth="129.0" visible="false">
+      <children>
+        <ImageView id="arrowUp" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowUp.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="sVotes" fx:id="sp1support" alignment="CENTER" font="$x1" prefHeight="47.0" prefWidth="24.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="arrowDown" fitHeight="24.99999237060547" fitWidth="24.99999237060547" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/arrowDown.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="oVotes" fx:id="sp1oppose" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="17.0" text="0" />
+        <Pane prefHeight="48.0" prefWidth="48.0" />
+        <ImageView id="abstain" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/abstain.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="aVotes" fx:id="sp1abstain" alignment="CENTER" font="$x1" prefHeight="24.0" prefWidth="19.0" text="0" />
       </children>
     </HBox>
     <Pane id="" fx:id="CardPane" layoutX="0.0" layoutY="0.0" prefHeight="768.0" prefWidth="1024.0" visible="false">
