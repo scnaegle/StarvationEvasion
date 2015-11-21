@@ -46,7 +46,7 @@ public class GameController
   {
     destroyGame(); //Destroy old game if exists.
     myRegion = region;
-    this.player = new Player(region);
+    this.player = new Player(region, null, this, null);
     LinkedList<Card>hand = new LinkedList<>();
     Card card1 = new Card(EnumPolicy.Clean_River_Incentive);
     hand.add(card1);
