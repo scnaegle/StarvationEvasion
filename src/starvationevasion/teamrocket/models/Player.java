@@ -35,7 +35,15 @@ public class Player implements PlayerInterface
    */
   private LinkedList<Card> hand;
 
+  /**
+   * Log in info for player
+   */
   private String logIn;
+
+  /**
+   * Income of the player
+   */
+  private long income;
 
   /**
    * Creates a new player based on selected region.
@@ -50,8 +58,29 @@ public class Player implements PlayerInterface
     this.hand = hand;
   }
 
+  /**
+   * Gets the hand of the player
+   * @return player hand
+   */
   public LinkedList<Card> getHand(){return hand;}
+
+  /**
+   * Update the player's hand with the new hand
+   * @param hand of new cards
+   */
   public void setHand(LinkedList<Card> hand){this.hand = hand;}
+
+  /**
+   * Get the current income of the player
+   * @return player's income
+   */
+  public long getIncome(){return income;}
+
+  /**
+   * Updates the player's income to the new income
+   * @param income new income of player
+   */
+  public void updateIncome(long income){this.income = income;}
 
   /********Interface Methods ***********/
   @Override
