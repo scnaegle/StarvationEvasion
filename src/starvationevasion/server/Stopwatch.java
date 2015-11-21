@@ -38,6 +38,10 @@ public class Stopwatch implements Serializable {
     return interval % 60;
   }
 
+  public void stop() {
+    timer.cancel();
+  }
+
   private final int updateInterval() {
     if (interval == 1)
       timer.cancel();
