@@ -7,11 +7,11 @@ import starvationevasion.teamrocket.models.Player;
 
 import java.util.LinkedList;
 import java.util.Random;
-//NOTE: AI communication with other players, should AI talk with other players????
-
+//TODO: AI CHAT!!!!! ASAP
+//TODO: needs to know the crops, and select crops for cards
+//TODO: need to select target region for cards
 public class AI extends Player
 {
-//TODO: needs to know the crops
   /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
@@ -53,8 +53,7 @@ public class AI extends Player
   }
 
   @Override
-  public void discardCard(int discardXNumCards)
-  {
+  public void discardCard(int discardXNumCards) {
     setHand(AI.discardCards(discardXNumCards,getHand(),generator));
   }
 }
