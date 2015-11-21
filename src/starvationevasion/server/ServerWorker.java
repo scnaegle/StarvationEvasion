@@ -1,11 +1,9 @@
 package starvationevasion.server;
 
+import starvationevasion.common.messages.ServerEvent;
 import starvationevasion.teamrocket.models.Player;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -15,7 +13,7 @@ public class ServerWorker extends Thread
 {
   private Socket client;
   private PrintWriter clientWriter;
-  private BufferedReader clientReader;
+  private ObjectInputStream clientReader;
   private ServerMaster server_master;
   private Player player;
   private long startNanoSec = 0;
@@ -40,7 +38,7 @@ public class ServerWorker extends Thread
     }
     try
     {
-      clientReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+      clientReader = new ObjectInputStream(client.getInputStream());
       
     }
     catch (IOException e)
@@ -69,30 +67,12 @@ public class ServerWorker extends Thread
   }
 
   private void read() {
-    String msg = null;
-    try {
-      msg = clientReader.readLine();
-      startNanoSec = System.nanoTime();
-      // logging in
-      if (msg.toLowerCase().startsWith("player:")) {
-        // TODO get log in information
-      }
-      // selecting region
-      if (msg.toLowerCase().startsWith("")) {
-
-      }
-      // player ready (sends cards played)
-      if (msg.toLowerCase().startsWith("ready:")) {
-
-      }
-      // player vote selection
-      if (msg.toLowerCase().startsWith("vote:")) {
-
-      }
-      // chat message
-      if (msg.toLowerCase().startsWith("chat:")) {
-
-      }
+//    String msg = null;
+    ServerEvent.parse(clientReader);
+//    try {
+//      msg = clientReader.readLine();
+//      startNanoSec = System.nanoTime();
+//      messageHandler(msg);
 
 //      if (message.toLowerCase().startsWith("buy:") || message.toLowerCase().startsWith("sell:")) {
 //        try {
@@ -123,10 +103,14 @@ public class ServerWorker extends Thread
 //      } else {
 //        send("Error: Unrecognized message: " + message);
 //      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
   }
+
+//  private void messageHandler(String msg) {
+//    ServerEvent.parse(msg);
+//  }
 
   private void sendBroadcast() {
     server_master.broadcast(storeInfoMessage());
