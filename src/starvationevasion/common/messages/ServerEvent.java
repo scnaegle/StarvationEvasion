@@ -1,0 +1,77 @@
+package starvationevasion.common.messages;
+
+import starvationevasion.common.PolicyCard;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Timer;
+
+/**
+ * Created by scnaegl on 11/19/15.
+ */
+public enum ServerEvent {
+  LOGIN,
+  SELECT_REGION,
+  PLAY,
+  TIMER,
+  SIM_STATS,
+  CARDS_CHOSEN,
+  READY,
+  VOTE,
+  DRAW,
+  CHAT;
+
+  public static void send(ObjectOutputStream outputStream, Message message) {
+    try {
+      outputStream.writeObject(message);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static <T> T parse(ObjectInputStream input) {
+    Message message;
+    try {
+      message = (Message)input.readObject();
+      switch(message.getServerEvent()) {
+        case LOGIN:
+          return (T) (Login)message.getPayload();
+        case SELECT_REGION:
+          return (T) (RegionChoice)message.getPayload();
+        case PLAY:
+          return (T) (String)message.getPayload();
+        case TIMER:
+          return (T) (Timer)message.getPayload();
+        case SIM_STATS:
+        case CARDS_CHOSEN:
+          return (T) (ArrayList<PolicyCard>)message.getPayload();
+        case READY:
+        case VOTE:
+        case DRAW:
+        case CHAT:
+        default:
+          return (T) Response.BAD_MESSAGE;
+
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      return (T) Response.BAD_MESSAGE;
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+      return (T) Response.BAD_MESSAGE;
+    }
+  }
+
+  public static ServerEvent getServerEvent(String msg) throws IllegalArgumentException {
+    for(ServerEvent event : ServerEvent.values()) {
+      if (msg.startsWith(event.toString())) {
+        return event;
+      }
+    }
+    throw new IllegalArgumentException("Unknown message type: " + msg);
+  }
+}

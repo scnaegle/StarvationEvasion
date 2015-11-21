@@ -1,5 +1,6 @@
 package starvationevasion.server;
 
+import starvationevasion.common.messages.ServerEvent;
 import starvationevasion.teamrocket.models.Player;
 
 import java.io.BufferedReader;
@@ -73,26 +74,7 @@ public class ServerWorker extends Thread
     try {
       msg = clientReader.readLine();
       startNanoSec = System.nanoTime();
-      // logging in
-      if (msg.toLowerCase().startsWith("player:")) {
-        // TODO get log in information
-      }
-      // selecting region
-      if (msg.toLowerCase().startsWith("")) {
-
-      }
-      // player ready (sends cards played)
-      if (msg.toLowerCase().startsWith("ready:")) {
-
-      }
-      // player vote selection
-      if (msg.toLowerCase().startsWith("vote:")) {
-
-      }
-      // chat message
-      if (msg.toLowerCase().startsWith("chat:")) {
-
-      }
+      messageHandler(msg);
 
 //      if (message.toLowerCase().startsWith("buy:") || message.toLowerCase().startsWith("sell:")) {
 //        try {
@@ -125,6 +107,33 @@ public class ServerWorker extends Thread
 //      }
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  private void messageHandler(String msg) {
+    ServerEvent event = ServerEvent.getServerEvent(msg);
+
+    switch(event) {
+      case LOGIN:
+        break;
+      case PLAY:
+        break;
+      case TIMER:
+        break;
+      case SIM_STATS:
+        break;
+      case CARDS_CHOSEN:
+        break;
+      case READY:
+        break;
+      case VOTE:
+        break;
+      case DRAW:
+        break;
+      case CHAT:
+        break;
+      default:
+        break;
     }
   }
 
