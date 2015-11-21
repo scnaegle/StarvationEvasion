@@ -68,7 +68,7 @@ public class ServerWorker extends Thread
 
   private void read() {
 //    String msg = null;
-    ServerEvent.parse(clientReader);
+    MessageHandler.parse(clientReader);
   }
 
 //  private void messageHandler(String msg) {
