@@ -1,4 +1,4 @@
-package starvationevasion.teamrocket;
+package starvationevasion.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
