@@ -33,6 +33,7 @@ public enum ServerEvent {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public static <T> T parse(ObjectInputStream input) {
     Message message;
     try {
