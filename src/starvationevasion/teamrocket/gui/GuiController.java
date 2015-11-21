@@ -19,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
+import starvationevasion.teamrocket.messages.GameState;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.ArrayList;
@@ -166,6 +167,9 @@ public class GuiController
   private RadioButton multiPlayer;
   @FXML
   private Label gamePlayError;
+
+  @FXML
+  private Button login;
 
 /* HIGHLIGHTED IMAGES OF THE REGIONS */
   @FXML
@@ -507,6 +511,7 @@ public class GuiController
     {
       singlePlayer.setSelected(false);
       //tell game control there's many players
+      //switch to login scene
     }
   }
   @FXML
@@ -533,6 +538,11 @@ public class GuiController
         e.printStackTrace();
       }
 
+    }
+    else if(button == login)
+    {
+      //save input
+      //go to waiting scene
     }
     else if(button == pickedRegion)
     {

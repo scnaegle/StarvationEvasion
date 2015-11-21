@@ -16,11 +16,14 @@ public class Main extends Application {
   Parent chooseRegion;
   Parent cardDraft;
   Parent voting;
+  Parent login;
+
 
   Scene welcomeScene;
   Scene regionScene;
   Scene cardDraftScene;
   Scene votingScene;
+  Scene loginScene;
 
 
   @Override
@@ -31,18 +34,19 @@ public class Main extends Application {
     }
     this.primaryStage = primaryStage;
     welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
-
+    login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
     cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
 
     welcomeScene = new Scene(welcome);
+    loginScene = new Scene(login);
     regionScene = new Scene(chooseRegion);
     cardDraftScene = new Scene(cardDraft);
     votingScene = new Scene(voting);
 
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(welcomeScene);
+    primaryStage.setScene(loginScene);
     primaryStage.show();
 
 
