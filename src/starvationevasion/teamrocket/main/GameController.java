@@ -3,6 +3,8 @@ package starvationevasion.teamrocket.main;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.Login;
+import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.AI.AI;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.gui.GuiController;
@@ -107,4 +109,86 @@ public class GameController
    return player.ENUM_REGION;
   }
 
+  public void setLogin(Login login)
+  {
+
+  }
+
+  /**
+   * This method handles when a region selection is performed.
+   * @param choice The region choice
+   */
+  public void setSelectRegion(RegionChoice choice)
+  {
+
+  }
+
+  /**
+   * Start the game after the game room is done.
+   * @param message
+   */
+  public void setStartGame(String message)
+  {
+
+  }
+
+  /**
+   * Update the timer with time left in current stage.
+   * @param timerInterval seconds
+   */
+  public void setTimer(Long timerInterval)
+  {
+
+  }
+
+  /**
+   * Store the new Regions
+   * @param newRegions
+   */
+  public void setRegionStats(ArrayList<Region> newRegions)
+  {
+
+  }
+
+  /**
+   * Sets the cards that will be voted on in voting stage.
+   * @param cards cards to vote on.
+   */
+  public void setVotingCards(ArrayList<PolicyCard> cards)
+  {
+
+  }
+
+  /**
+   * Store the values of who is ready for this stage.
+   */
+  public void setReady()
+  {
+
+  }
+
+  /**
+   * Set the vote valutes of who has voted for what.
+   */
+  public void setVote()
+  {
+
+  }
+
+  /**
+   * Store the hands of all players
+   */
+  public void setDraw()
+  {
+
+  }
+
+  /**
+   * Process new chat message.
+   * @param message
+   */
+  public void setChat(String message)
+  {
+
+  }
 }
