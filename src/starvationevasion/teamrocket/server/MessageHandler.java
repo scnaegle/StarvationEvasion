@@ -1,4 +1,4 @@
-package starvationevasion.server;
+package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.Login;

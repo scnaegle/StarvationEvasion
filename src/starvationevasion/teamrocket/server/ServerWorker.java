@@ -1,6 +1,5 @@
 package starvationevasion.teamrocket.server;
 
-import starvationevasion.server.MessageHandler;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.messages.ServerEvent;
 import starvationevasion.teamrocket.models.Player;
