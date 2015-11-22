@@ -5,7 +5,7 @@ package starvationevasion.teamrocket.messages;
  */
 public enum GameState {
   WAITING_FOR_CONNECTIONS,
-  TURN,
+  CARD_DRAFTING,
   VOTING,
   SIMULATION,
   VISUALIZATION,
