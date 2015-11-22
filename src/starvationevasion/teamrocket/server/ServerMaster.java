@@ -1,5 +1,8 @@
 package starvationevasion.teamrocket.server;
 
+import starvationevasion.teamrocket.messages.GameState;
+import starvationevasion.teamrocket.messages.Message;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -14,9 +17,11 @@ public class ServerMaster
 {
   private ServerSocket serverSocket;
   private LinkedList<ServerWorker> allConnections = new LinkedList<ServerWorker>();
+  public GameState game_state = GameState.WAITING_FOR_CONNECTIONS;
 
   public ServerMaster(int portNumber)
   {
+    game_state = GameState.WAITING_FOR_CONNECTIONS;
     try
     {
       serverSocket = new ServerSocket(portNumber);
@@ -52,8 +57,8 @@ public class ServerMaster
         worker.start();
         System.out.println("ServerMaster: *********** new Connection");
         allConnections.add(worker);
-        worker.send("ServerMaster says hello!");
-        worker.send(worker.storeInfoMessage());
+//        worker.send("ServerMaster says hello!");
+//        worker.send(worker.storeInfoMessage());
       }
       catch (IOException e)
       {
@@ -73,12 +78,21 @@ public class ServerMaster
     }
   }
 
-  public void broadcast(String s)
+  public void broadcast(Message message)
   {
     for (ServerWorker worker : allConnections)
     {
-      worker.send(s);
+      worker.send(message);
     }
+  }
+
+  public boolean allReady() {
+    for(ServerWorker worker : allConnections) {
+      if (!worker.ready) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public void closeConnection(ServerWorker worker) {

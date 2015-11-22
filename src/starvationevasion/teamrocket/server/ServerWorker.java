@@ -1,6 +1,8 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.server.MessageHandler;
+import starvationevasion.teamrocket.messages.Message;
+import starvationevasion.teamrocket.messages.ServerEvent;
 import starvationevasion.teamrocket.models.Player;
 
 import java.io.*;
@@ -12,11 +14,12 @@ import java.net.Socket;
 public class ServerWorker extends Thread
 {
   private Socket client;
-  private PrintWriter clientWriter;
+  private ObjectOutputStream clientWriter;
   private ObjectInputStream clientReader;
   private ServerMaster server_master;
   private Player player;
   private long startNanoSec = 0;
+  public boolean ready = false;
 
   private boolean running = true;
 
@@ -29,7 +32,7 @@ public class ServerWorker extends Thread
     try
     {
       //          PrintWriter(OutputStream out, boolean autoFlushOutputBuffer)
-      clientWriter = new PrintWriter(client.getOutputStream(), true);
+      clientWriter = new ObjectOutputStream(client.getOutputStream());
     }
     catch (IOException e)
     {
@@ -47,12 +50,18 @@ public class ServerWorker extends Thread
       e.printStackTrace();
     }
   }
-  
+
   //Called by ServerMaster
-  public void send(String msg)
+  public void send(Message message)
   {
-    System.out.println("ServerWorker.send(" + msg + ")");
-    clientWriter.println(msg);
+//    System.out.println("ServerWorker.send(" + msg + ")");
+//    clientWriter.println(msg);
+    MessageHandler.send(clientWriter, message);
+  }
+
+  public void send(ServerEvent event, Serializable object) {
+    Message message = new Message(event, object);
+    send(message);
   }
 
   public void run()
@@ -76,7 +85,7 @@ public class ServerWorker extends Thread
 //  }
 
   private void sendBroadcast() {
-    server_master.broadcast(storeInfoMessage());
+//    server_master.broadcast(storeInfoMessage());
   }
 
   public String storeInfoMessage() {
