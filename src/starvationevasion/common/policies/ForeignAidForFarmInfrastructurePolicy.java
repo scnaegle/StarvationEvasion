@@ -1,7 +1,13 @@
 package starvationevasion.common.policies;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.Policy;
+import starvationevasion.common.PolicyCard;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Title: {@value #TITLE}<br><br>
@@ -22,6 +28,8 @@ import starvationevasion.common.Policy;
 
 public class ForeignAidForFarmInfrastructurePolicy extends Policy
 {
+  public static PolicyCard CARD = Fall2015PolicyProvider.EnumPolicy.Foreign_Aid_for_Farm_Infrastructure;
+
   public static final String TITLE =
       "Foreign Aid for Farm Infrastructure";
 
@@ -41,6 +49,20 @@ public class ForeignAidForFarmInfrastructurePolicy extends Policy
    */
   public final static boolean VOTE_WAIT_FOR_ALL = false;
 
+  /* The crop types applicable to this policy.
+  */
+  public final static Collection<EnumFood> TARGET_FOOD = null;
+
+  /* The target regions applicable to this policy.
+  */
+  public final static Collection<EnumRegion> TARGET_REGIONS;
+
+  static 
+  {
+    TARGET_REGIONS = new ArrayList<>();
+    TARGET_REGIONS.addAll(Arrays.asList(EnumRegion.WORLD_REGIONS));
+  }
+
   public ForeignAidForFarmInfrastructurePolicy(EnumRegion region)
   {
     super(region);
@@ -50,25 +72,31 @@ public class ForeignAidForFarmInfrastructurePolicy extends Policy
    * {@inheritDoc}
   */
   @Override
-  public int votesRequired() {return VOTES_REQUIRED;}
+  public int votesRequired() { return VOTES_REQUIRED; }
 
   /**
    * {@inheritDoc}
   */
   @Override
-  public boolean voteWaitForAll() {return VOTE_WAIT_FOR_ALL;}
+  public boolean voteWaitForAll() { return VOTE_WAIT_FOR_ALL; }
 
   /**
    * {@inheritDoc}
   */
   @Override
-  public String getTitle(){ return TITLE;}
+  public String getTitle() { return TITLE;}
 
   /**
    * {@inheritDoc}
   */
   @Override
-  public String getGameText(){ return TEXT;}
+  public String getGameText() { return TEXT;}
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public PolicyCard getCardType() { return CARD; }
 
   /**
    * {@inheritDoc}

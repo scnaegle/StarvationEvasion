@@ -1,7 +1,11 @@
 package starvationevasion.common.policies;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.Policy;
+import starvationevasion.common.PolicyCard;
+
+import java.util.Collection;
 
 /**
  * Title: {@value #TITLE}<br><br>
@@ -16,8 +20,11 @@ import starvationevasion.common.Policy;
  */
 public class EthanolProductionTaxCreditChangePolicy extends Policy
 {
+  public static PolicyCard CARD = Fall2015PolicyProvider.EnumPolicy.Ethanol_Production_Tax_Credit_Change;
+
   public static final String TITLE =
       "Ethanol Production Tax Credit Change";
+
   public static final String TEXT =
       "Currently an ethanol producer located in my region is entitled " +
       "to a credit of $X per gallon of ethanol produced, including " +
@@ -31,6 +38,14 @@ public class EthanolProductionTaxCreditChangePolicy extends Policy
   /* Combined with 0 required votes, this Indicates that this policy is automatic.
   */
   public final static boolean VOTE_WAIT_FOR_ALL = false;
+
+  /* The crop types applicable to this policy.
+  */
+  public final static Collection<EnumFood> TARGET_FOOD = null;
+
+  /* The target regions applicable to this policy. A v
+  */
+  public final static Collection<EnumRegion> TARGET_REGIONS = null;
 
   public EthanolProductionTaxCreditChangePolicy(EnumRegion region)
   {
@@ -61,6 +76,12 @@ public class EthanolProductionTaxCreditChangePolicy extends Policy
   @Override
   public String getGameText(){ return TEXT;}
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public PolicyCard getCardType() { return CARD; }
+
   public String validate()
   {
      // case EthanolProductionTaxCreditChangePolicy:
@@ -69,7 +90,6 @@ public class EthanolProductionTaxCreditChangePolicy extends Policy
 
     return null;
   }
-
 
   /**
    * Used only for testing this class.

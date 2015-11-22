@@ -1,8 +1,12 @@
 
 package starvationevasion.common.policies;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.Policy;
+import starvationevasion.common.PolicyCard;
+
+import java.util.Collection;
 
 /**
  * Title: {@value #TITLE}<br><br>
@@ -26,6 +30,8 @@ import starvationevasion.common.Policy;
 */
 public class CleanRiverIncentivePolicy extends Policy
 {
+  public static PolicyCard CARD = Fall2015PolicyProvider.EnumPolicy.Clean_River_Incentive;
+
   public static final String TITLE =
       "Clean River Incentive";
 
@@ -41,6 +47,14 @@ public class CleanRiverIncentivePolicy extends Policy
   /* Combined with 0 required votes, this Indicates that this policy is automatic.
   */
   public final static boolean VOTE_WAIT_FOR_ALL = false;
+
+  /* The crop types applicable to this policy.
+  */
+  public final static Collection<EnumFood> TARGET_FOOD = null;
+
+  /* The target regions applicable to this policy. A v
+  */
+  public final static Collection<EnumRegion> TARGET_REGIONS = null;
 
   public CleanRiverIncentivePolicy(EnumRegion region)
   {
@@ -82,6 +96,12 @@ public class CleanRiverIncentivePolicy extends Policy
 
    return null;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public PolicyCard getCardType() { return CARD; }
 
   /**
    * Used only for testing this class.
