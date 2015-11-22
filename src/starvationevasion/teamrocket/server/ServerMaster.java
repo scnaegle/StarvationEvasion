@@ -1,6 +1,6 @@
 package starvationevasion.teamrocket.server;
 
-import starvationevasion.teamrocket.messages.GameState;
+import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.messages.Message;
 
 import java.io.IOException;
@@ -17,11 +17,11 @@ public class ServerMaster
 {
   private ServerSocket serverSocket;
   private LinkedList<ServerWorker> allConnections = new LinkedList<ServerWorker>();
-  public GameState game_state = GameState.WAITING_FOR_CONNECTIONS;
+  public EnumGameState game_state = EnumGameState.WAITING_FOR_CONNECTIONS;
 
   public ServerMaster(int portNumber)
   {
-    game_state = GameState.WAITING_FOR_CONNECTIONS;
+    game_state = EnumGameState.WAITING_FOR_CONNECTIONS;
     try
     {
       serverSocket = new ServerSocket(portNumber);
