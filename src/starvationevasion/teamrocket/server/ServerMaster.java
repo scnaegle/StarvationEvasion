@@ -2,6 +2,7 @@ package starvationevasion.teamrocket.server;
 
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.messages.Message;
+import starvationevasion.teamrocket.models.ChatHistory;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -18,6 +19,7 @@ public class ServerMaster
   private ServerSocket serverSocket;
   private LinkedList<ServerWorker> allConnections = new LinkedList<ServerWorker>();
   public EnumGameState game_state = EnumGameState.WAITING_FOR_CONNECTIONS;
+  private ChatHistory chatHistory = new ChatHistory();
 
   public ServerMaster(int portNumber)
   {

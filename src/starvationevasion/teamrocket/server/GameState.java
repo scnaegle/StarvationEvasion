@@ -4,6 +4,10 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.Policy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.sim.CardDeck;
+import starvationevasion.teamrocket.messages.EnumGameState;
+import starvationevasion.teamrocket.models.ChatHistory;
+import starvationevasion.teamrocket.models.Discard;
+import starvationevasion.teamrocket.models.PolicyVote;
 import starvationevasion.teamrocket.models.Region;
 
 import java.io.Serializable;
@@ -19,11 +23,14 @@ import java.util.ArrayList;
  * their own view of the status of the game.
  */
 public class GameState implements Serializable {
+  public EnumGameState gameState; // The current state of the game as defined by the EnumGameState
+  public Stopwatch stopwatch; // Current timer of the stop
   public Region[] regions; // All the region stats
   public CardDeck cardDeck; // The player's deck of cards
   public Discard[] discard_piles; // All players' discard piles
   public PolicyCard[][] drafted_policies; // All drafted policies
   public PolicyVote[][] policy_votes; // All players votes for each card
+  public ChatHistory chatHistory; // Chat history
 
   public GameState(Region[] regions, CardDeck cardDeck, Discard[] discard_piles, PolicyCard[][] drafted_policies) {
     this(regions, cardDeck, discard_piles, drafted_policies, null);
