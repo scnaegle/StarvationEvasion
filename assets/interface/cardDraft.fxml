@@ -15,246 +15,260 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.9998779296875" prefWidth="-1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<GridPane fx:id="gridpane" alignment="TOP_LEFT" gridLinesVisible="false" hgap="10.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#showMyRegion" prefHeight="760.0" prefWidth="-1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
     <Pane minWidth="1024.0" prefHeight="-1.0" prefWidth="1024.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <Pane layoutX="19.0" layoutY="22.0" prefHeight="244.0" prefWidth="247.00009999999747">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="760.0" layoutX="-1.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" visible="true" width="1024.0">
+          <fill>
+            <Color blue="1.000" green="0.976" red="0.800" fx:id="x7" />
+          </fill>
+        </Rectangle>
+        <Label id="regionLabel" fx:id="currentRegion" layoutX="567.0" layoutY="346.0" prefHeight="23.999988555908203" prefWidth="434.9998779296875" text="Current Region:">
+          <font>
+            <Font name="Avenir Next Demi Bold Italic" size="15.0" />
+          </font>
+        </Label>
+        <Label fx:id="appleLabel" alignment="TOP_CENTER" layoutX="8.0" layoutY="635.0" prefHeight="20.0" prefWidth="121.0" text="Non-citrus fruits" visible="false">
+          <labelFor>
+            <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="64.0" maxWidth="64.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="apple" fitHeight="64.0" fitWidth="64.0">
+                  <image>
+                    <Image url="@../images/farmProductIcons/FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="grainLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="119.0" layoutY="636.0" prefWidth="64.0" text="Grains" visible="false">
+          <labelFor>
+            <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="grains" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/grains.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="citrusLabel" layoutX="196.0" layoutY="636.0" prefWidth="76.0" text="Citrus fruits" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="citrusButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="citrus" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/citrus.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="feedLabel" layoutX="285.0" layoutY="636.0" text="Feed crops" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="feedButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="corn" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/corn.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="dairyLabel" layoutX="384.0" layoutY="636.0" text="Dairy" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="dairy" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/dairy.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="fishLabel" layoutX="468.0" layoutY="636.0" text="Fish" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="fishButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="11.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="fish" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/fish.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="meatLabel" layoutX="529.0" layoutY="636.0" text="Red meats" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="meatButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="meat" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/meat.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="nutLabel" layoutX="624.0" layoutY="636.0" text="Nuts" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="nutButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="nuts" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/nuts.jpg" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="oilLabel" layoutX="687.0" layoutY="636.0" text="Oil plants" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="oilButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="oil" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/oil.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="poultryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="766.0" layoutY="636.0" prefWidth="55.0" text="Poultry" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="poultryButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="poultry" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/poultry.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="veggieLabel" layoutX="843.0" layoutY="636.0" text="Vegitables" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="veggieButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="veggies" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/veggies.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Label fx:id="specialLabel" layoutX="914.0" layoutY="636.0" text="Special crops" visible="false">
+          <labelFor>
+            <Button id="grainsButton" fx:id="specialButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
+              <graphic>
+                <ImageView id="special" pickOnBounds="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/special.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </labelFor>
+        </Label>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="102.0" layoutX="30.0" layoutY="286.0" stroke="WHITE" strokeType="INSIDE" width="178.0" />
+        <Button fx:id="undo" layoutX="81.0" layoutY="341.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.00000762939453" prefWidth="76.0" text="UNDO" />
+        <Button fx:id="doneWithCards" layoutX="44.0" layoutY="299.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
+        <Label fx:id="time" alignment="CENTER" layoutX="336.0" layoutY="88.0" prefHeight="80.310546875" prefWidth="125.0" text="Time">
+          <font>
+            <Font name="Avenir Next Demi Bold Italic" size="22.0" />
+          </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="290.0" layoutY="273.0" prefWidth="178.0" text="Cards drafted" />
+        <Pane layoutX="243.0" layoutY="295.0" prefHeight="101.999755859375" prefWidth="274.0">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="787.9998779296875" layoutX="-19.0" layoutY="-22.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="262.0" layoutX="-5.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="266.0000999999975" />
-            <Pane layoutX="0.0" layoutY="0.0" prefHeight="244.00009999999747" prefWidth="251.00009999999747" />
-            <Button fx:id="drawCardButton" layoutX="-7.0" layoutY="372.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="129.0" prefWidth="101.0" text="Draw a card" />
-            <HBox fx:id="fruitPane" layoutX="0.0" layoutY="642.0" prefHeight="-1.0" prefWidth="986.9998779296875">
-              <children>
-                <StackPane prefHeight="109.0" prefWidth="85.0">
-                  <children>
-                    <Button fx:id="appleButton" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="64.0" maxWidth="64.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="apple" fitHeight="64.0" fitWidth="64.0">
-                          <image>
-                            <Image url="@../images/farmProductIcons/FarmProduct_Fruit_64x64.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </StackPane>
-                <StackPane prefHeight="109.0" prefWidth="82.0">
-                  <children>
-                    <Button fx:id="grainsButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="grains" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/grains.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </StackPane>
-                <StackPane prefHeight="109.0" prefWidth="84.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="citrusButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="citrus" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/citrus.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </StackPane>
-                <StackPane prefHeight="109.0" prefWidth="85.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="feedButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="corn" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/corn.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </StackPane>
-                <Pane prefHeight="109.0" prefWidth="77.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="dairy" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/dairy.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </Pane>
-                <Pane prefHeight="109.0" prefWidth="85.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="fishButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="11.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="fish" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/fish.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </Pane>
-                <Pane prefHeight="109.0" prefWidth="77.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="meatButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="meat" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/meat.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </Pane>
-                <Pane prefHeight="109.0" prefWidth="77.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="nutButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="nuts" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/nuts.jpg" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </Pane>
-                <Pane prefHeight="109.0" prefWidth="77.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="oilButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="oil" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/oil.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </Pane>
-                <Pane prefHeight="109.0" prefWidth="84.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="poultryButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="23.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="poultry" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/poultry.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </Pane>
-                <StackPane prefHeight="109.0" prefWidth="76.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="veggieButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="veggies" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/veggies.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </StackPane>
-                <StackPane prefHeight="109.0" prefWidth="84.0">
-                  <children>
-                    <Button id="grainsButton" fx:id="specialButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="">
-                      <graphic>
-                        <ImageView id="special" pickOnBounds="true">
-                          <image>
-                            <Image url="@../images/farmProductIcons/special.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </StackPane>
-              </children>
-            </HBox>
-            <Label id="regionLabel" fx:id="currentRegion" layoutX="567.0" layoutY="309.0" prefHeight="23.999988555908203" prefWidth="434.9998779296875" text="Current Region:">
-              <font>
-                <Font name="Avenir Next Demi Bold Italic" size="15.0" />
-              </font>
-            </Label>
-            <Label fx:id="caliLabel" contentDisplay="CENTER" layoutX="448.0" layoutY="122.0" prefWidth="73.9998779296875" text="California" textAlignment="LEFT" textFill="#1400ff" visible="false">
-              <graphic>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.856002807617188" opacity="0.37" stroke="BLACK" strokeType="INSIDE" width="73.9998779296875" />
-              </graphic>
-              <labelFor>
-                <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="534.0" layoutY="113.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <image>
-                    <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </labelFor>
-            </Label>
-            <Label id="" fx:id="neLabel" contentDisplay="CENTER" layoutX="859.0" layoutY="14.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="137.0" text="Northern Crescent" textAlignment="LEFT" visible="false">
-              <graphic>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
-              </graphic>
-              <labelFor>
-                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <image>
-                    <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </labelFor>
-              <textFill>
-                <Color blue="1.000" green="0.000" red="0.078" fx:id="x2" />
-              </textFill>
-            </Label>
-            <Label id="caliLabel" fx:id="seLabel" contentDisplay="CENTER" layoutX="896.0" layoutY="219.0" minWidth="67.0" prefHeight="39.310447692871094" prefWidth="101.0" text="Southeast" textAlignment="LEFT" textFill="$x2" visible="false">
-              <graphic>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="101.0" />
-              </graphic>
-              <labelFor>
-                <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <image>
-                    <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </labelFor>
-            </Label>
-            <Label fx:id="appleLabel" alignment="TOP_CENTER" labelFor="$appleButton" layoutX="-17.0" layoutY="622.0" prefHeight="20.0" prefWidth="121.0" text="Non-citrus fruits" visible="false" />
-            <Label fx:id="grainLabel" alignment="CENTER" contentDisplay="CENTER" labelFor="$grainsButton" layoutX="94.0" layoutY="627.0" prefWidth="64.0" text="Grains" visible="false" />
-            <Label fx:id="citrusLabel" labelFor="$citrusButton" layoutX="171.0" layoutY="627.0" prefWidth="76.0" text="Citrus fruits" visible="false" />
-            <Label fx:id="feedLabel" labelFor="$feedButton" layoutX="260.0" layoutY="627.0" text="Feed crops" visible="false" />
-            <Label fx:id="dairyLabel" labelFor="$dairyButton" layoutX="359.0" layoutY="627.0" text="Dairy" visible="false" />
-            <Label fx:id="fishLabel" labelFor="$fishButton" layoutX="443.0" layoutY="627.0" text="Fish" visible="false" />
-            <Label fx:id="meatLabel" labelFor="$meatButton" layoutX="504.0" layoutY="627.0" text="Red meats" visible="false" />
-            <Label fx:id="nutLabel" labelFor="$nutButton" layoutX="599.0" layoutY="627.0" text="Nuts" visible="false" />
-            <Label fx:id="oilLabel" labelFor="$oilButton" layoutX="662.0" layoutY="627.0" text="Oil plants" visible="false" />
-            <Label fx:id="poultryLabel" alignment="CENTER" contentDisplay="CENTER" labelFor="$poultryButton" layoutX="741.0" layoutY="627.0" prefWidth="55.0" text="Poultry" visible="false" />
-            <Label fx:id="veggieLabel" labelFor="$veggieButton" layoutX="818.0" layoutY="627.0" text="Vegitables" visible="false" />
-            <Label fx:id="specialLabel" labelFor="$specialButton" layoutX="889.0" layoutY="627.0" text="Special crops" visible="false" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="59.0" layoutX="-5.0" layoutY="262.0" stroke="WHITE" strokeType="INSIDE" width="266.0001220703125" />
-            <Button fx:id="undo" layoutX="7.0" layoutY="276.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.00000762939453" prefWidth="76.0" text="UNDO" />
-            <Button fx:id="doneWithCards" layoutX="96.0" layoutY="277.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
-            <Label fx:id="time" alignment="CENTER" layoutX="336.0" layoutY="88.0" prefHeight="80.310546875" prefWidth="125.0" text="Time">
-              <font>
-                <Font name="Avenir Next Demi Bold Italic" size="22.0" />
-              </font>
-            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="109.0" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
           </children>
         </Pane>
-        <Pane id="playerCards" fx:id="playerCardPane" layoutX="140.0" layoutY="395.0" prefHeight="216.0" prefWidth="485.049072265625">
+        <BorderPane fx:id="statisticsPane" layoutX="691.0" layoutY="370.0" prefHeight="238.0" prefWidth="265.0" />
+        <HBox fx:id="fruitPane" layoutX="25.0" layoutY="647.0" prefHeight="101.999755859375" prefWidth="986.9998779296875">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99ffa9" height="258.0000915527344" layoutX="-19.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
-            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="233.0" layoutX="-6.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
+            <StackPane prefHeight="109.0" prefWidth="85.0">
+              <children>
+                <fx:reference source="appleButton" />
+              </children>
+            </StackPane>
+            <StackPane prefHeight="109.0" prefWidth="82.0">
+              <children>
+                <fx:reference source="grainsButton" />
+              </children>
+            </StackPane>
+            <StackPane prefHeight="109.0" prefWidth="84.0">
+              <children>
+                <fx:reference source="citrusButton" />
+              </children>
+            </StackPane>
+            <StackPane prefHeight="109.0" prefWidth="85.0">
+              <children>
+                <fx:reference source="feedButton" />
+              </children>
+            </StackPane>
+            <Pane prefHeight="109.0" prefWidth="77.0">
+              <children>
+                <fx:reference source="dairyButton" />
+              </children>
+            </Pane>
+            <Pane prefHeight="109.0" prefWidth="85.0">
+              <children>
+                <fx:reference source="fishButton" />
+              </children>
+            </Pane>
+            <Pane prefHeight="109.0" prefWidth="77.0">
+              <children>
+                <fx:reference source="meatButton" />
+              </children>
+            </Pane>
+            <Pane prefHeight="109.0" prefWidth="77.0">
+              <children>
+                <fx:reference source="nutButton" />
+              </children>
+            </Pane>
+            <Pane prefHeight="109.0" prefWidth="77.0">
+              <children>
+                <fx:reference source="oilButton" />
+              </children>
+            </Pane>
+            <Pane prefHeight="109.0" prefWidth="84.0">
+              <children>
+                <fx:reference source="poultryButton" />
+              </children>
+            </Pane>
+            <StackPane prefHeight="109.0" prefWidth="76.0">
+              <children>
+                <fx:reference source="veggieButton" />
+              </children>
+            </StackPane>
+            <StackPane prefHeight="109.0" prefWidth="84.0">
+              <children>
+                <fx:reference source="specialButton" />
+              </children>
+            </StackPane>
+          </children>
+        </HBox>
+        <Button fx:id="drawCardButton" layoutX="24.0" layoutY="413.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="101.999755859375" prefWidth="82.0" text="Draw" />
+        <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#003d99" height="214.99996948242188" layoutX="-34.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
+            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="198.0001220703125" layoutX="-21.0" layoutY="-13.0" opacity="1.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
             <Label layoutX="195.0" layoutY="-4.0" prefWidth="97.0" text="Your cards">
               <font>
                 <Font size="15.0" fx:id="x1" />
@@ -262,44 +276,43 @@
             </Label>
           </children>
         </Pane>
-        <Pane fx:id="statisticsPane" layoutX="686.0" layoutY="388.0" prefHeight="224.0" prefWidth="274.0">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33e7ff" height="252.0" layoutX="-17.0" layoutY="-15.0" stroke="BLACK" strokeType="INSIDE" width="307.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="223.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="277.0" />
-            <Label font="$x1" layoutX="99.0" layoutY="8.0" prefHeight="24.0" prefWidth="77.0" text="Statistics" />
-          </children>
-        </Pane>
-        <Pane fx:id="discard" layoutX="14.0" layoutY="518.0" prefHeight="121.0" prefWidth="101.0">
-          <children>
-            <Label fx:id="discardLabel" layoutX="12.0" layoutY="45.0" prefHeight="35.0" prefWidth="84.0" text="Discard Pile" />
-          </children>
-        </Pane>
-        <HBox fx:id="draftCardPane" blendMode="SRC_OVER" cache="false" depthTest="DISABLE" fillHeight="false" layoutX="291.0" layoutY="252.0" mouseTransparent="false" prefHeight="121.0" prefWidth="285.0">
-          <children>
-            <Label alignment="CENTER" prefWidth="277.0" text="Cards drafted" />
-          </children>
-        </HBox>
-        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="525.0" layoutY="48.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');">
+        <Pane fx:id="discard" layoutX="24.0" layoutY="524.0" prefHeight="102.0" prefWidth="82.0" />
+        <Label id="" fx:id="neLabel" contentDisplay="CENTER" layoutX="860.0" layoutY="26.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="137.0" text="Northern Crescent" textAlignment="LEFT" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+          <textFill>
+            <Color blue="1.000" green="0.000" red="0.078" fx:id="x2" />
+          </textFill>
+        </Label>
+        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="526.0" layoutY="60.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="541.0" layoutY="44.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="542.0" layoutY="56.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="789.0" layoutY="64.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="790.0" layoutY="76.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="701.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="702.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <Label id="" fx:id="sPlainLabel" contentDisplay="CENTER" layoutX="581.0" layoutY="258.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Southern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
+        <Label id="" fx:id="sPlainLabel" contentDisplay="CENTER" layoutX="582.0" layoutY="270.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Southern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
@@ -311,22 +324,22 @@
             </ImageView>
           </labelFor>
         </Label>
-        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="798.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="799.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="666.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="667.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="754.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="755.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <Label id="" fx:id="mountLabel" contentDisplay="CENTER" layoutX="625.0" layoutY="39.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Mountain States" textAlignment="LEFT" textFill="$x2" visible="false">
+        <Label id="" fx:id="mountLabel" contentDisplay="CENTER" layoutX="626.0" layoutY="51.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Mountain States" textAlignment="LEFT" textFill="$x2" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
@@ -338,13 +351,12 @@
             </ImageView>
           </labelFor>
         </Label>
-        <fx:reference source="cali" />
-        <Label fx:id="mainLabel" layoutX="291.0" layoutY="7.0" prefHeight="31.310546875" prefWidth="497.0" text="Year, World/Region Population and HDI">
-          <font>
-            <Font name="Avenir Next Demi Bold Italic" size="25.0" />
-          </font>
-        </Label>
-        <Label id="" fx:id="nPlainLabel" contentDisplay="CENTER" layoutX="740.0" layoutY="58.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="115.0" text="Northern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
+        <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="535.0" layoutY="125.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
+          <image>
+            <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="" fx:id="nPlainLabel" contentDisplay="CENTER" layoutX="741.0" layoutY="70.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="115.0" text="Northern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
           </graphic>
@@ -356,7 +368,7 @@
             </ImageView>
           </labelFor>
         </Label>
-        <Label id="" fx:id="heartLabel" contentDisplay="CENTER" layoutX="781.0" layoutY="124.0" minWidth="67.0" prefHeight="39.310447692871094" prefWidth="73.9998779296875" text="Heartland" textAlignment="LEFT" textFill="$x2" visible="false">
+        <Label id="" fx:id="heartLabel" contentDisplay="CENTER" layoutX="782.0" layoutY="136.0" minWidth="67.0" prefHeight="39.310447692871094" prefWidth="73.9998779296875" text="Heartland" textAlignment="LEFT" textFill="$x2" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="77.0" />
           </graphic>
@@ -367,6 +379,28 @@
               </image>
             </ImageView>
           </labelFor>
+        </Label>
+        <Label fx:id="caliLabel" contentDisplay="CENTER" labelFor="$cali" layoutX="449.0" layoutY="134.0" prefWidth="73.9998779296875" text="California" textAlignment="LEFT" textFill="#1400ff" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.856002807617188" opacity="0.37" stroke="BLACK" strokeType="INSIDE" width="73.9998779296875" />
+          </graphic>
+        </Label>
+        <Label id="caliLabel" fx:id="seLabel" contentDisplay="CENTER" layoutX="897.0" layoutY="231.0" minWidth="67.0" prefHeight="39.310447692871094" prefWidth="101.0" text="Southeast" textAlignment="LEFT" textFill="$x2" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="101.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+        </Label>
+        <Label fx:id="mainLabel" layoutX="291.0" layoutY="7.0" prefHeight="31.310546875" prefWidth="497.0" text="Year, World/Region Population and HDI">
+          <font>
+            <Font name="Avenir Next Demi Bold Italic" size="25.0" />
+          </font>
         </Label>
         <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
           <children>
@@ -660,6 +694,11 @@
             <Button id="closeWindow" fx:id="closeWindow12" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
+        <Label fx:id="playerRegion" layoutX="649.0" layoutY="50.0" prefWidth="343.9998779296875" text="My Region:">
+          <font>
+            <Font name="Avenir Next Demi Bold" size="15.0" />
+          </font>
+        </Label>
       </children>
     </Pane>
   </children>

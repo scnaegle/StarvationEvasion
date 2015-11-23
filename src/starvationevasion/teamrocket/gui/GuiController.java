@@ -1,19 +1,25 @@
 package starvationevasion.teamrocket.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
+import javafx.geometry.Side;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+
+import java.util.ArrayList;
 
 
 public class GuiController
@@ -159,6 +165,9 @@ public class GuiController
   private int heartSupportVotes2 = 0;
   private int heartOpposeVotes2 = 0;
   private int heartAbstainVotes2 = 0;
+
+  @FXML
+  private HBox c1Votes;
 
   /* PRODUCE INFORMATION WINDOWS */
   @FXML
@@ -320,9 +329,13 @@ public class GuiController
   @FXML
   private Label specialLabel;
 
+  @FXML
+  private Label playerRegion;
 
+  private EnumRegion myRegion;
 
-  private EnumRegion playerRegion;
+  @FXML
+  private BorderPane statisticsPane;
 
   private Player player;
 
@@ -393,21 +406,24 @@ public class GuiController
     }
     else if(button == pickedRegion)
     {
-      EnumRegion myRegion = saveRegion();
+      myRegion = saveRegion();
+      System.out.println("my region is now: " + myRegion);
       if(myRegion == null)
       {
         return;
       }
+
       //Go to next scene
       try
       {
-        this.player = Main.gameController.startNewGame(this.playerRegion);
-        //highlightMyRegion(myRegion);
+        this.player = Main.gameController.startNewGame(this.myRegion);
+
       }
       catch (Exception e)
       {
         e.printStackTrace();
       }
+
     }
     else if(button == doneWithCards)
     {
@@ -456,6 +472,7 @@ public class GuiController
       caliCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes1, caliOpposeVotes1, caliAbstainVotes1);
+      c1Votes.setVisible(true);
     }
     else if(button == caliCard2)
     {
@@ -643,6 +660,16 @@ public class GuiController
   }
 
 
+  /**
+   * Allows regions to be highlighted when drafting scene begins.
+   */
+  @FXML
+  public void showMyRegion()
+  {
+    highlightMyRegion(Main.gameController.getMyRegion());
+    playerRegion.setText("My Region: " + Main.gameController.getMyRegion());
+    currentRegion.setText("Current Region: "+Main.gameController.getMyRegion());
+  }
 
 
   private void closeProduceWindows()
@@ -680,11 +707,17 @@ public class GuiController
   {
     if(myRegion == EnumRegion.CALIFORNIA) cali.setVisible(true);
     else if(myRegion == EnumRegion.MOUNTAIN) mountSt.setVisible(true);
+    else if(myRegion == EnumRegion.NORTHERN_CRESCENT) northSt.setVisible(true);
+    else if(myRegion == EnumRegion.NORTHERN_PLAINS) nPlains.setVisible(true);
+    else if(myRegion == EnumRegion.SOUTHEAST) southEast.setVisible(true);
+    else if(myRegion == EnumRegion.SOUTHERN_PLAINS) sPlains.setVisible(true);
+    else if(myRegion == EnumRegion.HEARTLAND) heartland.setVisible(true);
   }
 
   private EnumRegion saveRegion()
   {
     nothingSelected.setVisible(false);
+    EnumRegion playerRegion;
 
     if(caliSelected)
     {
@@ -717,6 +750,7 @@ public class GuiController
     else
     {
       //show error label
+      playerRegion = null;
       nothingSelected.setVisible(true);
       //don't go to next stage until they select something
     }
@@ -1293,7 +1327,7 @@ public class GuiController
   }
 
   /**
-   * Method specifically for the smaller map inside of main1.fxml.
+   * Method specifically for the smaller map inside of cardDraft.fxml.
    *
    * @param event Mouse clicked event
    */
@@ -1303,48 +1337,64 @@ public class GuiController
     double x = event.getX();
     double y = event.getY();
 
+    System.out.println("myRegion: " + Main.gameController.getMyRegion());
+
     makeAllInvisible();
 
     if (ImageRegion.CALIFORNIA.contains(x, y))
     {
       cali.setVisible(true);
       caliLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.CALIFORNIA);
+      currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
+
+     // statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.CALIFORNIA)));
+      statisticsPane.setCenter(testPieChart());
+
       System.out.println("Selected cali");
     }
     else if (ImageRegion.HEARTLAND.contains(x, y))
     {
       heartland.setVisible(true);
       heartLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.HEARTLAND);
+      currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
+      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.HEARTLAND)));
+
       System.out.println("Selected heartland");
     }
     else if (ImageRegion.MOUNTAINST.contains(x, y))
     {
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.MOUNTAIN);
+      currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
+      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.MOUNTAIN)));
+
       System.out.println("Selected Mountain States");
     }
     else if (ImageRegion.NORTHPLAINS.contains(x, y))
     {
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.NORTHERN_PLAINS);
+      currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
+      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+
       System.out.println("Selected North Plains");
     }
     else if (ImageRegion.NORTHEAST.contains(x, y))
     {
       northSt.setVisible(true);
       neLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.NORTHERN_CRESCENT);
+      currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
+      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+
       System.out.println("Selected Northeast");
     }
     else if (ImageRegion.SOUTHEAST.contains(x, y))
     {
       southEast.setVisible(true);
       seLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.SOUTHEAST);
+      currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
+      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.SOUTHEAST)));
+
       System.out.println("Selected Southeast");
 
     }
@@ -1352,10 +1402,34 @@ public class GuiController
     {
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
-      currentRegion.setText("Current Region:  "+EnumRegion.SOUTHERN_PLAINS);
+      currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
+      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+
       System.out.println("Selected South Plains");
     }
 
+  }
+
+  private PieChart testPieChart()
+  {
+
+    //PieChart p = new PieChart();
+    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+
+    for(int i=0; i<5;i++)
+    {
+      dataList.add(new PieChart.Data(i+"", i*5));
+    }
+
+    ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(dataList);
+    PieChart p = new PieChart(pieChartData);
+//    chart.
+    p.setTitle("Dummy graph");
+    p.setLegendSide(Side.BOTTOM);
+    p.setLabelsVisible(true);
+    p.setVisible(true);
+    return p;
   }
 
   /**
@@ -1483,9 +1557,5 @@ public class GuiController
     System.out.println(x + "," + y + ",");
   }
 
-  public EnumRegion getSelectedRegion()
-  {
-    return playerRegion;
-  }
 }
 

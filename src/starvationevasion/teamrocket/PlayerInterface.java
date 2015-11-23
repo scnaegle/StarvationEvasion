@@ -42,20 +42,13 @@ public interface PlayerInterface
   /**
    * Player discards the card associated with
    * the given card number
-   * @param cardNum number of the card
+   * @param discardXNumCards discard x number of cards
    */
-  public void discardCard(int cardNum);
+  public void discardCard(int discardXNumCards);
 
   /**
-   * Player draws up to the number of draws
-   * allowed
-   * @param numOfDraws max number of cards player can draw
+   * Adds a single card to the player's hand
    */
-  public void drawCards(int numOfDraws);
-
-  /**
-   * Player shuffles their deck
-   */
-  public void shuffleDeck();
+  public void addCard(Card card);
 
 }

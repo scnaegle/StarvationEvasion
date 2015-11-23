@@ -44,8 +44,10 @@ public class CropChart
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
     PieChart chart = new PieChart(pieChartData);
+
     chart.setTitle("Crops");
-    chart.setLegendSide(Side.RIGHT);
+    chart.setLegendSide(Side.BOTTOM);
+    chart.setVisible(true);
     return chart;
   }
 
@@ -66,29 +68,6 @@ public class CropChart
     LineChart<Number,Number> lineChart =
         new LineChart<Number,Number>(xAxis,yAxis);
 
-    lineChart.setTitle(food.name()+" produced for " +region.ENUM_REGION.name());
-
-    //defining a series
-    XYChart.Series series = new XYChart.Series();
-    series.setName(food.name()+ " produced");
-    //populating the series with data
-    series.getData().add(new XYChart.Data(1980, 23));
-    series.getData().add(new XYChart.Data(1983, 14));
-//    series.getData().add(new XYChart.Data(3, 15));
-//    series.getData().add(new XYChart.Data(4, 24));
-//    series.getData().add(new XYChart.Data(5, 34));
-//    series.getData().add(new XYChart.Data(6, 36));
-//    series.getData().add(new XYChart.Data(7, 22));
-//    series.getData().add(new XYChart.Data(8, 45));
-//    series.getData().add(new XYChart.Data(9, 43));
-//    series.getData().add(new XYChart.Data(10, 17));
-//    series.getData().add(new XYChart.Data(11, 29));
-//    series.getData().add(new XYChart.Data(12, 25));
-    lineChart.getData().add(series);
-    xAxis.autosize();
-    lineChart.autosize();
-//    lineChart.
-
-    return lineChart;
+    return null;
   }
 }
