@@ -1,35 +1,27 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumRegion;
-import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Card;
+import starvationevasion.teamrocket.models.Player;
 
 import java.util.LinkedList;
 import java.util.Random;
-//NOTE: AI communication with other players, should AI talk with other players????
-
-public class AI implements PlayerInterface
+//TODO: AI CHAT!!!!! ASAP
+//TODO: needs to know the crops, and select crops for cards
+//TODO: need to select target region for cards
+public class AI extends Player
 {
-  /*AI info*/
-  private final EnumRegion region;
-  private final EnumAITypes level;
-  //TODO: need to handle money exchange for ai
-//TODO: needs to know the crops
   /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
   private Random generator;
-  private GameController controller;
-  private LinkedList<Card> hand;
 
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController,
             LinkedList<Card> handFromServer)
   {
-    controller = gameController;
-    region = controlledRegion;
-    level = aiLevel;
-    hand = handFromServer;
+    super(controlledRegion,aiLevel, gameController, handFromServer);
+
     generator = new Random();
 
     setup();
@@ -51,31 +43,17 @@ public class AI implements PlayerInterface
   }
 
   @Override
-  public String getLogIn() {
-    return null;
-  }
-  @Override
-  public EnumRegion getRegion(){return region;}
-
-  @Override//TODO: needs to be done in EnumAITypes
   public Card[] playSelectedCards() {
-    return new Card[0];
+    return AI.selectCards(getHand(),generator);
   }
 
   @Override
   public int vote(Card card, EnumRegion cardPlayedRegion) {
-    return level.vote(records[cardPlayedRegion.ordinal()], generator);
+    return AI.vote(records[cardPlayedRegion.ordinal()], generator);
   }
 
   @Override
-  public void discardCard(int discardXNumCards)
-  {
-    hand = level.discardCards(discardXNumCards,hand,generator);
-    System.out.println("Hand size: " + hand.size());
-  }
-
-  @Override
-  public void addCard(Card card) {
-    hand.add(card);
+  public void discardCard(int discardXNumCards) {
+    setHand(AI.discardCards(discardXNumCards,getHand(),generator));
   }
 }

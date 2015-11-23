@@ -17,12 +17,6 @@ public interface PlayerInterface
   public String getLogIn();
 
   /**
-   * Gets the player's region they are controlling
-   * @return US region controlled by player
-   */
-  public EnumRegion getRegion();
-
-  /**
    * Gets an array of all the cards that
    * are being played.
    * @return array of Cards that are selected to play

@@ -264,7 +264,15 @@
             </StackPane>
           </children>
         </HBox>
-        <Button fx:id="drawCardButton" layoutX="24.0" layoutY="413.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="101.999755859375" prefWidth="82.0" text="Draw" />
+        <Button fx:id="drawCardButton" layoutX="20.0" layoutY="419.0" minHeight="103.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="103.0" prefWidth="80.0" text="">
+          <graphic>
+            <ImageView id="card" fitHeight="109.0" fitWidth="90.83333333333334" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#003d99" height="214.99996948242188" layoutX="-34.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />

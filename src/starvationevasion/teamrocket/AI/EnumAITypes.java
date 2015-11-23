@@ -16,7 +16,7 @@ public enum EnumAITypes
    * DUMB level of AI
    * Randomly chooses a vote
    * Discard will favor voting cards, 1/3 chance of discarding non vote card
-   * Will try to avoid playing voting cards if possible
+   * Will try to avoid playing voting cards if possible, 1/5 chance of playing a voting card
    */
   DUMB
     {
@@ -32,16 +32,49 @@ public enum EnumAITypes
         int discardedCardCount = 0;
         LinkedList<Card> modifiedHand = new LinkedList<>();
 
-        for(Card card : hand)
+        while(discardedCardCount < discardXNumCards)
         {
-          if(card.needsVotes() && discardedCardCount < discardXNumCards)
+          for(Card card : hand)
           {
-            discardedCardCount++;
+            if(card.needsVotes())
+            {
+              discardedCardCount++;
+            }
+            else if(generator.nextInt(3) == 0) discardedCardCount++;
+            else modifiedHand.add(card);
           }
-          else if(generator.nextInt(3) == 0 && discardedCardCount < discardXNumCards) discardedCardCount++;
-          else modifiedHand.add(card);
         }
+
         return modifiedHand;
+      }
+
+      @Override
+      public Card[] selectCards(LinkedList<Card> hand, Random generator) {
+        int cardsSelected = 0;
+        int selectXNumCards = generator.nextInt(3);
+        boolean votingCardPicked = false;
+        Card[] playedCards = new Card[selectXNumCards];
+
+        while(cardsSelected < selectXNumCards)
+        {
+          for(Card card : hand)
+          {
+            if(!card.needsVotes())
+            {
+              playedCards[cardsSelected] = card;
+              cardsSelected++;
+            }
+            else if(generator.nextInt(5) == 0)
+            {
+              playedCards[cardsSelected] = card;
+              cardsSelected++;
+              votingCardPicked = true;
+            }
+          }
+          if(votingCardPicked) cardsSelected = selectXNumCards;
+        }
+
+        return playedCards;
       }
     },
 
@@ -65,10 +98,15 @@ public enum EnumAITypes
         return -1;
       }
 
-      @Override
-      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator) {
-
+      @Override//TODO: build up average
+      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator)
+      {
         return hand;
+      }
+
+      @Override
+      public Card[] selectCards(LinkedList<Card> hand, Random generator) {
+        return new Card[0];
       }
     },
 
@@ -87,10 +125,15 @@ public enum EnumAITypes
         return -1;
       }
 
-      @Override
-      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator) {
-
+      @Override//TODO: build up smart
+      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator)
+      {
         return hand;
+      }
+
+      @Override
+      public Card[] selectCards(LinkedList<Card> hand, Random generator) {
+        return new Card[0];
       }
     };
 
@@ -111,6 +154,12 @@ public enum EnumAITypes
    * @return new modified card hand
    */
   public abstract LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator);
-  //TODO: how to play cards
-  //TODO: how to discard cards
+
+  /**
+   * AI selects up to 2 cards and returns them
+   * @param hand Card hand
+   * @param generator random generator to choose ranomly
+   * @return card array of selected cards
+   */
+  public abstract  Card[] selectCards(LinkedList<Card> hand, Random generator);
 }
