@@ -1,7 +1,11 @@
 package starvationevasion.common.policies;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.Policy;
+import starvationevasion.common.PolicyCard;
+
+import java.util.Collection;
 
 /**
  * Title: {@value #TITLE}<br><br>
@@ -19,6 +23,8 @@ import starvationevasion.common.Policy;
 */
 public class MyPlatePromotionCampaignPolicy extends Policy
 {
+  public static PolicyCard CARD = Fall2015PolicyProvider.EnumPolicy.MyPlate_Promotion_Campaign;
+
   public static final String TITLE =
      "MyPlate Promotion Campaign";
 
@@ -34,6 +40,14 @@ public class MyPlatePromotionCampaignPolicy extends Policy
   /* Combined with 0 required votes, this Indicates that this policy is automatic.
   */
   public final static boolean VOTE_WAIT_FOR_ALL = false;
+
+  /* The crop types applicable to this policy.
+  */
+  public final static Collection<EnumFood> TARGET_FOOD = null;
+
+  /* The target regions applicable to this policy. A v
+  */
+  public final static Collection<EnumRegion> TARGET_REGIONS = null;
 
   public MyPlatePromotionCampaignPolicy(EnumRegion region)
   {
@@ -63,6 +77,12 @@ public class MyPlatePromotionCampaignPolicy extends Policy
   */
   @Override
   public String getGameText(){ return TEXT;}
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public PolicyCard getCardType() { return CARD; }
 
   /**
    * {@inheritDoc}

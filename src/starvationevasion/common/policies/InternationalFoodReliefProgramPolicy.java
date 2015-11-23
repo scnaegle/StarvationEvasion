@@ -1,7 +1,12 @@
 package starvationevasion.common.policies;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.Policy;
+import starvationevasion.common.PolicyCard;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Title: {@value #TITLE}<br><br>
@@ -29,6 +34,8 @@ import starvationevasion.common.Policy;
 */
 public class InternationalFoodReliefProgramPolicy extends Policy
 {
+  public static PolicyCard CARD = Fall2015PolicyProvider.EnumPolicy.International_Food_Relief_Program;
+
   public static final String TITLE =
     "International Food Relief Program";
 
@@ -47,6 +54,23 @@ public class InternationalFoodReliefProgramPolicy extends Policy
    * continue until all players have voted.
    */
   public final static boolean VOTE_WAIT_FOR_ALL = true;
+
+  /* The crop types applicable to this policy.
+  */
+  public final static Collection<EnumFood> TARGET_FOOD;
+
+  /* The target regions applicable to this policy.
+  */
+  public final static Collection<EnumRegion> TARGET_REGIONS = null;
+
+  static 
+  {
+    TARGET_FOOD = new ArrayList<>();
+	for (EnumFood food : EnumFood.values())
+	{
+	  if (food.isCrop()) TARGET_FOOD.add(food);
+	}
+  }
 
   public InternationalFoodReliefProgramPolicy(EnumRegion region)
   { 
@@ -76,6 +100,12 @@ public class InternationalFoodReliefProgramPolicy extends Policy
   */
   @Override
   public String getGameText(){ return TEXT;}
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public PolicyCard getCardType() { return CARD; }
 
   /**
    *  {@inheritDoc}
