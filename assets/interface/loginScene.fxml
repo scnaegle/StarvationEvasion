@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="loginScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+  <children>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="598.9992065429688" layoutX="-1.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="800.0" />
+    <Pane layoutX="199.0" layoutY="101.0" prefHeight="452.0" prefWidth="403.0">
+      <children>
+        <Label layoutX="67.0" layoutY="48.0" text="Enter your username:">
+          <font>
+            <Font size="14.0" fx:id="x1" />
+          </font>
+        </Label>
+        <Label font="$x1" layoutX="70.0" layoutY="129.0" text="Enter your password:" />
+        <PasswordField fx:id="password" layoutX="68.0" layoutY="151.0" prefHeight="25.0" prefWidth="269.0" />
+        <Label font="$x1" layoutX="67.0" layoutY="206.0" text="Enter your IP Address:" />
+        <Label font="$x1" layoutX="67.0" layoutY="288.0" text="Enter your port number:" />
+        <TextField fx:id="username" layoutX="67.0" layoutY="66.0" prefHeight="25.310546875" prefWidth="269.0" />
+        <TextField fx:id="ipAddress" disable="false" layoutX="67.0" layoutY="225.0" prefHeight="25.310546875" prefWidth="269.0" promptText="Ex. 192.168.1.1" text="" />
+        <TextField fx:id="port" layoutX="67.0" layoutY="308.0" prefHeight="25.310546875" prefWidth="269.0" promptText="Enter a 2 to 4 digit number" />
+        <Button id="continue" fx:id="login" layoutX="137.0" layoutY="388.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.310546875" prefWidth="129.0" text="Continue" />
+        <Label fx:id="addressError" layoutX="68.0" layoutY="258.0" text="Incorrect IP Address" textFill="RED" visible="false" />
+        <Label fx:id="portError" layoutX="70.0" layoutY="339.0" text="Incorrect Port number" textFill="RED" visible="false" />
+      </children>
+    </Pane>
+    <Label layoutX="95.0" layoutY="18.0" minHeight="53.0" prefHeight="53.0" prefWidth="140.0" text="LOGIN">
+      <font>
+        <Font name="Avenir Next Demi Bold" size="40.0" />
+      </font>
+    </Label>
+    <Line endX="689.0" endY="-1.0" layoutX="107.0" layoutY="84.0" startX="-106.0" startY="-1.0" />
+    <Line endX="655.5505981445312" endY="-12.190352439880371" rotate="90.0" startX="23.231191635131836" startY="-12.148158073425293" strokeWidth="2.7" AnchorPane.bottomAnchor="289.01" AnchorPane.leftAnchor="-239.18" AnchorPane.rightAnchor="371.25" AnchorPane.topAnchor="293.99" />
+    <Label fx:id="emptyFieldError" font="$x1" layoutX="262.0" layoutY="550.0" prefWidth="277.0" text="Please fill in all fields before continuing" textFill="RED" visible="false" />
+  </children>
+</AnchorPane>

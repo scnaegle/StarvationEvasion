@@ -19,7 +19,6 @@ import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
-import starvationevasion.teamrocket.messages.GameState;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.ArrayList;
