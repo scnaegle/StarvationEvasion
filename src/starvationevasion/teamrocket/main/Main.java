@@ -46,7 +46,7 @@ public class Main extends Application {
     votingScene = new Scene(voting);
 
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(loginScene);
+    primaryStage.setScene(welcomeScene);
     primaryStage.show();
 
 
