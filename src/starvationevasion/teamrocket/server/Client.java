@@ -19,7 +19,7 @@ public class Client
 
   private Socket clientSocket;
   private ObjectOutputStream write;
-  private BufferedReader reader;
+  private ObjectInputStream reader;
   private long startNanoSec;
   private Scanner keyboard;
   private ClientListener listener;
@@ -86,8 +86,7 @@ public class Client
     }
     try
     {
-      reader = new BufferedReader(new InputStreamReader(
-          clientSocket.getInputStream()));
+      reader = new ObjectInputStream(clientSocket.getInputStream());
     }
     catch (IOException e)
     {
@@ -127,8 +126,13 @@ public class Client
 
     running = false;
     if (write != null) {
-//      write.println("quit");
-//      write.close();
+      send(ServerEvent.QUIT, "quit");
+      try {
+        write.close();
+      } catch (IOException e) {
+        System.err.println("Client Error: Could not close");
+        e.printStackTrace();
+      }
     }
     if (reader != null)
     {
