@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,7 +29,7 @@ public class GuiController
 {
   /* PRODUCE AND DRAWING A CARD BUTTONS */
   @FXML
-  private Button drawCardButton;
+  private Button drawCardButton, discardPile;
   @FXML
   private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton, 
                  fishButton, meatButton, nutButton, oilButton, poultryButton, veggieButton, specialButton;
@@ -43,6 +44,18 @@ public class GuiController
   private Button submitVote;
   @FXML
   private Pane CardPane;
+
+  /* CARDS AND THEIR IMAGES IN THE DRAFTING PHASE */
+  @FXML
+  private ImageView card1Image, card2Image, card3Image, card4Image, card5Image, card6Image, card7Image, lastDiscardImage,
+                    draft1Image, draft2Image;
+
+  @FXML
+  private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
+
+  private int cardsDrafted = 0;
+
+  /***************************************************************************************/
 
   @FXML
   private Button support, oppose, abstain;
@@ -498,6 +511,209 @@ public class GuiController
   }
 
   @FXML
+  public void makeBigger(MouseEvent event)
+  {
+    Button card = (Button)event.getSource();
+    if(card == card1)
+    {
+
+      double width = card1Image.getFitWidth();
+      double height = card1Image.getFitHeight();
+
+      card1Image.setTranslateX(width / 16);
+      card1Image.setTranslateY(height / 16);
+
+      card1Image.setFitWidth(width * 4);
+      card1Image.setFitHeight(height * 4);
+
+      card1.toFront();
+    }
+    else if(card == card2)
+    {
+
+      double width = card2Image.getFitWidth();
+      double height = card2Image.getFitHeight();
+
+      card2Image.setTranslateX(width / 16);
+      card2Image.setTranslateY(height / 16);
+
+      card2Image.setFitWidth(width * 4);
+      card2Image.setFitHeight(height * 4);
+
+      card2.toFront();
+    }
+    else if(card == card3)
+    {
+
+      double width = card3Image.getFitWidth();
+      double height = card3Image.getFitHeight();
+
+      card3Image.setTranslateX(width / 16);
+      card3Image.setTranslateY(height / 16);
+
+      card3Image.setFitWidth(width * 4);
+      card3Image.setFitHeight(height * 4);
+
+      card3.toFront();
+    }
+    else if(card == card4)
+    {
+
+      double width = card4Image.getFitWidth();
+      double height = card4Image.getFitHeight();
+
+      card4Image.setTranslateX(width / 16);
+      card4Image.setTranslateY(height / 16);
+
+      card4Image.setFitWidth(width * 4);
+      card4Image.setFitHeight(height * 4);
+
+      card4.toFront();
+    }
+    else if(card == card5)
+    {
+
+      double width = card5Image.getFitWidth();
+      double height = card5Image.getFitHeight();
+
+      card5Image.setTranslateX(width / 16);
+      card5Image.setTranslateY(height / 16);
+
+      card5Image.setFitWidth(width * 4);
+      card5Image.setFitHeight(height * 4);
+
+      card5.toFront();
+    }
+    else if(card == card6)
+    {
+
+      double width = card6Image.getFitWidth();
+      double height = card6Image.getFitHeight();
+
+      card6Image.setTranslateX(width / 16);
+      card6Image.setTranslateY(height / 16);
+
+      card6Image.setFitWidth(width * 4);
+      card6Image.setFitHeight(height * 4);
+
+      card6.toFront();
+    }
+    else if (card == card7)
+    {
+
+      double width = card7Image.getFitWidth();
+      double height = card7Image.getFitHeight();
+
+      card7Image.setTranslateX(width / 16);
+      card7Image.setTranslateY(height / 16);
+
+      card7Image.setFitWidth(width * 4);
+      card7Image.setFitHeight(height * 4);
+
+      card7.toFront();
+    }
+
+
+
+  }
+
+
+  @FXML
+  public void returnToNormal(MouseEvent event)
+  {
+    Button card = (Button)event.getSource();
+    if(card == card1)
+    {
+      double width = card1Image.getFitWidth();
+      double height = card1Image.getFitHeight();
+
+      card1Image.setTranslateX(0);
+      card1Image.setTranslateY(0);
+
+      card1Image.setFitWidth(width / 4);
+      card1Image.setFitHeight(height / 4);
+    }
+    else if(card == card2)
+    {
+
+      double width = card2Image.getFitWidth();
+      double height = card2Image.getFitHeight();
+
+      card2Image.setTranslateX(0);
+      card2Image.setTranslateY(0);
+
+      card2Image.setFitWidth(width / 4);
+      card2Image.setFitHeight(height / 4);
+
+    }
+    else if(card == card3)
+    {
+
+      double width = card3Image.getFitWidth();
+      double height = card3Image.getFitHeight();
+
+      card3Image.setTranslateX(0);
+      card3Image.setTranslateY(0);
+
+      card3Image.setFitWidth(width / 4);
+      card3Image.setFitHeight(height / 4);
+
+    }
+    else if(card == card4)
+    {
+
+      double width = card4Image.getFitWidth();
+      double height = card4Image.getFitHeight();
+
+      card4Image.setTranslateX(0);
+      card4Image.setTranslateY(0);
+
+      card4Image.setFitWidth(width / 4);
+      card4Image.setFitHeight(height / 4);
+
+    }
+    else if(card == card5)
+    {
+
+      double width = card5Image.getFitWidth();
+      double height = card5Image.getFitHeight();
+
+      card5Image.setTranslateX(0);
+      card5Image.setTranslateY(0);
+
+      card5Image.setFitWidth(width / 4);
+      card5Image.setFitHeight(height / 4);
+
+    }
+    else if(card == card6)
+    {
+
+      double width = card6Image.getFitWidth();
+      double height = card6Image.getFitHeight();
+
+      card6Image.setTranslateX(0);
+      card6Image.setTranslateY(0);
+
+      card6Image.setFitWidth(width / 4);
+      card6Image.setFitHeight(height / 4);
+
+    }
+    else if(card == card7)
+    {
+
+      double width = card7Image.getFitWidth();
+      double height = card7Image.getFitHeight();
+
+      card7Image.setTranslateX(0);
+      card7Image.setTranslateY(0);
+
+      card7Image.setFitWidth(width / 4);
+      card7Image.setFitHeight(height / 4);
+
+    }
+
+  }
+  @FXML
   public void chooseGamePlay(ActionEvent event)
   {
     RadioButton gamePlay = (RadioButton)event.getSource();
@@ -606,6 +822,34 @@ public class GuiController
         button == closeWindow12 )
     {
       closeProduceWindows();
+    }
+    else if(button == card1)
+    {
+      tryDraftingCard(card1,card1Image);
+    }
+    else if(button == card2)
+    {
+      tryDraftingCard(card2,card2Image);
+    }
+    else if(button == card3)
+    {
+      tryDraftingCard(card3,card3Image);
+    }
+    else if(button == card4)
+    {
+      tryDraftingCard(card4,card4Image);
+    }
+    else if(button == card5)
+    {
+      tryDraftingCard(card5,card5Image);
+    }
+    else if(button == card6)
+    {
+      tryDraftingCard(card6,card6Image);
+    }
+    else if(button == card7)
+    {
+      tryDraftingCard(card7,card7Image);
     }
     else if(button == caliCard1)
     {
@@ -942,6 +1186,29 @@ public class GuiController
       //if policy card, use product for card
       //else display facts
       fishWindow.setVisible(true);
+    }
+  }
+
+  private void tryDraftingCard(Button card, ImageView cardImage)
+  {
+    cardsDrafted++;
+    if(cardsDrafted == 1)
+    {
+      card.setDisable(true);
+      draft1Image = cardImage;
+      draft1.setVisible(true);
+    }
+    else if(cardsDrafted == 2)
+    {
+      card.setDisable(true);
+      draft2Image = cardImage;
+      draft2.setVisible(true);
+    }
+    else
+    {
+      //show error window and ask user if they want to swap cards
+      //re-enable card put back
+      System.out.println("Already two cards drafted.");
     }
   }
 

@@ -1,9 +1,9 @@
 package starvationevasion.teamrocket.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import starvationevasion.teamrocket.messages.Message;
+import starvationevasion.teamrocket.messages.ServerEvent;
+
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
@@ -18,7 +18,7 @@ public class Client
   static final String BROADCAST_REGEX = "^\\d+\\.\\d{3}+:\\s*?inventory=(\\d+)\\s*?:\\s*?treasury=(\\d+\\.\\d+)";
 
   private Socket clientSocket;
-  private PrintWriter write;
+  private ObjectOutputStream write;
   private BufferedReader reader;
   private long startNanoSec;
   private Scanner keyboard;
@@ -76,7 +76,7 @@ public class Client
 
     try
     {
-      write = new PrintWriter(clientSocket.getOutputStream(), true);
+      write = new ObjectOutputStream(clientSocket.getOutputStream());
     }
     catch (IOException e)
     {
@@ -117,7 +117,7 @@ public class Client
       char c = cmd.charAt(0);
       if (c == 'q') break;
 
-      write.println(cmd);
+//      write.println(cmd);
     }
   }
 
@@ -127,8 +127,8 @@ public class Client
 
     running = false;
     if (write != null) {
-      write.println("quit");
-      write.close();
+//      write.println("quit");
+//      write.close();
     }
     if (reader != null)
     {
@@ -173,6 +173,11 @@ public class Client
     }
     new Client(host, port);
 
+  }
+
+  public void send(ServerEvent event, Serializable object) {
+    Message message = new Message(event, object);
+    MessageHandler.send(write, message);
   }
 
 

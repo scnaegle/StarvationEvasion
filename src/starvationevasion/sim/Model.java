@@ -1,9 +1,8 @@
 package starvationevasion.sim;
 
-import starvationevasion.common.Policy;
+import starvationevasion.common.*;
 import starvationevasion.io.DataReader;
 import starvationevasion.io.FileObject;
-import starvationevasion.common.Constant;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -81,6 +80,8 @@ public class Model
   private int year;
 
 
+
+
   public Model(int startYear)
   {
 
@@ -106,21 +107,21 @@ public class Model
 
     ArrayList<State> states = new ArrayList<>();
 
-    float[] avgConversionFactors = new float[Constant.TOTAL_AGRO_CATEGORIES];
+    float[] avgConversionFactors = new float[EnumFood.SIZE];
     for (String state : data)
     {
       State currentState = new State(state);
       states.add(currentState);
       float[] currentStatePercentages = currentState.getPercentages();
 
-      for (int i = 0; i < Constant.TOTAL_AGRO_CATEGORIES; i++)
+      for (int i = 0; i < EnumFood.SIZE; i++)
       {
         avgConversionFactors[i] += currentStatePercentages[i];
       }
     }
 
     float sum = 0.f;
-    for (int i = 0; i < Constant.TOTAL_AGRO_CATEGORIES; i++)
+    for (int i = 0; i < EnumFood.SIZE; i++)
     {
       //divide ny num records
       avgConversionFactors[i] /= 50.f;
@@ -128,7 +129,7 @@ public class Model
       //System.out.println("AVG CATEGORY "+avgConversionFactors[i]);
     }
 
-    float averageConversionFactor = sum/Constant.TOTAL_AGRO_CATEGORIES;
+    float averageConversionFactor = sum/EnumFood.SIZE;
 
     for (State state : states)
     {
@@ -154,7 +155,7 @@ public class Model
     updatePopulation();
     updateClimate();
     generateSpecialEvents();
-    updateFarmProductYeild();
+    updateFarmProductYield();
     updateFarmProductNeed();
     updateFarmProductMarket();
     updateFoodDistribution();
@@ -171,7 +172,7 @@ public class Model
   private void updatePopulation(){}
   private void updateClimate(){}
   private void generateSpecialEvents(){}
-  private void updateFarmProductYeild(){}
+  private void updateFarmProductYield(){}
   private void updateFarmProductNeed(){}
   private void updateFarmProductMarket(){}
   private void updateFoodDistribution(){}

@@ -11,10 +11,12 @@ public class ChatHistory {
 
   public ChatHistory() {
     this.messages = new Stack<>();
+    this.messages.setSize(20);
   }
 
   public void addMessage(Player player, String message) {
     messages.add(new ChatMessage(player, message));
+    messages.trimToSize();
   }
 
 

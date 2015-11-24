@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.server;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.models.ChatHistory;
+import starvationevasion.teamrocket.server.events.ServerEvents;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -14,7 +15,7 @@ import java.util.LinkedList;
 /**
  * Created by Sean Naegle
  */
-public class ServerMaster
+public class ServerMaster extends ServerEvents
 {
   private ServerSocket serverSocket;
   private LinkedList<ServerWorker> allConnections = new LinkedList<ServerWorker>();
