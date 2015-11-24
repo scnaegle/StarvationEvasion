@@ -179,9 +179,7 @@ public class GuiController
   private Button doneVoting;
 
   @FXML
-  private RadioButton singlePlayer;
-  @FXML
-  private RadioButton multiPlayer;
+  private RadioButton singlePlayer, multiPlayer, joinMultiPlayer;
   @FXML
   private Label gamePlayError;
 
@@ -246,6 +244,9 @@ public class GuiController
 
   private boolean votable = false;
   private int numCardsinHand = 7;
+  private boolean singlePlayerMode;
+  private boolean newMultiPlayerMode;
+  private boolean joinMultiPlayerMode;
 
 
   @FXML
@@ -724,16 +725,32 @@ public class GuiController
   public void chooseGamePlay(ActionEvent event)
   {
     RadioButton gamePlay = (RadioButton)event.getSource();
+
+    //need to reset modes if another button is pressed
+    singlePlayerMode = false;
+    newMultiPlayerMode = false;
+    joinMultiPlayerMode = false;
+
     if(gamePlay == singlePlayer)
     {
+      singlePlayerMode = true;
       multiPlayer.setSelected(false);
+      joinMultiPlayer.setSelected(false);
       //tell game control theres only one player
     }
     else if(gamePlay == multiPlayer)
     {
+      newMultiPlayerMode = true;
       singlePlayer.setSelected(false);
+      joinMultiPlayer.setSelected(false);
       //tell game control there's many players
       //switch to login scene
+    }
+    else if(gamePlay == joinMultiPlayer)
+    {
+      joinMultiPlayerMode = true;
+      singlePlayer.setSelected(false);
+      multiPlayer.setSelected(false);
     }
   }
   @FXML
@@ -751,13 +768,24 @@ public class GuiController
         return;
       }
       //load selected version of game (single or multi-player)
-      try
+      if(singlePlayerMode)
       {
-        Main.gameController.switchToSelectRegion();
+        try
+        {
+          Main.gameController.switchToSelectRegion();
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
       }
-      catch (Exception e)
+      else if(newMultiPlayerMode)
       {
-        e.printStackTrace();
+
+      }
+      else if(joinMultiPlayerMode)
+      {
+        
       }
 
     }
@@ -1304,6 +1332,7 @@ public class GuiController
       //show error window and ask user if they want to swap cards
       //re-enable card put back
       System.out.println("Already two cards drafted.");
+      cardsDrafted = 2;
     }
 //  else
 //  { Display error message
@@ -1515,7 +1544,7 @@ public class GuiController
   private boolean verifyGamePlay()
   {
     gamePlayError.setVisible(false);
-    if(!singlePlayer.isSelected() && !multiPlayer.isSelected())
+    if(!singlePlayer.isSelected() && !multiPlayer.isSelected() && !joinMultiPlayer.isSelected())
     {
       gamePlayError.setVisible(true);
       return false;
