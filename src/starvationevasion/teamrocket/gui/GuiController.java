@@ -55,6 +55,11 @@ public class GuiController
 
   private int cardsDrafted = 0;
 
+  @FXML
+  private Label discardedNum,discard1,discard2,discard3,discard4,discard5,discard6,discard7,discardDraft1,discardDraft2;
+
+  private int disNum=0;
+
   /***************************************************************************************/
 
   @FXML
@@ -240,6 +245,8 @@ public class GuiController
   private boolean heartCard2Selected = false;
 
   private boolean votable = false;
+  private int numCardsinHand = 7;
+
 
   @FXML
   public void highlightCards()
@@ -799,6 +806,7 @@ public class GuiController
     else if(button == doneVoting)
     {
       hideAllVoteLabels();
+
       //save choices
       //update variables
       try
@@ -825,31 +833,31 @@ public class GuiController
     }
     else if(button == card1)
     {
-      tryDraftingCard(card1,card1Image);
+      tryDraftingCard(card1, card1Image, discard1);
     }
     else if(button == card2)
     {
-      tryDraftingCard(card2,card2Image);
+      tryDraftingCard(card2, card2Image, discard2);
     }
     else if(button == card3)
     {
-      tryDraftingCard(card3,card3Image);
+      tryDraftingCard(card3, card3Image, discard3);
     }
     else if(button == card4)
     {
-      tryDraftingCard(card4,card4Image);
+      tryDraftingCard(card4, card4Image, discard4);
     }
     else if(button == card5)
     {
-      tryDraftingCard(card5,card5Image);
+      tryDraftingCard(card5, card5Image, discard5);
     }
     else if(button == card6)
     {
-      tryDraftingCard(card6,card6Image);
+      tryDraftingCard(card6, card6Image, discard6);
     }
     else if(button == card7)
     {
-      tryDraftingCard(card7,card7Image);
+      tryDraftingCard(card7, card7Image, discard7);
     }
     else if(button == caliCard1)
     {
@@ -1100,7 +1108,7 @@ public class GuiController
     else if (button == drawCardButton)
     {
       //draw card from deck.
-      //start animation to slide them across pane
+      drawNewCard();
     }
     else if (button == appleButton)
     {
@@ -1189,18 +1197,105 @@ public class GuiController
     }
   }
 
-  private void tryDraftingCard(Button card, ImageView cardImage)
+  private void resetCards()
   {
+    draft1.setVisible(false);
+    discardDraft1.setVisible(false);
+    draft2.setVisible(false);
+    discardDraft2.setVisible(false);
+
+    card1.setVisible(true);
+    discard1.setVisible(true);
+    card2.setVisible(true);
+    discard2.setVisible(true);
+    card3.setVisible(true);
+    discard3.setVisible(true);
+    card4.setVisible(true);
+    discard4.setVisible(true);
+    card5.setVisible(true);
+    discard5.setVisible(true);
+    card6.setVisible(true);
+    discard6.setVisible(true);
+    card7.setVisible(true);
+    discard7.setVisible(true);
+
+    disNum = 0;
+    discardedNum.setText("Discarded: "+disNum);
+    numCardsinHand = 7;
+  }
+
+  private void drawNewCard()
+  {
+    if(numCardsinHand < 7)
+    {
+      if(!card1.isVisible())
+      {
+        card1.setVisible(true);
+        discard1.setVisible(true);
+        numCardsinHand++;
+      }
+      else if(!card2.isVisible())
+      {
+        card2.setVisible(true);
+        discard2.setVisible(true);
+        numCardsinHand++;
+      }
+      else if(!card3.isVisible())
+      {
+        card3.setVisible(true);
+        discard3.setVisible(true);
+        numCardsinHand++;
+      }
+      else if(!card4.isVisible())
+      {
+        card4.setVisible(true);
+        discard4.setVisible(true);
+        numCardsinHand++;
+      }
+      else if(!card5.isVisible())
+      {
+        card5.setVisible(true);
+        discard5.setVisible(true);
+        numCardsinHand++;
+      }
+      else if(!card6.isVisible())
+      {
+        card6.setVisible(true);
+        discard6.setVisible(true);
+        numCardsinHand++;
+      }
+      else if(!card7.isVisible())
+      {
+        card7.setVisible(true);
+        discard7.setVisible(true);
+        numCardsinHand++;
+      }
+    }
+    else
+    {
+      //Show error label
+      System.out.println("Cannot have more than 7 cards at a time.");
+    }
+  }
+
+  private void tryDraftingCard(Button card, ImageView cardImage,Label discard)
+  {
+//    if(legal)
+//    {
     cardsDrafted++;
-    if(cardsDrafted == 1)
+    if (cardsDrafted == 1)
     {
       card.setDisable(true);
+      discard.setDisable(true);
+      discardDraft1.setVisible(true);
       draft1Image = cardImage;
       draft1.setVisible(true);
     }
-    else if(cardsDrafted == 2)
+    else if (cardsDrafted == 2)
     {
       card.setDisable(true);
+      discard.setDisable(true);
+      discardDraft2.setVisible(true);
       draft2Image = cardImage;
       draft2.setVisible(true);
     }
@@ -1210,7 +1305,153 @@ public class GuiController
       //re-enable card put back
       System.out.println("Already two cards drafted.");
     }
+//  else
+//  { Display error message
+//  }
+//
+//
   }
+
+  @FXML
+  public void discard(MouseEvent event)
+  {
+    Label discard = (Label)event.getSource();
+    if(discard == discard1)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card1Image;
+      card1.setVisible(false);
+      discard1.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discard2)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card2Image;
+      card2.setVisible(false);
+      discard2.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discard3)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card3Image;
+      card3.setVisible(false);
+      discard3.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discard4)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card4Image;
+      card4.setVisible(false);
+      discard4.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discard5)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card5Image;
+      card5.setVisible(false);
+      discard5.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discard6)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card6Image;
+      card6.setVisible(false);
+      discard6.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discard7)
+    {
+      numCardsinHand--;
+      lastDiscardImage = card7Image;
+      card7.setVisible(false);
+      discard7.setVisible(false);
+      disNum++;
+      discardedNum.setText("Discarded: "+disNum);
+    }
+    else if(discard == discardDraft1)
+    {
+      cardsDrafted--;
+      if(draft1Image == card1Image) {
+        card1.setDisable(false);
+        discard1.setDisable(false);
+      }
+      else if(draft1Image == card2Image) {
+        card2.setDisable(false);
+        discard2.setDisable(false);
+      }
+      else if(draft1Image == card3Image) {
+        card3.setDisable(false);
+        discard3.setDisable(false);
+      }
+      else if(draft1Image == card4Image) {
+        card4.setDisable(false);
+        discard4.setDisable(false);
+      }
+      else if(draft1Image == card5Image) {
+        card5.setDisable(false);
+        discard5.setDisable(false);
+      }
+      else if(draft1Image == card6Image){
+        card6.setDisable(false);
+        discard6.setDisable(false);
+      }
+      else if(draft1Image == card7Image) {
+        card7.setDisable(false);
+        discard7.setDisable(false);
+      }
+
+      draft1.setVisible(false);
+      discardDraft1.setVisible(false);
+
+    }
+    else if(discard == discardDraft2)
+    {
+      cardsDrafted--;
+      if(draft2Image == card1Image) {
+        card1.setDisable(false);
+        discard1.setDisable(false);
+      }
+      else if(draft2Image == card2Image) {
+        card2.setDisable(false);
+        discard2.setDisable(false);
+      }
+      else if(draft2Image == card3Image) {
+        card3.setDisable(false);
+        discard3.setDisable(false);
+      }
+      else if(draft2Image == card4Image) {
+        card4.setDisable(false);
+        discard4.setDisable(false);
+      }
+      else if(draft2Image == card5Image) {
+        card5.setDisable(false);
+        discard5.setDisable(false);
+      }
+      else if(draft2Image == card6Image){
+        card6.setDisable(false);
+        discard6.setDisable(false);
+      }
+      else if(draft2Image == card7Image) {
+        card7.setDisable(false);
+        discard7.setDisable(false);
+      }
+      draft2.setVisible(false);
+      discardDraft2.setVisible(false);
+
+    }
+  }
+
 
   private void hideAllVoteLabels()
   {
