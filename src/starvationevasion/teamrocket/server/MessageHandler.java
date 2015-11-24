@@ -30,6 +30,8 @@ public class MessageHandler {
     try {
       message = (Message)input.readObject();
       switch(message.getServerEvent()) {
+        case GAME_STATE:
+          return (T) (GameState)message.getPayload();
         case LOGIN:
           return (T) (Login)message.getPayload();
         case SELECT_REGION:
