@@ -11,6 +11,7 @@ import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.server.Stopwatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class GameController
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
   private GuiController gui;
+  private Stopwatch stopwatch;
 
   GameController(Main main)
   {
@@ -130,9 +132,13 @@ public class GameController
    * Update the timer with time left in current stage.
    * @param timerInterval seconds
    */
-  public void setTimer(Long timerInterval)
+  public void setTimer(Stopwatch stopwatch)
   {
-
+    if (this.stopwatch == null) {
+      this.stopwatch = new Stopwatch(stopwatch.getInterval());
+    } else {
+      this.stopwatch.setInterval(stopwatch.getInterval());
+    }
   }
 
   /**
