@@ -79,18 +79,8 @@ public class ServerWorker extends Thread
     MessageHandler.parse(clientReader);
   }
 
-//  private void messageHandler(String msg) {
-//    ServerEvent.parse(msg);
-//  }
-
   private void sendBroadcast() {
 //    server_master.broadcast(storeInfoMessage());
-  }
-
-  public String storeInfoMessage() {
-//    return timeDiff() + ": inventory=" + server_master.thneed_store.getThneeds() +
-//            " : treasury=" + server_master.thneed_store.getBalanceString();
-    return "blah";
   }
 
   private String timeDiff()
