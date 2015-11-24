@@ -15,6 +15,8 @@ public enum ServerEvent {
   GAME_STAGE,
   VOTE,
   DRAW,
+  DISCARD,
   CHAT,
-  SHOW_CARD
+  SHOW_CARD,
+  QUIT
 }
