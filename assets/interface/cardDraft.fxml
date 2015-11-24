@@ -24,6 +24,15 @@
             <Color blue="1.000" green="0.976" red="0.800" fx:id="x7" />
           </fill>
         </Rectangle>
+        <Button fx:id="discardPile" layoutX="20.0" layoutY="531.0" minHeight="95.00000762939453" minWidth="82.00000762939453" mnemonicParsing="false" prefHeight="95.00000762939453" prefWidth="82.00000762939453" text="">
+          <graphic>
+            <ImageView id="insideCard" fx:id="lastDiscardImage" fitHeight="104.20002468164999" fitWidth="86.8333511352539" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
         <Label id="regionLabel" fx:id="currentRegion" layoutX="567.0" layoutY="346.0" prefHeight="23.999988555908203" prefWidth="434.9998779296875" text="Current Region:">
           <font>
             <Font name="Avenir Next Demi Bold Italic" size="15.0" />
@@ -185,18 +194,34 @@
             </Button>
           </labelFor>
         </Label>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="102.0" layoutX="30.0" layoutY="286.0" stroke="WHITE" strokeType="INSIDE" width="178.0" />
-        <Button fx:id="undo" layoutX="81.0" layoutY="341.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.00000762939453" prefWidth="76.0" text="UNDO" />
-        <Button fx:id="doneWithCards" layoutX="44.0" layoutY="299.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
         <Label fx:id="time" alignment="CENTER" layoutX="336.0" layoutY="88.0" prefHeight="80.310546875" prefWidth="125.0" text="Time">
           <font>
             <Font name="Avenir Next Demi Bold Italic" size="22.0" />
           </font>
         </Label>
-        <Label alignment="CENTER" layoutX="290.0" layoutY="273.0" prefWidth="178.0" text="Cards drafted" />
-        <Pane layoutX="243.0" layoutY="295.0" prefHeight="101.999755859375" prefWidth="274.0">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="148.0000991821289" layoutX="235.0" layoutY="255.0" stroke="WHITE" strokeType="INSIDE" width="314.0" />
+        <Button fx:id="doneWithCards" layoutX="318.0" layoutY="371.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="24.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
+        <Pane layoutX="257.0" layoutY="268.0" prefHeight="88.999755859375" prefWidth="274.0">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="109.0" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="101.999755859375" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
+            <Button fx:id="draft1" layoutX="48.0" layoutY="6.0" minHeight="77.31053161621094" minWidth="66.92537689208984" mnemonicParsing="false" prefHeight="77.31053161621094" prefWidth="66.92537689208984" rotate="0.0" text="" visible="false">
+              <graphic>
+                <ImageView id="insideCard" fx:id="draft1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true" visible="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="draft2" layoutX="157.0" layoutY="4.0" minHeight="80.31055450439453" minWidth="63.99998474121094" mnemonicParsing="false" prefHeight="80.31055450439453" prefWidth="63.99998474121094" rotate="0.0" text="" visible="false">
+              <graphic>
+                <ImageView id="insideCard" fx:id="draft2Image" fitHeight="80.31041161620486" fitWidth="66.92533792724862" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
           </children>
         </Pane>
         <BorderPane fx:id="statisticsPane" layoutX="691.0" layoutY="370.0" prefHeight="238.0" prefWidth="265.0" />
@@ -264,27 +289,15 @@
             </StackPane>
           </children>
         </HBox>
-        <Button fx:id="drawCardButton" layoutX="20.0" layoutY="419.0" minHeight="103.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="103.0" prefWidth="80.0" text="">
+        <Button fx:id="drawCardButton" layoutX="20.0" layoutY="410.0" minHeight="103.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="104.20001220703125" prefWidth="80.0" text="">
           <graphic>
-            <ImageView id="card" fitHeight="109.0" fitWidth="90.83333333333334" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="card" fitHeight="104.20001220703125" fitWidth="86.83334350585938" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
           </graphic>
         </Button>
-        <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#003d99" height="214.99996948242188" layoutX="-34.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
-            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="198.0001220703125" layoutX="-21.0" layoutY="-13.0" opacity="1.0" stroke="BLACK" strokeType="INSIDE" width="497.0" />
-            <Label layoutX="195.0" layoutY="-4.0" prefWidth="97.0" text="Your cards">
-              <font>
-                <Font size="15.0" fx:id="x1" />
-              </font>
-            </Label>
-          </children>
-        </Pane>
-        <Pane fx:id="discard" layoutX="24.0" layoutY="524.0" prefHeight="102.0" prefWidth="82.0" />
         <Label id="" fx:id="neLabel" contentDisplay="CENTER" layoutX="860.0" layoutY="26.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="137.0" text="Northern Crescent" textAlignment="LEFT" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
@@ -420,7 +433,7 @@
             </Rectangle>
             <Label alignment="CENTER" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Non-citrus Fruits">
               <font>
-                <Font name="Avenir Next Demi Bold" size="25.0" fx:id="x4" />
+                <Font name="Avenir Next Demi Bold" size="25.0" fx:id="x1" />
               </font>
             </Label>
             <TextArea disable="false" editable="false" layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
@@ -449,7 +462,7 @@
                 <Color blue="0.600" green="0.694" red="1.000" fx:id="x5" />
               </fill>
             </Rectangle>
-            <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Grains" />
+            <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Grains" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -476,7 +489,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Citrus Fruits" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Citrus Fruits" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -499,7 +512,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Feed Crops" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Feed Crops" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -522,7 +535,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Dairy" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Dairy" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -545,7 +558,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Fish" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Fish" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -568,7 +581,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Red Meats" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Red Meats" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -591,7 +604,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Nuts" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Nuts" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -614,7 +627,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Oil Crops" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Oil Crops" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -637,7 +650,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Poultry and Eggs" />
+            <Label font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Poultry and Eggs" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -660,7 +673,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Vegetables" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Vegetables" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -683,7 +696,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x5" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0" />
-            <Label alignment="CENTER" font="$x4" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Specialty Crops" />
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Specialty Crops" />
             <TextArea layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <LineChart id="LineChart" layoutX="209.0" layoutY="471.0" minHeight="129.0" minWidth="179.0" prefHeight="150.0" prefWidth="266.0001220703125">
               <xAxis>
@@ -707,6 +720,77 @@
             <Font name="Avenir Next Demi Bold" size="15.0" />
           </font>
         </Label>
+        <Label fx:id="discardedNum" layoutX="20.0" layoutY="632.0" text="Discarded: 0" />
+        <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff29" height="214.99996948242188" layoutX="-34.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
+            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="198.0001220703125" layoutX="-21.0" layoutY="-13.0" opacity="0.95" stroke="BLACK" strokeType="INSIDE" width="497.0" />
+            <Label alignment="CENTER" contentDisplay="LEFT" font="$x1" layoutX="137.0" layoutY="-4.0" prefWidth="178.0" text="Player's hand" />
+            <Button fx:id="card6" layoutX="365.0" layoutY="7.0" minHeight="80.31053161621094" minWidth="66.92549896240234" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31053161621094" prefWidth="66.92549896240234" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card6Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card7" layoutX="365.0" layoutY="93.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card7Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card5" layoutX="272.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="66.92546844482422" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="66.92546844482422" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card5Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card4" layoutX="194.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card4Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card2" layoutX="30.0" layoutY="93.0" minHeight="80.31034851074219" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31044851073966" prefWidth="66.92534637451172" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card2Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card1" layoutX="30.0" layoutY="7.0" minHeight="80.31037902832031" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31037902832031" prefWidth="66.92534637451172" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card3" layoutX="112.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card3Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </children>
+        </Pane>
       </children>
     </Pane>
   </children>
