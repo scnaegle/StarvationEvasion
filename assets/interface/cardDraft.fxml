@@ -24,7 +24,7 @@
             <Color blue="1.000" green="0.976" red="0.800" fx:id="x7" />
           </fill>
         </Rectangle>
-        <Button fx:id="discardPile" layoutX="20.0" layoutY="531.0" minHeight="95.00000762939453" minWidth="82.00000762939453" mnemonicParsing="false" prefHeight="95.00000762939453" prefWidth="82.00000762939453" text="">
+        <Button fx:id="discardPile" layoutX="20.0" layoutY="524.0" minHeight="95.00000762939453" minWidth="82.00000762939453" mnemonicParsing="false" prefHeight="95.00000762939453" prefWidth="82.00000762939453" text="">
           <graphic>
             <ImageView id="insideCard" fx:id="lastDiscardImage" fitHeight="104.20002468164999" fitWidth="86.8333511352539" pickOnBounds="true" preserveRatio="true">
               <image>
@@ -222,6 +222,12 @@
                 </ImageView>
               </graphic>
             </Button>
+            <Label fx:id="discardDraft1" layoutX="123.0" layoutY="6.0" onMouseClicked="#discard" text="X" visible="false">
+              <font>
+                <Font name="System Bold" size="18.0" fx:id="x4" />
+              </font>
+            </Label>
+            <Label fx:id="discardDraft2" font="$x4" layoutX="230.0" layoutY="6.0" onMouseClicked="#discard" text="X" visible="false" />
           </children>
         </Pane>
         <BorderPane fx:id="statisticsPane" layoutX="691.0" layoutY="370.0" prefHeight="238.0" prefWidth="265.0" />
@@ -423,19 +429,102 @@
             <Font name="Avenir Next Demi Bold Italic" size="25.0" />
           </font>
         </Label>
-        <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+        <Label fx:id="playerRegion" layoutX="649.0" layoutY="50.0" prefWidth="343.9998779296875" text="My Region:">
+          <font>
+            <Font name="Avenir Next Demi Bold" size="15.0" />
+          </font>
+        </Label>
+        <Label fx:id="discardedNum" layoutX="22.0" layoutY="625.0" text="Discarded: 0" />
+        <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" layoutX="0.0" layoutY="0.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1023.9998779296875" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff29" height="214.99996948242188" layoutX="-34.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
+            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="198.0001220703125" layoutX="-21.0" layoutY="-13.0" opacity="0.95" stroke="BLACK" strokeType="INSIDE" width="497.0" />
+            <Label alignment="CENTER" contentDisplay="LEFT" layoutX="137.0" layoutY="-4.0" prefWidth="178.0" text="Player's hand">
+              <font>
+                <Font name="Avenir Next Demi Bold" size="25.0" fx:id="x1" />
+              </font>
+            </Label>
+            <Button fx:id="card6" layoutX="365.0" layoutY="7.0" minHeight="80.31053161621094" minWidth="66.92549896240234" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31053161621094" prefWidth="66.92549896240234" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card6Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card7" layoutX="365.0" layoutY="93.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card7Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card5" layoutX="272.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="66.92546844482422" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="66.92546844482422" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card5Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card4" layoutX="194.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card4Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card2" layoutX="30.0" layoutY="93.0" minHeight="80.31034851074219" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31044851073966" prefWidth="66.92534637451172" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card2Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card1" layoutX="30.0" layoutY="7.0" minHeight="80.31037902832031" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31037902832031" prefWidth="66.92534637451172" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="card3" layoutX="112.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
+              <graphic>
+                <ImageView id="insideCard" fx:id="card3Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Label fx:id="discard1" font="$x4" layoutX="8.0" layoutY="7.0" onMouseClicked="#discard" text="X" />
+            <Label fx:id="discard2" font="$x4" layoutX="8.0" layoutY="93.0" onMouseClicked="#discard" text="X" />
+            <Label fx:id="discard3" font="$x4" layoutX="138.0" layoutY="136.0" onMouseClicked="#discard" prefWidth="13.0" text="X" />
+            <Label fx:id="discard4" font="$x4" layoutX="219.0" layoutY="136.0" onMouseClicked="#discard" prefWidth="13.0" text="X" />
+            <Label fx:id="discard5" font="$x4" layoutX="302.0" layoutY="136.0" onMouseClicked="#discard" prefWidth="13.0" text="X" />
+            <Label fx:id="discard6" font="$x4" layoutX="437.0" layoutY="9.0" onMouseClicked="#discard" prefWidth="12.9998779296875" text="X" />
+            <Label fx:id="discard7" font="$x4" layoutX="437.0" layoutY="93.0" onMouseClicked="#discard" prefWidth="12.9998779296875" text="X" />
+          </children>
+        </Pane>
+        <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="760.0" prefWidth="1024.0" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="760.0" layoutX="0.0" layoutY="0.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1023.9998779296875" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb199" height="473.0" layoutX="187.0" layoutY="157.0" strokeType="INSIDE" width="651.0">
               <stroke>
                 <Color blue="0.800" green="0.800" red="1.000" fx:id="x3" />
               </stroke>
             </Rectangle>
-            <Label alignment="CENTER" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Non-citrus Fruits">
-              <font>
-                <Font name="Avenir Next Demi Bold" size="25.0" fx:id="x1" />
-              </font>
-            </Label>
+            <Label alignment="CENTER" font="$x1" layoutX="556.0" layoutY="169.0" prefWidth="198.0" text="Non-citrus Fruits" />
             <TextArea disable="false" editable="false" layoutX="512.0" layoutY="212.0" prefHeight="372.0" prefWidth="285.0" text="Products:&#10;&#10;&#10;Fun fact:&#10;&#10;&#10;A graph of the price per metric ton of the category on the world market for each past year (not turn) of the game&#10;&#10;A list of the five regions (US or world) that are the largest producers &#10;&#10;Five regions that are the largest consumers of food products in the category. &#10;&#10;The panel must also display the ideal range of climate conditions for foods within the category.&#10;" wrapText="true" />
             <ImageView id="FarmProduct_Fruit_256x256" layoutX="219.0" layoutY="203.0" pickOnBounds="true">
               <image>
@@ -454,9 +543,9 @@
             </LineChart>
           </children>
         </Pane>
-        <Pane fx:id="grainWindow" layoutX="0.0" layoutY="1.0" prefHeight="787.0" prefWidth="1024.0" visible="false">
+        <Pane fx:id="grainWindow" layoutX="0.0" layoutY="1.0" prefHeight="760.0" prefWidth="1024.0" visible="false">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" visible="true" width="1024.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="760.0" layoutX="0.0" layoutY="0.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" visible="true" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="473.0" layoutX="187.0" layoutY="157.0" stroke="$x3" strokeType="INSIDE" width="651.0">
               <fill>
                 <Color blue="0.600" green="0.694" red="1.000" fx:id="x5" />
@@ -713,82 +802,6 @@
             </ImageView>
             <Label fx:id="close12" disable="false" layoutX="219.0" layoutY="181.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
             <Button id="closeWindow" fx:id="closeWindow12" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
-          </children>
-        </Pane>
-        <Label fx:id="playerRegion" layoutX="649.0" layoutY="50.0" prefWidth="343.9998779296875" text="My Region:">
-          <font>
-            <Font name="Avenir Next Demi Bold" size="15.0" />
-          </font>
-        </Label>
-        <Label fx:id="discardedNum" layoutX="20.0" layoutY="632.0" text="Discarded: 0" />
-        <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff29" height="214.99996948242188" layoutX="-34.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="524.0" />
-            <Rectangle id="playerCards" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="198.0001220703125" layoutX="-21.0" layoutY="-13.0" opacity="0.95" stroke="BLACK" strokeType="INSIDE" width="497.0" />
-            <Label alignment="CENTER" contentDisplay="LEFT" font="$x1" layoutX="137.0" layoutY="-4.0" prefWidth="178.0" text="Player's hand" />
-            <Button fx:id="card6" layoutX="365.0" layoutY="7.0" minHeight="80.31053161621094" minWidth="66.92549896240234" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31053161621094" prefWidth="66.92549896240234" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card6Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Button fx:id="card7" layoutX="365.0" layoutY="93.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card7Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Button fx:id="card5" layoutX="272.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="66.92546844482422" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="66.92546844482422" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card5Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Button fx:id="card4" layoutX="194.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card4Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Button fx:id="card2" layoutX="30.0" layoutY="93.0" minHeight="80.31034851074219" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31044851073966" prefWidth="66.92534637451172" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card2Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Button fx:id="card1" layoutX="30.0" layoutY="7.0" minHeight="80.31037902832031" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31037902832031" prefWidth="66.92534637451172" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Button fx:id="card3" layoutX="112.0" layoutY="55.0" minHeight="77.31053161621094" minWidth="64.0000228881836" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="77.31053161621094" prefWidth="64.0000228881836" rotate="0.0" text="">
-              <graphic>
-                <ImageView id="insideCard" fx:id="card3Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
           </children>
         </Pane>
       </children>
