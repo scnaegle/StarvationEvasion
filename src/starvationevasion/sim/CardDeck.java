@@ -19,7 +19,7 @@ public class CardDeck
   /**
    * Each player starts with a unique deck of cards. A deck will, in general, contain
    * duplicate cards. If the player needs to draw a card and his, her or its deck is empty
-   * then the player's discard is shuffeled back into the deck.
+   * then the player's discard is shuffled back into the deck.
    */
   public static final int CARDS_IN_PLAYER_DECK = 80;
   /**
@@ -33,37 +33,74 @@ public class CardDeck
   private ArrayList<PolicyCard> discardPile = new ArrayList<>(CARDS_IN_PLAYER_DECK);
 
   /**
-   * read from .cvs file: playerRegion(String), card(String), count(int)
+   *  Cards that are currently in play (drafted or enacted) this turn or on a past turn but
+   *  still active.
+   */
+  private ArrayList<PolicyCard> cardsInPlay = new ArrayList<>();
+
+  /**
+   *  Cards that are currently in play (drafted or enacted) this turn or on a past turn but
+   *  still active.
+   */
+  private ArrayList<PolicyCard> cardsInHand = new ArrayList<>(Constant.MAX_HAND_SIZE);
+
+  /**
+   * Each player region has a unique deck to be read from
+   * .cvs file: playerRegion(String), card(String), count(int).<br><br>
+   *   In future versions, players will be able to produce and save
+   *   custom decks.<br><br>
+   *
+   * In this pre-test version, cards are just randomly picked with no difference
+   * for different player regions.
+   *
    */
   public CardDeck(EnumRegion playerRegion)
   {
+    if (!playerRegion.isUS())
+    {
+      throw new IllegalArgumentException("CardDeck(="+playerRegion+") must be " +
+        "a player region.");
+    }
 
+    PolicyManager policyManager = PolicyManager.getPolicyManager();
+    Collection<PolicyCard> cardTypes = policyManager.getCardTypes();
+
+    while (drawPile.size() < CARDS_IN_PLAYER_DECK)
+    {
+      for (PolicyCard card : cardTypes)
+      {
+        drawPile.add(card);
+        if (drawPile.size() >= CARDS_IN_PLAYER_DECK) break;
+      }
+    }
+
+    shuffle();
   }
 
 
   /**
    * Shuffles the deck of cards.
   */
-  public void shuffle()
+  private void shuffle()
   {
     Collections.shuffle(drawPile, Util.rand);
   }
 
   /**
-   * Returns an array of the top count cards from the players, draw pile.
+   * Returns an array of cards drawn from the top of the deck so that
+   * the player who own's this deck has a total of 7 cards in hand.<br><br>
+   *
    * If there are insufficient cards remaining, then the player's discard
    * pile is shuffled back into the deck.
    *
-   * @param count The number of cards requested.
-   * @return The cards drawn from the deck.
+   * @return The cards drawn from the deck. Returns null if the player already
+   * has a max hand size.
    */
-  public PolicyCard[] deal(int count)
+  public PolicyCard[] drawCards()
   {
-    if (count < 1 || count > Constant.MAX_HAND_SIZE)
-    {
-      throw new IllegalArgumentException("deal(count="+count+") count must be " +
-        "a positive integer no larger than " + Constant.MAX_HAND_SIZE);
-    }
+    int count = Constant.MAX_HAND_SIZE - cardsInHand.size();
+    if (count <=0) return null;
+
     PolicyCard[] cards = new PolicyCard[count];
     for (int i = 0 ; i < count ; i++)
     {
@@ -76,80 +113,69 @@ public class CardDeck
       }
 
       cards[i] = drawPile.get(drawPile.size()-1);
-      drawPile.remove(drawPile.size()-1);
+      cardsInHand.add(cards[i]);
+      drawPile.remove(drawPile.size() - 1);
     }
     return cards;
   }
 
+
+
+  public void discard(ArrayList<PolicyCard> discardList)
+  {
+    for (PolicyCard discard : discardList)
+    {
+      //It is faster to remove from the end of an array list
+      for (int i = cardsInHand.size() ; i>=0; i--)
+      {
+        PolicyCard handCard = cardsInHand.get(i);
+        if (discard.cardTypeId() == handCard.cardTypeId())
+        {
+          //Note: it is important that a pointer to the local card is added to the discard
+          //      pile and NOT a pointer to the card in the argument list.
+          drawPile.add(handCard);
+          cardsInHand.remove(i);
+        }
+      }
+
+      throw new IllegalArgumentException("discard(card="+discard+") is not in " +
+        "this player's deck.");
+
+    }
+  }
+
+
   /**
-   * @return The number of cards remaining in the shuffled deck.
+   * @return The number of cards remaining in the draw pile.
    */
-  public int remaining()
+  public int cardsRemainingInDrawPile()
   {
     return drawPile.size();
   }
 
-  /* The queue element adapter for the PriorityQueue.
-  */
-  private static class ShuffledCard
-  { final PolicyCard card;
-    final int order;
 
-    /**
-     * Creates a new shuffleable card for insertion into the shuffled queue.
-     *
-     * @param card The card being shuffled into the deck.
-     * @param order The relative position of the card in the deck.
-     */
-    public ShuffledCard(PolicyCard card, int order)
-    { this.card = card;
-      this.order = order;
-    }
-
-    public int compareTo(ShuffledCard other)
-    { return order - other.order;
-    }
-  }
-
-  /* The comparator adapter for the PriorityQueue.
-  */
-  private static class OrderComparator implements Comparator<ShuffledCard>
-  { @Override
-    public int compare(ShuffledCard o1, ShuffledCard o2)
-    { return o1.compareTo(o2);
-    }
-  }
-
-  /*
+  /**
+   * This entry point is for testing only. <br><br>
+   *
+   * This test shows how to create playerDeck and draw the first hand.
+   * @param args ignored.
+   */
   public static void main(String[] args)
   {
+    CardDeck deck = new CardDeck(EnumRegion.CALIFORNIA);
 
-    PolicyManager pm = PolicyManager.getPolicyManager();
-    Collection<PolicyCard> cards = pm.getCardTypes();
-    CardDeck deck = new CardDeck();
-
-
-
-    // Shuffle the deck.
-    //
-    Random rnd = new Random();
-    deck.shuffle(rnd);
-
+    PolicyManager policyManager = PolicyManager.getPolicyManager();
     // Draw cards, instantiating each.
     //
-    int count = cards.size();
-    for (int i = 0 ; i < count ; i += 1)
+    PolicyCard[] hand = deck.drawCards();
+    System.out.println("Drew " + hand.length + " cards" + deck.cardsRemainingInDrawPile() + " remaining in draw pile.");
+    for (PolicyCard card : hand)
     {
-      ArrayList<PolicyCard> draw = deck.deal(4);
-      System.out.println("Drew 4 " + deck.remaining() + " remaining");
-      for (PolicyCard card : draw)
-      { String name = card.name();
+      String name = card.name();
 
-        Policy policy = pm.createPolicy(name, EnumRegion.MOUNTAIN);
-        System.out.println("Policy " + i + " (" + name + ") : " + policy.getTitle() + " / " + policy.getGameText());
-      }
+      Policy policy = policyManager.createPolicy(name, EnumRegion.CALIFORNIA);
+      System.out.println("Policy (" + name + ",typeId="+card.cardTypeId()+") : " + policy.getTitle() + " / " + policy.getGameText());
     }
   }
-  */
 }
 
