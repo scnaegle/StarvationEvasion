@@ -12,6 +12,7 @@ import starvationevasion.teamrocket.models.Region;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by scnaegl on 11/22/15.
@@ -25,21 +26,25 @@ import java.util.ArrayList;
 public class GameState implements Serializable {
   public EnumGameState gameState; // The current state of the game as defined by the EnumGameState
   public Stopwatch stopwatch; // Current timer of the stop
+  public int current_year; // Current year of game
+  public int current_turn; // Current turn count in the game
   public Region[] regions; // All the region stats
-  public CardDeck cardDeck; // The player's deck of cards
-  public Discard[] discard_piles; // All players' discard piles
-  public PolicyCard[][] drafted_policies; // All drafted policies
-  public PolicyVote[][] policy_votes; // All players votes for each card
+  public Map<EnumRegion,CardDeck> region_decks; // All player's cards
+  public Map<EnumRegion,PolicyVote[]> policy_votes; // All players votes for each card
   public ChatHistory chatHistory; // Chat history
 
-  public GameState(Region[] regions, CardDeck cardDeck, Discard[] discard_piles, PolicyCard[][] drafted_policies) {
-    this(regions, cardDeck, discard_piles, drafted_policies, null);
+  public GameState(EnumGameState gameState, Stopwatch stopwatch, int current_year, int current_turn, Region[] regions, Map<EnumRegion,CardDeck> region_decks, ChatHistory chatHistory) {
+    this(gameState, stopwatch, current_year, current_turn, regions, region_decks, chatHistory, null);
   }
 
-  public GameState(Region[] regions, CardDeck cardDeck, Discard[] discard_piles, PolicyCard[][] drafted_policies, PolicyVote[][] policy_votes) {
+  public GameState(EnumGameState gameState, Stopwatch stopwatch, int current_year, int current_turn, Region[] regions, Map<EnumRegion,CardDeck> region_decks, ChatHistory chatHistory, Map<EnumRegion,PolicyVote[]> policy_votes) {
+    this.gameState = gameState;
+    this.stopwatch = stopwatch;
+    this.current_year = current_year;
+    this.current_turn = current_turn;
     this.regions = regions;
-    this.cardDeck = cardDeck;
-    this.discard_piles = discard_piles;
-    this.drafted_policies = drafted_policies;
+    this.region_decks = region_decks;
+    this.chatHistory = chatHistory;
+    this.policy_votes = policy_votes;
   }
 }
