@@ -36,6 +36,7 @@ public class Region
    */
   private HashMap<EnumFood, Stack<Double>>  cropValues = new HashMap<>();
 
+
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will
    * only be called at the start of the game.
@@ -46,6 +47,7 @@ public class Region
   {
     this.ENUM_REGION = enumRegion;
     deck = new Deck(this);
+
 
     for(EnumFood food : EnumFood.values())
     {
@@ -120,5 +122,16 @@ public class Region
   {
     return new HashMap<>(cropValues);
   }
+
+//  public ArrayList<Double> getCropValues(EnumFood food)
+//  {
+//    HashMap<EnumFood,Double> tempMap = getLastCropData();
+//    ArrayList<Double> arrayList = new ArrayList<>();
+//    for(Double value : tempMap.values())
+//    {
+//      arrayList.add(value);
+//    }
+//    return arrayList;
+//  }
 
 }

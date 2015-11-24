@@ -21,7 +21,7 @@ public class Deck {
   private Region region;
   /**
    * Create a new deck with reference to the player it was created for.
-   * @param region region this deck belongs to.
+   * @param region region this de+ck belongs to.
    */
   public Deck(Region region) {
     this.region = region;

@@ -16,9 +16,22 @@ import starvationevasion.teamrocket.models.Region;
 
 public class TestMainLineGraph extends Application {
 
+
   @Override public void start(Stage stage) {
+
+    Region region = new Region(EnumRegion.HEARTLAND);
+    region.addCropValue(EnumFood.CITRUS,22);
+    region.addCropValue(EnumFood.CITRUS,25);
+    region.addCropValue(EnumFood.CITRUS,23);
+    region.addCropValue(EnumFood.CITRUS,22);
+    region.addCropValue(EnumFood.CITRUS,25);
+    region.addCropValue(EnumFood.CITRUS,26);
+    region.addCropValue(EnumFood.CITRUS,27);
+    region.addCropValue(EnumFood.CITRUS,28);
+
+
     stage.setTitle("Line Chart Sample");
-    LineChart<Number,Number> lineChart = CropChart.makeLineChart(new Region(EnumRegion.HEARTLAND), EnumFood.CITRUS);
+    LineChart<Number,Number> lineChart = CropChart.makeLineChart(region, EnumFood.CITRUS);
     Scene scene  = new Scene(lineChart,800,600);
 
     stage.setScene(scene);

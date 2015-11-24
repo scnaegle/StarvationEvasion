@@ -14,6 +14,7 @@ import starvationevasion.teamrocket.models.Region;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * This class is used to make the charts such as the pie chart and
@@ -31,7 +32,7 @@ public class CropChart
    */
   public static PieChart makePieChart(Region region)
   {
-    PieChart pieChart;
+ //   PieChart pieChart;
 //    pieChart = getPieChartData(region.getEnumRegion());
     HashMap<EnumFood, Double> data = region.getLastCropData();
 
@@ -61,13 +62,36 @@ public class CropChart
    */
   public static LineChart makeLineChart(Region region, EnumFood food)
   {
-    final NumberAxis xAxis = new NumberAxis(1980,2055,3);
+    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
     LineChart<Number,Number> lineChart =
         new LineChart<Number,Number>(xAxis,yAxis);
 
-    return null;
+    HashMap<EnumFood, Stack<Double>> data = region.getCropValues();
+
+//    ArrayList<Double> arrayListData = region.getCropValues(food);
+
+    ArrayList<XYChart.Series> dataList = new ArrayList<>();
+
+    XYChart.Series series = new XYChart.Series();
+
+
+    int iterateTurnNumber = 0;
+    int actualTurnNumber = 5;
+    for(double stackData : data.get(food))
+    {
+        series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), stackData));
+        iterateTurnNumber++;
+    }
+
+    series.setName("My portfolio");
+//    populating the series with data
+//    series.getData().add(new XYChart.Data(1987, 1));
+//    series.getData().add(new XYChart.Data(1982,2 ));
+
+    lineChart.getData().add(series);
+    return lineChart;
   }
 }
