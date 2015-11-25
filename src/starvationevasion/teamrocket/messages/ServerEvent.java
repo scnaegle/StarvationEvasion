@@ -6,15 +6,18 @@ package starvationevasion.teamrocket.messages;
  */
 public enum ServerEvent {
   LOGIN,
+  PLAYER_JOINED,
   SELECT_REGION,
   START_GAME,
   TIMER,
   SIM_STATS,
   CARDS_CHOSEN,
   READY,
-  GAME_STAGE,
+  GAME_STATE,
   VOTE,
   DRAW,
+  DISCARD,
   CHAT,
-  SHOW_CARD
+  SHOW_CARD,
+  QUIT
 }

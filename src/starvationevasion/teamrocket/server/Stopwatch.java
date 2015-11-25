@@ -26,6 +26,10 @@ public class Stopwatch implements Serializable {
     }, DELAY, DELAY);
   }
 
+  public int getInterval() {
+    return interval;
+  }
+
   public void setInterval(int interval) {
     this.interval = interval;
   }

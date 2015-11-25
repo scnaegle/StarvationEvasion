@@ -19,7 +19,7 @@ public class Client
 
   private Socket clientSocket;
   private ObjectOutputStream write;
-  private BufferedReader reader;
+  private ObjectInputStream reader;
   private long startNanoSec;
   private Scanner keyboard;
   private ClientListener listener;
@@ -86,8 +86,7 @@ public class Client
     }
     try
     {
-      reader = new BufferedReader(new InputStreamReader(
-          clientSocket.getInputStream()));
+      reader = new ObjectInputStream(clientSocket.getInputStream());
     }
     catch (IOException e)
     {
@@ -127,8 +126,13 @@ public class Client
 
     running = false;
     if (write != null) {
-//      write.println("quit");
-//      write.close();
+      send(ServerEvent.QUIT, "quit");
+      try {
+        write.close();
+      } catch (IOException e) {
+        System.err.println("Client Error: Could not close");
+        e.printStackTrace();
+      }
     }
     if (reader != null)
     {
@@ -200,46 +204,18 @@ public class Client
 
     private void read()
     {
-      try
-      {
 //        System.out.println("Client: listening to socket");
-        String msg = reader.readLine();
+      Object msg = MessageHandler.parse(reader);
 //        System.out.println("Client: got message: " + msg);
-        if (msg.startsWith("Thneeds:"))
-        {
-          int idxOfNum = msg.indexOf(':') + 1;
-          int n = Integer.parseInt(msg.substring(idxOfNum).trim());
-          thneedsInStore = n;
-          System.out.println("Current Inventory of Thneeds (" + timeDiff()
-              + ") = " + thneedsInStore);
-        }
-        else if (msg.startsWith("Success")) {
-          System.out.println(msg);
-        }
-        else if (msg.startsWith("Error"))
-        {
-          System.out.println("Failed: " + msg);
-        }
-        else if (msg.matches(BROADCAST_REGEX)) {
-          Pattern pattern = Pattern.compile(BROADCAST_REGEX);
-          Matcher matcher = pattern.matcher(msg);
-          while (matcher.find()) {
-            thneedsInStore = Integer.parseInt(matcher.group(1));
-            storeBalance = Double.parseDouble(matcher.group(2));
-          }
-//          printStoreInfo();
-        }
-        else
-        {
-          System.out.println("Unrecognized message from Server(" + timeDiff()
-              + ") = " + msg);
-        }
+      if (msg instanceof GameState) {
 
       }
-      catch (IOException e)
+      else
       {
-//        e.printStackTrace();
+        System.out.println("Unrecognized message from Server(" + timeDiff()
+            + ") = " + msg);
       }
+
     }
 
   }
