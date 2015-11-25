@@ -69,6 +69,12 @@ public class Main extends Application {
     else if(scene == 4){
       primaryStage.setScene(votingScene);
     }
+    else if(scene == 5){
+      primaryStage.setScene(loginScene);
+    }
+    else if(scene == 6){
+      primaryStage.setScene(gameRoomScene);
+    }
   }
   public Stage getCurrentStage()
   {

@@ -6,51 +6,53 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" fx:id="gameRoom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
-    <ImageView id="mapImage" fx:id="fullMap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="500.0" layoutY="142.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="338.0" layoutX="512.0" layoutY="122.0" stroke="BLACK" strokeType="INSIDE" width="473.049072265625" />
+    <ImageView id="mapImage" fx:id="fullMap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="512.0" layoutY="160.0" onMouseClicked="#chooseRegion" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
       <image>
         <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="537.0" layoutY="46.0" mouseTransparent="true" onMouseClicked="#clickedRegion" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="527.0" layoutY="155.0" mouseTransparent="true" onMouseClicked="#clickedRegion" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="785.0" layoutY="66.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="775.0" layoutY="175.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="697.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="687.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.87031266679466" fitWidth="155.92825317382812" focusTraversable="false" layoutX="795.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.87031266679466" fitWidth="155.92825317382812" focusTraversable="false" layoutX="785.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="662.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="652.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="750.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="740.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="530.0" layoutY="115.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="520.0" layoutY="224.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <Label layoutX="651.0" layoutY="118.0" text="Choose your region">
+    <Label layoutX="651.0" layoutY="136.0" text="Choose your region">
       <font>
         <Font name="Avenir Next Demi Bold" size="20.0" fx:id="x3" />
       </font>
@@ -70,77 +72,112 @@
         <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" text="7" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <StackPane prefHeight="92.0" prefWidth="79.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
           <children>
-            <MenuButton blendMode="SRC_OVER" mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player1Region" blendMode="SRC_OVER" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
           <children>
-            <MenuButton mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player2Region" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
           <children>
-            <MenuButton mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player3Region" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
           <children>
-            <MenuButton mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player4Region" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
           <children>
-            <MenuButton mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player5Region" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
           <children>
-            <MenuButton mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player6Region" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
           <children>
-            <MenuButton mnemonicParsing="false" prefWidth="112.0" text="Region">
+            <MenuButton fx:id="player7Region" mnemonicParsing="false" prefWidth="112.0" text="Region">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="California" />
+                <MenuItem mnemonicParsing="false" text="Mountain St." />
+                <MenuItem mnemonicParsing="false" text="North Plains" />
+                <MenuItem mnemonicParsing="false" text="South Plains" />
+                <MenuItem mnemonicParsing="false" text="Northern Cr." />
+                <MenuItem mnemonicParsing="false" text="Southeast" />
+                <MenuItem mnemonicParsing="false" text="Heartland" />
               </items>
             </MenuButton>
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
           <children>
-            <Label text="X">
+            <Label fx:id="kickP1" text="X">
               <font>
                 <Font name="System Bold" size="18.0" fx:id="x2" />
               </font>
@@ -149,76 +186,79 @@
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
           <children>
-            <Label font="$x2" text="X" />
+            <Label fx:id="kickP2" font="$x2" text="X" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
           <children>
-            <Label font="$x2" text="X" />
+            <Label fx:id="kickP3" font="$x2" text="X" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
           <children>
-            <Label font="$x2" text="X" />
+            <Label fx:id="kickP4" font="$x2" text="X" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
           <children>
-            <Label font="$x2" text="X" />
+            <Label fx:id="kickP5" font="$x2" text="X" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
           <children>
-            <Label font="$x2" text="X" />
+            <Label fx:id="kickP6" font="$x2" text="X" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
           <children>
-            <Label font="$x2" text="X" />
+            <Label fx:id="kickP7" font="$x2" text="X" />
           </children>
         </StackPane>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <MenuButton fx:id="player2" mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <MenuButton fx:id="player3" mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="2">
           <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <MenuButton fx:id="player4" mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="3">
           <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <MenuButton fx:id="player5" mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="4">
           <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <MenuButton fx:id="player6" mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="5">
           <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <MenuButton fx:id="player7" mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="6">
           <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="217.0" text="Choose player" GridPane.columnIndex="1" GridPane.rowIndex="6">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
-          </items>
-        </MenuButton>
+        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+          <children>
+            <Label fx:id="host" text="Host's username">
+              <font>
+                <Font size="15.0" />
+              </font>
+            </Label>
+          </children>
+        </StackPane>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="56.0" />
@@ -241,13 +281,14 @@
         <Font name="Avenir Next Demi Bold" size="50.0" />
       </font>
     </Label>
-    <Label layoutX="382.0" layoutY="33.0" text="... setting up connections">
+    <Label layoutX="382.0" layoutY="39.0" text="... setting up connections">
       <font>
         <Font name="Avenir Next Demi Bold" size="30.0" />
       </font>
     </Label>
-    <Label font="$x3" layoutX="575.0" layoutY="496.0" text="My IP Address:" textFill="RED" />
-    <Label font="$x3" layoutX="622.0" layoutY="533.0" text="Port:" textFill="RED" />
-    <Button font="$x1" layoutX="595.0" layoutY="631.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="265.0" text="READY" />
+    <Label fx:id="ipaddress" font="$x3" layoutX="575.0" layoutY="496.0" text="My IP Address:" textFill="RED" />
+    <Label fx:id="port" font="$x3" layoutX="622.0" layoutY="533.0" text="Port:" textFill="RED" />
+    <Button id="doneConnecting" fx:id="doneGameRoom" font="$x1" layoutX="595.0" layoutY="631.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="69.0" prefWidth="265.0" text="READY" />
+    <Line endX="856.0" endY="-4.0" layoutX="128.0" layoutY="84.0" startX="-101.0" startY="0.0" strokeWidth="2.4" />
   </children>
 </AnchorPane>

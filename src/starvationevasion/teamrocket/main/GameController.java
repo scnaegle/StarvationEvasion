@@ -58,7 +58,8 @@ public class GameController
   {
     MAIN.switchScenes(2);
   }
- // public void switchToLoginScene(){MAIN.switchScenes(5);}
+  public void switchToLoginScene(){MAIN.switchScenes(5);}
+  public void switchToGameRoom(){MAIN.switchScenes(6);}
 
   /**
    * Returns the current hand of cards for the player.

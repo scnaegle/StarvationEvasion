@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 
@@ -177,6 +178,8 @@ public class GuiController
   private Button doneWithCards;
   @FXML
   private Button doneVoting;
+  @FXML
+  private Button doneGameRoom;
 
   @FXML
   private RadioButton singlePlayer, multiPlayer, joinMultiPlayer;
@@ -787,13 +790,37 @@ public class GuiController
       else if(joinMultiPlayerMode)
       {
         //go to login scene, then gameRoom, then game
+        try{
+          Main.gameController.switchToLoginScene();
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
       }
 
     }
     else if(button == login)
     {
       //save input
-      //go to waiting scene
+      //go to gameRoom
+      try{
+        Main.gameController.switchToGameRoom();
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else if(button == doneGameRoom)
+    {
+      try{
+        Main.gameController.startNewGame(myRegion);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
     }
     else if(button == pickedRegion)
     {
@@ -2280,6 +2307,56 @@ public class GuiController
       System.out.println("Selected South Plains");
     }
 
+  }
+
+  /**
+   * Method specifically for the smaller map inside of gameRoom.fxml.
+   *
+   * @param event Mouse clicked event
+   */
+  @FXML
+  public void chooseRegion(MouseEvent event)
+  {
+    double x = event.getX();
+    double y = event.getY();
+    makeAllInvisible();
+    if (ImageRegion.CALIFORNIA.contains(x, y))
+    {
+      cali.setVisible(true);
+      myRegion = EnumRegion.CALIFORNIA;
+    }
+    else if (ImageRegion.HEARTLAND.contains(x, y))
+    {
+      heartland.setVisible(true);
+      myRegion = EnumRegion.HEARTLAND;
+    }
+    else if (ImageRegion.MOUNTAINST.contains(x, y))
+    {
+      mountSt.setVisible(true);
+      myRegion = EnumRegion.MOUNTAIN;
+    }
+    else if (ImageRegion.NORTHPLAINS.contains(x, y))
+    {
+      nPlains.setVisible(true);
+      myRegion = EnumRegion.NORTHERN_PLAINS;
+    }
+    else if (ImageRegion.NORTHEAST.contains(x, y))
+    {
+      northSt.setVisible(true);
+      myRegion = EnumRegion.NORTHERN_CRESCENT;
+    }
+    else if (ImageRegion.SOUTHEAST.contains(x, y))
+    {
+      southEast.setVisible(true);
+      myRegion = EnumRegion.SOUTHEAST;
+    }
+    else if (ImageRegion.SOUTHPLAINS.contains(x, y))
+    {
+      sPlains.setVisible(true);
+      myRegion = EnumRegion.SOUTHERN_PLAINS;
+    }
+
+    Main.gameController.setSelectRegion(new RegionChoice(myRegion));
   }
 
   private PieChart testPieChart()
