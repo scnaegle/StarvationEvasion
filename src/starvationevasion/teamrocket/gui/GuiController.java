@@ -180,6 +180,10 @@ public class GuiController
 
   @FXML
   private RadioButton singlePlayer, multiPlayer, joinMultiPlayer;
+
+  private boolean singlePlayerMode = true;
+  private boolean newMultiPlayerMode = false;
+  private boolean joinMultiPlayerMode = false;
   @FXML
   private Label gamePlayError;
 
@@ -244,9 +248,7 @@ public class GuiController
 
   private boolean votable = false;
   private int numCardsinHand = 7;
-  private boolean singlePlayerMode;
-  private boolean newMultiPlayerMode;
-  private boolean joinMultiPlayerMode;
+
 
 
   @FXML
@@ -757,8 +759,6 @@ public class GuiController
   public void buttonPressed(ActionEvent event)
   {
     Button button = (Button) event.getSource();
-
-
     if(button == ready)
     {
       //make sure something was selected
@@ -781,11 +781,12 @@ public class GuiController
       }
       else if(newMultiPlayerMode)
       {
+        //go to gameSetting scene, then gameRoom scene, then game
 
       }
       else if(joinMultiPlayerMode)
       {
-        
+        //go to login scene, then gameRoom, then game
       }
 
     }

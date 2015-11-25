@@ -56,6 +56,7 @@ public class GameController
   {
     MAIN.switchScenes(2);
   }
+ // public void switchToLoginScene(){MAIN.switchScenes(5);}
 
   /**
    * Returns the current hand of cards for the player.

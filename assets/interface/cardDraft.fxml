@@ -304,21 +304,6 @@
             </ImageView>
           </graphic>
         </Button>
-        <Label id="" fx:id="neLabel" contentDisplay="CENTER" layoutX="860.0" layoutY="26.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="137.0" text="Northern Crescent" textAlignment="LEFT" visible="false">
-          <graphic>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
-          </graphic>
-          <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
-              <image>
-                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-              </image>
-            </ImageView>
-          </labelFor>
-          <textFill>
-            <Color blue="1.000" green="0.000" red="0.078" fx:id="x2" />
-          </textFill>
-        </Label>
         <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="526.0" layoutY="60.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
@@ -339,18 +324,6 @@
             <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <Label id="" fx:id="sPlainLabel" contentDisplay="CENTER" layoutX="582.0" layoutY="270.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Southern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
-          <graphic>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="115.0" />
-          </graphic>
-          <labelFor>
-            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
-              <image>
-                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-              </image>
-            </ImageView>
-          </labelFor>
-        </Label>
         <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="799.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
@@ -366,6 +339,26 @@
             <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
+        <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="535.0" layoutY="125.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
+          <image>
+            <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Label id="" fx:id="neLabel" contentDisplay="CENTER" layoutX="860.0" layoutY="26.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="137.0" text="Northern Crescent" textAlignment="LEFT" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="137.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+          <textFill>
+            <Color blue="1.000" green="0.000" red="0.078" fx:id="x2" />
+          </textFill>
+        </Label>
         <Label id="" fx:id="mountLabel" contentDisplay="CENTER" layoutX="626.0" layoutY="51.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Mountain States" textAlignment="LEFT" textFill="$x2" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
@@ -378,11 +371,18 @@
             </ImageView>
           </labelFor>
         </Label>
-        <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="535.0" layoutY="125.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
-          <image>
-            <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
+        <Label id="" fx:id="sPlainLabel" contentDisplay="CENTER" layoutX="582.0" layoutY="270.0" prefHeight="34.149986267089844" prefWidth="115.0" text="Southern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
+          <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+          </graphic>
+          <labelFor>
+            <ImageView id="cali" fitHeight="178.0" fitWidth="156.47441867024304" focusTraversable="false" layoutX="494.0" layoutY="90.0" mouseTransparent="false" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+              <image>
+                <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </labelFor>
+        </Label>
         <Label id="" fx:id="nPlainLabel" contentDisplay="CENTER" layoutX="741.0" layoutY="70.0" minWidth="84.0" prefHeight="39.310447692871094" prefWidth="115.0" text="Northern Plains" textAlignment="LEFT" textFill="$x2" visible="false">
           <graphic>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.999984741210938" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="115.0" />
