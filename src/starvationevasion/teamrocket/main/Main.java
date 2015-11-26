@@ -18,6 +18,7 @@ public class Main extends Application {
   Parent voting;
   Parent login;
   Parent gameRoom;
+  Parent chat;
 
 
   Scene welcomeScene;
@@ -26,6 +27,7 @@ public class Main extends Application {
   Scene votingScene;
   Scene loginScene;
   Scene gameRoomScene;
+  Scene chatScene;
 
 
   @Override
@@ -41,7 +43,7 @@ public class Main extends Application {
     cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
     gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
-
+    chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
 
     welcomeScene = new Scene(welcome);
     loginScene = new Scene(login);
@@ -49,9 +51,10 @@ public class Main extends Application {
     cardDraftScene = new Scene(cardDraft);
     votingScene = new Scene(voting);
     gameRoomScene = new Scene(gameRoom);
+    chatScene = new Scene(chat);
 
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(welcomeScene);
+    primaryStage.setScene(chatScene);
     primaryStage.show();
 
 

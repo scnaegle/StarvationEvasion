@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -252,6 +250,33 @@ public class GuiController
   private boolean votable = false;
   private int numCardsinHand = 7;
 
+  /* CHAT STUFF */
+  @FXML
+  private Button send;
+  @FXML
+  private TextField typeText;
+  @FXML
+  private TextArea convo;
+
+  private CharSequence text;
+  private boolean hasText = false;
+  /**************************/
+
+
+  @FXML
+  public void sendMessage()
+  {
+    if(hasText)
+    {
+      text = text.toString()+"\n" + typeText.getCharacters().toString();
+    }
+    else text = typeText.getCharacters().toString();
+
+    convo.setText(text.toString());
+    convo.end();
+    typeText.clear();
+    hasText = true;
+  }
 
 
   @FXML
