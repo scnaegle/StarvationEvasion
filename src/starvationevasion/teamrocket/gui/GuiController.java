@@ -763,6 +763,8 @@ public class GuiController
     }
 
   }
+
+
   @FXML
   public void chooseGamePlay(ActionEvent event)
   {
@@ -843,6 +845,7 @@ public class GuiController
       //go to gameRoom
       try{
         Main.gameController.switchToGameRoom();
+        Main.gameController.openChat();
       }
       catch (Exception e)
       {

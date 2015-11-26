@@ -60,6 +60,7 @@ public class GameController
   }
   public void switchToLoginScene(){MAIN.switchScenes(5);}
   public void switchToGameRoom(){MAIN.switchScenes(6);}
+  public void openChat(){ MAIN.openChat();}
 
   /**
    * Returns the current hand of cards for the player.

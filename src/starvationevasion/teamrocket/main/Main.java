@@ -2,8 +2,10 @@ package starvationevasion.teamrocket.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.teamrocket.gui.GuiController;
 
@@ -30,6 +32,8 @@ public class Main extends Application {
   Scene chatScene;
 
 
+
+
   @Override
   public void start(Stage primaryStage) throws Exception{
     if(Main.gameController == null)
@@ -54,13 +58,13 @@ public class Main extends Application {
     chatScene = new Scene(chat);
 
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(chatScene);
+    primaryStage.setScene(welcomeScene);
     primaryStage.show();
 
 
   }
 
-  void switchScenes(int scene)
+  public void switchScenes(int scene)
   {
     if(scene == 2)
     {
@@ -68,16 +72,37 @@ public class Main extends Application {
     }
     else if(scene == 3){
       primaryStage.setScene(cardDraftScene);
+      placeWindowonScreen(primaryStage,1350,1000);
     }
     else if(scene == 4){
       primaryStage.setScene(votingScene);
+      placeWindowonScreen(primaryStage,1350,1000);
     }
     else if(scene == 5){
       primaryStage.setScene(loginScene);
+      placeWindowonScreen(primaryStage,1350, 1000);
     }
-    else if(scene == 6){
+    else if (scene == 6)
+    {
       primaryStage.setScene(gameRoomScene);
+      placeWindowonScreen(primaryStage, 1350, 1000);
     }
+  }
+
+  public void openChat()
+  {
+    Stage secondStage = new Stage();
+    secondStage.setTitle("Chat here!");
+    placeWindowonScreen(secondStage,320,1000);
+    secondStage.setScene(chatScene);
+    secondStage.show();
+  }
+
+  private void placeWindowonScreen(Stage stage, int x, int y)
+  {
+    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - x);
+    stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - y);
   }
   public Stage getCurrentStage()
   {
