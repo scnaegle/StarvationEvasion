@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -266,16 +268,26 @@ public class GuiController
   @FXML
   public void sendMessage()
   {
+    String username = "username";
+
     if(hasText)
     {
-      text = text.toString()+"\n" + typeText.getCharacters().toString();
+      text = text.toString()+"\n" + username+": " + typeText.getCharacters().toString();
     }
-    else text = typeText.getCharacters().toString();
+    else text = username+": " + typeText.getCharacters().toString();
 
     convo.setText(text.toString());
-    convo.end();
     typeText.clear();
     hasText = true;
+  }
+  @FXML
+  public void enterMessage(KeyEvent event)
+  {
+    if(event.getCode().equals(KeyCode.ENTER))
+    {
+      sendMessage();
+    }
+
   }
 
 
