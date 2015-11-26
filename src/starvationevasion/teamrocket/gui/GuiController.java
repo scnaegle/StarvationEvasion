@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -17,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
@@ -824,6 +822,15 @@ public class GuiController
       else if(newMultiPlayerMode)
       {
         //go to gameSetting scene, then gameRoom scene, then game
+        try{
+          Main.gameController.switchToHostGame();
+          Main.gameController.openChat();
+
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
 
       }
       else if(joinMultiPlayerMode)
@@ -843,14 +850,16 @@ public class GuiController
     {
       //save input
       //go to gameRoom
-      try{
-        Main.gameController.switchToGameRoom();
-        Main.gameController.openChat();
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
+        try
+        {
+          Main.gameController.switchToJoinGame();
+          Main.gameController.openChat();
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+
     }
     else if(button == doneGameRoom)
     {
@@ -2350,7 +2359,7 @@ public class GuiController
   }
 
   /**
-   * Method specifically for the smaller map inside of gameRoom.fxml.
+   * Method specifically for the smaller map inside of hostGame.fxml.
    *
    * @param event Mouse clicked event
    */

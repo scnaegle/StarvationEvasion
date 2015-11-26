@@ -19,8 +19,10 @@ public class Main extends Application {
   Parent cardDraft;
   Parent voting;
   Parent login;
-  Parent gameRoom;
+  Parent hostGame;
+  Parent joinGame;
   Parent chat;
+
 
 
   Scene welcomeScene;
@@ -28,10 +30,12 @@ public class Main extends Application {
   Scene cardDraftScene;
   Scene votingScene;
   Scene loginScene;
-  Scene gameRoomScene;
+  Scene hostGameScene;
+  Scene joinGameScene;
   Scene chatScene;
 
-
+  FXMLLoader loader = new FXMLLoader();
+  final GuiController controller = loader.getController();
 
 
   @Override
@@ -41,50 +45,61 @@ public class Main extends Application {
       gameController = new GameController(this);
     }
     this.primaryStage = primaryStage;
+
     welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
     login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
     cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
-    gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
+    hostGame = FXMLLoader.load(Main.class.getResource("/interface/hostGame.fxml"));
+    joinGame = FXMLLoader.load(Main.class.getResource("/interface/joinGame.fxml"));
     chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
+
 
     welcomeScene = new Scene(welcome);
     loginScene = new Scene(login);
     regionScene = new Scene(chooseRegion);
     cardDraftScene = new Scene(cardDraft);
     votingScene = new Scene(voting);
-    gameRoomScene = new Scene(gameRoom);
+    hostGameScene = new Scene(hostGame);
+    joinGameScene = new Scene(joinGame);
     chatScene = new Scene(chat);
 
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(welcomeScene);
     primaryStage.show();
 
-
   }
 
   public void switchScenes(int scene)
   {
-    if(scene == 2)
+    if (scene == 2)
     {
       primaryStage.setScene(regionScene);
     }
-    else if(scene == 3){
+    else if (scene == 3)
+    {
       primaryStage.setScene(cardDraftScene);
-      placeWindowonScreen(primaryStage,1350,1000);
+      placeWindowonScreen(primaryStage, 1350, 1000);
     }
-    else if(scene == 4){
+    else if (scene == 4)
+    {
       primaryStage.setScene(votingScene);
-      placeWindowonScreen(primaryStage,1350,1000);
+      placeWindowonScreen(primaryStage, 1350, 1000);
     }
-    else if(scene == 5){
+    else if (scene == 5)
+    {
       primaryStage.setScene(loginScene);
-      placeWindowonScreen(primaryStage,1350, 1000);
+      placeWindowonScreen(primaryStage, 1350, 1000);
     }
     else if (scene == 6)
     {
-      primaryStage.setScene(gameRoomScene);
+      primaryStage.setScene(hostGameScene);
+      placeWindowonScreen(primaryStage, 1350, 1000);
+    }
+    else if(scene == 7)
+    {
+      primaryStage.setScene(joinGameScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
     }
   }
