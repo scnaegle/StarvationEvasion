@@ -213,6 +213,11 @@ public class GuiController
   private Label appleLabel, grainLabel, citrusLabel, feedLabel, dairyLabel, fishLabel, meatLabel, nutLabel,
                 oilLabel, poultryLabel, veggieLabel, specialLabel;
 
+  /* USERNAMES AND LABELS FOR GAMEROOM */
+  @FXML
+  private Label user1, user2, user3, user4, user5, user6, user7, user1Region, user2Region, user3Region, user4Region,
+                user5Region, user6Region, user7Region, countdown;
+  /*************************************************************************/
   @FXML
   private Label playerRegion;
 
