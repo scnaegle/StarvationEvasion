@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.EnumRegion;
+import starvationevasion.server.Server;
 import starvationevasion.sim.CardDeck;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
@@ -51,15 +52,15 @@ public class GameState implements Serializable {
 
   private void initlizeGame(String gameType)
   {
-    if(gameType.equals("single player"))
+    if(gameType.equals("singlePlayer"))
     {
-
+      Server server = new Server("starvationevasion");
     }
-    if(gameType.equals("new"))
+    if(gameType.equals("newMultiPlayer"))
     {
-
+    //  Server server = new Server();
     }
-    if(gameType.equals("join"))
+    if(gameType.equals("joinMultiPlayer"))
     {
 
     }
@@ -159,7 +160,7 @@ public class GameState implements Serializable {
 
 
       case VISUALIZATION:
-        //
+
       case END:
         // we will have to place a method to determine the winner
         // Server.determineWinner();

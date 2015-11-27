@@ -242,7 +242,6 @@ public class GameController
     if(singlePlayer) mode = "singlePlayer";
     else if(newMultiPlayer) mode = "newMultiPlayer";
     else if(joinMultiPlayer) mode =  "joinMultiPlayer";
-
     return mode;
   }
 
