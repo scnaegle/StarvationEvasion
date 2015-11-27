@@ -84,19 +84,16 @@ public class Model
 
   public Model(int startYear)
   {
-
     this.startYear = startYear;
     year = startYear;
 
     stateData = DataReader.retrieveStateData("data/sim/UnitedStatesData/UnitedStatesFarmAreaAndIncome.csv");
     instantiateRegions(stateData.getRawData());
-
-
   }
 
 
   /**
-   * This method is used to create State objects along with
+   * This method is used to create USState objects along with
    * the Region data structure
    *
    * @param data
@@ -145,7 +142,7 @@ public class Model
    *
    * @return the simulation year that has just finished.
    */
-  protected int nextYear(ArrayList<Policy> cards)
+  protected int nextYear(ArrayList<PolicyCard> cards)
   {
     year++;
     LOGGER.info("Advancing year to " + year);
