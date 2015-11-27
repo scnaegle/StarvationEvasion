@@ -1,16 +1,13 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
 import starvationevasion.sim.CardDeck;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ChatHistory;
-import starvationevasion.teamrocket.models.Discard;
 import starvationevasion.teamrocket.models.PolicyVote;
 import starvationevasion.teamrocket.models.Region;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -23,27 +20,127 @@ import java.util.Map;
  * their own view of the status of the game.
  */
 public class GameState implements Serializable {
-  public EnumGameState gameState; // The current state of the game as defined by the EnumGameState
+  public EnumGameState turnPhase; // The current state of the game as defined by the EnumGameState
   public Stopwatch stopwatch; // Current timer of the stop
-  public int current_year; // Current year of game
-  public int current_turn; // Current turn count in the game
+  public int currentYear; // Current year of game
+  public int currentTurn; // Current turn count in the game
   public Region[] regions; // All the region stats
-  public Map<EnumRegion,CardDeck> region_decks; // All player's cards
-  public Map<EnumRegion,PolicyVote[]> policy_votes; // All players votes for each card
+  public Map<EnumRegion,CardDeck> regionDecks; // All player's cards
+  public Map<EnumRegion,PolicyVote[]> policyVotes; // All players votes for each card
   public ChatHistory chatHistory; // Chat history
 
   public GameState(EnumGameState gameState, Stopwatch stopwatch, int current_year, int current_turn, Region[] regions, Map<EnumRegion,CardDeck> region_decks, ChatHistory chatHistory) {
     this(gameState, stopwatch, current_year, current_turn, regions, region_decks, chatHistory, null);
   }
 
-  public GameState(EnumGameState gameState, Stopwatch stopwatch, int current_year, int current_turn, Region[] regions, Map<EnumRegion,CardDeck> region_decks, ChatHistory chatHistory, Map<EnumRegion,PolicyVote[]> policy_votes) {
-    this.gameState = gameState;
+  public GameState(EnumGameState turnPhase, Stopwatch stopwatch, int currentYear, int currentTurn, Region[] regions, Map<EnumRegion,CardDeck> regionDecks, ChatHistory chatHistory, Map<EnumRegion,PolicyVote[]> policyVotes) {
+    this.turnPhase = turnPhase;
     this.stopwatch = stopwatch;
-    this.current_year = current_year;
-    this.current_turn = current_turn;
+    this.currentYear = currentYear;
+    this.currentTurn = currentTurn;
     this.regions = regions;
-    this.region_decks = region_decks;
+    this.regionDecks = regionDecks;
     this.chatHistory = chatHistory;
-    this.policy_votes = policy_votes;
+    this.policyVotes = policyVotes;
+  }
+
+
+
+  /**
+   * returns the games state, or phase of the game.
+   * @return the phase of the state
+   */
+  public EnumGameState getTurnPhase()
+  {
+    return turnPhase;
+  }
+
+  /**
+   * The time that has elapsed
+   * @return the time that has elapsed
+   */
+  public Stopwatch getStopwatch()
+  {
+    return stopwatch;
+  }
+
+  /**
+   * returns the current year that the game is on
+   * @return the current year of the game
+   */
+  public int getCurrentYear()
+  {
+    return currentYear;
+  }
+
+  /**
+   * The turn that we are on.
+   * @return the current turn that everybody is on
+   */
+  public int getCurrentTurn()
+  {
+    return currentTurn;
+  }
+
+  /**
+   * All of the regions of all the players
+   * @return the regions of all the players
+   */
+  public Region[] getRegions()
+  {
+    return regions;
+  }
+
+  /**
+   * Gets the chat history
+   * @return the chat history that people have used
+   */
+  public ChatHistory getChatHistory()
+  {
+    return chatHistory;
+  }
+
+  /**
+   * getting the region decks that way we can see the discard piles
+   * @return the regions decks for viewing the discard piles
+   */
+  public Map<EnumRegion, CardDeck> getRegionDecks()
+  {
+    return regionDecks;
+  }
+
+  /**
+   * getting the votes that people have voted on
+   * @return the policies that people have voted on
+   */
+  public Map<EnumRegion, PolicyVote[]> getPolicyVotes()
+  {
+    return policyVotes;
+  }
+
+  public void updateGameState(GameState state, EnumGameState turnPhase)
+  {
+    switch (turnPhase)
+    {
+      case WAITING_FOR_CONNECTIONS:
+
+      case CARD_DRAFTING:
+        state.currentTurn++;
+        state.currentYear+=3;
+
+      case VOTING:
+
+      case SIMULATION:
+        // This should do the simulation. From Joels code it looks as though
+        // It will be simulated once and then use the simulator to build on itself
+        // till 2050
+        // Simulator simulator = new Simulator(1980);
+
+      case VISUALIZATION:
+        //
+      case GAME_OVER:
+        // we will have to place a method to determine the winner
+        // Server.determineWinner();
+    }
   }
 }
