@@ -9,45 +9,45 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="joinGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<AnchorPane id="AnchorPane" fx:id="gameRoom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#changeScene" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="338.0" layoutX="512.0" layoutY="122.0" stroke="BLACK" strokeType="INSIDE" width="473.049072265625" />
-    <ImageView id="mapImage" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="512.0" layoutY="160.0" onMouseClicked="#chooseRegion" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
+    <ImageView id="mapImage" fx:id="fullMap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="512.0" layoutY="160.0" onMouseClicked="#chooseRegion" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
       <image>
         <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="mountain" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="527.0" layoutY="155.0" mouseTransparent="true" onMouseClicked="#clickedRegion" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="221.91098357438935" fitWidth="182.22616577148438" focusTraversable="false" layoutX="528.0" layoutY="155.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="north" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="775.0" layoutY="175.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="775.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="northplains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="687.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="687.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="southeast" disable="false" fitHeight="178.87031266679466" fitWidth="155.92825317382812" focusTraversable="false" layoutX="785.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.87031266679466" fitWidth="155.92825317382812" focusTraversable="false" layoutX="785.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="southplains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="652.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="652.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="740.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="740.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="520.0" layoutY="224.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="520.0" layoutY="224.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
       </image>
@@ -72,7 +72,7 @@
         <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" text="7" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <StackPane prefHeight="92.0" prefWidth="79.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
           <children>
-            <Label id="host" text="Region">
+            <Label id="host" fx:id="user1Region" text="Region">
               <font>
                 <Font size="15.0" fx:id="x2" />
               </font>
@@ -81,67 +81,67 @@
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
           <children>
-            <Label id="host" font="$x2" text="Region" />
+            <Label id="host" fx:id="user2Region" font="$x2" text="Region" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
           <children>
-            <Label id="host" font="$x2" text="Region" />
+            <Label id="host" fx:id="user3Region" font="$x2" text="Region" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
           <children>
-            <Label id="host" font="$x2" text="Region" />
+            <Label id="host" fx:id="user4Region" font="$x2" text="Region" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
           <children>
-            <Label id="host" font="$x2" text="Region" />
+            <Label id="host" fx:id="user5Region" font="$x2" text="Region" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
           <children>
-            <Label id="host" font="$x2" text="Region" />
+            <Label id="host" fx:id="user6Region" font="$x2" text="Region" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
           <children>
-            <Label id="host" font="$x2" text="Region" />
+            <Label id="host" fx:id="user7Region" font="$x2" text="Region" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user1" font="$x2" text="Username" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user2" font="$x2" text="Username" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user3" font="$x2" text="Username" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user4" font="$x2" text="Username" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user5" font="$x2" text="Username" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user6" font="$x2" text="Username" />
           </children>
         </StackPane>
         <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
           <children>
-            <Label id="host" font="$x2" text="Username" />
+            <Label id="host" fx:id="user7" font="$x2" text="Username" />
           </children>
         </StackPane>
       </children>
@@ -170,9 +170,11 @@
         <Font name="Avenir Next Demi Bold" size="30.0" />
       </font>
     </Label>
-    <Label id="ipaddress" font="$x3" layoutX="553.0" layoutY="494.0" text="My IP Address:" textFill="RED" />
-    <Label id="port" font="$x3" layoutX="600.0" layoutY="548.0" text="Port:" textFill="RED" />
     <Line endX="856.0" endY="-4.0" layoutX="128.0" layoutY="84.0" startX="-101.0" startY="0.0" strokeWidth="2.4" />
-    <ProgressIndicator layoutX="719.0" layoutY="603.0" prefHeight="80.0" prefWidth="87.0" progress="-1.0" />
+    <Label fx:id="countdown" layoutX="691.0" layoutY="557.0" text="10" visible="false">
+      <font>
+        <Font size="70.0" />
+      </font>
+    </Label>
   </children>
 </AnchorPane>
