@@ -2,12 +2,14 @@ package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.sim.CardDeck;
+import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ChatHistory;
 import starvationevasion.teamrocket.models.PolicyVote;
 import starvationevasion.teamrocket.models.Region;
 
 import java.io.Serializable;
+import java.security.PublicKey;
 import java.util.Map;
 
 /**
@@ -28,6 +30,8 @@ public class GameState implements Serializable {
   public Map<EnumRegion,CardDeck> regionDecks; // All player's cards
   public Map<EnumRegion,PolicyVote[]> policyVotes; // All players votes for each card
   public ChatHistory chatHistory; // Chat history
+  public GameController gameController;
+  public GameState game;
 
   public GameState(EnumGameState gameState, Stopwatch stopwatch, int current_year, int current_turn, Region[] regions, Map<EnumRegion,CardDeck> region_decks, ChatHistory chatHistory) {
     this(gameState, stopwatch, current_year, current_turn, regions, region_decks, chatHistory, null);
@@ -45,6 +49,21 @@ public class GameState implements Serializable {
   }
 
 
+  private void initlizeGame(String gameType)
+  {
+    if(gameType.equals("single player"))
+    {
+
+    }
+    if(gameType.equals("new"))
+    {
+
+    }
+    if(gameType.equals("join"))
+    {
+
+    }
+  }
 
   /**
    * returns the games state, or phase of the game.
@@ -118,29 +137,33 @@ public class GameState implements Serializable {
     return policyVotes;
   }
 
-  public void updateGameState(GameState state, EnumGameState turnPhase)
+  public void updateGameState(EnumGameState turnPhase)
   {
     switch (turnPhase)
     {
-      case WAITING_FOR_CONNECTIONS:
+      case LOGIN:
 
-      case CARD_DRAFTING:
-        state.currentTurn++;
-        state.currentYear+=3;
+      case DRAFTING:
+        currentTurn++;
+        currentYear+=3;
 
       case VOTING:
 
-      case SIMULATION:
+      case BEGINNING:
         // This should do the simulation. From Joels code it looks as though
         // It will be simulated once and then use the simulator to build on itself
         // till 2050
         // Simulator simulator = new Simulator(1980);
+        String typeOfPlayerGame = gameController.getPlayerMode();
+        initlizeGame(typeOfPlayerGame);
+
 
       case VISUALIZATION:
         //
-      case GAME_OVER:
+      case END:
         // we will have to place a method to determine the winner
         // Server.determineWinner();
     }
   }
+
 }
