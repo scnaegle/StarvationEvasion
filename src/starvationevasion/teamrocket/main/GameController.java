@@ -27,6 +27,9 @@ public class GameController
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
   private GuiController gui;
   private Stopwatch stopwatch;
+  private boolean singlePlayer;
+  private boolean newMultiPlayer;
+  private boolean joinMultiPlayer;
 
   GameController(Main main)
   {
@@ -211,6 +214,21 @@ public class GameController
   public void setChat(String message)
   {
 
+  }
+
+  public void setSinglePlayerMode(boolean on)
+  {
+    singlePlayer = on;
+  }
+
+  public void setNewMultiPlayerMode(boolean on)
+  {
+    newMultiPlayer = on;
+  }
+
+  public void setJoinMultiPlayerMode(boolean on)
+  {
+    joinMultiPlayer = on;
   }
 
 }

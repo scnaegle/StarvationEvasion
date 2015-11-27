@@ -288,6 +288,18 @@ public class GuiController
 
   }
 
+  /**
+   * For testing purposes
+   * @param event
+   */
+  @FXML
+  public void changeScene(KeyEvent event)
+  {
+    if(event.getCode().equals(KeyCode.ENTER))
+    {
+      Main.gameController.startNewGame(Main.gameController.getMyRegion());
+    }
+  }
 
   @FXML
   public void highlightCards()
@@ -772,9 +784,14 @@ public class GuiController
     newMultiPlayerMode = false;
     joinMultiPlayerMode = false;
 
+    Main.gameController.setSinglePlayerMode(false);
+    Main.gameController.setNewMultiPlayerMode(false);
+    Main.gameController.setJoinMultiPlayerMode(false);
+
     if(gamePlay == singlePlayer)
     {
       singlePlayerMode = true;
+      Main.gameController.setSinglePlayerMode(true);
       multiPlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
       //tell game control theres only one player
@@ -782,6 +799,7 @@ public class GuiController
     else if(gamePlay == multiPlayer)
     {
       newMultiPlayerMode = true;
+      Main.gameController.setNewMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
       //tell game control there's many players
@@ -790,10 +808,14 @@ public class GuiController
     else if(gamePlay == joinMultiPlayer)
     {
       joinMultiPlayerMode = true;
+      Main.gameController.setJoinMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       multiPlayer.setSelected(false);
     }
   }
+
+
+
   @FXML
   public void buttonPressed(ActionEvent event)
   {
@@ -2358,7 +2380,7 @@ public class GuiController
   }
 
   /**
-   * Method specifically for the smaller map inside of hostGame.fxml.
+   * Method specifically for the smaller map inside of gameRoom.fxml.
    *
    * @param event Mouse clicked event
    */
