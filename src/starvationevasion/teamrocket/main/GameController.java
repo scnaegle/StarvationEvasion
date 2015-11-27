@@ -27,6 +27,9 @@ public class GameController
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
   private GuiController gui;
   private Stopwatch stopwatch;
+  private boolean singlePlayer;
+  private boolean newMultiPlayer;
+  private boolean joinMultiPlayer;
 
   GameController(Main main)
   {
@@ -66,15 +69,7 @@ public class GameController
    * Switches scene to login scene
    */
   public void switchToLoginScene(){MAIN.switchScenes(5);}
-
-  /**
-   * Switches scene to host game scene
-   */
-  public void switchToHostGame(){MAIN.switchScenes(6);}
-
-  /**
-   * Open chat screen
-   */
+  public void switchToGameScene(){MAIN.switchScenes(6);}
   public void openChat(){ MAIN.openChat();}
 
   /**
@@ -221,8 +216,19 @@ public class GameController
 
   }
 
-  public void switchToJoinGame()
+  public void setSinglePlayerMode(boolean on)
   {
-    MAIN.switchScenes(7);
+    singlePlayer = on;
   }
+
+  public void setNewMultiPlayerMode(boolean on)
+  {
+    newMultiPlayer = on;
+  }
+
+  public void setJoinMultiPlayerMode(boolean on)
+  {
+    joinMultiPlayer = on;
+  }
+
 }

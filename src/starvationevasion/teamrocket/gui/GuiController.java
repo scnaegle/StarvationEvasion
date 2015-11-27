@@ -213,6 +213,11 @@ public class GuiController
   private Label appleLabel, grainLabel, citrusLabel, feedLabel, dairyLabel, fishLabel, meatLabel, nutLabel,
                 oilLabel, poultryLabel, veggieLabel, specialLabel;
 
+  /* USERNAMES AND LABELS FOR GAMEROOM */
+  @FXML
+  private Label user1, user2, user3, user4, user5, user6, user7, user1Region, user2Region, user3Region, user4Region,
+                user5Region, user6Region, user7Region, countdown;
+  /*************************************************************************/
   @FXML
   private Label playerRegion;
 
@@ -288,6 +293,18 @@ public class GuiController
 
   }
 
+  /**
+   * For testing purposes
+   * @param event
+   */
+  @FXML
+  public void changeScene(KeyEvent event)
+  {
+    if(event.getCode().equals(KeyCode.ENTER))
+    {
+      Main.gameController.startNewGame(Main.gameController.getMyRegion());
+    }
+  }
 
   @FXML
   public void highlightCards()
@@ -772,9 +789,14 @@ public class GuiController
     newMultiPlayerMode = false;
     joinMultiPlayerMode = false;
 
+    Main.gameController.setSinglePlayerMode(false);
+    Main.gameController.setNewMultiPlayerMode(false);
+    Main.gameController.setJoinMultiPlayerMode(false);
+
     if(gamePlay == singlePlayer)
     {
       singlePlayerMode = true;
+      Main.gameController.setSinglePlayerMode(true);
       multiPlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
       //tell game control theres only one player
@@ -782,6 +804,7 @@ public class GuiController
     else if(gamePlay == multiPlayer)
     {
       newMultiPlayerMode = true;
+      Main.gameController.setNewMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
       //tell game control there's many players
@@ -790,10 +813,14 @@ public class GuiController
     else if(gamePlay == joinMultiPlayer)
     {
       joinMultiPlayerMode = true;
+      Main.gameController.setJoinMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       multiPlayer.setSelected(false);
     }
   }
+
+
+
   @FXML
   public void buttonPressed(ActionEvent event)
   {
@@ -822,8 +849,7 @@ public class GuiController
       {
         //go to gameSetting scene, then gameRoom scene, then game
         try{
-          Main.gameController.switchToHostGame();
-          Main.gameController.openChat();
+          Main.gameController.switchToLoginScene();
 
         }
         catch (Exception e)
@@ -851,13 +877,14 @@ public class GuiController
       //go to gameRoom
         try
         {
-          Main.gameController.switchToJoinGame();
+          Main.gameController.switchToGameScene();
           Main.gameController.openChat();
         }
         catch (Exception e)
         {
           e.printStackTrace();
         }
+
 
     }
     else if(button == doneGameRoom)
@@ -2358,7 +2385,7 @@ public class GuiController
   }
 
   /**
-   * Method specifically for the smaller map inside of hostGame.fxml.
+   * Method specifically for the smaller map inside of gameRoom.fxml.
    *
    * @param event Mouse clicked event
    */
