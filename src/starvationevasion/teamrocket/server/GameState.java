@@ -65,11 +65,11 @@ public class GameState implements Serializable
   }
 
 
-  private void initlizeGame(String gameType, String ip, int port)
+  private void initializeGame(String gameType, String ip, int port)
   {
     if (gameType.equals("singlePlayer"))
     {
-      Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT);
+//      Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT);
       //Will need to spawn a bunch of AI Clients
       Server server = new Server(
           "file://C:/Users/Tyler/Desktop/School/CS351/StarvationEvasion/data" +
@@ -82,7 +82,7 @@ public class GameState implements Serializable
     }
     if (gameType.equals("joinMultiPlayer"))
     {
-        Client client = new Client(ip, port);
+//        Client client = new Client(ip, port);
     }
   }
 
@@ -194,7 +194,7 @@ public class GameState implements Serializable
         try
         {
           portNumber = Integer.parseInt(portString);
-          initlizeGame(typeOfPlayerGame, ip, portNumber);
+//          initlizeGame(typeOfPlayerGame, ip, portNumber);
         }
         catch (IllegalFormatException e)
         {

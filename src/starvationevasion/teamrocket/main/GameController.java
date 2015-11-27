@@ -5,19 +5,19 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
+import starvationevasion.server.Server;
+import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.AI.AI;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.server.Client;
 import starvationevasion.teamrocket.server.Stopwatch;
 
 import java.nio.channels.NoConnectionPendingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.IllegalFormatException;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -36,6 +36,10 @@ public class GameController
   private String playerPassword;
   private String playerIP;
   private String playerPort;
+
+  private Stack<String> error_messages = new Stack<>();
+  private boolean successfullLogin = false;
+  private Client client;
 
   GameController(Main main)
   {
@@ -59,8 +63,28 @@ public class GameController
     this.player = new Player(region, null, this, null);
 
     MAIN.switchScenes(3);
+    if (singlePlayer)
+    {
+      Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
+      //Will need to spawn a bunch of AI Clients
+      Server server = new Server(
+          "file://C:/Users/Tyler/Desktop/School/CS351/StarvationEvasion/data" +
+              "/password_file.tmpl");
+
+    }
+    if (newMultiPlayer)
+    {
+
+    }
+    if (joinMultiPlayer)
+    {
+      Client client = new Client(playerIP, Integer.parseInt(playerPort), this);
+    }
 
     return this.player;
+  }
+  private void initializeGame(String gameType, String ip, int port)
+  {
   }
 
   /**
@@ -338,5 +362,21 @@ public class GameController
   public String getPlayerPort()
   {
     return playerPort;
+  }
+
+  public void addErrorMessage(String error_message) {
+    error_messages.push(error_message);
+  }
+
+  public String getErrorMessage() {
+    return error_messages.pop();
+  }
+
+  public void setSuccessfullLogin(boolean successfullLogin) {
+    this.successfullLogin = successfullLogin;
+  }
+
+  public boolean getSuccessfullLogin() {
+    return successfullLogin;
   }
 }
