@@ -188,8 +188,16 @@ public class GuiController
   @FXML
   private Label gamePlayError;
 
+  /* LOGIN VARIABLES SUCH AS USERNAME AND PASSWORD */
   @FXML
   private Button login;
+  @FXML
+  private TextField username, password, ipAddress, port;
+  @FXML
+  private Label portError, addressError, emptyFieldError;
+
+  String playerUsername, playerPassword, playerIP, playerPort;
+  /*********************************************************/
 
 /* HIGHLIGHTED IMAGES OF THE REGIONS */
   @FXML
@@ -268,6 +276,37 @@ public class GuiController
   /**************************/
 
 
+  public void saveLoginInfo(){
+    saveUsername();
+    savePassword();
+    saveIPAddress();
+    savePort();
+  }
+
+  private void savePort()
+  {
+    playerPort = port.getCharacters().toString();
+    Main.gameController.savePlayerPort(playerPort);
+  }
+
+  private void saveIPAddress()
+  {
+    playerIP = ipAddress.getCharacters().toString();
+    Main.gameController.savePlayerIP(playerIP);
+  }
+
+  private void savePassword()
+  {
+    playerPassword = password.getCharacters().toString();
+    Main.gameController.savePlayerPassword(playerPassword);
+  }
+
+  private void saveUsername()
+  {
+    playerUsername = username.getCharacters().toString();
+    Main.gameController.savePlayerUsername(playerUsername);
+  }
+
   @FXML
   public void sendMessage()
   {
@@ -302,7 +341,13 @@ public class GuiController
   {
     if(event.getCode().equals(KeyCode.ENTER))
     {
-      Main.gameController.startNewGame(Main.gameController.getMyRegion());
+      try{
+        Main.gameController.startNewGame(myRegion);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -873,7 +918,9 @@ public class GuiController
     }
     else if(button == login)
     {
-      //save input
+      //verify and save input
+      //verifyLoginInput();
+      saveLoginInfo();
       //go to gameRoom
         try
         {
@@ -1327,6 +1374,11 @@ public class GuiController
       fishWindow.setVisible(true);
     }
   }
+
+//  private void verifyLoginInput()
+//  {
+//    if(username.getCharacters().equals(null));
+//  }
 
   private void resetCards()
   {

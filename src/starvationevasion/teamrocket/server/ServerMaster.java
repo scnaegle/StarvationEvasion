@@ -19,12 +19,12 @@ public class ServerMaster extends ServerEvents
 {
   private ServerSocket serverSocket;
   private LinkedList<ServerWorker> allConnections = new LinkedList<ServerWorker>();
-  public EnumGameState game_state = EnumGameState.WAITING_FOR_CONNECTIONS;
+  public EnumGameState game_state = EnumGameState.LOGIN;
   private ChatHistory chatHistory = new ChatHistory();
 
   public ServerMaster(int portNumber)
   {
-    game_state = EnumGameState.WAITING_FOR_CONNECTIONS;
+    game_state = EnumGameState.LOGIN;
     try
     {
       serverSocket = new ServerSocket(portNumber);

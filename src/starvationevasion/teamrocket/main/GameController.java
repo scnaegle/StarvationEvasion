@@ -30,6 +30,10 @@ public class GameController
   private boolean singlePlayer;
   private boolean newMultiPlayer;
   private boolean joinMultiPlayer;
+  private String playerUsername;
+  private String playerPassword;
+  private String playerIP;
+  private String playerPort;
 
   GameController(Main main)
   {
@@ -221,6 +225,7 @@ public class GameController
     singlePlayer = on;
   }
 
+
   public void setNewMultiPlayerMode(boolean on)
   {
     newMultiPlayer = on;
@@ -231,4 +236,33 @@ public class GameController
     joinMultiPlayer = on;
   }
 
+  public String getPlayerMode()
+  {
+    String mode = null;
+    if(singlePlayer) mode = "singlePlayer";
+    else if(newMultiPlayer) mode = "newMultiPlayer";
+    else if(joinMultiPlayer) mode =  "joinMultiPlayer";
+
+    return mode;
+  }
+
+  public void savePlayerUsername(String playerUsername)
+  {
+    this.playerUsername = playerUsername;
+  }
+
+  public void savePlayerPassword(String playerPassword)
+  {
+    this.playerPassword = playerPassword;
+  }
+
+  public void savePlayerIP(String playerIP)
+  {
+    this.playerIP = playerIP;
+  }
+
+  public void savePlayerPort(String playerPort)
+  {
+    this.playerPort = playerPort;
+  }
 }
