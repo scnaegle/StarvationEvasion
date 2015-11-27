@@ -823,8 +823,7 @@ public class GuiController
       {
         //go to gameSetting scene, then gameRoom scene, then game
         try{
-          Main.gameController.switchToHostGame();
-          Main.gameController.openChat();
+          Main.gameController.switchToLoginScene();
 
         }
         catch (Exception e)
@@ -852,13 +851,14 @@ public class GuiController
       //go to gameRoom
         try
         {
-          Main.gameController.switchToJoinGame();
+          Main.gameController.switchToGameScene();
           Main.gameController.openChat();
         }
         catch (Exception e)
         {
           e.printStackTrace();
         }
+
 
     }
     else if(button == doneGameRoom)

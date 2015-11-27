@@ -59,7 +59,7 @@ public class GameController
     MAIN.switchScenes(2);
   }
   public void switchToLoginScene(){MAIN.switchScenes(5);}
-  public void switchToHostGame(){MAIN.switchScenes(6);}
+  public void switchToGameScene(){MAIN.switchScenes(6);}
   public void openChat(){ MAIN.openChat();}
 
   /**
@@ -195,8 +195,4 @@ public class GameController
 
   }
 
-  public void switchToJoinGame()
-  {
-    MAIN.switchScenes(7);
-  }
 }

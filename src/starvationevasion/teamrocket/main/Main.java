@@ -19,8 +19,7 @@ public class Main extends Application {
   Parent cardDraft;
   Parent voting;
   Parent login;
-  Parent hostGame;
-  Parent joinGame;
+  Parent gameRoom;
   Parent chat;
 
 
@@ -30,8 +29,7 @@ public class Main extends Application {
   Scene cardDraftScene;
   Scene votingScene;
   Scene loginScene;
-  Scene hostGameScene;
-  Scene joinGameScene;
+  Scene gameRoomScene;
   Scene chatScene;
 
   FXMLLoader loader = new FXMLLoader();
@@ -51,8 +49,7 @@ public class Main extends Application {
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
     cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
-    hostGame = FXMLLoader.load(Main.class.getResource("/interface/hostGame.fxml"));
-    joinGame = FXMLLoader.load(Main.class.getResource("/interface/joinGame.fxml"));
+    gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
     chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
 
 
@@ -61,8 +58,7 @@ public class Main extends Application {
     regionScene = new Scene(chooseRegion);
     cardDraftScene = new Scene(cardDraft);
     votingScene = new Scene(voting);
-    hostGameScene = new Scene(hostGame);
-    joinGameScene = new Scene(joinGame);
+    gameRoomScene = new Scene(gameRoom);
     chatScene = new Scene(chat);
 
     primaryStage.setTitle("Starvation Evasion");
@@ -94,14 +90,10 @@ public class Main extends Application {
     }
     else if (scene == 6)
     {
-      primaryStage.setScene(hostGameScene);
+      primaryStage.setScene(gameRoomScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
     }
-    else if(scene == 7)
-    {
-      primaryStage.setScene(joinGameScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
-    }
+
   }
 
   public void openChat()
