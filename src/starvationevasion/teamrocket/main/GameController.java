@@ -291,9 +291,10 @@ public class GameController
   {
     try
     {
-      for(int i=0; i<playerIP.length();i++)
+      for (int i = 0; i < playerIP.length(); i++)
       {
-        if (playerIP.charAt(i)<'0' || playerIP.charAt(i)>'9'||playerIP.charAt(i)!='.')
+        if (playerIP.charAt(i) < '0' || playerIP.charAt(i) > '9' ||
+            playerIP.charAt(i) != '.')
         {
           throw new ImproperInputException(playerIP);
         }
@@ -308,7 +309,25 @@ public class GameController
 
   public void savePlayerPort(String playerPort)
   {
-    this.playerPort = playerPort;
+    try
+    {
+      if(playerPort.length() > 4 || playerPort.length()<2)
+      {
+        throw new ImproperInputException(playerPort);
+      }
+      for (int i = 0; i < playerPort.length(); i++)
+      {
+        if (playerPort.charAt(i) < '0' || playerPort.charAt(i) > '9' )
+        {
+          throw new ImproperInputException(playerPort);
+        }
+      }
+      this.playerPort = playerPort;
+    }
+    catch (ImproperInputException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   public String getPlayerIP()
