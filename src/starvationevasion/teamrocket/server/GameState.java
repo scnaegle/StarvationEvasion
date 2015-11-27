@@ -19,7 +19,7 @@ import java.util.Map;
  * Represent the state of the StarvationEvasion game from one player's
  * point of view. The full state of the game is kept on the server. The
  * server sends messages of type GameState to each player when the game
- * state changes. Every player recieves a different message that reflects
+ * state changes. Every player receives a different message that reflects
  * their own view of the status of the game.
  */
 public class GameState implements Serializable {
