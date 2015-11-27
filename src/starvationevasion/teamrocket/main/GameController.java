@@ -278,6 +278,7 @@ public class GameController
 
   public void setNewMultiPlayerMode(boolean on)
   {
+
     newMultiPlayer = on;
   }
 
