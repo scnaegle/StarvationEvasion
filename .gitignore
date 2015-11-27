@@ -25,3 +25,4 @@ bin
 
 # JIRA plugin
 atlassian-ide-plugin.xml
+/Lab8JavaFx/nbproject/private/

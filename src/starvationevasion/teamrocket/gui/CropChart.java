@@ -22,7 +22,6 @@ import java.util.Stack;
  */
 public class CropChart
 {
-
   /**
    * Makes a pie chart to add to the GUI of a region and what it is producing for
    * it's crops this turn.
@@ -38,6 +37,7 @@ public class CropChart
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
+
     for(EnumFood food : EnumFood.values())
     {
       dataList.add(new PieChart.Data(food.name(), data.get(food)));
@@ -51,6 +51,30 @@ public class CropChart
     chart.setVisible(true);
     return chart;
   }
+
+
+  public static PieChart makeWealthPieChart(Region region)
+  {
+    //   PieChart pieChart;
+//    pieChart = getPieChartData(region.getEnumRegion());
+
+    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+
+
+    for(EnumFood food : EnumFood.values())
+    {
+//      dataList.add(new PieChart.Data(food.name(), data.get(food)));
+    }
+    ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(dataList);
+    PieChart chart = new PieChart(pieChartData);
+
+    chart.setTitle("Crops");
+    chart.setLegendSide(Side.BOTTOM);
+    chart.setVisible(true);
+    return chart;
+  }
+
 
   /**
    * Makes a line chart of the data from our crops and regions, which spans the entire

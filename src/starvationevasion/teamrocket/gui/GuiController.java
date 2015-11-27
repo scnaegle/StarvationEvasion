@@ -665,7 +665,6 @@ public class GuiController
 
   }
 
-
   @FXML
   public void returnToNormal(MouseEvent event)
   {

@@ -54,10 +54,17 @@ public class GameController
     return this.player;
   }
 
+  /**
+   * Switches scene to select region scene
+   */
   public void switchToSelectRegion()
   {
     MAIN.switchScenes(2);
   }
+
+  /**
+   * Switches scene to login scene
+   */
   public void switchToLoginScene(){MAIN.switchScenes(5);}
   public void switchToGameScene(){MAIN.switchScenes(6);}
   public void openChat(){ MAIN.openChat();}
@@ -80,16 +87,27 @@ public class GameController
     //Destruction code for old game. Make sure it is garbage collectable, end any timers, threads, etc.
   }
 
+  /**
+   * Switches scenes to card drafting scene
+   */
   public void finishedCardDraft()
   {
     MAIN.switchScenes(4);
   }
 
+  /**
+   * switches to the main game scene after voting is finsihed
+   */
   public void finishedVoting()
   {
     MAIN.switchScenes(3);
   }
 
+  /**
+   * returns the region corrospoinding to the Enum a region is passed in
+   * @param enumRegion the enum of a region
+   * @return the region
+   */
   public Region getRegion(EnumRegion enumRegion)
   {
     return regions.get(enumRegion);
