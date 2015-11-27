@@ -13,8 +13,10 @@ import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Stopwatch;
 
+import java.nio.channels.NoConnectionPendingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.LinkedList;
 
 /**
@@ -72,9 +74,20 @@ public class GameController
   /**
    * Switches scene to login scene
    */
-  public void switchToLoginScene(){MAIN.switchScenes(5);}
-  public void switchToGameScene(){MAIN.switchScenes(6);}
-  public void openChat(){ MAIN.openChat();}
+  public void switchToLoginScene()
+  {
+    MAIN.switchScenes(5);
+  }
+
+  public void switchToGameScene()
+  {
+    MAIN.switchScenes(6);
+  }
+
+  public void openChat()
+  {
+    MAIN.openChat();
+  }
 
   /**
    * Returns the current hand of cards for the player.
@@ -91,7 +104,8 @@ public class GameController
    */
   private void destroyGame()
   {
-    //Destruction code for old game. Make sure it is garbage collectable, end any timers, threads, etc.
+    //Destruction code for old game. Make sure it is garbage collectable, end
+    // any timers, threads, etc.
   }
 
   /**
@@ -112,6 +126,7 @@ public class GameController
 
   /**
    * returns the region corrospoinding to the Enum a region is passed in
+   *
    * @param enumRegion the enum of a region
    * @return the region
    */
@@ -122,15 +137,17 @@ public class GameController
 
   /**
    * For GuiController use.
+   *
    * @return saved region.
    */
   public EnumRegion getMyRegion()
   {
-   return player.ENUM_REGION;
+    return player.ENUM_REGION;
   }
 
   /**
    * Stores our login information for the server.
+   *
    * @param login information of logins
    */
   public void setLogin(Login login)
@@ -140,6 +157,7 @@ public class GameController
 
   /**
    * This method handles when a region selection is performed.
+   *
    * @param choice The region choice
    */
   public void setSelectRegion(RegionChoice choice)
@@ -149,6 +167,7 @@ public class GameController
 
   /**
    * Start the game after the game room is done.
+   *
    * @param message
    */
   public void setStartGame(String message)
@@ -158,19 +177,24 @@ public class GameController
 
   /**
    * Update the timer with time left in current stage.
-   * @param timerInterval seconds
+   *
+   * @param stopwatch seconds
    */
   public void setTimer(Stopwatch stopwatch)
   {
-    if (this.stopwatch == null) {
+    if (this.stopwatch == null)
+    {
       this.stopwatch = new Stopwatch(stopwatch.getInterval());
-    } else {
+    }
+    else
+    {
       this.stopwatch.setInterval(stopwatch.getInterval());
     }
   }
 
   /**
    * Store the new Regions
+   *
    * @param newRegions
    */
   public void setRegionStats(ArrayList<Region> newRegions)
@@ -180,6 +204,7 @@ public class GameController
 
   /**
    * Sets the cards that will be voted on in voting stage.
+   *
    * @param cards cards to vote on.
    */
   public void setVotingCards(ArrayList<PolicyCard> cards)
@@ -213,6 +238,7 @@ public class GameController
 
   /**
    * Process new chat message.
+   *
    * @param message
    */
   public void setChat(String message)
@@ -239,9 +265,15 @@ public class GameController
   public String getPlayerMode()
   {
     String mode = null;
-    if(singlePlayer) mode = "singlePlayer";
-    else if(newMultiPlayer) mode = "newMultiPlayer";
-    else if(joinMultiPlayer) mode =  "joinMultiPlayer";
+    if (singlePlayer)
+    {
+      mode = "singlePlayer";
+    }
+    else if (newMultiPlayer)
+    {
+      mode = "newMultiPlayer";
+    }
+    else if (joinMultiPlayer) mode = "joinMultiPlayer";
     return mode;
   }
 
@@ -257,11 +289,35 @@ public class GameController
 
   public void savePlayerIP(String playerIP)
   {
-    this.playerIP = playerIP;
+    try
+    {
+      for(int i=0; i<playerIP.length();i++)
+      {
+        if (playerIP.charAt(i)<'0' || playerIP.charAt(i)>'9'||playerIP.charAt(i)!='.')
+        {
+          throw new ImproperInputException(playerIP);
+        }
+      }
+      this.playerIP = playerIP;
+    }
+    catch (ImproperInputException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   public void savePlayerPort(String playerPort)
   {
     this.playerPort = playerPort;
+  }
+
+  public String getPlayerIP()
+  {
+    return playerIP;
+  }
+
+  public String getPlayerPort()
+  {
+    return playerPort;
   }
 }
