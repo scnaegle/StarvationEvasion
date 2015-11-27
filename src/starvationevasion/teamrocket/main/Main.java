@@ -71,6 +71,10 @@ public class Main extends Application {
 
   }
 
+  /**
+   * switches between scenes.
+   * @param scene the number that the scene is on
+   */
   public void switchScenes(int scene)
   {
     if (scene == 2)
@@ -104,6 +108,9 @@ public class Main extends Application {
     }
   }
 
+  /**
+   * opens the chat bar for players to use
+   */
   public void openChat()
   {
     Stage secondStage = new Stage();

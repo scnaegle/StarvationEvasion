@@ -118,6 +118,17 @@ public class Region
     return latestData;
   }
 
+  public double getHappiness()
+  {
+    return happiness;
+  }
+
+  public double getWealth()
+  {
+    return wealth;
+  }
+
+
   public HashMap<EnumFood, Stack<Double>> getCropValues()
   {
     return new HashMap<>(cropValues);

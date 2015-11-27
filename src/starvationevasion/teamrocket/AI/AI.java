@@ -17,6 +17,14 @@ public class AI extends Player
   private PlayerRecord[] records;
   private Random generator;
 
+  /**
+   * Makes an AI for a region with a specific level while giving it a hand to use.
+   *
+   * @param controlledRegion The region the AI is supposed to control
+   * @param aiLevel The difficulty level that the AI plays at
+   * @param gameController The game controller that talks to the ai through
+   * @param handFromServer The hand that the server deals the AI
+   */
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController,
             LinkedList<Card> handFromServer)
   {
