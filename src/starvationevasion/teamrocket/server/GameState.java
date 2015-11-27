@@ -1,8 +1,7 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.EnumRegion;
-//import starvationevasion.common.Policy;
-//import starvationevasion.common.PolicyCard;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.sim.CardDeck;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ChatHistory;

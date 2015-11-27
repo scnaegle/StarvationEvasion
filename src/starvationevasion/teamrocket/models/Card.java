@@ -1,17 +1,18 @@
 package starvationevasion.teamrocket.models;
 
 import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.PolicyCard;
 
 /**
  * Created by Tyler on 11/14/2015.
  */
 public class Card
 {
-  private EnumPolicy policy;
+  private PolicyCard policyCard;
 
-  public Card(EnumPolicy policy)
+  public Card(PolicyCard policyCard)
   {
-    this.policy = policy;
+    this.policyCard = policyCard;
   }
 
   /**
@@ -20,6 +21,6 @@ public class Card
    */
   public boolean needsVotes()
   {
-    return policy.votesRequired() > 0;
+    return policyCard.votesRequired() > 0;
   }
 }
