@@ -1,13 +1,23 @@
 package starvationevasion.teamrocket.main;
 
+import com.sun.javafx.scene.SceneEventDispatcher;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import starvationevasion.teamrocket.gui.GuiController;
+
+import java.util.EventListener;
+
 
 public class Main extends Application {
   public static GameController gameController;
@@ -81,6 +91,8 @@ public class Main extends Application {
     {
       primaryStage.setScene(cardDraftScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
+      primaryStage.show();
+
     }
     else if (scene == 4)
     {

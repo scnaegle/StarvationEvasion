@@ -158,7 +158,7 @@ public class GameController
 
   /**
    * Update the timer with time left in current stage.
-   * @param timerInterval seconds
+   * @param stopwatch seconds
    */
   public void setTimer(Stopwatch stopwatch)
   {
@@ -264,5 +264,13 @@ public class GameController
   public void savePlayerPort(String playerPort)
   {
     this.playerPort = playerPort;
+  }
+
+  public String getPlayerUsername(){ return playerUsername;}
+
+  public boolean verifyIPAddress()
+  {
+    //parse ipaddress and make sure its good
+    return true;
   }
 }

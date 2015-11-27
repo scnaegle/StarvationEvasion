@@ -310,7 +310,7 @@ public class GuiController
   @FXML
   public void sendMessage()
   {
-    String username = "username";
+    String username = Main.gameController.getPlayerUsername();
 
     if(hasText)
     {
@@ -351,6 +351,9 @@ public class GuiController
     }
   }
 
+  /**
+   * Highlights cards in the color of user's region if they are votable.
+   */
   @FXML
   public void highlightCards()
   {
@@ -919,7 +922,11 @@ public class GuiController
     else if(button == login)
     {
       //verify and save input
-      //verifyLoginInput();
+      boolean input = verifyLoginInput();
+      if(!input)
+      {
+        return;
+      }
       saveLoginInfo();
       //go to gameRoom
         try
@@ -934,6 +941,7 @@ public class GuiController
 
 
     }
+    //For testing purposes
     else if(button == doneGameRoom)
     {
       try{
@@ -1375,10 +1383,17 @@ public class GuiController
     }
   }
 
-//  private void verifyLoginInput()
-//  {
-//    if(username.getCharacters().equals(null));
-//  }
+  private boolean verifyLoginInput()
+  {
+    emptyFieldError.setVisible(false);
+    if(username.getCharacters().toString().isEmpty() || password.getCharacters().toString().isEmpty()
+        ||ipAddress.getCharacters().toString().isEmpty() || port.getCharacters().toString().isEmpty())
+    {
+      emptyFieldError.setVisible(true);
+      return false;
+    }
+    return true;
+  }
 
   private void resetCards()
   {
