@@ -1,5 +1,6 @@
 package spring2015code.model.geography;
 
+import starvationevasion.common.Constant;
 import starvationevasion.geography.CropZoneData;
 import starvationevasion.common.EnumFood;
 import starvationevasion.geography.GeographicArea;
@@ -28,13 +29,13 @@ public class World extends AbstractScenario
   private static World theOneWorld;
   private Random random = new Random(44);
   private Collection<GeographicArea> world;
-  private Collection<AgriculturalUnit> politicalWorld;
+  private Collection<Territory> politicalWorld;
   private TileManager tileManager;
   private Calendar currentDate;
   private List<TradingOptimizer.TradePair>[] lastTrades;
   private boolean DEBUG = false;
 
-  private World(Collection<GeographicArea> world, Collection<AgriculturalUnit> regions, Calendar cal)
+  private World(Collection<GeographicArea> world, Collection<Territory> regions, Calendar cal)
   {
     this.world = world;
     this.politicalWorld = regions;
@@ -46,11 +47,11 @@ public class World extends AbstractScenario
    * singleton class, there is one and only one world.
    *
    * @param world    the list of geographic areas that make up the world.
-   * @param entities the political entities in the world
+   * @param territories the political entities in the world
    * @param cal      the starting date of the world.
    */
   public static void makeWorld(Collection<GeographicArea> world,
-                               Collection<AgriculturalUnit> entities,
+                               Collection<Territory> territories,
                                TileManager allTheLand,
                                Calendar cal)
   {
@@ -63,13 +64,18 @@ public class World extends AbstractScenario
     // CropClimateData structure correctly populated for each of the crops.
     //
     // calculate OTHER_CROPS temp & rain requirements for each country
-    for (AgriculturalUnit state : entities)
+    for (Territory state : territories)
     {
+      // The loader loads 2014 data.  We need to adjust the data for 1981.  Joel's first estimate is
+      // to simply multiply all of the territorial data by 50%
+      //
+      state.estimateInitialYield();
+      state.scaleInitialStatistics(.50);
       CropOptimizer optimizer = new CropOptimizer(AbstractScenario.START_YEAR, state);
       optimizer.optimizeCrops();
     }
 
-    theOneWorld = new World(world, entities, cal);
+    theOneWorld = new World(world, territories, cal);
     theOneWorld.tileManager = allTheLand;
   }
 
@@ -121,7 +127,7 @@ public class World extends AbstractScenario
     return world;
   }
 
-  public Collection<AgriculturalUnit> getCountries()
+  public Collection<Territory> getCountries()
   {
     return politicalWorld;
   }
@@ -143,7 +149,7 @@ public class World extends AbstractScenario
   {
     double totalPop = 0;
     int year = getCurrentYear();
-    for (AgriculturalUnit state : politicalWorld)
+    for (Territory state : politicalWorld)
     {
       totalPop += state.getPopulation(year);
     }
@@ -159,7 +165,7 @@ public class World extends AbstractScenario
   {
     double unhappyPeople = 0;
     int year = getCurrentYear();
-    for (AgriculturalUnit country : politicalWorld)
+    for (Territory country : politicalWorld)
     {
       unhappyPeople += country.getUnhappyPeople(year);
     }
@@ -235,9 +241,9 @@ public class World extends AbstractScenario
   private void adjustPopulation()
   {
     int year = getCurrentYear();
-    for (AgriculturalUnit state : politicalWorld)
+    for (Territory state : politicalWorld)
     {
-      state.updateMortalityRate(year);
+      state.updateMortality(year);
       state.updatePopulation(year);
     }
   }
@@ -245,7 +251,7 @@ public class World extends AbstractScenario
   private void adjustUndernourished()
   {
     int year = getCurrentYear();
-    for (AgriculturalUnit state : politicalWorld)
+    for (Territory state : politicalWorld)
     {
       state.updateUndernourished(year);
     }
@@ -266,7 +272,7 @@ public class World extends AbstractScenario
   private void plantAndHarvestCrops()
   {
     final int year = getCurrentYear();
-    for (final AgriculturalUnit state :politicalWorld)
+    for (final Territory state :politicalWorld)
     {
       CropOptimizer optimizer = new CropOptimizer(year, state);
       optimizer.optimizeCrops();
@@ -344,7 +350,7 @@ public class World extends AbstractScenario
   public CropZoneData.EnumCropZone classifyZone(EnumFood crop, double minTemp, double maxTemp, double dayTemp, double nightTemp, double rain)
   {
     throw new UnsupportedOperationException("Call down to LandTile.rateTileForCrop");
-    /* Impossible to implement without a AgriculturalUnit parameter because the temp and rain values for EnumFood.OTHER_CROPS vary
+    /* Impossible to implement without a Territory parameter because the temp and rain values for EnumFood.OTHER_CROPS vary
      * by country. See rateTileForCrop and rateTileForOtherCrops methods in LandTile class.
      */
   }

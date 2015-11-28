@@ -5,6 +5,7 @@ import starvationevasion.common.EnumFood;
 import spring2015code.common.AbstractAgriculturalUnit;
 import spring2015code.common.EnumGrowMethod;
 import spring2015code.model.CropOptimizer;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.geography.MapPoint;
 
 import java.awt.*;
@@ -21,41 +22,53 @@ public class Region extends AbstractAgriculturalUnit
   private static final int START_YEAR = Constant.FIRST_YEAR;
   private static final boolean VERBOSE = false;
 
+  private EnumRegion region;
   private MapPoint capitolLocation;
   private final Area area = new Area();
-  private final Collection<AgriculturalUnit> entities = new ArrayList<>();
+  private final Collection<Territory> territories = new ArrayList<>();
 
   /**
-   * AgriculturalUnit constructor
+   * Territory constructor
    *
-   * @param name country name
+   * @param region
    */
-  public Region(String name)
+  public Region(EnumRegion region)
   {
-    super(name);
+    super(region.name());
+    this.region = region;
+  }
+
+  public EnumRegion getRegion()
+  {
+    return region;
   }
 
   /**
    * @return country's collection of agricultural units.
    */
-  public Collection<AgriculturalUnit> getAgriculturalUnits()
+  public Collection<Territory> getAgriculturalUnits()
   {
-    return entities;
+    return territories;
   }
 
   /**
-   * @param tile AgriculturalUnit to add to country
+   * @param tile Territory to add to country
    */
-  public void addAgriculturalUnit(AgriculturalUnit tile)
+  public void addTerritory(Territory tile)
   {
-    entities.add(tile);
+    territories.add(tile);
     area.add(tile.getArea());
+
+    for (int i = Constant.FIRST_YEAR ; i < Constant.LAST_YEAR ; i += 1)
+      {
+        population[i - Constant.FIRST_YEAR] += tile.getPopulation(i);
+    }
   }
 
   public void optimizeCrops(int year)
   {
-    for (AgriculturalUnit unit : entities) {
-      CropOptimizer optimizer = new CropOptimizer(year, unit);
+    for (Territory t : territories) {
+      CropOptimizer optimizer = new CropOptimizer(year, t);
       optimizer.optimizeCrops();
     }
   }
@@ -63,10 +76,10 @@ public class Region extends AbstractAgriculturalUnit
   /**
    * returns the point representing the shipping location of that country.
    * <p/>
-   * (!) note: this method can only be called after the AgriculturalUnit's regions have
+   * (!) note: this method can only be called after the Territory's regions have
    * been set.
    *
-   * @return map point representing the lat and lon location of the AgriculturalUnit's
+   * @return map point representing the lat and lon location of the Territory's
    * capitol.
    */
   public MapPoint getCapitolLocation()
@@ -86,31 +99,31 @@ public class Region extends AbstractAgriculturalUnit
    */
   public boolean containsMapPoint(MapPoint mapPoint)
   {
-    if (entities == null)
+    if (territories == null)
     {
       throw new RuntimeException("(!)REGIONS NOT SET YET");
     }
 
-    for (AgriculturalUnit unit : entities)
+    for (Territory t : territories)
     {
-      if (unit.containsMapPoint(mapPoint)) return true;
+      if (t.containsMapPoint(mapPoint)) return true;
     }
     return false;
   }
 
   // generate the capital by finding the center of the largest landmass.
-  // this method can only be called after the AgriculturalUnit's regions have been set.
+  // this method can only be called after the Territory's regions have been set.
   private MapPoint calCapitolLocation()
   {
-    if (entities == null) throw new RuntimeException("(!) regions not set!");
-    if (entities.isEmpty()) throw new RuntimeException("(!) no regions !");
+    if (territories == null) throw new RuntimeException("(!) regions not set!");
+    if (territories.isEmpty()) throw new RuntimeException("(!) no regions !");
 
     int maxArea = 0;
     Area largest = null;
 
-    for (AgriculturalUnit region : entities)
+    for (Territory t : territories)
     {
-      Area poly = region.getArea();
+      Area poly = t.getArea();
       int area = (int) (poly.getBounds().getWidth() * poly.getBounds().getHeight());
       if (area >= maxArea)
       {
@@ -122,23 +135,15 @@ public class Region extends AbstractAgriculturalUnit
     int x = (int) largest.getBounds().getCenterX();
     int y = (int) largest.getBounds().getCenterY();
 
-    return AgriculturalUnit.converter.pointToMapPoint(new Point(x, y));
-  }
-
-  /**
-   * @param region region (i.e., area contained in vertices) to add to country
-   */
-  public void addRegion(AgriculturalUnit region)
-  {
-    entities.add(region);
+    return Territory.converter.pointToMapPoint(new Point(x, y));
   }
 
   /**
    * @return regions
    */
-  public Collection<AgriculturalUnit> getRegions()
+  public Collection<Territory> getTerritories()
   {
-    return entities;
+    return territories;
   }
 
   /**
@@ -151,9 +156,9 @@ public class Region extends AbstractAgriculturalUnit
     {
       // Divide it up amongst the units.
       //
-      int perUnit = n / entities.size();
-      int remainder = n % (entities.size() * perUnit);
-      for (AgriculturalUnit unit : entities)
+      int perUnit = n / territories.size();
+      int remainder = n % (territories.size() * perUnit);
+      for (Territory unit : territories)
       {
         unit.setPopulation(year, perUnit + remainder);
         remainder = 0;
@@ -165,183 +170,93 @@ public class Region extends AbstractAgriculturalUnit
     {
       if (VERBOSE)
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setPopulation method");
+        System.err.println("Invalid argument for Territory.setPopulation method");
       }
     }
+  }
+
+  /**
+   * Estimates the initial yield of all territories in the region.
+   */
+  public void estimateInitialYield()
+  {
+    for (Territory t : territories) t.estimateInitialYield();
+  }
+
+  /**
+   * The loader loads 2014 data.  This function scales the data for 1981 given the scale factor.
+   * @param factor The scaling factor.
+   */
+  public void scaleInitialStatistics(double factor)
+  {
+    for (Territory t : territories) t.scaleInitialStatistics(factor);
   }
 
   /**
    * Updates population for given year based on formula in spec
    *
-   * @param year year for which to calculate population
+   * @param year Year index for which to calculate population (e.g.2014)
    */
-  public void updatePopulation(int year)
+  public void updateStatistics(int year)
   {
-    population[year - START_YEAR] = 0;
+    int index = year - START_YEAR;
 
-    for (AgriculturalUnit unit : entities)
-    {
-      unit.updatePopulation(year);
-      population[year - START_YEAR] += unit.getPopulation(year);
-    }
-  }
+    // Re-initialize to zero.
+	//
+    medianAge[index] = 0;
+    births[index] = 0;
+    mortality[index] = 0;
+    migration[index] = 0;
+    undernourished[index] = 0;
 
-  /**
-   * Populate medianAge array with given age; assumes median age remains constant.
-   *
-   * @param years median age
-   */
-  public void setMedianAge(double years)
-  {
-    if (years >= 0)
-    {
-      for (int i = 0; i < medianAge.length; i++) medianAge[i] = years;
-      for (AgriculturalUnit unit : entities)
-      {
-        unit.setMedianAge(years);
-      }
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for AgriculturalUnit.setMedianAge method");
-      }
-    }
-  }
+    landTotal[index] = 0;
+    landArable[index] = 0;
 
-  /**
-   * Populate birthRate array with given rate; assumes rate remains constant.
-   *
-   * @param permille births/1000 people
-   */
-  public void setBirthRate(double permille)
-  {
-    if (permille >= 0 && permille <= 1000)
+    for (int i = 0 ; i < EnumFood.values().length ; i += 1)
     {
-      for (int i = 0; i < birthRate.length; i++) birthRate[i] = permille;
-      for (AgriculturalUnit unit : entities)
-      {
-        unit.setBirthRate(permille);
-      }
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for AgriculturalUnit.setBirthRate method");
-      }
-    }
-  }
-
-  public void setMortalityRate(int year, double permille)
-  {
-    if (permille >= 0 && permille <= 1000)
-    {
-      mortalityRate[year - START_YEAR] = permille;
-      for (AgriculturalUnit unit : entities)
-      {
-        unit.setMortalityRate(year, permille);
-      }
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for AgriculturalUnit.setMortalityRate method");
-      }
-    }
-  }
-
-  /**
-   * Updates mortality rate for given year based on formula given in spec.
-   *
-   * @param year year for which we are updating mortality rate
-   */
-  public void updateMortalityRate(int year)
-  {
-    double mortalityNow = 0.;
-
-    for (AgriculturalUnit unit : entities)
-    {
-      unit.updateMortalityRate(year);
-      mortalityNow += unit.getMortalityRate(year);
+      cropYield[i] = 0;
+      cropNeedPerCapita[i] = 0;
+      cropIncome[i][index] = 0;
+      cropProduction[i][index] = 0;
+      landCrop[i][index] = 0;
     }
 
-    mortalityNow /= entities.size();
-    setMortalityRate(year, mortalityNow);
-  }
+    for (int i = 0 ; i < EnumGrowMethod.values().length ; i += 1)
+    {
+      cultivationMethod[i][index] = 0;
+    }
 
-  /**
-   * Populate migrationRate array with given rate; assumes rate remains constant.
-   *
-   * @param permille migration/1000 people
-   */
-  public void setMigrationRate(double permille)
-  {
-    if (permille >= -1000 && permille <= 1000)
+    // Sum.
+	//
+    for (Territory t : territories)
     {
-      for (int i = 0; i < migrationRate.length; i++) migrationRate[i] = permille;
-      for (AgriculturalUnit unit : entities)
-      {
-        unit.setMigrationRate(permille);
-      }
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for AgriculturalUnit.setMigrationRate method");
-      }
-    }
-  }
+      medianAge[index] += t.getMedianAge(year);
+      births[index] += t.getBirths(year);
+      mortality[index] += t.getMortality(year);
+      migration[index] += t.getMigration(year);
+      undernourished[index] += t.getUndernourished(year);
 
-  /**
-   * Sets undernourished percentage; see updateUndernourished method for calculating percentage.
-   *
-   * @param year     year to set
-   * @param percentage percentage to set
-   */
-  public void setUndernourished(int year, double percentage)
-  {
-    if (percentage >= 0 && percentage <= 1)
-    {
-      undernourished[year - START_YEAR] = percentage;
-      for (AgriculturalUnit unit : entities)
+      landTotal[index] += t.getLandTotal(year);
+      landArable[index] += t.getLandArable(year);
+
+      for (EnumFood food : EnumFood.values())
       {
-        unit.setUndernourished(year, percentage);
+        cropYield[food.ordinal()] += t.getCropYield(year, food);
+        cropNeedPerCapita[food.ordinal()] += t.getCropNeedPerCapita(food);
+        cropIncome[food.ordinal()][index] += t.getCropIncome(year, food);
+        cropProduction[food.ordinal()][index] += t.getCropProduction(year, food);
+        landCrop[food.ordinal()][index] += t.getCropLand(year, food); // Yes, they named it backwards.
       }
-    }
-    else
-    {
-      if (VERBOSE)
+
+      for (EnumGrowMethod method : EnumGrowMethod.values())
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setUndernourished method");
+        cultivationMethod[method.ordinal()][index] += t.getMethodPercentage(year, method);
       }
     }
 
-  }
-
-  /**
-   * Update % undernourished using formula in spec.
-   *
-   * @param year
-   */
-  public void updateUndernourished(int year)
-  {
-    // TODO : PAB : This is not right.  We need to aggrgegate the new rates from all of the
-    // contained regions.
-    //
-    double undernourished = 0.;
-
-    for (AgriculturalUnit unit : entities)
-    {
-      unit.updateUndernourished(year);
-      undernourished += unit.getUndernourished(year);
-    }
-
-    undernourished /= entities.size();
-    setMortalityRate(year, undernourished);
+    // Update average values.
+	//
+    medianAge[index] /= territories.size();
   }
 
   /**
@@ -355,11 +270,11 @@ public class Region extends AbstractAgriculturalUnit
     {
       // Divide it up amongst the units.
       //
-      double perUnit = metTons / entities.size();
-      double remainder = metTons % (entities.size() * perUnit);
-      for (AgriculturalUnit unit : entities)
+      double perUnit = metTons / territories.size();
+      double remainder = metTons % (territories.size() * perUnit);
+      for (Territory t : territories)
       {
-        unit.setCropProduction(year, crop, perUnit + remainder);
+        t.setCropProduction(year, crop, perUnit + remainder);
         remainder = 0;
       }
 
@@ -369,67 +284,7 @@ public class Region extends AbstractAgriculturalUnit
     {
       if (VERBOSE)
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setCropProduction method");
-      }
-    }
-  }
-
-  /**
-   * @param year  year in question
-   * @param crop  crop in question
-   * @param metTons tons exported
-   */
-  public void setCropExport(int year, EnumFood crop, double metTons)
-  {
-    if (metTons >= 0)
-    {
-      // Divide it up amongst the units.
-      //
-      double perUnit = metTons / entities.size();
-      double remainder = metTons % (entities.size() * perUnit);
-      for (AgriculturalUnit unit : entities)
-      {
-        unit.setCropExport(year, crop, perUnit + remainder);
-        remainder = 0;
-      }
-
-      cropExport[crop.ordinal()][year - START_YEAR] = metTons;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for AgriculturalUnit.setCropExport method");
-      }
-    }
-  }
-
-  /**
-   * @param year  year in question
-   * @param crop  crop in question
-   * @param metTons tons imported
-   */
-  public void setCropImport(int year, EnumFood crop, double metTons)
-  {
-    if (metTons >= 0)
-    {
-      // Divide it up amongst the units.
-      //
-      double perUnit = metTons / entities.size();
-      double remainder = metTons % (entities.size() * perUnit);
-      for (AgriculturalUnit unit : entities)
-      {
-        unit.setCropImport(year, crop, perUnit + remainder);
-        remainder = 0;
-      }
-
-      cropImport[crop.ordinal()][year - START_YEAR] = metTons;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for AgriculturalUnit.setCropImport method");
+        System.err.println("Invalid argument for Territory.setCropProduction method");
       }
     }
   }
@@ -450,7 +305,7 @@ public class Region extends AbstractAgriculturalUnit
     {
       if (VERBOSE)
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setLandTotal method");
+        System.err.println("Invalid argument for Territory.setLandTotal method");
       }
     }
   }
@@ -469,7 +324,7 @@ public class Region extends AbstractAgriculturalUnit
     {
       if (VERBOSE)
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setArableLand method for country " + getName());
+        System.err.println("Invalid argument for Territory.setArableLand method for country " + getName());
       }
     }
   }
@@ -493,7 +348,7 @@ public class Region extends AbstractAgriculturalUnit
     {
       if (VERBOSE)
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setCropLand method for country " + getName() + " crop " + crop);
+        System.err.println("Invalid argument for Territory.setCropLand method for country " + getName() + " crop " + crop);
       }
     }
   }
@@ -509,7 +364,7 @@ public class Region extends AbstractAgriculturalUnit
   {
     double cropLand = 0.;
 
-    for (AgriculturalUnit unit : entities)
+    for (Territory unit : territories)
     {
       unit.updateCropLand(year, crop, kilomsq);
       cropLand += unit.getCropLand(year, crop);
@@ -527,7 +382,7 @@ public class Region extends AbstractAgriculturalUnit
   {
     if (percentage >= 0)
     {
-      for (AgriculturalUnit unit : entities)
+      for (Territory unit : territories)
       {
         unit.setMethodPercentage(year, method, percentage);
       }
@@ -538,7 +393,7 @@ public class Region extends AbstractAgriculturalUnit
     {
       if (VERBOSE)
       {
-        System.err.println("Invalid argument for AgriculturalUnit.setMethodPercentage method");
+        System.err.println("Invalid argument for Territory.setMethodPercentage method");
       }
     }
   }
@@ -552,9 +407,9 @@ public class Region extends AbstractAgriculturalUnit
   {
     // Divide it up amongst the units.
     //
-    double perUnit = tonPerSqKilom / entities.size();
-    double remainder = tonPerSqKilom % (entities.size() * perUnit);
-    for (AgriculturalUnit unit : entities)
+    double perUnit = tonPerSqKilom / territories.size();
+    double remainder = tonPerSqKilom % (territories.size() * perUnit);
+    for (Territory unit : territories)
     {
       unit.setCropYield(year, crop, perUnit + remainder);
       remainder = 0;
@@ -572,7 +427,7 @@ public class Region extends AbstractAgriculturalUnit
    */
   final public void setCropNeedPerCapita(EnumFood crop, double tonsConsumed, double percentUndernourished)
   {
-    for (AgriculturalUnit unit : entities)
+    for (Territory unit : territories)
     {
       unit.setCropNeedPerCapita(crop, tonsConsumed, percentUndernourished);
     }
@@ -592,9 +447,9 @@ public class Region extends AbstractAgriculturalUnit
   {
     // Divide it up amongst the units.
     //
-    double perUnit = tonPerPerson / entities.size();
-    double remainder = tonPerPerson % (entities.size() * perUnit);
-    for (AgriculturalUnit unit : entities)
+    double perUnit = tonPerPerson / territories.size();
+    double remainder = tonPerPerson % (territories.size() * perUnit);
+    for (Territory unit : territories)
     {
       unit.setCropNeedPerCapita(crop, perUnit + remainder);
       remainder = 0;
