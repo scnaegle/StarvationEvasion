@@ -329,4 +329,9 @@ public class GameController
     //parse ipaddress and make sure its good
     return true;
   }
+
+  public String getPlayerUsername()
+  {
+    return playerUsername;
+  }
 }
