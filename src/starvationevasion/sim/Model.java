@@ -1,10 +1,18 @@
 package starvationevasion.sim;
 
+import spring2015code.common.AbstractAgriculturalUnit;
+import spring2015code.common.EnumGrowMethod;
+import spring2015code.model.geography.Region;
+import spring2015code.model.geography.Territory;
 import starvationevasion.common.*;
+import starvationevasion.geography.LandTile;
 import starvationevasion.io.DataReader;
 import starvationevasion.io.FileObject;
+import starvationevasion.testing.WorldLoader;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -73,69 +81,57 @@ import java.util.logging.Logger;
 
 public class Model
 {
-  private final static Logger LOGGER = Logger.getLogger(Simulator.class.getName());
-  private FileObject stateData;
+  private final static Logger LOGGER = Logger.getLogger(Model.class.getName());
+
+  // Verbosity of debug information during startup
+  //
+  private final static Level debugLevel = Level.FINE;
 
   private final int startYear;
   private int year;
-
-
+  private Region[] regionData = new Region[EnumRegion.SIZE];
 
 
   public Model(int startYear)
   {
     this.startYear = startYear;
     year = startYear;
-
-    stateData = DataReader.retrieveStateData("data/sim/UnitedStatesData/UnitedStatesFarmAreaAndIncome.csv");
-    instantiateRegions(stateData.getRawData());
   }
 
 
   /**
    * This method is used to create USState objects along with
    * the Region data structure
-   *
-   * @param data
    */
-  private void instantiateRegions(ArrayList<String> data)
+  protected void instantiateRegions()
   {
-    if (data.size() == 0) return;
-
-    ArrayList<State> states = new ArrayList<>();
+    // The load() operation is very time consuming.
+    //
+    WorldLoader loader = new WorldLoader();
+    loader.load();
 
     float[] avgConversionFactors = new float[EnumFood.SIZE];
-    for (String state : data)
-    {
-      State currentState = new State(state);
-      states.add(currentState);
-      float[] currentStatePercentages = currentState.getPercentages();
 
-      for (int i = 0; i < EnumFood.SIZE; i++)
-      {
-        avgConversionFactors[i] += currentStatePercentages[i];
-      }
+    for (Region r : loader.getRegions())
+    { // The loader builds regions in the order that it finds them in the data file.  We need to
+      // put them in ordinal order.
+      //
+      regionData[r.getRegion().ordinal()] = r;
+
+      // Aggregate the statistics from all territories.
+      //
+      r.updateStatistics(Constant.FIRST_YEAR);
+
+      if (debugLevel.intValue() < Level.INFO.intValue()) printRegion(r, Constant.FIRST_YEAR);
     }
+  }
 
-    float sum = 0.f;
-    for (int i = 0; i < EnumFood.SIZE; i++)
-    {
-      //divide ny num records
-      avgConversionFactors[i] /= 50.f;
-      sum += avgConversionFactors[i];
-      //System.out.println("AVG CATEGORY "+avgConversionFactors[i]);
-    }
-
-    float averageConversionFactor = sum/EnumFood.SIZE;
-
-    for (State state : states)
-    {
-      state.setAverageConversionFactor(averageConversionFactor);
-    }
-
-    //Still need to reorganize and create a mechanism to set
-    //the region field of each state and which data structure
-    //to use for the regions.
+  /**
+   * Copy simulator data into the given data structure to be passed to the Server.
+   * @param data
+   */
+  protected void populateRegionData(RegionData data)
+  {
   }
 
   /**
@@ -175,5 +171,88 @@ public class Model
   private void updateFoodDistribution(){}
   private void updatePlayerRegionRevenue(){}
   private void updateHumanDevelopmentIndex(){}
+  
+  public static void printRegion(Region region, int year)
+  {
+    System.out.println("Region : " + region.getName());
+    System.out.print("\tTerritories : ");
+    for (Territory territory : region.getAgriculturalUnits())
+    {
+      System.out.print("\t" + territory.getName());
+    }
+    System.out.println();
 
+    printData(region, year, "");
+
+    for (Territory territory : region.getAgriculturalUnits())
+    {
+      if (debugLevel.intValue() <= Level.FINER.intValue()) printData(territory, year, "\t");
+      if (debugLevel.intValue() <= Level.FINEST.intValue())
+      {
+        for (LandTile tile : territory.getLandTiles())
+        {
+          System.out.println("\t\t" + tile.toString());
+        }
+      }
+    }
+  }
+  
+  public static void printData(AbstractAgriculturalUnit unit, int year, String prefix)
+  {
+    System.out.println(prefix + "Data for " + unit.getName() + " in year " + year);
+    System.out.print(prefix + prefix + "\t");
+    if (unit instanceof Region) System.out.print("sum ");
+
+    if (year == Constant.FIRST_YEAR)
+    {
+      System.out.print(" population : ");
+      for (int y = Constant.FIRST_YEAR ; y < Constant.LAST_YEAR ; y += 1)
+        System.out.print(" " + unit.getPopulation(y));
+      System.out.println();
+
+      System.out.print(prefix + prefix + "\t");
+      if (unit instanceof Region) System.out.print("sum ");
+    }
+    else System.out.print(" population : " + unit.getPopulation(year));
+
+    System.out.print(", medianAge : " + unit.getMedianAge(year));
+    System.out.print(", births : " + unit.getBirths(year));
+    System.out.print(", mortality : " + unit.getMortality(year));
+    System.out.print(", migration : " + unit.getMigration(year));
+    System.out.print(", undernourished : " + unit.getUndernourished(year));
+    System.out.print(", landTotal : " + unit.getLandTotal(year));
+    System.out.print(", landArable : " + unit.getLandArable(year));
+    System.out.println();
+
+    System.out.print(prefix + "\t            ");
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + food);
+    System.out.println();
+
+    System.out.print(prefix + "\tcropYield : ");
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropYield(year, food));
+    System.out.println();
+
+    System.out.print(prefix + "\tcropNeedPerCapita : ");
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropNeedPerCapita(food));
+    System.out.println();
+
+    System.out.print(prefix + "\tcropProduction : ");
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropProduction(year, food));
+    System.out.println();
+
+    System.out.print(prefix + "\tcropIncome : ");
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropIncome(year, food));
+    System.out.println();
+
+    System.out.print(prefix + "\tlandCrop : ");
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropLand(year, food)); // Yes, they named it backwards.
+    System.out.println();
+
+    System.out.print(prefix + "\t            ");
+    for (EnumGrowMethod method : EnumGrowMethod.values()) System.out.print("\t" + method);
+    System.out.println();
+    System.out.print(prefix + "\tcultivationMethod : ");
+    for (EnumGrowMethod method : EnumGrowMethod.values()) System.out.print("\t" + unit.getMethodPercentage(year, method));
+    System.out.println();
+  }
 }

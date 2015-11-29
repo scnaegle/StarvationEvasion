@@ -1,8 +1,10 @@
 package starvationevasion.testing;
 
-import spring2015code.model.geography.AgriculturalUnit;
+import spring2015code.common.EnumGrowMethod;
+import spring2015code.model.geography.Territory;
 import spring2015code.model.geography.Region;
 import spring2015code.model.geography.World;
+import starvationevasion.common.EnumFood;
 import starvationevasion.io.CountryCSVLoader;
 import spring2015code.io.CropZoneDataIO;
 import starvationevasion.io.XMLparsers.GeographyXMLparser;
@@ -32,8 +34,8 @@ public class WorldLoader
   public static final String MODEL_DATA_PATH = "/sim/geography/ne_10m_admin_1_states_provinces.kml";
   public static final String BG_DATA_PATH = "/sim/geography/ne_50m_land.kml";
 
-  public Collection<AgriculturalUnit> territories;
-  public Collection<Region> regions;
+  private Collection<Territory> territories;
+  private Collection<Region> regions;
 
   /**
    * Constructor for game, handles all init logic.
@@ -41,14 +43,24 @@ public class WorldLoader
   public WorldLoader() {
   }
 
+  public Collection<Territory> getTerritories()
+  {
+    return territories;
+  }
+
+  public Collection<Region> getRegions()
+  {
+    return regions;
+  }
+
   /**
    * set it ALL up.
    */
-  private void load()
+  public void load()
   {
     Collection<GeographicArea> background;
     Collection<GeographicArea> modelGeography;
-    Collection<AgriculturalUnit> agricultureUnits;
+    Collection<Territory> agricultureUnits;
     TileManager tileManager;
 
     try {
@@ -79,7 +91,7 @@ public class WorldLoader
 
     territories = data.territories;
     regions = data.regions;
-    print(regions, false);
+    // printRegions(regions, false);
 
     Calendar startingDate = Calendar.getInstance();
     startingDate.set(Calendar.YEAR,  2014);
@@ -92,12 +104,12 @@ public class WorldLoader
     tileManager.setWorld(world);
   }
 
-  public static void print(Collection<Region> regions, boolean verbose)
+  public static void printRegions(Collection<Region> regions, boolean verbose)
   {
     for (Region region : regions)
     {
       System.out.println("Region : " + region.getName());
-      for (AgriculturalUnit unit : region.getAgriculturalUnits())
+      for (Territory unit : region.getAgriculturalUnits())
       {
         System.out.println("\t" + unit.toString());
 		if (verbose == false) continue;

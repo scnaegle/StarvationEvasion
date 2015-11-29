@@ -40,22 +40,26 @@ public abstract class AbstractAgriculturalUnit
   //      values may be adjusted from year-to-year by continuous functions, it
   //      is useful to maintain their internal representations as doubles.
 
-  //Note: As the start of milestone II, birthRate and migrationRate are assumed constant
+  //Note: As the start of milestone II, births and migration are assumed constant
   //      for each year of the model and medianAge is not used at all.
   //      However, it might be that before the end of milestone II, we are given simple functions
   //      for these quantities: such as a constant rate of change of birth rate replacing the
   //      constant birth rate or a data lookup table that has predefined values for each year.
   //      The development team should expect and plan for such mid-milestone updates.
-  protected int[] population = new int[YEARS_OF_SIM];       //in people
-  protected double[] medianAge = new double[YEARS_OF_SIM];  //in years
-  protected double[] birthRate = new double[YEARS_OF_SIM];  //number of live births per 1,000 individuals per year.
-  protected double[] mortalityRate = new double[YEARS_OF_SIM];   //number of deaths per 1,000 individuals per year.
-  protected double[] migrationRate = new double[YEARS_OF_SIM];   //immigration - emigration per 1,000 individuals.
+  protected int[] population = new int[YEARS_OF_SIM];       // in people
+  protected double[] medianAge = new double[YEARS_OF_SIM];  // in years
+  protected double[] births = new double[YEARS_OF_SIM];  // number of live births x 1,000 per year.
+  protected double[] mortality = new double[YEARS_OF_SIM];   // number of deaths x 1,000 per year.
+  protected double[] migration = new double[YEARS_OF_SIM];   // immigration - emigration x 1,000 individuals.
   protected double[] undernourished = new double[YEARS_OF_SIM];  // percentage of population. 0.50 is 50%.
 
+  protected double[][] cropIncome = new double[EnumFood.SIZE][YEARS_OF_SIM]; // x $1000
   protected double[][] cropProduction = new double[EnumFood.SIZE][YEARS_OF_SIM]; //in metric tons.
-  protected double[][] cropExport     = new double[EnumFood.SIZE][YEARS_OF_SIM]; //in metric tons.
-  protected double[][] cropImport     = new double[EnumFood.SIZE][YEARS_OF_SIM]; //in metric tons.
+
+  // PAB : Not used...
+  //
+  // protected double[][] cropExport     = new double[EnumFood.SIZE][YEARS_OF_SIM]; //in metric tons.
+  // protected double[][] cropImport     = new double[EnumFood.SIZE][YEARS_OF_SIM]; //in metric tons.
   
   protected double[] landTotal  = new double[YEARS_OF_SIM];  //in square kilometers
   protected double[] landArable = new double[YEARS_OF_SIM];  //in square kilometers
@@ -70,6 +74,51 @@ public abstract class AbstractAgriculturalUnit
   //    the model's calculations.
   protected double[] cropYield = new double[EnumFood.SIZE]; //metric tons per square kilometer
   protected double[] cropNeedPerCapita = new double[EnumFood.SIZE]; //metric tons per person per year.
+
+
+  // Fall 2015 data items.
+  //
+  /**
+   * The states total income.
+   */
+  private int totalIncome = 0;
+
+  /**
+   * The states total farmland.
+   */
+  private int totalFarmLand = 0;
+
+  /**
+   * Average conversion factor, this is set by the Simulator.
+   */
+  private float averageConversionFactor;
+
+  /**
+   * Amount of fertilizer in Kg the states uses in a year.
+   */
+  private float kgPerAcreFertilizer;
+
+  /**
+   * The states income as it corresponds to category.
+   */
+  private int[]   incomePerCategory;
+
+  /**
+   * The states adjustment factors, twelve in total, one per category
+   */
+  private float[] adjustmentFactors;
+
+  /**
+   * The states ratios of it's category income to total income.
+   */
+  private float[] incomeToCategoryPercentages;
+
+  /**
+   * The states percentages of land dedicated to each category
+   */
+  private float[] landPerCategory;
+
+
 
   protected AbstractAgriculturalUnit(String name)
   {
@@ -106,20 +155,19 @@ public abstract class AbstractAgriculturalUnit
    * @param year year in question
    * @return birth rate
    */
-  final public double getBirthRate(int year)
+  final public double getBirths(int year)
   {
-    return birthRate[year - START_YEAR];
+    return births[year - START_YEAR];
   }
 
-  final public double getMortalityRate(int year)
+  final public double getMortality(int year)
   {
-    return mortalityRate[year - START_YEAR];
+    return mortality[year - START_YEAR];
   }
 
-
-  final public double getMigrationRate(int year)
+  final public double getMigration(int year)
   {
-    return migrationRate[year - START_YEAR];
+    return migration[year - START_YEAR];
   }
 
   /**
@@ -144,11 +192,23 @@ public abstract class AbstractAgriculturalUnit
   /**
    * @param year year in question
    * @param crop crop in question
+   * @return tons produced
+   */
+  final public double getCropIncome(int year, EnumFood crop)
+  {
+    return cropIncome[crop.ordinal()][year - START_YEAR];
+  }
+
+  /**
+   * @param year year in question
+   * @param crop crop in question
    * @return tons exported
    */
+  @Deprecated
   final public double getCropExport(int year, EnumFood crop)
   {
-    return cropExport[crop.ordinal()][year - START_YEAR];
+    // return cropExport[crop.ordinal()][year - START_YEAR];
+    throw new UnsupportedOperationException("Fall 2015 doesn't used crop import or export values.");
   }
 
   /**
@@ -156,9 +216,16 @@ public abstract class AbstractAgriculturalUnit
    * @param crop crop in question
    * @return tons imported
    */
+  @Deprecated
   final public double getCropImport(int year, EnumFood crop)
   {
-    return cropImport[crop.ordinal()][year - START_YEAR];
+    // return cropImport[crop.ordinal()][year - START_YEAR];
+    throw new UnsupportedOperationException("Fall 2015 doesn't used crop import or export values.");
+  }
+
+  final public double getLandArable(int year)
+  {
+    return landArable[year - START_YEAR];
   }
 
   final public double getLandTotal(int year)
@@ -249,9 +316,9 @@ public abstract class AbstractAgriculturalUnit
     else
     {
       double numUndernourish = getUndernourished(year) * currentPop;
-      double numDeaths = getMortalityRate(year) / 1000 * currentPop;    // mortality is per 1000, so divide to get %
+      double numDeaths = getMortality(year) / 1000 * currentPop;    // mortality is per 1000, so divide to get %
       double changeUndernourish = numUndernourish - (getPopulation(year - 1) * getUndernourished(year - 1));
-      double changeDeaths = numDeaths - (getPopulation(year - 1) * getMortalityRate(year - 1) / 1000);
+      double changeDeaths = numDeaths - (getPopulation(year - 1) * getMortality(year - 1) / 1000);
       formulaResult = 5 * numUndernourish + 2 * changeUndernourish + 10 * numDeaths + 5 * changeDeaths;
     }
 
@@ -298,5 +365,21 @@ public abstract class AbstractAgriculturalUnit
   {
     double available = getCropProduction(year, crop) + getCropImport(year, crop) - getCropExport(year, crop);
     return available;
+  }
+
+  /**
+   * This Method calculates the initial category adjustment factors
+   * along with setting the average conversion factor.
+   *
+   * @param acf
+   */
+  public void setAverageConversionFactor(float acf)
+  {
+    averageConversionFactor = acf;
+    for (int i = 0; i < EnumFood.SIZE; i++)
+    {
+      adjustmentFactors[i] = incomeToCategoryPercentages[i] - averageConversionFactor;
+      //System.out.println(name + " Adj Factors "+adjustmentFactors[i]);
+    }
   }
 }

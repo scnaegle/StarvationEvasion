@@ -1,11 +1,14 @@
 package starvationevasion.teamrocket.server;
 
+import starvationevasion.common.messages.LoginResponse;
+import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.messages.ServerEvent;
 
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.IllegalFormatException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,19 +23,15 @@ public class Client
   private Socket clientSocket;
   private ObjectOutputStream write;
   private ObjectInputStream reader;
-  private long startNanoSec;
   private Scanner keyboard;
   private ClientListener listener;
-
-  private volatile int thneedsInStore;
-  private volatile double storeBalance;
+  private GameController gameController;
 
   private boolean running = true;
 
-  public Client(String host, int portNumber)
+  public Client(String host, int portNumber, GameController gameController)
   {
-    startNanoSec = System.nanoTime();
-    System.out.println("Starting Client: " + timeDiff());
+    this.gameController = gameController;
     running = true;
 
     keyboard = new Scanner(System.in);
@@ -102,8 +101,6 @@ public class Client
   {
     while (true)
     {
-//      System.out.println("Thneeds in Inventory = " + thneedsInStore);
-//      System.out.println("TheedStore Ballance = $" + storeBalance);
       System.out.println("Enter Command (Buy: # # | Sell: # #):");
       String cmd = keyboard.nextLine();
       if (cmd == null) continue;
@@ -150,13 +147,6 @@ public class Client
 
   }
 
-  private String timeDiff()
-  {
-    long namoSecDiff = System.nanoTime() - startNanoSec;
-    double secDiff = (double) namoSecDiff / 1000000000.0;
-    return String.format("%.6f", secDiff);
-
-  }
 
   public static void main(String[] args)
   {
@@ -175,7 +165,7 @@ public class Client
       System.out.println("Usage: Client hostname portNumber");
       System.exit(0);
     }
-    new Client(host, port);
+//    new Client(host, port);
 
   }
 
@@ -186,7 +176,6 @@ public class Client
 
 
   public void printStoreInfo() {
-    System.out.format("Current Inventory: %d  :  Current Treasury: $%.2f\n", thneedsInStore, storeBalance);
   }
   
   
@@ -207,15 +196,44 @@ public class Client
 //        System.out.println("Client: listening to socket");
       Object msg = MessageHandler.parse(reader);
 //        System.out.println("Client: got message: " + msg);
+      if (msg instanceof LoginResponse) {
+        handleLoginResponse((LoginResponse) msg);
+      }
       if (msg instanceof GameState) {
 
       }
       else
       {
-        System.out.println("Unrecognized message from Server(" + timeDiff()
-            + ") = " + msg);
+        System.out.println("Unrecognized message from Server = " + msg);
       }
 
+    }
+
+    private void handleLoginResponse(LoginResponse loginResponse) {
+      switch (loginResponse.responseType) {
+        case ACCESS_DENIED:
+          // TODO let game controller know that
+          gameController.setSuccessfullLogin(false);
+          gameController.addErrorMessage("Access was denied for this server.");
+          closeAll();
+          break;
+        case DUPLICATE:
+          gameController.setSuccessfullLogin(false);
+          gameController.addErrorMessage("There is already a user with this username connected to this server. Did someone steal your identity?");
+          closeAll();
+          break;
+        case ASSIGNED_REGION:
+          gameController.setSuccessfullLogin(true);
+          break;
+        case REJOIN:
+          gameController.setSuccessfullLogin(false);
+          gameController.addErrorMessage("There was an error with your request. Please try to rejoin this server.");
+          closeAll();
+          break;
+        case CHOOSE_REGION:
+          gameController.setSuccessfullLogin(true);
+          break;
+      }
     }
 
   }

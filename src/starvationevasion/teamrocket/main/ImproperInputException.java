@@ -7,6 +7,6 @@ public class ImproperInputException extends Throwable
 {
   public ImproperInputException(String improperString)
   {
-    System.out.println(improperString+" is a not a valid IP");
+    System.out.println(improperString+" is a not a valid input");
   }
 }
