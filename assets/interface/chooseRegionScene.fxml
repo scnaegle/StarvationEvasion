@@ -16,7 +16,7 @@
         <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="mountain" fx:id="mountSt" fitHeight="366.6310858366475" fitWidth="301.065673828125" layoutX="142.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="mountain" fx:id="mountSt" fitHeight="355.6311340332031" fitWidth="292.032863886126" layoutX="149.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
       </image>
@@ -26,7 +26,7 @@
         <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="northplains" fx:id="nPlains" fitHeight="247.5104740332364" fitWidth="203.99998474121094" layoutX="393.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="northplains" fx:id="nPlains" fitHeight="232.51046752929688" fitWidth="191.63687057174928" layoutX="391.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
       </image>

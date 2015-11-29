@@ -309,7 +309,7 @@
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="219.86810302734375" fitWidth="180.54862617207715" focusTraversable="false" layoutX="542.0" layoutY="56.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="215.0" fitWidth="176.55109979155094" focusTraversable="false" layoutX="546.0" layoutY="59.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
           </image>
@@ -319,7 +319,7 @@
             <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="702.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="139.7412567138672" fitWidth="115.17579249533182" focusTraversable="false" layoutX="700.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
           </image>
