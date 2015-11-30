@@ -921,9 +921,21 @@ public class GuiController
     }
     else if(button == login)
     {
+      portError.setVisible(false);
+      addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      if(!input)
+      String portNum = Main.gameController.checkPort(port.getCharacters().toString());
+      String IPAddress = Main.gameController.checkAddress(ipAddress.getCharacters().toString());
+      if (portNum.equals("bad"))
+      {
+        portError.setVisible(true);
+      }
+      if(IPAddress.equals("bad") )
+      {
+        addressError.setVisible(true);
+      }
+      if(!input || portNum.equals("bad") || IPAddress.equals("bad"))
       {
         return;
       }

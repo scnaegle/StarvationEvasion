@@ -313,45 +313,47 @@ public class GameController
 
   public void savePlayerIP(String playerIP)
   {
-    try
+    this.playerIP = playerIP;
+  }
+
+  public String checkAddress(String address)
+  {
+    String status = "good";
+    if(address.length() != 11) status = "bad";
+    for (int i = 0; i < address.length(); i++)
     {
-      for (int i = 0; i < playerIP.length(); i++)
+      if (address.charAt(i) < '0' || address.charAt(i) > '9' ||
+          address.charAt(i) != '.')
       {
-        if (playerIP.charAt(i) < '0' || playerIP.charAt(i) > '9' ||
-            playerIP.charAt(i) != '.')
-        {
-          throw new ImproperInputException(playerIP);
-        }
+        status = "bad";
       }
-      this.playerIP = playerIP;
+
     }
-    catch (ImproperInputException e)
-    {
-      e.printStackTrace();
-    }
+    return status;
   }
 
   public void savePlayerPort(String playerPort)
   {
-    try
+    this.playerPort = playerPort;
+  }
+
+  public String checkPort(String port)
+  {
+    String status = "good";
+    if (port.length() > 4 || port.length() < 2)
     {
-      if(playerPort.length() > 4 || playerPort.length()<2)
-      {
-        throw new ImproperInputException(playerPort);
-      }
-      for (int i = 0; i < playerPort.length(); i++)
-      {
-        if (playerPort.charAt(i) < '0' || playerPort.charAt(i) > '9' )
-        {
-          throw new ImproperInputException(playerPort);
-        }
-      }
-      this.playerPort = playerPort;
+      status = "bad";
+      //throw new ImproperInputException(port);
     }
-    catch (ImproperInputException e)
+    for (int i = 0; i < port.length(); i++)
     {
-      e.printStackTrace();
+      if (port.charAt(i) < '0' || port.charAt(i) > '9')
+      {
+        status = "bad";
+        //throw new ImproperInputException(port);
+      }
     }
+    return status;
   }
 
   public String getPlayerIP()
