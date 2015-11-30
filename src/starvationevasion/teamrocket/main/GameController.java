@@ -334,21 +334,13 @@ public class GameController
 
   public String checkPort(String port)
   {
-    String status = "good";
-    if (port.length() > 4 || port.length() < 2)
-    {
-      status = "bad";
-      //throw new ImproperInputException(port);
+    final String regex = "^\\d{2,6}+$";
+
+    if (port.matches(regex)) {
+      return "good";
+    } else {
+      return "bad";
     }
-    for (int i = 0; i < port.length(); i++)
-    {
-      if (port.charAt(i) < '0' || port.charAt(i) > '9')
-      {
-        status = "bad";
-        //throw new ImproperInputException(port);
-      }
-    }
-    return status;
   }
 
   public String getPlayerIP()
