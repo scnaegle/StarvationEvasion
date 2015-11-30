@@ -318,18 +318,13 @@ public class GameController
 
   public String checkAddress(String address)
   {
-    String status = "good";
-    if(address.length() != 11) status = "bad";
-    for (int i = 0; i < address.length(); i++)
-    {
-      if (address.charAt(i) < '0' || address.charAt(i) > '9' ||
-          address.charAt(i) != '.')
-      {
-        status = "bad";
-      }
+    final String regex = "^\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+$";
 
+    if (address.matches(regex)) {
+      return "good";
+    } else {
+      return "bad";
     }
-    return status;
   }
 
   public void savePlayerPort(String playerPort)
