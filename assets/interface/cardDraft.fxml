@@ -176,7 +176,7 @@
         </Label>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="148.0000991821289" layoutX="235.0" layoutY="255.0" stroke="WHITE" strokeType="INSIDE" width="314.0" />
         <Button fx:id="doneWithCards" layoutX="318.0" layoutY="371.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="24.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
-        <ImageView id="map2" fitHeight="299.32975192055557" fitWidth="502.9721374511719" layoutX="541.0" layoutY="59.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="map2" fitHeight="294.5687670989154" fitWidth="494.9721374511719" layoutX="546.0" layoutY="61.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/map2.png" preserveRatio="true" smooth="true" />
           </image>
@@ -548,7 +548,6 @@
                 <Font name="System Bold" size="15.0" />
               </font>
             </Label>
-            <Text fx:id="card1text" layoutX="35.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
           </children>
         </Pane>
         <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="760.0" prefWidth="1024.0" visible="false">
@@ -835,6 +834,35 @@
             <Button id="closeWindow" fx:id="closeWindow12" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
           </children>
         </Pane>
+        <StackPane fx:id="cardInputs" layoutX="283.0" layoutY="199.0" prefHeight="308.0" prefWidth="494.97216796875" visible="false">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfdfdf" height="281.0" stroke="#606060" strokeType="INSIDE" width="463.9999694824219" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+              <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="41.0" layoutY="73.0" stroke="WHITE" strokeType="INSIDE" width="413.0" />
+                <Text layoutX="96.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The card selected requires user inputs.">
+                  <font>
+                    <Font name="Avenir Next Demi Bold" size="17.0" />
+                  </font>
+                </Text>
+                <Text layoutX="88.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please type in a dollar amount:">
+                  <font>
+                    <Font size="14.0" fx:id="x6" />
+                  </font>
+                </Text>
+                <Text font="$x6" layoutX="81.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a product from the options below." />
+                <Text font="$x6" layoutX="138.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have chosen:" />
+                <Label layoutX="267.0" layoutY="200.0" text="Label">
+                  <font>
+                    <Font name="System Bold" size="14.0" />
+                  </font>
+                </Label>
+                <TextField layoutX="306.0" layoutY="98.0" prefHeight="24.0" prefWidth="64.0" />
+                <Button layoutX="210.0" layoutY="254.0" mnemonicParsing="false" text="Finished" />
+              </children>
+            </Pane>
+          </children>
+        </StackPane>
       </children>
     </Pane>
   </children>
