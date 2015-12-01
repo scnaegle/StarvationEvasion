@@ -38,7 +38,7 @@ public class GameController
   private String playerPort;
   PolicyCard card;
 
- // private PolicyCard draft1, draft2;
+  private PolicyCard draft1, draft2;
 
   private Stack<String> error_messages = new Stack<>();
   private boolean successfullLogin = false;
