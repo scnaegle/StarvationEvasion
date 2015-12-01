@@ -5,19 +5,19 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
+import starvationevasion.server.Server;
+import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.AI.AI;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.server.Client;
 import starvationevasion.teamrocket.server.Stopwatch;
 
 import java.nio.channels.NoConnectionPendingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.IllegalFormatException;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -36,6 +36,11 @@ public class GameController
   private String playerPassword;
   private String playerIP;
   private String playerPort;
+  PolicyCard card;
+
+  private Stack<String> error_messages = new Stack<>();
+  private boolean successfullLogin = false;
+  private Client client;
 
   GameController(Main main)
   {
@@ -59,8 +64,28 @@ public class GameController
     this.player = new Player(region, null, this, null);
 
     MAIN.switchScenes(3);
+    if (singlePlayer)
+    {
+      Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
+      //Will need to spawn a bunch of AI Clients
+      Server server = new Server(
+          "file://C:/Users/Tyler/Desktop/School/CS351/StarvationEvasion/data" +
+              "/password_file.tmpl");
+
+    }
+    if (newMultiPlayer)
+    {
+
+    }
+    if (joinMultiPlayer)
+    {
+      Client client = new Client(playerIP, Integer.parseInt(playerPort), this);
+    }
 
     return this.player;
+  }
+  private void initializeGame(String gameType, String ip, int port)
+  {
   }
 
   /**
@@ -97,6 +122,17 @@ public class GameController
   public ArrayList<PolicyCard> getHand()
   {
     return null; //player.getRegion().getDeck().getHand();
+  }
+
+  /**
+   * Get the card text of the card in the given position
+   * of the player's hand
+   * @param cardPosition position of card in hand
+   * @return text of card
+   */
+  public String getCardText(int cardPosition)
+  {
+    return player.getHand().get(cardPosition).getGameText();
   }
 
   /**
@@ -254,7 +290,6 @@ public class GameController
 
   public void setNewMultiPlayerMode(boolean on)
   {
-
     newMultiPlayer = on;
   }
 
@@ -290,44 +325,33 @@ public class GameController
 
   public void savePlayerIP(String playerIP)
   {
-    try
-    {
-      for (int i = 0; i < playerIP.length(); i++)
-      {
-        if (playerIP.charAt(i) < '0' || playerIP.charAt(i) > '9' ||
-            playerIP.charAt(i) != '.')
-        {
-          throw new ImproperInputException(playerIP);
-        }
-      }
-      this.playerIP = playerIP;
-    }
-    catch (ImproperInputException e)
-    {
-      e.printStackTrace();
+    this.playerIP = playerIP;
+  }
+
+  public String checkAddress(String address)
+  {
+    final String regex = "^\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+$";
+
+    if (address.matches(regex)) {
+      return "good";
+    } else {
+      return "bad";
     }
   }
 
   public void savePlayerPort(String playerPort)
   {
-    try
-    {
-      if(playerPort.length() > 4 || playerPort.length()<2)
-      {
-        throw new ImproperInputException(playerPort);
-      }
-      for (int i = 0; i < playerPort.length(); i++)
-      {
-        if (playerPort.charAt(i) < '0' || playerPort.charAt(i) > '9' )
-        {
-          throw new ImproperInputException(playerPort);
-        }
-      }
-      this.playerPort = playerPort;
-    }
-    catch (ImproperInputException e)
-    {
-      e.printStackTrace();
+    this.playerPort = playerPort;
+  }
+
+  public String checkPort(String port)
+  {
+    final String regex = "^\\d{2,4}+$";
+
+    if (port.matches(regex)) {
+      return "good";
+    } else {
+      return "bad";
     }
   }
 
@@ -340,4 +364,32 @@ public class GameController
   {
     return playerPort;
   }
+
+  public void addErrorMessage(String error_message) {
+    error_messages.push(error_message);
+  }
+
+  public String getErrorMessage() {
+    return error_messages.pop();
+  }
+
+  public void setSuccessfullLogin(boolean successfullLogin) {
+    this.successfullLogin = successfullLogin;
+  }
+
+  public boolean getSuccessfullLogin() {
+    return successfullLogin;
+  }
+
+  public boolean verifyIPAddress()
+  {
+    //parse ipaddress and make sure its good
+    return true;
+  }
+
+  public String getPlayerUsername()
+  {
+    return playerUsername;
+  }
+
 }

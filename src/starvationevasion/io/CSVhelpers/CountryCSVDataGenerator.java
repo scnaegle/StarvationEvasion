@@ -1,20 +1,17 @@
 package starvationevasion.io.CSVhelpers;
 
+import starvationevasion.common.Constant;
+import starvationevasion.sim.Territory;
 import starvationevasion.common.EnumFood;
-import spring2015code.common.AbstractScenario;
-import spring2015code.common.EnumGrowMethod;
-import spring2015code.model.geography.AgriculturalUnit;
+import starvationevasion.sim.EnumGrowMethod;
 
 //TODO: comments, demographic & crop methods
 /**
  * Class with static methods for filling in country data omitted
  * from CSV file.
- * @author jessica
- * @verion 21-Mar-2015
  */
 public final class CountryCSVDataGenerator implements CountryCSVDefaultData
 {
-  private static final int START_YEAR = AbstractScenario.START_YEAR;
   
   /**
    * Assigns values to country's fields based on world median values
@@ -22,27 +19,27 @@ public final class CountryCSVDataGenerator implements CountryCSVDefaultData
    * @param country   country with missing data
    * @param field     field that needs to be assigned
    */
-  public static void fixDemographic(AgriculturalUnit country, String field)
+  public static void fixDemographic(Territory country, String field)
   {
     switch (field)
     {
       case "averageAge":
         country.setMedianAge(WORLD_AVG_AGE);
         break;
-      case "birthRate":
-        country.setBirthRate(WORLD_BIRTH_RATE);
+      case "births":
+        country.setBirths(WORLD_BIRTH_RATE);
         break;
       case "mortality":
-        country.setMortalityRate(START_YEAR, WORLD_MORTALITY);
+        country.setMortality(Constant.FIRST_YEAR, WORLD_MORTALITY);
         break;
       case "migration":
-        country.setMigrationRate(WORLD_MIGRATION);
+        country.setMigration(WORLD_MIGRATION);
         break;
       case "undernourish":
-        country.setUndernourished(START_YEAR, WORLD_UNDERNOURISH/100); //divide int by 100
+        country.setUndernourished(Constant.FIRST_YEAR, WORLD_UNDERNOURISH/100); //divide int by 100
         break;
       case "arableOpen":
-        country.setArableLand(START_YEAR, WORLD_PERCENT_ARABLE * country.getLandTotal(START_YEAR));
+        country.setArableLand(Constant.FIRST_YEAR, WORLD_PERCENT_ARABLE * country.getLandTotal(Constant.FIRST_YEAR));
         break;
     }
   }
@@ -55,9 +52,9 @@ public final class CountryCSVDataGenerator implements CountryCSVDefaultData
    * @param agriculturalUnit   agriculturalUnit with missing data
    * @param crop      crop for which we need to fill in production, imports, exports, and land
    */
-  public static void fixCropData(AgriculturalUnit agriculturalUnit, EnumFood crop)
+  public static void fixCropData(Territory agriculturalUnit, EnumFood crop)
   {
-    int population = agriculturalUnit.getPopulation(START_YEAR);
+    int population = agriculturalUnit.getPopulation(Constant.FIRST_YEAR);
     // get world median ton/capita
     int index = -1;
     for (int i = 0; i < CountryCSVDefaultData.cropTypes.length; i++)
@@ -69,28 +66,28 @@ public final class CountryCSVDataGenerator implements CountryCSVDefaultData
       }
     }
     double worldPerCap = CountryCSVDefaultData.cropTonPerCapita[index];
-    double countryNeed = worldPerCap * agriculturalUnit.getPopulation(START_YEAR);
+    double countryNeed = worldPerCap * agriculturalUnit.getPopulation(Constant.FIRST_YEAR);
     
     // set agriculturalUnit's need to world per capita media need * population; assume all imported
-    agriculturalUnit.setCropProduction(START_YEAR, crop, 0);
-    agriculturalUnit.setCropExport(START_YEAR, crop, 0);
-    agriculturalUnit.setCropImport(START_YEAR, crop, countryNeed);
-    agriculturalUnit.setCropLand(START_YEAR, crop, 0);
-    agriculturalUnit.setCropYield(START_YEAR, crop, 0);
+    agriculturalUnit.setCropProduction(Constant.FIRST_YEAR, crop, 0);
+    // agriculturalUnit.setCropExport(START_YEAR, crop, 0);
+    // agriculturalUnit.setCropImport(START_YEAR, crop, countryNeed);
+    agriculturalUnit.setCropLand(Constant.FIRST_YEAR, crop, 0);
+    agriculturalUnit.setCropYield(Constant.FIRST_YEAR, crop, 0);
     agriculturalUnit.setCropNeedPerCapita(crop, worldPerCap);
   }
   
   /**
    * Assigns values to agriculturalUnit's fields for organic, conventional, and GMO percentages when
    * one or more of them is missing or invalid, using world median values.
-   * @param agriculturalUnit     AgriculturalUnit with missing or invalid data
+   * @param agriculturalUnit     Territory with missing or invalid data
    */
-  public static void fixGrowMethods(AgriculturalUnit agriculturalUnit)
+  public static void fixGrowMethods(Territory agriculturalUnit)
   {  
       //assign world median values to all methods      
-      agriculturalUnit.setMethodPercentage(START_YEAR, EnumGrowMethod.ORGANIC, WORLD_ORGANIC);
-      agriculturalUnit.setMethodPercentage(START_YEAR, EnumGrowMethod.CONVENTIONAL, WORLD_CONVENTIONAL);
-      agriculturalUnit.setMethodPercentage(START_YEAR, EnumGrowMethod.GMO, WORLD_GMO);
+      agriculturalUnit.setMethodPercentage(Constant.FIRST_YEAR, EnumGrowMethod.ORGANIC, WORLD_ORGANIC);
+      agriculturalUnit.setMethodPercentage(Constant.FIRST_YEAR, EnumGrowMethod.CONVENTIONAL, WORLD_CONVENTIONAL);
+      agriculturalUnit.setMethodPercentage(Constant.FIRST_YEAR, EnumGrowMethod.GMO, WORLD_GMO);
   }
   
  

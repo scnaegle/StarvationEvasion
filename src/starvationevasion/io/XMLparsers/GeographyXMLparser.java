@@ -2,12 +2,10 @@ package starvationevasion.io.XMLparsers;
 
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
+import starvationevasion.sim.Territory;
 import starvationevasion.io.GeographyValidator;
-import spring2015code.model.geography.AgriculturalUnit;
-import starvationevasion.geography.Country;
-import starvationevasion.geography.USState;
-import starvationevasion.geography.GeographicArea;
-import starvationevasion.geography.MapPoint;
+import starvationevasion.sim.GeographicArea;
+import starvationevasion.common.MapPoint;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -19,7 +17,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static spring2015code.io.IOHelpers.readIndex;
+import static starvationevasion.io.IOHelpers.readIndex;
 
 /**
  * Created by winston on 3/21/15.
@@ -54,21 +52,17 @@ public class GeographyXMLparser extends DefaultHandler
    * @param regions list to derive countries from
    * @return collection of countries created form the given regions.
    */
-  public static Collection<AgriculturalUnit> geograpyToAgriculture(Collection<GeographicArea> regions)
+  public static Collection<Territory> geograpyToAgriculture(Collection<GeographicArea> regions)
   {
-    HashMap<String, AgriculturalUnit> nameToUnit = new HashMap<>();
+    HashMap<String, Territory> nameToUnit = new HashMap<>();
 
     for (GeographicArea region : regions)
     {
       if ( ! nameToUnit.containsKey(region.getName()))
       {
-        AgriculturalUnit unit = null;
 		String name = region.getName();
 		String type = region.getType();
-		if (type == null) unit = new AgriculturalUnit(name);
-		else if (type.equals("state")) unit = new USState(name);
-		else if (type.equals("country")) unit = new Country(name);
-		else unit = new AgriculturalUnit(name);
+        Territory unit = unit = new Territory(name);
 
         nameToUnit.put(region.getName(), unit);
       }
@@ -260,7 +254,7 @@ public class GeographyXMLparser extends DefaultHandler
    *
    * @return
    */
-  public Collection<AgriculturalUnit> getCountries()
+  public Collection<Territory> getCountries()
   {
     return geograpyToAgriculture(getGeography());
   }

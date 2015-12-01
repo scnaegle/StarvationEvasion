@@ -6,8 +6,8 @@ package starvationevasion.io.XMLparsers;
  * CS 351 spring 2015
  */
 
-import starvationevasion.geography.GeographicArea;
-import starvationevasion.geography.MapPoint;
+import starvationevasion.sim.GeographicArea;
+import starvationevasion.common.MapPoint;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;

@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
@@ -10,31 +11,36 @@
 
 <AnchorPane id="AnchorPane" fx:id="welcomeScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="213.0" layoutX="339.0" layoutY="339.0" opacity="0.66" stroke="BLACK" strokeType="INSIDE" width="294.0" />
-    <Text layoutX="420.0" layoutY="127.0" scaleX="5.025121266958967" scaleY="6.28877241776266" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Starvation Evasion!" underline="false">
+    <ImageView id="welcome" layoutX="0.0" layoutY="0.0" opacity="0.94" pickOnBounds="true" visible="true">
+      <image>
+        <Image url="@../images/welcome.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="194.0" layoutX="379.0" layoutY="390.0" opacity="0.66" stroke="BLACK" strokeType="INSIDE" width="270.0" />
+    <Text fill="#00d290" layoutX="422.0" layoutY="263.0" scaleX="4.351892184352753" scaleY="6.941601373708685" strikethrough="false" stroke="BLACK" strokeLineCap="SQUARE" strokeLineJoin="MITER" strokeType="CENTERED" strokeWidth="0.4" text="Welcome to Starvation Evasion!" underline="false">
       <font>
         <Font name="Avenir Next Demi Bold Italic" size="13.0" />
       </font>
     </Text>
-    <Text layoutX="422.0" layoutY="280.0" scaleX="2.405625760247459" scaleY="2.5273917932998806" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your gameplay:" />
-    <RadioButton fx:id="singlePlayer" layoutX="353.0" layoutY="343.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="75.0" prefWidth="259.0" selected="true" text="New Game Single Player">
+    <Line endX="847.0" endY="-4.0" layoutX="42.0" layoutY="205.0" startX="99.0" startY="-1.0" visible="false" />
+    <Line endX="835.0" endY="-6.0" layoutX="52.0" layoutY="210.0" startX="89.0" startY="-1.0" visible="false" />
+    <Text layoutX="438.0" layoutY="353.0" scaleX="2.405625760247459" scaleY="2.5273917932998806" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your gameplay:">
+      <font>
+        <Font size="12.0" />
+      </font>
+    </Text>
+    <RadioButton fx:id="singlePlayer" layoutX="403.0" layoutY="412.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="38.0" prefWidth="232.0" selected="true" text="New Game Single Player">
+      <font>
+        <Font size="17.0" fx:id="x2" />
+      </font>
+    </RadioButton>
+    <RadioButton fx:id="multiPlayer" font="$x2" layoutX="403.0" layoutY="455.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="57.0" prefWidth="232.0" text="New Game Multi-Player" />
+    <Button fx:id="ready" layoutX="462.0" layoutY="609.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="38.0" prefWidth="109.0" text="READY">
       <font>
         <Font size="18.0" fx:id="x1" />
       </font>
-    </RadioButton>
-    <RadioButton fx:id="multiPlayer" font="$x1" layoutX="353.0" layoutY="406.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="74.0" prefWidth="259.0" text="New Game Multi-Player" />
-    <Button fx:id="ready" layoutX="407.0" layoutY="577.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="65.0" prefWidth="159.0" text="READY">
-      <font>
-        <Font size="23.0" />
-      </font>
     </Button>
-    <Line endX="827.0" endY="-4.0" layoutX="150.0" layoutY="186.0" startX="-100.0" />
-    <Line endX="816.0" endY="-4.0" layoutX="160.0" layoutY="191.0" startX="-110.0" startY="0.0" />
-    <Label fx:id="gamePlayError" layoutX="310.0" layoutY="683.0" text="A game type must be chosen in order to play" textFill="RED" visible="false">
-      <font>
-        <Font size="17.0" />
-      </font>
-    </Label>
-    <RadioButton id="joinMultiplayer" fx:id="joinMultiPlayer" font="$x1" layoutX="353.0" layoutY="496.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefWidth="240.0" text="Join Game Multi-Player" />
+    <Label fx:id="gamePlayError" font="$x2" layoutX="330.0" layoutY="683.0" text="A game type must be chosen in order to play" textFill="RED" visible="false" />
+    <RadioButton id="joinMultiplayer" fx:id="joinMultiPlayer" font="$x2" layoutX="403.0" layoutY="512.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="38.0" prefWidth="218.0" text="Join Game Multi-Player" />
   </children>
 </AnchorPane>
