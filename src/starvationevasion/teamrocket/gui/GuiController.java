@@ -1,5 +1,8 @@
 package starvationevasion.teamrocket.gui;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
@@ -279,6 +282,33 @@ public class GuiController
   private boolean hasText = false;
 
   /**************************/
+
+
+  public void connectUsers()
+  {
+    //if(user1 has logged in)
+    user1.setText(Main.gameController.getPlayerUsername());
+    user1.setVisible(true);
+    //if(user2 has logged in)....
+
+  }
+
+  public void startCountdown()
+  {
+    countdown.setVisible(true);
+    StringProperty count = new SimpleStringProperty("10");
+    countdown.textProperty().bind(count);
+    for (int i = 10; i >= 0; i--)
+    {
+      count.setValue(i+"");
+    }
+  }
+
+  public void showUsersRegion()
+  {
+    user1Region.setText("" + myRegion);
+    user1Region.setVisible(true);
+  }
 
 
   public void saveLoginInfo(){
@@ -631,6 +661,8 @@ public class GuiController
   @FXML
   public void makeBigger(MouseEvent event)
   {
+   // card1text.setText(Main.gameController.getCardText(1));
+
     Button card = (Button)event.getSource();
     if(card == card1)
     {
@@ -643,8 +675,7 @@ public class GuiController
 
       card1Image.setFitWidth(width * 4);
       card1Image.setFitHeight(height * 4);
-      
-      //card1Image.setAccessibleText(Main.gameController.setCardText());
+
       card1.toFront();
     }
     else if(card == card2)
@@ -2506,8 +2537,8 @@ public class GuiController
       sPlains.setVisible(true);
       myRegion = EnumRegion.SOUTHERN_PLAINS;
     }
-
     Main.gameController.setSelectRegion(new RegionChoice(myRegion));
+    showUsersRegion();
   }
 
   private PieChart testPieChart()

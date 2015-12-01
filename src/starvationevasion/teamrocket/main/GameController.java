@@ -392,7 +392,4 @@ public class GameController
     return playerUsername;
   }
 
-  public String setCardText(){
-    return card.getGameText();
-  }
 }
