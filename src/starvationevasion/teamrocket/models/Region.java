@@ -1,10 +1,8 @@
 package starvationevasion.teamrocket.models;
 
-import com.google.common.collect.Iterables;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
@@ -24,12 +22,17 @@ public class Region
    * we need to make the stats for this region.
    */
 
+  public EnumRegion getEnumRegion()
+  {
+    return ENUM_REGION;
+  }
+
   private Player player;
 
   private double wealth;
       //wealth of the player and there country (a way of measuring score)
-  private double happiness;
-      // happiness of the people in the region (a way of measuring score)
+  private double population;
+      // population of the people in the region (a way of measuring score)
 
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
@@ -118,9 +121,9 @@ public class Region
     return latestData;
   }
 
-  public double getHappiness()
+  public double getPopulation()
   {
-    return happiness;
+    return population;
   }
 
   public double getWealth()
