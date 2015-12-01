@@ -334,7 +334,7 @@ public class GameController
 
   public String checkPort(String port)
   {
-    final String regex = "^\\d{2,6}+$";
+    final String regex = "^\\d{2,4}+$";
 
     if (port.matches(regex)) {
       return "good";
