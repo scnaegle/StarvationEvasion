@@ -1,9 +1,7 @@
 package starvationevasion.server;
 
-import starvationevasion.common.Constant;
-import starvationevasion.common.EnumRegion;
+import starvationevasion.common.*;
 import starvationevasion.common.messages.*;
-import starvationevasion.common.Tuple;
 import starvationevasion.sim.Simulator;
 
 import java.io.IOException;
@@ -30,6 +28,9 @@ public class Server
   private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
   private ScheduledFuture<?> gameStartFuture;
   private Simulator simulator;
+  private Map<EnumRegion, List<EnumPolicy>> playerHands = new HashMap<>();
+  private Map<EnumRegion, RegionData> regionData = new HashMap<>();
+  private Map<EnumRegion, Integer> regionActionsRemaining = new HashMap<>();
 
   public Server(String loginFilePath)
   {
@@ -138,13 +139,39 @@ public class Server
         handleRegionChoice(client, (RegionChoice) message);
         continue;
       }
+      if (message instanceof ClientChatMessage)
+      {
+        handleChatMessage(client, (ClientChatMessage) message);
+        continue;
+      }
+      client.send(Response.INAPPROPRIATE);
+    }
+  }
+
+  private void handleChatMessage(ServerWorker client, ClientChatMessage message)
+  {
+    if (client.getRegion() == null)
+    {
+      client.send(Response.INAPPROPRIATE); //if you haven't been assigned a region, no reason to be able to send messages
+      return;
+    }
+    client.send(Response.OK);
+    Set<EnumRegion> recipientSet = new HashSet<>(Arrays.asList(message.messageRecipients));
+    ServerChatMessage serverChatMessage = ServerChatMessage.constructFromClientMessage(message, client.getRegion());
+    for (ServerWorker connectedClient : connectedClients)
+    {
+      if (connectedClient.getRegion() != null &&
+          recipientSet.contains(connectedClient.getRegion()))
+      {
+        connectedClient.send(serverChatMessage);
+      }
     }
   }
 
   private void handleRegionChoice(ServerWorker client, RegionChoice message)
   {
     if ((getCurrentState() != ServerState.LOGIN && getCurrentState() != ServerState.BEGINNING) ||
-        passwordFile.regionMap.get(client.getUserName()) != null)
+        passwordFile.regionMap != null)
     {
       client.send(Response.INAPPROPRIATE);
       return;
@@ -178,9 +205,44 @@ public class Server
 
   private void startGame()
   {
-    setServerState(ServerState.DRAFTING);
+    setServerState(ServerState.DRAWING);
     broadcast(new BeginGame(getTakenRegions()));
     simulator = new Simulator(Constant.FIRST_YEAR);
+    for (EnumRegion region : EnumRegion.US_REGIONS)
+    {
+      playerHands.put(region, Arrays.asList(simulator.drawCards(region)));
+    }
+    broadcast(PhaseStart.constructPhaseStart(ServerState.DRAWING, -1));
+    broadcastSimulatorState(simulator.init());
+    enterDraftingPhase();
+  }
+
+  private void enterDraftingPhase()
+  {
+    setServerState(ServerState.DRAFTING);
+    broadcast(PhaseStart.constructPhaseStart(ServerState.DRAFTING, ServerConstants.DRAFTING_PHASE_TIME));
+    for (EnumRegion region : EnumRegion.US_REGIONS)
+    {
+      regionActionsRemaining.put(region, ServerConstants.ACTIONS_PER_DRAFT_PHASE);
+    }
+    scheduledExecutorService.schedule(this::enterVotingPhase, ServerConstants.DRAFTING_PHASE_TIME, TimeUnit.MILLISECONDS);
+  }
+
+  private void enterVotingPhase()
+  {
+    setServerState(ServerState.VOTING);
+    broadcast(PhaseStart.constructPhaseStart(ServerState.VOTING, ServerConstants.VOTING_PHASE_TIME));
+
+  }
+
+  private void broadcastSimulatorState(WorldData worldData)
+  {
+    for (ServerWorker client : connectedClients)
+    {
+      if (client.getRegion() == null) continue;
+      final List<EnumPolicy> playerHand = playerHands.get(client.getRegion());
+      client.send(new GameState(worldData, playerHand.toArray(new EnumPolicy[playerHand.size()])));
+    }
   }
 
   private void handleLogin(ServerWorker client, Login message)
@@ -207,7 +269,10 @@ public class Server
     if (Login.generateHashedPassword(client.getLoginNonce(),
         passwordFile.credentialMap.get(message.username)).equals(message.hashedPassword))
     {
-      client.setRegion(passwordFile.regionMap.get(message.username));
+      if (passwordFile.regionMap != null)
+      {
+        client.setRegion(passwordFile.regionMap.get(message.username));
+      }
       client.setUserName(message.username);
       client.send(new LoginResponse(client.getRegion() != null ?
           LoginResponse.ResponseType.ASSIGNED_REGION : LoginResponse.ResponseType.CHOOSE_REGION, client.getRegion()));
