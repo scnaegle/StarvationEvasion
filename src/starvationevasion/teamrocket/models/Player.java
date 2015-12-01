@@ -33,6 +33,8 @@ public class Player implements PlayerInterface
    */
   private LinkedList<PolicyCard> hand;
 
+  private PolicyCard[] selectedCards;
+
   /**
    * Log in info for player
    */
@@ -80,6 +82,25 @@ public class Player implements PlayerInterface
    */
   public void updateIncome(long income){this.income = income;}
 
+  /**
+   * Set the selected cards from the GUI so the player knows
+   * which cards were selected
+   * @param card1 position in hand of first card
+   * @param card2 position in hand of second card
+   */
+  public void selectedCards(int card1, int card2)
+  {
+    int selectionSize = 2;
+
+    if(card1 < 0 || card2 < 0) selectionSize = 1;
+    else if(card1 < 0 && card2 < 0) selectionSize = 0;
+
+    selectedCards = new PolicyCard[selectionSize];
+
+    if(selectionSize > 0) selectedCards[0] = hand.get(card1);
+    if(selectionSize > 1) selectedCards[1] = hand.get(card2);
+  }
+
   /********Interface Methods ***********/
   @Override
   public String getLogIn() {
@@ -88,7 +109,7 @@ public class Player implements PlayerInterface
 
   @Override
   public PolicyCard[] playSelectedCards() {
-    return new PolicyCard[0];
+    return selectedCards;
   }
 
   @Override
@@ -97,8 +118,9 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public void discardCard(int discardXNumCards) {
-
+  public void discardCard(int cardPosition)
+  {
+    hand.remove(cardPosition);
   }
 
   @Override

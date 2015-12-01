@@ -3,7 +3,6 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.GameController;
-import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.LinkedList;
@@ -51,6 +50,17 @@ public class AI extends Player
     }
   }
 
+  /**
+   * AI picks random choice from 0 to 3 cards to discard
+   */
+  public void discardCards()
+  {
+    if(generator.nextInt(5) == 0)
+    {
+      setHand(AI.discardCards(generator.nextInt(3)+1,getHand(),generator));
+    }
+  }
+
   @Override
   public PolicyCard[] playSelectedCards() {
     return AI.selectCards(getHand(),generator);
@@ -61,8 +71,4 @@ public class AI extends Player
     return AI.vote(records[cardPlayedRegion.ordinal()], generator);
   }
 
-  @Override
-  public void discardCard(int discardXNumCards) {
-    setHand(AI.discardCards(discardXNumCards,getHand(),generator));
-  }
 }

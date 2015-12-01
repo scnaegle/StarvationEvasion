@@ -124,6 +124,17 @@ public class GameController
   }
 
   /**
+   * Get the card text of the card in the given position
+   * of the player's hand
+   * @param cardPosition position of card in hand
+   * @return text of card
+   */
+  public String getCardText(int cardPosition)
+  {
+    return player.getHand().get(cardPosition).getGameText();
+  }
+
+  /**
    * Destroys the current game cleanly.
    */
   private void destroyGame()

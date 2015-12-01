@@ -36,9 +36,9 @@ public interface PlayerInterface
   /**
    * Player discards the card associated with
    * the given card number
-   * @param discardXNumCards discard x number of cards
+   * @param cardPosition position in hand of card
    */
-  public void discardCard(int discardXNumCards);
+  public void discardCard(int cardPosition);
 
   /**
    * Adds a single card to the player's hand
