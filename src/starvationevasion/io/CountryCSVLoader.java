@@ -5,15 +5,15 @@ package starvationevasion.io;
 // import org.apache.commons.csv.CSVParser;
 // import org.apache.commons.csv.CSVFormat;
 
-import spring2015code.model.geography.Territory;
+import starvationevasion.common.Constant;
+import starvationevasion.sim.Territory;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.io.CSVReader.CSVRecord;
-import spring2015code.model.geography.Region;
+import starvationevasion.sim.Region;
 import starvationevasion.common.EnumFood;
 import starvationevasion.io.CSVhelpers.CSVParsingException;
 import starvationevasion.io.CSVhelpers.CountryCSVDataGenerator;
-import spring2015code.common.EnumGrowMethod;
-import spring2015code.common.AbstractScenario;
+import starvationevasion.sim.EnumGrowMethod;
 
 import java.io.*;
 import java.util.*;
@@ -32,9 +32,7 @@ public class CountryCSVLoader
 {
   private static final String DATA_DIR_PATH = "/sim/WorldData/";
   private static final String DATA_FILE = "TerritoryFarmAreaAndIncome-2014.csv";
-  private static final int START_YEAR = AbstractScenario.START_YEAR;
 
-  private Map<String, Region> regions;        // Regions discovered parsing csv
   private Collection<Territory> countries;        // collection populated by parsing csv
   private Collection<Territory> masterUnits; // collection passed in (i.e., after parsing xml)
   private File csvFile;
@@ -48,7 +46,6 @@ public class CountryCSVLoader
   {
     this.masterUnits = countriesToMerge;
     countries = new ArrayList<Territory>();
-    regions = new HashMap<String, Region>();
   }
 
   /**
@@ -56,7 +53,7 @@ public class CountryCSVLoader
    * country objects passed in constructor.
    * @return  same country objects passed in, with fields populated from csv data (if possible)
    */
-  public ParsedData getCountriesFromCSV() throws FileNotFoundException
+  public ParsedData getCountriesFromCSV(Region[] regionList) throws FileNotFoundException
   {
     boolean parsedOk = false;
     // create collection of countries from CSV
@@ -79,16 +76,9 @@ public class CountryCSVLoader
 
           // The XML object is considered the final object.  Map it to the region.
           //
-          String region = csvCountry.getGameRegion().name();
-          EnumRegion enumRegion = EnumRegion.valueOf(region);
-          Region r = regions.get(region);
-          if (r == null)
-          {
-            r = new Region(enumRegion);
-            regions.put(region, r);
-          }
-
-          r.addTerritory(xmlCountry);
+          String regionStr = csvCountry.getGameRegion().name();
+          EnumRegion enumRegion = EnumRegion.valueOf(regionStr);
+          regionList[enumRegion.ordinal()].addTerritory(xmlCountry);
 
           countryFound = true;
           break;
@@ -111,7 +101,7 @@ public class CountryCSVLoader
       }
     }
 
-    return new ParsedData(masterUnits, regions.values());
+    return new ParsedData(masterUnits, regionList);
   }
 
   /**
@@ -195,7 +185,7 @@ public class CountryCSVLoader
     String landArea = record.get("landArea");
     try
     {
-      country.setLandTotal(START_YEAR, Double.parseDouble(landArea));
+      country.setLandTotal(Constant.FIRST_YEAR, Double.parseDouble(landArea));
     }
     catch (IllegalArgumentException e)
     {
@@ -290,31 +280,27 @@ public class CountryCSVLoader
 
           case "births":
             double numValue = Double.parseDouble(value);
-            if (numValue >= 0 && numValue < 2000) territory.setBirths(numValue);
-            else throw new IllegalArgumentException();
+            territory.setBirths(numValue);
             break;
 
           case "mortality":
             numValue = Double.parseDouble(value);
-            if (numValue >= 0 && numValue <= 1000) territory.setMortality(START_YEAR, numValue);
-            else throw new IllegalArgumentException();
+            territory.setMortality(Constant.FIRST_YEAR, numValue);
             break;
 
           case "migration":
             numValue = Double.parseDouble(value);
-            if (numValue >= -1000 && numValue <= 1000) territory.setMigration(numValue);
-            else throw new IllegalArgumentException();
+            territory.setMigration(numValue);
             break;
 
           case "undernourish":
             numValue = Double.parseDouble(value);
-            if (numValue >= 0 && numValue <= 100) territory.setUndernourished(START_YEAR, numValue / 100); // Convert to percent.
-            else throw new IllegalArgumentException();
+            territory.setUndernourished(Constant.FIRST_YEAR, numValue / 100); // Convert to percent.
             break;
 
           case "arableOpen":
             numValue = Double.parseDouble(value);
-            if (numValue >= 0 && numValue <= territory.getLandTotal(START_YEAR)) territory.setArableLand(START_YEAR, numValue);
+            if (numValue >= 0 && numValue <= territory.getLandTotal(Constant.FIRST_YEAR)) territory.setArableLand(Constant.FIRST_YEAR, numValue);
             else throw new IllegalArgumentException();
             break;
 
@@ -337,7 +323,8 @@ public class CountryCSVLoader
       }
     }
 
-    // Linear interpolate population.
+    // Linear interpolate population. Do this as needed rather than
+    // generating a big data structure;
     //
     interpolatePopulation(territory, 1981, 1990);
     interpolatePopulation(territory, 1990, 2000);
@@ -400,8 +387,8 @@ public class CountryCSVLoader
     for (int i = 0; i < EnumFood.SIZE; i++)
     { EnumFood food = EnumFood.values()[i];
 
-      country.setCropIncome(START_YEAR, food, income[i]);
-      country.setCropProduction(START_YEAR, food, production[i]);
+      country.setCropIncome(Constant.FIRST_YEAR, food, income[i]);
+      country.setCropProduction(Constant.FIRST_YEAR, food, production[i]);
     }
 
 
@@ -436,7 +423,7 @@ public class CountryCSVLoader
         value = Double.parseDouble(recordMap.get(methodString));
         if (value >= 0 && value <= 1)
         {
-          agriculturalUnit.setMethodPercentage(START_YEAR, method, value);
+          agriculturalUnit.setMethodPercentage(Constant.FIRST_YEAR, method, value);
           sum += value;
         }
         else throw new IllegalArgumentException();
@@ -486,65 +473,31 @@ public class CountryCSVLoader
     {
       // double imports = agriculturalUnitTemp.getCropImport(START_YEAR, crop);
       // double exports = agriculturalUnitTemp.getCropExport(START_YEAR, crop);
-      double production = agriculturalUnitTemp.getCropProduction(START_YEAR, crop);
-      double land = agriculturalUnitTemp.getCropLand(START_YEAR, crop);
-      double yield = agriculturalUnitTemp.getCropYield(START_YEAR, crop);
+      double production = agriculturalUnitTemp.getCropProduction(Constant.FIRST_YEAR, crop);
+      double land = agriculturalUnitTemp.getCropLand(Constant.FIRST_YEAR, crop);
+      double yield = agriculturalUnitTemp.getCropYield(Constant.FIRST_YEAR, crop);
       double need = agriculturalUnitTemp.getCropNeedPerCapita(crop);
 
       // countryFinal.setCropImport(START_YEAR, crop, imports);
       // countryFinal.setCropExport(START_YEAR, crop, exports);
-      countryFinal.setCropProduction(START_YEAR, crop, production);
-      countryFinal.setCropLand(START_YEAR, crop, land);
-      countryFinal.setCropYield(START_YEAR, crop, yield);
+      countryFinal.setCropProduction(Constant.FIRST_YEAR, crop, production);
+      countryFinal.setCropLand(Constant.FIRST_YEAR, crop, land);
+      countryFinal.setCropYield(Constant.FIRST_YEAR, crop, yield);
       countryFinal.setCropNeedPerCapita(crop, need);
     }
   }
   
-  
-  public static void main(String[] args)
-  {
-    // First make sure that the data file can be seen from the class loader.
-    //
-    InputStream in = CountryCSVLoader.class.getResourceAsStream("/SomeTextFile.txt");
 
-
-    ArrayList<Territory> fakeXmlList = new ArrayList<Territory>();
-    fakeXmlList.add(new Territory("Afghanistan"));
-    //fakeXmlList.add(new Territory("Albania"));
-    fakeXmlList.add(new Territory("Algeria"));
-    fakeXmlList.add(new Territory("Vatican City"));
-    CountryCSVLoader testLoader = new CountryCSVLoader(fakeXmlList);
-    Collection<Territory> countryList;
-    //List<Territory> countryList = new ArrayList<Territory>();
-
-    ParsedData data;
-    try {
-      data = testLoader.getCountriesFromCSV();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-      return;
-    }
-
-    countryList = data.territories;
-
-    System.out.println("Testing - main method in CountryCSVLoader");
-    for (Territory ctry:countryList)
-    {
-      System.out.println(ctry.getName()+" "+ctry.getMethodPercentage(START_YEAR,EnumGrowMethod.ORGANIC));
-      //System.out.println(ctry.getName()+" "+ctry.getPopulation(START_YEAR));
-      //System.out.println(ctry.getName()+" "+ctry.getCropProduction(START_YEAR,EnumFood.GRAIN));
-    }
-  }
 
   public static class ParsedData
   {
     final public Collection<Territory> territories;
-    final public Collection<Region> regions;
+    final public Region[] regionList;
 
-    protected ParsedData(final Collection<Territory> territories, final Collection<Region> regions)
+    protected ParsedData(final Collection<Territory> territories, Region[] regionList)
     {
       this.territories = territories;
-      this.regions = regions;
+      this.regionList = regionList;
     }
   }
 }

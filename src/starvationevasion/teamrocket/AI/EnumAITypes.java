@@ -1,7 +1,7 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.models.Card;
-import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -27,16 +27,16 @@ public enum EnumAITypes
       }
 
       @Override
-      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator)
+      public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
       {
         int discardedCardCount = 0;
-        LinkedList<Card> modifiedHand = new LinkedList<>();
+        LinkedList<PolicyCard> modifiedHand = new LinkedList<>();
 
         while(discardedCardCount < discardXNumCards)
         {
-          for(Card card : hand)
+          for(PolicyCard card : hand)
           {
-            if(card.needsVotes())
+            if(card.votesRequired() > 0)
             {
               discardedCardCount++;
             }
@@ -49,17 +49,17 @@ public enum EnumAITypes
       }
 
       @Override
-      public Card[] selectCards(LinkedList<Card> hand, Random generator) {
+      public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
         int cardsSelected = 0;
         int selectXNumCards = generator.nextInt(3);
         boolean votingCardPicked = false;
-        Card[] playedCards = new Card[selectXNumCards];
+        PolicyCard[] playedCards = new PolicyCard[selectXNumCards];
 
         while(cardsSelected < selectXNumCards)
         {
-          for(Card card : hand)
+          for(PolicyCard card : hand)
           {
-            if(!card.needsVotes())
+            if(!(card.votesRequired() > 0))
             {
               playedCards[cardsSelected] = card;
               cardsSelected++;
@@ -99,14 +99,14 @@ public enum EnumAITypes
       }
 
       @Override//TODO: build up average
-      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator)
+      public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
       {
         return hand;
       }
 
       @Override
-      public Card[] selectCards(LinkedList<Card> hand, Random generator) {
-        return new Card[0];
+      public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
+        return new PolicyCard[0];
       }
     },
 
@@ -126,14 +126,14 @@ public enum EnumAITypes
       }
 
       @Override//TODO: build up smart
-      public LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator)
+      public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
       {
         return hand;
       }
 
       @Override
-      public Card[] selectCards(LinkedList<Card> hand, Random generator) {
-        return new Card[0];
+      public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
+        return new PolicyCard[0];
       }
     };
 
@@ -153,13 +153,13 @@ public enum EnumAITypes
    * @param generator random generator to choose random options
    * @return new modified card hand
    */
-  public abstract LinkedList<Card> discardCards(int discardXNumCards, LinkedList<Card> hand, Random generator);
+  public abstract LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator);
 
   /**
    * AI selects up to 2 cards and returns them
-   * @param hand Card hand
+   * @param hand PolicyCard hand
    * @param generator random generator to choose ranomly
    * @return card array of selected cards
    */
-  public abstract  Card[] selectCards(LinkedList<Card> hand, Random generator);
+  public abstract  PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator);
 }

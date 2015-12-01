@@ -1,15 +1,13 @@
 package starvationevasion.teamrocket.models;
 
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 
 import java.util.LinkedList;
 
-/**
- * Created by scnaegl on 11/14/15.
- */
 public class Player implements PlayerInterface
 {
 
@@ -33,7 +31,9 @@ public class Player implements PlayerInterface
   /**
    * Card hand of the player
    */
-  private LinkedList<Card> hand;
+  private LinkedList<PolicyCard> hand;
+
+  private PolicyCard[] selectedCards;
 
   /**
    * Log in info for player
@@ -50,7 +50,7 @@ public class Player implements PlayerInterface
    *
    * @param enumRegion the region that the player controls all stats are determined by this.
    */
-  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller, LinkedList<Card> hand)
+  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller, LinkedList<PolicyCard> hand)
   {
     this.ENUM_REGION = enumRegion;
     AI = ai;
@@ -62,13 +62,13 @@ public class Player implements PlayerInterface
    * Gets the hand of the player
    * @return player hand
    */
-  public LinkedList<Card> getHand(){return hand;}
+  public LinkedList<PolicyCard> getHand(){return hand;}
 
   /**
    * Update the player's hand with the new hand
    * @param hand of new cards
    */
-  public void setHand(LinkedList<Card> hand){this.hand = hand;}
+  public void setHand(LinkedList<PolicyCard> hand){this.hand = hand;}
 
   /**
    * Get the current income of the player
@@ -82,6 +82,25 @@ public class Player implements PlayerInterface
    */
   public void updateIncome(long income){this.income = income;}
 
+  /**
+   * Set the selected cards from the GUI so the player knows
+   * which cards were selected
+   * @param card1 position in hand of first card
+   * @param card2 position in hand of second card
+   */
+  public void selectedCards(int card1, int card2)
+  {
+    int selectionSize = 2;
+
+    if(card1 < 0 || card2 < 0) selectionSize = 1;
+    else if(card1 < 0 && card2 < 0) selectionSize = 0;
+
+    selectedCards = new PolicyCard[selectionSize];
+
+    if(selectionSize > 0) selectedCards[0] = hand.get(card1);
+    if(selectionSize > 1) selectedCards[1] = hand.get(card2);
+  }
+
   /********Interface Methods ***********/
   @Override
   public String getLogIn() {
@@ -89,22 +108,23 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public Card[] playSelectedCards() {
-    return new Card[0];
+  public PolicyCard[] playSelectedCards() {
+    return selectedCards;
   }
 
   @Override
-  public int vote(Card card, EnumRegion cardPlayedRegion) {
+  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
     return 0;
   }
 
   @Override
-  public void discardCard(int discardXNumCards) {
-
+  public void discardCard(int cardPosition)
+  {
+    hand.remove(cardPosition);
   }
 
   @Override
-  public void addCard(Card card)
+  public void addCard(PolicyCard card)
   {
     hand.add(card);
   }
