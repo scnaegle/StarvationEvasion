@@ -1,10 +1,12 @@
 package starvationevasion.teamrocket.main;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -24,8 +26,6 @@ public class Main extends Application {
   Parent login;
   Parent gameRoom;
   Parent chat;
-
-
 
   Scene welcomeScene;
   Scene regionScene;
@@ -68,6 +68,7 @@ public class Main extends Application {
     primaryStage.show();
     if(primaryStage.isShowing()) System.out.println("window is showing");
 
+
   }
 
   /**
@@ -84,7 +85,6 @@ public class Main extends Application {
     {
       primaryStage.setScene(cardDraftScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
-
     }
     else if (scene == 4)
     {

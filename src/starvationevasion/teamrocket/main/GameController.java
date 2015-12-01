@@ -36,6 +36,7 @@ public class GameController
   private String playerPassword;
   private String playerIP;
   private String playerPort;
+  PolicyCard card;
 
   private Stack<String> error_messages = new Stack<>();
   private boolean successfullLogin = false;
@@ -378,5 +379,9 @@ public class GameController
   public String getPlayerUsername()
   {
     return playerUsername;
+  }
+
+  public String setCardText(){
+    return card.getGameText();
   }
 }

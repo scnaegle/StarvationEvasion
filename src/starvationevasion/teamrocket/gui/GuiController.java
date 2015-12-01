@@ -16,7 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
@@ -51,6 +53,8 @@ public class GuiController
 
   @FXML
   private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
+
+  private Text card1text;
 
   private int cardsDrafted = 0;
 
@@ -273,6 +277,7 @@ public class GuiController
 
   private CharSequence text;
   private boolean hasText = false;
+
   /**************************/
 
 
@@ -638,7 +643,8 @@ public class GuiController
 
       card1Image.setFitWidth(width * 4);
       card1Image.setFitHeight(height * 4);
-
+      
+      //card1Image.setAccessibleText(Main.gameController.setCardText());
       card1.toFront();
     }
     else if(card == card2)
@@ -1430,7 +1436,7 @@ public class GuiController
     discard7.setVisible(true);
 
     disNum = 0;
-    discardedNum.setText("Discarded: "+disNum);
+    discardedNum.setText(""+disNum);
     numCardsinHand = 7;
   }
 
@@ -1534,7 +1540,7 @@ public class GuiController
       card1.setVisible(false);
       discard1.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard2)
     {
@@ -1543,7 +1549,7 @@ public class GuiController
       card2.setVisible(false);
       discard2.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard3)
     {
@@ -1552,7 +1558,7 @@ public class GuiController
       card3.setVisible(false);
       discard3.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard4)
     {
@@ -1561,7 +1567,7 @@ public class GuiController
       card4.setVisible(false);
       discard4.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard5)
     {
@@ -1570,7 +1576,7 @@ public class GuiController
       card5.setVisible(false);
       discard5.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard6)
     {
@@ -1579,7 +1585,7 @@ public class GuiController
       card6.setVisible(false);
       discard6.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard7)
     {
@@ -1588,7 +1594,7 @@ public class GuiController
       card7.setVisible(false);
       discard7.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discardDraft1)
     {
@@ -2233,15 +2239,6 @@ public class GuiController
         aVotes.setText("" + heartAbstainVotes2);
       }
     }
-//    System.out.println("support 1 = "+caliSupportVotes1);
-//    System.out.println("oppose 1 = "+caliOpposeVotes1);
-//    System.out.println("abstain 1 = "+caliAbstainVotes1);
-//    System.out.println("*********************************");
-//    System.out.println("support 2 = "+caliSupportVotes2);
-//    System.out.println("oppose 2 = "+caliOpposeVotes2);
-//    System.out.println("abstain 2 = "+caliAbstainVotes2);
-//    System.out.println("*********************************");
-
 
   }
 
