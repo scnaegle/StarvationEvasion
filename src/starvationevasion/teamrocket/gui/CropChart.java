@@ -98,27 +98,27 @@ public class CropChart
     return chart;
   }
 
-  public static PieChart makeHDIPieChart(Region[] region)
-  {
-    //   PieChart pieChart;
-//    pieChart = getPieChartData(region.getEnumRegion());
-
-    ArrayList<PieChart.Data> dataList = new ArrayList<>();
-
-
-    for(Region regions : region)
-    {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getPopulation()));
-    }
-    ObservableList<PieChart.Data> pieChartData =
-        FXCollections.observableArrayList(dataList);
-    PieChart chart = new PieChart(pieChartData);
-
-    chart.setTitle("Population");
-    chart.setLegendSide(Side.BOTTOM);
-    chart.setVisible(true);
-    return chart;
-  }
+//  public static PieChart makeHDIPieChart(Region[] region)
+//  {
+//    //   PieChart pieChart;
+////    pieChart = getPieChartData(region.getEnumRegion());
+//
+//    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+//
+//
+//    for(Region regions : region)
+//    {
+//      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getPopulation()));
+//    }
+//    ObservableList<PieChart.Data> pieChartData =
+//        FXCollections.observableArrayList(dataList);
+//    PieChart chart = new PieChart(pieChartData);
+//
+//    chart.setTitle("Population");
+//    chart.setLegendSide(Side.BOTTOM);
+//    chart.setVisible(true);
+//    return chart;
+//  }
 
   /**
    * Makes a line chart of the data from our crops and regions, which spans the entire
