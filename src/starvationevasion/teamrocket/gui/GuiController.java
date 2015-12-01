@@ -663,6 +663,7 @@ public class GuiController
   {
    // card1text.setText(Main.gameController.getCardText(1));
 
+
     Button card = (Button)event.getSource();
     if(card == card1)
     {
