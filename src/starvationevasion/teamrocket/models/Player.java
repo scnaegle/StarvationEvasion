@@ -85,6 +85,8 @@ public class Player implements PlayerInterface
   /**
    * Set the selected cards from the GUI so the player knows
    * which cards were selected
+   * If there is no card position, then -1 should be passed for
+   * that card position
    * @param card1 position in hand of first card
    * @param card2 position in hand of second card
    */
@@ -97,7 +99,11 @@ public class Player implements PlayerInterface
 
     selectedCards = new PolicyCard[selectionSize];
 
-    if(selectionSize > 0) selectedCards[0] = hand.get(card1);
+    if(selectionSize > 0)
+    {
+      if(card1 < 0) selectedCards[0] = hand.get(card2);
+      else selectedCards[0] = hand.get(card1);
+    }
     if(selectionSize > 1) selectedCards[1] = hand.get(card2);
   }
 
