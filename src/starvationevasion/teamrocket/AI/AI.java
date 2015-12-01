@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
@@ -26,7 +27,7 @@ public class AI extends Player
    * @param handFromServer The hand that the server deals the AI
    */
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController,
-            LinkedList<Card> handFromServer)
+            LinkedList<PolicyCard> handFromServer)
   {
     super(controlledRegion,aiLevel, gameController, handFromServer);
 
@@ -51,12 +52,12 @@ public class AI extends Player
   }
 
   @Override
-  public Card[] playSelectedCards() {
+  public PolicyCard[] playSelectedCards() {
     return AI.selectCards(getHand(),generator);
   }
 
   @Override
-  public int vote(Card card, EnumRegion cardPlayedRegion) {
+  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
     return AI.vote(records[cardPlayedRegion.ordinal()], generator);
   }
 

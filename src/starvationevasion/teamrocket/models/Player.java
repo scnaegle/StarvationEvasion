@@ -1,15 +1,13 @@
 package starvationevasion.teamrocket.models;
 
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 
 import java.util.LinkedList;
 
-/**
- * Created by scnaegl on 11/14/15.
- */
 public class Player implements PlayerInterface
 {
 
@@ -33,7 +31,7 @@ public class Player implements PlayerInterface
   /**
    * Card hand of the player
    */
-  private LinkedList<Card> hand;
+  private LinkedList<PolicyCard> hand;
 
   /**
    * Log in info for player
@@ -50,7 +48,7 @@ public class Player implements PlayerInterface
    *
    * @param enumRegion the region that the player controls all stats are determined by this.
    */
-  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller, LinkedList<Card> hand)
+  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller, LinkedList<PolicyCard> hand)
   {
     this.ENUM_REGION = enumRegion;
     AI = ai;
@@ -62,13 +60,13 @@ public class Player implements PlayerInterface
    * Gets the hand of the player
    * @return player hand
    */
-  public LinkedList<Card> getHand(){return hand;}
+  public LinkedList<PolicyCard> getHand(){return hand;}
 
   /**
    * Update the player's hand with the new hand
    * @param hand of new cards
    */
-  public void setHand(LinkedList<Card> hand){this.hand = hand;}
+  public void setHand(LinkedList<PolicyCard> hand){this.hand = hand;}
 
   /**
    * Get the current income of the player
@@ -89,12 +87,12 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public Card[] playSelectedCards() {
-    return new Card[0];
+  public PolicyCard[] playSelectedCards() {
+    return new PolicyCard[0];
   }
 
   @Override
-  public int vote(Card card, EnumRegion cardPlayedRegion) {
+  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
     return 0;
   }
 
@@ -104,7 +102,7 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public void addCard(Card card)
+  public void addCard(PolicyCard card)
   {
     hand.add(card);
   }
