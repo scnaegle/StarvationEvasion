@@ -1,7 +1,6 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.PolicyCard;
-import starvationevasion.teamrocket.models.Card;
 
 import java.util.LinkedList;
 import java.util.Random;

@@ -677,6 +677,8 @@ public class GuiController
       card1Image.setFitHeight(height * 4);
 
       card1.toFront();
+      String text = Main.gameController.getCardText(0);
+      System.out.println(text);
     }
     else if(card == card2)
     {

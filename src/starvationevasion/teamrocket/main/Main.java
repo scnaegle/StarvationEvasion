@@ -65,6 +65,20 @@ public class Main extends Application {
 
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(welcomeScene);
+
+//    primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
+//    {
+//      @Override
+//      public void handle(WindowEvent window)
+//      {
+//        System.out.println("window has been shown");
+////        controller.handleWindowShownEvent();
+//        System.out.println("controller: " + controller);
+//        controller.showMyRegion();
+//        System.out.println("done with event...");
+//      }
+//    });
+
     primaryStage.show();
     if(primaryStage.isShowing()) System.out.println("window is showing");
 
@@ -80,11 +94,15 @@ public class Main extends Application {
     if (scene == 2)
     {
       primaryStage.setScene(regionScene);
+//      primaryStage.fireEvent(new WindowEvent(regionScene.getWindow(), WindowEvent.WINDOW_SHOWN));
     }
     else if (scene == 3)
     {
       primaryStage.setScene(cardDraftScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
+//      primaryStage.fireEvent(new WindowEvent(regionScene.getWindow(), WindowEvent.WINDOW_SHOWN));
+//      controller.showMyRegion();
+
     }
     else if (scene == 4)
     {
@@ -120,7 +138,7 @@ public class Main extends Application {
   {
     Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - x);
-    stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - y);
+    stage.setY(primaryScreenBounds.getMinY());
   }
   public Stage getCurrentStage()
   {

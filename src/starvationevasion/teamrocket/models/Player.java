@@ -50,12 +50,12 @@ public class Player implements PlayerInterface
    *
    * @param enumRegion the region that the player controls all stats are determined by this.
    */
-  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller, LinkedList<PolicyCard> hand)
+  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller)
   {
     this.ENUM_REGION = enumRegion;
     AI = ai;
     this.controller = controller;
-    this.hand = hand;
+    income = 10000000;
   }
 
   /**
@@ -85,6 +85,8 @@ public class Player implements PlayerInterface
   /**
    * Set the selected cards from the GUI so the player knows
    * which cards were selected
+   * If there is no card position, then -1 should be passed for
+   * that card position
    * @param card1 position in hand of first card
    * @param card2 position in hand of second card
    */
@@ -97,7 +99,11 @@ public class Player implements PlayerInterface
 
     selectedCards = new PolicyCard[selectionSize];
 
-    if(selectionSize > 0) selectedCards[0] = hand.get(card1);
+    if(selectionSize > 0)
+    {
+      if(card1 < 0) selectedCards[0] = hand.get(card2);
+      else selectedCards[0] = hand.get(card1);
+    }
     if(selectionSize > 1) selectedCards[1] = hand.get(card2);
   }
 
@@ -108,7 +114,7 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public PolicyCard[] playSelectedCards() {
+  public PolicyCard[] getDraftedCards() {
     return selectedCards;
   }
 

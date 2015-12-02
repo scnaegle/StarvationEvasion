@@ -3,20 +3,17 @@ package starvationevasion.teamrocket.main;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.Util;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
-import starvationevasion.teamrocket.AI.AI;
-import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.gui.GuiController;
-import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
 import starvationevasion.teamrocket.server.Stopwatch;
 
-import java.nio.channels.NoConnectionPendingException;
 import java.util.*;
 
 /**
@@ -36,10 +33,9 @@ public class GameController
   private String playerPassword;
   private String playerIP;
   private String playerPort;
-  PolicyCard card;
 
   private Stack<String> error_messages = new Stack<>();
-  private boolean successfullLogin = false;
+  private boolean successfulLogin = false;
   private Client client;
 
   GameController(Main main)
@@ -61,8 +57,18 @@ public class GameController
   public Player startNewGame(EnumRegion region)
   {
     destroyGame(); //Destroy old game if exists.
-    this.player = new Player(region, null, this, null);
+    this.player = new Player(region, null, this);
 
+    PolicyCard card;
+    LinkedList<PolicyCard> hand = new LinkedList<>();
+
+    for(int i = 0; i < 7; i++)
+    {
+      EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
+      card = PolicyCard.create(player.ENUM_REGION,policy);
+      hand.add(card);
+    }
+    player.setHand(hand);
     MAIN.switchScenes(3);
     if (singlePlayer)
     {
@@ -115,16 +121,6 @@ public class GameController
   }
 
   /**
-   * Returns the current hand of cards for the player.
-   *
-   * @return a Hand containing this client's hand.
-   */
-  public ArrayList<PolicyCard> getHand()
-  {
-    return null; //player.getRegion().getDeck().getHand();
-  }
-
-  /**
    * Get the card text of the card in the given position
    * of the player's hand
    * @param cardPosition position of card in hand
@@ -133,6 +129,28 @@ public class GameController
   public String getCardText(int cardPosition)
   {
     return player.getHand().get(cardPosition).getGameText();
+  }
+
+  /**
+   * Handles the actions the player can do, play or discard cards, from
+   * the GUI and update the Player class with this information
+   * @param cardPositions array of card positions that is related to the action being down
+   * @param playedCard True is the cards are being played, False if cards are being discarded
+   */
+  public void playerAction(int[] cardPositions, boolean playedCard)
+  {
+    if(!playedCard)
+      for(int i = 0; i < cardPositions.length; i++)
+      {
+        player.discardCard(cardPositions[i]);
+      }
+
+    else
+    {
+      if(cardPositions.length == 1) player.selectedCards(cardPositions[0], -1);
+      else if(cardPositions.length == 2) player.selectedCards(cardPositions[0], cardPositions[1]);
+      else player.selectedCards(-1,-1);
+    }
   }
 
   /**
@@ -373,12 +391,12 @@ public class GameController
     return error_messages.pop();
   }
 
-  public void setSuccessfullLogin(boolean successfullLogin) {
-    this.successfullLogin = successfullLogin;
+  public void setSuccessfulLogin(boolean successfulLogin) {
+    this.successfulLogin = successfulLogin;
   }
 
-  public boolean getSuccessfullLogin() {
-    return successfullLogin;
+  public boolean getSuccessfulLogin() {
+    return successfulLogin;
   }
 
   public boolean verifyIPAddress()
