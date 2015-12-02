@@ -46,6 +46,26 @@ public class CropChart
     return chart;
   }
 
+  public static PieChart makeOneRegionRevenuePieChart(Region region)
+  {
+    HashMap<EnumFood, Integer> data = region.getLastCropRevenue();
+    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+
+    for(EnumFood food : EnumFood.values())
+    {
+      dataList.add(new PieChart.Data(food.name(), data.get(food)));
+    }
+    ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(dataList);
+    PieChart chart = new PieChart(pieChartData);
+
+    chart.setTitle("Revenue of Crops");
+    chart.setLegendSide(Side.BOTTOM);
+    chart.setVisible(true);
+    return chart;
+  }
+
+
   public static PieChart makeHDIPieChart(Region region)
   {
     HashMap<EnumFood, Double> data = region.getLastCropData();
@@ -67,7 +87,7 @@ public class CropChart
 
 
 
-  public static PieChart makeWealthPieChart(Region[] region)
+  public static PieChart makeTotalRevenueAllRegionPieChart(Region[] region)
   {
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
@@ -198,7 +218,7 @@ public class CropChart
         new LineChart<Number,Number>(xAxis,yAxis);
 
 
-    ArrayList<Integer> revenue = region.getRevenue();
+    ArrayList<Integer> revenue = region.getTotalRevenue();
 
     ArrayList<XYChart.Series> dataList = new ArrayList<>();
 

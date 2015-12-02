@@ -32,21 +32,22 @@ public class Region
 
   private ArrayList<Integer> proteinEnergyMalnourished = new ArrayList<>();
   private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
-  private ArrayList<Double> HDI = new ArrayList<>();
-  private ArrayList<Integer> revenue = new ArrayList<>(); //revenue of the player and there country (a way of measuring score)
+  private ArrayList<Double>  HDI = new ArrayList<>();
+  private ArrayList<Integer> totalRevenue = new ArrayList<>(); //totalRevenue of the player and there country (a way of measuring score)
   private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
+
+  private HashMap<EnumFood, ArrayList<Integer>> cropRevenue;
 
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
    */
   private HashMap<EnumFood, Stack<Double>>  cropValues = new HashMap<>();
 
-
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will
    * only be called at the start of the game.
    *
-   * @param enumRegion Deterines starting revenue and crops.
+   * @param enumRegion Deterines starting totalRevenue and crops.
    */
   public Region(EnumRegion enumRegion)
   {
@@ -55,6 +56,7 @@ public class Region
 
     for(EnumFood food : EnumFood.values())
     {
+      cropRevenue.put(food, new ArrayList<Integer>());
       cropValues.put(food, new Stack<Double>());
     }
     // This is where a regions starting crops are determined.
@@ -101,6 +103,29 @@ public class Region
 
   }*/
 
+  public void addCropRevenue(EnumFood food, int value)
+  {
+    cropRevenue.get(food).add(value);
+  }
+
+
+  public HashMap<EnumFood, Integer> getLastCropRevenue()
+  {
+    HashMap<EnumFood, Integer> latestData = new HashMap<>();
+    for(EnumFood food : EnumFood.values())
+    {
+      latestData.put(food, cropRevenue.get(food).lastIndexOf(cropRevenue.get(food)));
+    }
+    return latestData;
+  }
+
+  public ArrayList<Integer> getCropRevenue(EnumFood food)
+  {
+    return cropRevenue.get(food);
+  }
+
+
+
   public void addCropValue(EnumFood food, double value)
   {
     cropValues.get(food).push(value);
@@ -133,12 +158,12 @@ public class Region
 
   public void addRevenue(int nextRevenue)
   {
-    revenue.add(nextRevenue);
+    totalRevenue.add(nextRevenue);
   }
 
   public int getLastRevenue()
   {
-    return revenue.lastIndexOf(revenue);
+    return totalRevenue.lastIndexOf(totalRevenue);
   }
 
 
@@ -201,8 +226,8 @@ public class Region
     return population;
   }
 
-  public ArrayList<Integer> getRevenue()
+  public ArrayList<Integer> getTotalRevenue()
   {
-    return revenue;
+    return totalRevenue;
   }
 }
