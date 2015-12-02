@@ -2,7 +2,6 @@ package starvationevasion.teamrocket.gui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
@@ -21,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
@@ -35,12 +33,12 @@ public class GuiController
   @FXML
   private Button drawCardButton, discardPile;
   @FXML
-  private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton, 
+  private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton,
                  fishButton, meatButton, nutButton, oilButton, poultryButton, veggieButton, specialButton;
 
   /* ALL PLAYING CARDS. 2 FOR EACH REGION */
   @FXML
-  private Button caliCard1, caliCard2, mountCard1, mountCard2, nPlainCard1, nPlainCard2, sPlainCard1, 
+  private Button caliCard1, caliCard2, mountCard1, mountCard2, nPlainCard1, nPlainCard2, sPlainCard1,
                  sPlainCard2, heartCard1, heartCard2, neCard1, neCard2, seCard1, seCard2;
 
   /* CARD PANE WHEN CARD IS CLICKED ON. ALLOWS FOR VOTING */
@@ -108,7 +106,7 @@ public class GuiController
 
   /* VOTING LABELS THAT SHOW HOW MANY VOTES EVERYONE GAVE */
   @FXML
-  private HBox c1Votes, c2Votes, m1Votes, m2Votes, np1Votes, np2Votes, ne1Votes, ne2Votes, s1Votes, s2Votes, 
+  private HBox c1Votes, c2Votes, m1Votes, m2Votes, np1Votes, np2Votes, ne1Votes, ne2Votes, s1Votes, s2Votes,
                sp1Votes, sp2Votes, h1Votes, h2Votes;
 
   @FXML
@@ -144,7 +142,7 @@ public class GuiController
   private Label h1support, h1oppose, h1abstain;
   @FXML
   private Label h2support,h2oppose,h2abstain;
-  
+
   private int supc1votes,oppc1votes,abstc1votes = 0;
   private int supc2votes,oppc2votes,abstc2votes = 0;
   private int supm1votes,oppm1votes,abstm1votes = 0;
@@ -159,7 +157,7 @@ public class GuiController
   private int supse2votes,oppse2votes,abstse2votes = 0;
   private int suph1votes,opph1votes,absth1votes = 0;
   private int suph2votes,opph2votes,absth2votes = 0;
-  
+
 
 
   /* PRODUCE INFORMATION WINDOWS */
@@ -311,35 +309,17 @@ public class GuiController
   }
 
 
-  public void saveLoginInfo(){
-    saveUsername();
-    savePassword();
-    saveIPAddress();
-    savePort();
-  }
+  /**
+   * Passes login information to GameController.
+   * @return true if connection established; false if failed.
+   */
+  public boolean setLoginInformation(){
+    String playerUsername = username.getCharacters().toString();
+    String playerPassword = password.getCharacters().toString();
+    String playerIPAddress = ipAddress.getCharacters().toString();
+    String playerNetworkPort = port.getCharacters().toString();
 
-  private void savePort()
-  {
-    playerPort = port.getCharacters().toString();
-    Main.gameController.savePlayerPort(playerPort);
-  }
-
-  private void saveIPAddress()
-  {
-    playerIP = ipAddress.getCharacters().toString();
-    Main.gameController.savePlayerIP(playerIP);
-  }
-
-  private void savePassword()
-  {
-    playerPassword = password.getCharacters().toString();
-    Main.gameController.savePlayerPassword(playerPassword);
-  }
-
-  private void saveUsername()
-  {
-    playerUsername = username.getCharacters().toString();
-    Main.gameController.savePlayerUsername(playerUsername);
+    return Main.gameController.tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
   }
 
   @FXML
@@ -978,8 +958,9 @@ public class GuiController
       {
         return;
       }
-      saveLoginInfo();
-      //go to gameRoom
+      if( setLoginInformation())
+      {
+        //go to gameRoom
         try
         {
           Main.gameController.switchToGameScene();
@@ -989,6 +970,12 @@ public class GuiController
         {
           e.printStackTrace();
         }
+      }
+      else
+      {
+        //Set general server error.
+        addressError.setVisible(true);
+      }
 
 
     }
