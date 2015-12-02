@@ -184,7 +184,7 @@
         <Pane layoutX="257.0" layoutY="268.0" prefHeight="88.999755859375" prefWidth="274.0">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="101.999755859375" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
-            <Button fx:id="draft1" layoutX="48.0" layoutY="6.0" minHeight="77.31053161621094" minWidth="66.92537689208984" mnemonicParsing="false" prefHeight="77.31053161621094" prefWidth="66.92537689208984" rotate="0.0" text="" visible="false">
+            <Button fx:id="draft1" cancelButton="false" layoutX="48.0" layoutY="6.0" minHeight="77.31053161621094" minWidth="66.92537689208984" mnemonicParsing="false" prefHeight="77.31053161621094" prefWidth="66.92537689208984" rotate="0.0" text="" visible="false">
               <graphic>
                 <ImageView id="insideCard" fx:id="draft1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true" visible="true">
                   <image>
@@ -193,7 +193,7 @@
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="draft2" layoutX="157.0" layoutY="4.0" minHeight="80.31055450439453" minWidth="63.99998474121094" mnemonicParsing="false" prefHeight="80.31055450439453" prefWidth="63.99998474121094" rotate="0.0" text="" visible="false">
+            <Button fx:id="draft2" cancelButton="false" layoutX="157.0" layoutY="4.0" minHeight="80.31055450439453" minWidth="63.99998474121094" mnemonicParsing="false" prefHeight="80.31055450439453" prefWidth="63.99998474121094" rotate="0.0" text="" visible="false">
               <graphic>
                 <ImageView id="insideCard" fx:id="draft2Image" fitHeight="80.31041161620486" fitWidth="66.92533792724862" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -208,6 +208,8 @@
               </font>
             </Label>
             <Label fx:id="discardDraft2" font="$x4" layoutX="230.0" layoutY="6.0" onMouseClicked="#discard" text="X" visible="false" />
+            <TextArea id="card1text" fx:id="draft1text" editable="false" layoutX="50.0" layoutY="31.0" prefHeight="47.80999755859375" prefWidth="64.0" visible="false" wrapText="true" />
+            <TextArea id="card1text" fx:id="draft2text" editable="false" layoutX="158.0" layoutY="31.0" prefHeight="47.80999755859375" prefWidth="64.0" visible="false" wrapText="true" />
           </children>
         </Pane>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a80079" height="268.0" layoutX="681.0" layoutY="373.0" opacity="0.29" stroke="WHITE" strokeType="INSIDE" width="291.0" />
@@ -509,7 +511,7 @@
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="card2" layoutX="30.0" layoutY="93.0" minHeight="80.31034851074219" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31044851073966" prefWidth="66.92534637451172" rotate="0.0" text="">
+            <Button fx:id="card2" layoutX="30.0" layoutY="93.0" minHeight="80.31034851074219" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31057058105216" prefWidth="66.92534637451172" rotate="0.0" text="">
               <graphic>
                 <ImageView id="insideCard" fx:id="card2Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -518,7 +520,7 @@
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="card1" layoutX="30.0" layoutY="7.0" minHeight="80.31037902832031" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31037902832031" prefWidth="66.92534637451172" rotate="0.0" text="">
+            <Button fx:id="card1" layoutX="30.0" layoutY="7.0" minHeight="80.31037902832031" minWidth="66.92534637451172" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#makeBigger" onMouseExited="#returnToNormal" prefHeight="80.31056213378906" prefWidth="66.92534637451172" rotate="0.0" text="">
               <graphic>
                 <ImageView id="insideCard" fx:id="card1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -548,6 +550,14 @@
                 <Font name="System Bold" size="15.0" />
               </font>
             </Label>
+            <TextArea fx:id="card1text" editable="false" layoutX="32.0" layoutY="35.0" prefHeight="47.80999755859375" prefWidth="64.0" text="" wrapText="true" />
+            <TextArea id="card1text" fx:id="card2text" editable="false" layoutX="32.0" layoutY="121.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card3text" editable="false" layoutX="112.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card4text" editable="false" layoutX="195.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card5text" editable="false" layoutX="274.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card6text" editable="false" layoutX="367.0" layoutY="36.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card7text" editable="false" layoutX="366.0" layoutY="119.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="discardtext" editable="false" layoutX="-95.0" layoutY="119.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
           </children>
         </Pane>
         <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="760.0" prefWidth="1024.0" visible="false">

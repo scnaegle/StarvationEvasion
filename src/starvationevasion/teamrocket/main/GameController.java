@@ -34,6 +34,8 @@ public class GameController
   private String playerIP;
   private String playerPort;
 
+  private PolicyCard draft1, draft2;
+
   private Stack<String> error_messages = new Stack<>();
   private boolean successfulLogin = false;
   private Client client;
@@ -413,5 +415,12 @@ public class GameController
   {
     return playerUsername;
   }
+
+  public void showDefaultRegion()
+  {
+    gui.showMyRegion();
+  }
+
+  // public void setDraftedCard()
 
 }
