@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.main;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.Util;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
@@ -68,7 +69,8 @@ public class GameController
 
     for(int i = 0; i < 7; i++)
     {
-      card = PolicyCard.create(player.ENUM_REGION,EnumPolicy.Clean_River_Incentive);
+      EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
+      card = PolicyCard.create(player.ENUM_REGION,policy);
       hand.add(card);
     }
     player.setHand(hand);
