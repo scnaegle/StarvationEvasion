@@ -138,6 +138,25 @@ public class GameController
   }
 
   /**
+   * Handles the actions the player can do, play or discard cards, from
+   * the GUI and update the Player class with this information
+   * @param cards array of card positions that is related to the action being down
+   * @param playedCard True is the cards are being played, False if cards are being discarded
+   */
+  public void playerAction(int[] cards, boolean playedCard)
+  {
+    if(!playedCard)
+      for(int i = 0; i < cards.length; i++) player.discardCard(cards[i]);
+
+    else
+    {
+      if(cards.length == 1) player.selectedCards(cards[0], -1);
+      else if(cards.length == 2) player.selectedCards(cards[0], cards[1]);
+      else player.selectedCards(-1,-1);
+    }
+  }
+
+  /**
    * Destroys the current game cleanly.
    */
   private void destroyGame()
