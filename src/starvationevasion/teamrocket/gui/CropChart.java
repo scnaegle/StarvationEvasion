@@ -46,6 +46,26 @@ public class CropChart
     return chart;
   }
 
+  public static PieChart makeOneRegionRevenuePieChart(Region region)
+  {
+    HashMap<EnumFood, Integer> data = region.getLastCropRevenue();
+    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+
+    for(EnumFood food : EnumFood.values())
+    {
+      dataList.add(new PieChart.Data(food.name(), data.get(food)));
+    }
+    ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(dataList);
+    PieChart chart = new PieChart(pieChartData);
+
+    chart.setTitle("Revenue of Crops");
+    chart.setLegendSide(Side.BOTTOM);
+    chart.setVisible(true);
+    return chart;
+  }
+
+
   public static PieChart makeHDIPieChart(Region region)
   {
     HashMap<EnumFood, Double> data = region.getLastCropData();
@@ -67,17 +87,13 @@ public class CropChart
 
 
 
-  public static PieChart makeWealthPieChart(Region[] region)
+  public static PieChart makeTotalRevenueAllRegionPieChart(Region[] region)
   {
-    //   PieChart pieChart;
-//    pieChart = getPieChartData(region.getEnumRegion());
-
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
-
 
     for(Region regions : region)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastRevenue()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastTotalRevenue()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
@@ -92,8 +108,6 @@ public class CropChart
 
   public static PieChart makePopulationPieChart(Region[] region)
   {
-    //   PieChart pieChart;
-//    pieChart = getPieChartData(region.getEnumRegion());
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
@@ -133,8 +147,6 @@ public class CropChart
 
     HashMap<EnumFood, Stack<Double>> data = region.getCropValues();
 
-//    ArrayList<Double> arrayListData = region.getCropValues(food);
-
     ArrayList<XYChart.Series> dataList = new ArrayList<>();
 
     XYChart.Series series = new XYChart.Series();
@@ -149,10 +161,6 @@ public class CropChart
     }
 
     series.setName("My portfolio");
-//    populating the series with data
-//    series.getData().add(new XYChart.Data(1987, 1));
-//    series.getData().add(new XYChart.Data(1982,2 ));
-
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -190,10 +198,6 @@ public class CropChart
     }
 
     series.setName("My portfolio");
-//    populating the series with data
-//    series.getData().add(new XYChart.Data(1987, 1));
-//    series.getData().add(new XYChart.Data(1982,2 ));
-
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -214,12 +218,11 @@ public class CropChart
         new LineChart<Number,Number>(xAxis,yAxis);
 
 
-    ArrayList<Integer> revenue = region.getRevenue();
+    ArrayList<Integer> revenue = region.getTotalRevenue();
 
     ArrayList<XYChart.Series> dataList = new ArrayList<>();
 
     XYChart.Series series = new XYChart.Series();
-
 
     int iterateTurnNumber = 0;
     for(Integer revenues : revenue)
@@ -229,10 +232,6 @@ public class CropChart
     }
 
     series.setName("My portfolio");
-//    populating the series with data
-//    series.getData().add(new XYChart.Data(1987, 1));
-//    series.getData().add(new XYChart.Data(1982,2 ));
-
     lineChart.getData().add(series);
     return lineChart;
   }
