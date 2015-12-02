@@ -2,7 +2,6 @@ package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.server.Server;
-import starvationevasion.server.ServerConstants;
 import starvationevasion.sim.CardDeck;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
@@ -11,7 +10,6 @@ import starvationevasion.teamrocket.models.PolicyVote;
 import starvationevasion.teamrocket.models.Region;
 
 import java.io.Serializable;
-import java.security.PublicKey;
 import java.util.IllegalFormatException;
 import java.util.Map;
 
@@ -26,7 +24,8 @@ import java.util.Map;
  */
 public class GameState implements Serializable
 {
-  public EnumGameState turnPhase;
+  public EnumGameState gameState;
+  public EnumRegion myRegion;
   // The current state of the game as defined by the EnumGameState
   public Stopwatch stopwatch; // Current timer of the stop
   public int currentYear; // Current year of game
@@ -37,7 +36,11 @@ public class GameState implements Serializable
   // All players votes for each card
   public ChatHistory chatHistory; // Chat history
   public GameController gameController;
-  public GameState game;
+
+
+  public GameState(EnumGameState gameState) {
+    this.gameState = gameState;
+  }
 
   public GameState(EnumGameState gameState, Stopwatch stopwatch,
                    int current_year, int current_turn, Region[] regions,
@@ -48,13 +51,13 @@ public class GameState implements Serializable
         region_decks, chatHistory, null);
   }
 
-  public GameState(EnumGameState turnPhase, Stopwatch stopwatch,
+  public GameState(EnumGameState gameState, Stopwatch stopwatch,
                    int currentYear, int currentTurn, Region[] regions,
                    Map<EnumRegion, CardDeck> regionDecks,
                    ChatHistory chatHistory,
                    Map<EnumRegion, PolicyVote[]> policyVotes)
   {
-    this.turnPhase = turnPhase;
+    this.gameState = gameState;
     this.stopwatch = stopwatch;
     this.currentYear = currentYear;
     this.currentTurn = currentTurn;
@@ -91,9 +94,9 @@ public class GameState implements Serializable
    *
    * @return the phase of the state
    */
-  public EnumGameState getTurnPhase()
+  public EnumGameState getGameState()
   {
-    return turnPhase;
+    return gameState;
   }
 
   /**

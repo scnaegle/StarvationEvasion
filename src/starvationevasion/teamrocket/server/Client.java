@@ -1,6 +1,6 @@
 package starvationevasion.teamrocket.server;
 
-import starvationevasion.common.messages.LoginResponse;
+import starvationevasion.common.messages.*;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.messages.ServerEvent;
@@ -176,34 +176,54 @@ public class Client
   }
 
 
-  class ClientListener extends Thread
-  {
-    public void run()
-    {
+  class ClientListener extends Thread {
+    public void run() {
       System.out.println("ClientListener.run()");
-      while (running)
-      {
+      while (running) {
         read();
       }
 
     }
 
-    private void read()
-    {
+    private void read() {
 //        System.out.println("Client: listening to socket");
       Object msg = MessageHandler.parse(reader);
 //        System.out.println("Client: got message: " + msg);
+      if (msg instanceof Response) {
+        handleResponse((Response) msg);
+      }
       if (msg instanceof LoginResponse) {
         handleLoginResponse((LoginResponse) msg);
       }
+      if (msg instanceof AvailableRegions) {
+        handleAvailableRegionsResponse((AvailableRegions) msg);
+      }
+      if (msg instanceof ReadyToBegin) {
+        handleReadyToBeginResponse((ReadyToBegin) msg);
+      }
+      if (msg instanceof PhaseStart) {
+        handlePhaseStartResponse((PhaseStart) msg);
+      }
+//      if (msg instanceof )
       if (msg instanceof GameState) {
 
-      }
-      else
-      {
+      } else {
         System.out.println("Unrecognized message from Server = " + msg);
       }
 
+    }
+
+    private void handleResponse(Response response) {
+      switch(response) {
+        case BAD_MESSAGE:
+          break;
+        case INAPPROPRIATE:
+          break;
+        case OTHER_ERROR:
+          break;
+        case OK:
+          break;
+      }
     }
 
     private void handleLoginResponse(LoginResponse loginResponse) {
@@ -233,6 +253,21 @@ public class Client
       }
     }
 
-  }
+    private void handleAvailableRegionsResponse(AvailableRegions availableRegions) {
+      // TODO Send error message if the region has already been taken.
+      gameController.setAvailableRegions(availableRegions);
+    }
 
+    private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
+
+    }
+
+    private void handlePhaseStartResponse(PhaseStart phaseStart) {
+
+    }
+
+    private void handleChatMessage(ClientChatMessage message) {
+
+    }
+  }
 }

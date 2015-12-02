@@ -4,11 +4,14 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.Util;
+import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.GameState;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.gui.GuiController;
+import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
@@ -39,6 +42,9 @@ public class GameController
   private Stack<String> error_messages = new Stack<>();
   private boolean successfulLogin = false;
   private Client client;
+
+  public GameState gameState;
+  private AvailableRegions availableRegions;
 
   GameController(Main main)
   {
@@ -95,6 +101,8 @@ public class GameController
 
     return this.player;
   }
+
+
   private void initializeGame(String gameType, String ip, int port)
   {
   }
@@ -202,6 +210,14 @@ public class GameController
   public EnumRegion getMyRegion()
   {
     return player.ENUM_REGION;
+  }
+
+  public void setAvailableRegions(AvailableRegions availableRegions) {
+    this.availableRegions = availableRegions;
+  }
+
+  public AvailableRegions getAvailableRegions() {
+    return availableRegions;
   }
 
   /**
