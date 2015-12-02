@@ -6,44 +6,56 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" fx:id="chooseRegion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
   <children>
-    <Text layoutX="445.0" layoutY="102.0" scaleX="5.947190978924539" scaleY="5.531445339673558" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE YOUR REGION" />
-    <ImageView id="map" fx:id="fullmap1" fitHeight="548.068359375" fitWidth="769.0" layoutX="120.0" layoutY="196.0" onMouseClicked="#selectInitialRegion" pickOnBounds="true" preserveRatio="true" visible="true">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#baff99" height="760.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+    <Text fill="#7200cc" layoutX="445.0" layoutY="102.0" scaleX="5.947190978924539" scaleY="5.531445339673558" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.1" text="CHOOSE YOUR REGION">
+      <font>
+        <Font name="Avenir Next Demi Bold" size="13.0" />
+      </font>
+    </Text>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="475.0" layoutX="116.0" layoutY="186.0" stroke="BLACK" strokeType="INSIDE" width="769.0" />
+    <ImageView id="map" fx:id="fullmap1" fitHeight="548.068359375" fitWidth="769.0" layoutX="128.0" layoutY="197.0" onMouseClicked="#selectInitialRegion" pickOnBounds="true" preserveRatio="true" visible="true">
       <image>
         <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="mountain" fx:id="mountSt" fitHeight="355.6311340332031" fitWidth="292.032863886126" layoutX="149.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="mountain" fx:id="mountSt" fitHeight="355.6311340332031" fitWidth="292.032863886126" layoutX="157.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView fx:id="cali" fitHeight="209.42855834960938" fitWidth="124.86435272684781" layoutX="134.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="cali" fitHeight="209.42855834960938" fitWidth="124.86435272684781" layoutX="142.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="northplains" fx:id="nPlains" fitHeight="232.51046752929688" fitWidth="191.63687057174928" layoutX="391.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="northplains" fx:id="nPlains" fitHeight="232.51046752929688" fitWidth="191.63687057174928" layoutX="399.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="north" fx:id="northSt" fitHeight="208.0" fitWidth="336.47056928140864" layoutX="529.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="north" fx:id="northSt" fitHeight="208.0" fitWidth="336.47056928140864" layoutX="537.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="southeast" fx:id="southEast" fitHeight="284.0897668537338" fitWidth="247.6521759033203" layoutX="550.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="southeast" fx:id="southEast" fitHeight="284.0897668537338" fitWidth="247.6521759033203" layoutX="558.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView id="southplains" fx:id="sPlains" fitHeight="231.65475838451178" fitWidth="305.0" layoutX="336.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView id="southplains" fx:id="sPlains" fitHeight="231.65475838451178" fitWidth="305.0" layoutX="344.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
         <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="heartland" fitHeight="153.56159697047863" fitWidth="185.07861328125" layoutX="497.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+        <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
     <Button fx:id="pickedRegion" layoutX="429.0" layoutY="684.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="40.0" prefWidth="118.0" text="READY">
@@ -51,11 +63,6 @@
         <Font size="20.0" />
       </font>
     </Button>
-    <ImageView fx:id="heartland" fitHeight="153.56159697047863" fitWidth="185.07861328125" layoutX="489.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-        <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
-      </image>
-    </ImageView>
     <Label fx:id="nothingSelected" layoutX="325.0" layoutY="167.0" text="You must choose a region to start playing" textFill="RED" visible="false">
       <font>
         <Font size="16.0" />

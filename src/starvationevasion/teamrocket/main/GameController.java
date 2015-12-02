@@ -36,6 +36,7 @@ public class GameController
   private String playerPassword;
   private String playerIP;
   private String playerPort;
+  PolicyCard card;
 
   private Stack<String> error_messages = new Stack<>();
   private boolean successfullLogin = false;
@@ -121,6 +122,36 @@ public class GameController
   public ArrayList<PolicyCard> getHand()
   {
     return null; //player.getRegion().getDeck().getHand();
+  }
+
+  /**
+   * Get the card text of the card in the given position
+   * of the player's hand
+   * @param cardPosition position of card in hand
+   * @return text of card
+   */
+  public String getCardText(int cardPosition)
+  {
+    return player.getHand().get(cardPosition).getGameText();
+  }
+
+  /**
+   * Handles the actions the player can do, play or discard cards, from
+   * the GUI and update the Player class with this information
+   * @param cards array of card positions that is related to the action being down
+   * @param playedCard True is the cards are being played, False if cards are being discarded
+   */
+  public void playerAction(int[] cards, boolean playedCard)
+  {
+    if(!playedCard)
+      for(int i = 0; i < cards.length; i++) player.discardCard(cards[i]);
+
+    else
+    {
+      if(cards.length == 1) player.selectedCards(cards[0], -1);
+      else if(cards.length == 2) player.selectedCards(cards[0], cards[1]);
+      else player.selectedCards(-1,-1);
+    }
   }
 
   /**
@@ -334,7 +365,7 @@ public class GameController
 
   public String checkPort(String port)
   {
-    final String regex = "^\\d{2,6}+$";
+    final String regex = "^\\d{2,4}+$";
 
     if (port.matches(regex)) {
       return "good";
@@ -379,4 +410,5 @@ public class GameController
   {
     return playerUsername;
   }
+
 }

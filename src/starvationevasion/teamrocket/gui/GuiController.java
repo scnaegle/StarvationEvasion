@@ -1,5 +1,8 @@
 package starvationevasion.teamrocket.gui;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
@@ -16,7 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
@@ -51,6 +56,8 @@ public class GuiController
 
   @FXML
   private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
+
+  private Text card1text;
 
   private int cardsDrafted = 0;
 
@@ -273,7 +280,35 @@ public class GuiController
 
   private CharSequence text;
   private boolean hasText = false;
+
   /**************************/
+
+
+  public void connectUsers()
+  {
+    //if(user1 has logged in)
+    user1.setText(Main.gameController.getPlayerUsername());
+    user1.setVisible(true);
+    //if(user2 has logged in)....
+
+  }
+
+  public void startCountdown()
+  {
+    countdown.setVisible(true);
+    StringProperty count = new SimpleStringProperty("10");
+    countdown.textProperty().bind(count);
+    for (int i = 10; i >= 0; i--)
+    {
+      count.setValue(i+"");
+    }
+  }
+
+  public void showUsersRegion()
+  {
+    user1Region.setText("" + myRegion);
+    user1Region.setVisible(true);
+  }
 
 
   public void saveLoginInfo(){
@@ -626,6 +661,8 @@ public class GuiController
   @FXML
   public void makeBigger(MouseEvent event)
   {
+   // card1text.setText(Main.gameController.getCardText(1));
+
     Button card = (Button)event.getSource();
     if(card == card1)
     {
@@ -1430,7 +1467,7 @@ public class GuiController
     discard7.setVisible(true);
 
     disNum = 0;
-    discardedNum.setText("Discarded: "+disNum);
+    discardedNum.setText(""+disNum);
     numCardsinHand = 7;
   }
 
@@ -1534,7 +1571,7 @@ public class GuiController
       card1.setVisible(false);
       discard1.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard2)
     {
@@ -1543,7 +1580,7 @@ public class GuiController
       card2.setVisible(false);
       discard2.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard3)
     {
@@ -1552,7 +1589,7 @@ public class GuiController
       card3.setVisible(false);
       discard3.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard4)
     {
@@ -1561,7 +1598,7 @@ public class GuiController
       card4.setVisible(false);
       discard4.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard5)
     {
@@ -1570,7 +1607,7 @@ public class GuiController
       card5.setVisible(false);
       discard5.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard6)
     {
@@ -1579,7 +1616,7 @@ public class GuiController
       card6.setVisible(false);
       discard6.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discard7)
     {
@@ -1588,7 +1625,7 @@ public class GuiController
       card7.setVisible(false);
       discard7.setVisible(false);
       disNum++;
-      discardedNum.setText("Discarded: "+disNum);
+      discardedNum.setText(""+disNum);
     }
     else if(discard == discardDraft1)
     {
@@ -2233,15 +2270,6 @@ public class GuiController
         aVotes.setText("" + heartAbstainVotes2);
       }
     }
-//    System.out.println("support 1 = "+caliSupportVotes1);
-//    System.out.println("oppose 1 = "+caliOpposeVotes1);
-//    System.out.println("abstain 1 = "+caliAbstainVotes1);
-//    System.out.println("*********************************");
-//    System.out.println("support 2 = "+caliSupportVotes2);
-//    System.out.println("oppose 2 = "+caliOpposeVotes2);
-//    System.out.println("abstain 2 = "+caliAbstainVotes2);
-//    System.out.println("*********************************");
-
 
   }
 
@@ -2509,8 +2537,8 @@ public class GuiController
       sPlains.setVisible(true);
       myRegion = EnumRegion.SOUTHERN_PLAINS;
     }
-
     Main.gameController.setSelectRegion(new RegionChoice(myRegion));
+    showUsersRegion();
   }
 
   private PieChart testPieChart()
