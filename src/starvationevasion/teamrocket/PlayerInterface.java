@@ -21,7 +21,7 @@ public interface PlayerInterface
    * are being played.
    * @return array of Cards that are selected to play
    */
-  public PolicyCard[] playSelectedCards();
+  public PolicyCard[] getDraftedCards();
 
 
   /**

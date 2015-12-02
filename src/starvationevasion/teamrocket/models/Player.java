@@ -114,7 +114,7 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public PolicyCard[] playSelectedCards() {
+  public PolicyCard[] getDraftedCards() {
     return selectedCards;
   }
 
