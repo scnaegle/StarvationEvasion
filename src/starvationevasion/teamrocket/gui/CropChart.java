@@ -93,7 +93,7 @@ public class CropChart
 
     for(Region regions : region)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastRevenue()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastTotalRevenue()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);

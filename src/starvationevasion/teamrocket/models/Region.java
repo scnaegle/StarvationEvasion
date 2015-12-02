@@ -158,14 +158,19 @@ public class Region
 
   public void addRevenue(int nextRevenue)
   {
-    totalRevenue.add(nextRevenue);
+    HashMap<EnumFood, Integer> temp = getLastCropRevenue();
+    int total=0;
+    for(EnumFood food : EnumFood.values())
+    {
+      total =+ temp.get(food);
+    }
+    totalRevenue.add(total);
   }
 
-  public int getLastRevenue()
+  public int getLastTotalRevenue()
   {
     return totalRevenue.lastIndexOf(totalRevenue);
   }
-
 
   public HashMap<EnumFood, Stack<Double>> getCropValues()
   {
