@@ -9,6 +9,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +28,9 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.teamrocket.server.Stopwatch;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -283,6 +289,9 @@ public class GuiController
 
   /**************************/
 
+  @FXML
+  public void startTimer()
+  {}
 
   public void connectUsers()
   {
@@ -640,18 +649,16 @@ public class GuiController
     else return false;
   }
 
+
   @FXML
   public void makeBigger(MouseEvent event)
   {
-    Font font = new Font("Arial",12);
+    Font font = new Font("Arial",11);
     Button card = (Button)event.getSource();
     if(card == card1)
     {
-      String text = Main.gameController.getCardText(0);
-      //System.out.println(text);
-      card1text.setText(text);
 
-
+      //card1text.setText(Main.gameController.getCardText(0));
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
 
@@ -675,8 +682,8 @@ public class GuiController
     }
     else if(card == card2)
     {
-      String text = Main.gameController.getCardText(1);
-      card2text.setText(text);
+//      String text = Main.gameController.getCardText(1);
+//      card2text.setText(text);
 
       double width = card2Image.getFitWidth();
       double height = card2Image.getFitHeight();
@@ -702,8 +709,8 @@ public class GuiController
     else if(card == card3)
     {
 
-      String text = Main.gameController.getCardText(2);
-      card3text.setText(text);
+//      String text = Main.gameController.getCardText(2);
+//      card3text.setText(text);
 
       double width = card3Image.getFitWidth();
       double height = card3Image.getFitHeight();
@@ -726,8 +733,8 @@ public class GuiController
     }
     else if(card == card4)
     {
-      String text = Main.gameController.getCardText(3);
-      card4text.setText(text);
+//      String text = Main.gameController.getCardText(3);
+//      card4text.setText(text);
 
       double width = card4Image.getFitWidth();
       double height = card4Image.getFitHeight();
@@ -750,8 +757,8 @@ public class GuiController
     }
     else if(card == card5)
     {
-      String text = Main.gameController.getCardText(4);
-      card5text.setText(text);
+//      String text = Main.gameController.getCardText(4);
+//      card5text.setText(text);
 
       double width = card5Image.getFitWidth();
       double height = card5Image.getFitHeight();
@@ -774,8 +781,8 @@ public class GuiController
     }
     else if(card == card6)
     {
-      String text = Main.gameController.getCardText(5);
-      card6text.setText(text);
+//      String text = Main.gameController.getCardText(5);
+//      card6text.setText(text);
 
       double width = card6Image.getFitWidth();
       double height = card6Image.getFitHeight();
@@ -798,8 +805,8 @@ public class GuiController
     }
     else if (card == card7)
     {
-      String text = Main.gameController.getCardText(6);
-      card7text.setText(text);
+//      String text = Main.gameController.getCardText(6);
+//      card7text.setText(text);
 
       double width = card7Image.getFitWidth();
       double height = card7Image.getFitHeight();
@@ -1182,31 +1189,31 @@ public class GuiController
     }
     else if(button == card1)
     {
-      tryDraftingCard(card1, card1text, discard1);
+      tryDraftingCard(card1, card1text, card1Image, discard1);
     }
     else if(button == card2)
     {
-      tryDraftingCard(card2, card2text, discard2);
+      tryDraftingCard(card2, card2text,card2Image, discard2);
     }
     else if(button == card3)
     {
-      tryDraftingCard(card3, card3text, discard3);
+      tryDraftingCard(card3, card3text,card3Image, discard3);
     }
     else if(button == card4)
     {
-      tryDraftingCard(card4, card4text, discard4);
+      tryDraftingCard(card4, card4text,card4Image, discard4);
     }
     else if(button == card5)
     {
-      tryDraftingCard(card5, card5text, discard5);
+      tryDraftingCard(card5, card5text,card5Image, discard5);
     }
     else if(button == card6)
     {
-      tryDraftingCard(card6, card6text, discard6);
+      tryDraftingCard(card6, card6text,card6Image, discard6);
     }
     else if(button == card7)
     {
-      tryDraftingCard(card7, card7text, discard7);
+      tryDraftingCard(card7, card7text,card7Image, discard7);
     }
     else if(button == caliCard1)
     {
@@ -1593,42 +1600,49 @@ public class GuiController
       {
         card1.setVisible(true);
         discard1.setVisible(true);
+        card1text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card2.isVisible())
       {
         card2.setVisible(true);
         discard2.setVisible(true);
+        card2text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card3.isVisible())
       {
         card3.setVisible(true);
         discard3.setVisible(true);
+        card3text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card4.isVisible())
       {
         card4.setVisible(true);
         discard4.setVisible(true);
+        card4text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card5.isVisible())
       {
         card5.setVisible(true);
         discard5.setVisible(true);
+        card5text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card6.isVisible())
       {
         card6.setVisible(true);
         discard6.setVisible(true);
+        card6text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card7.isVisible())
       {
         card7.setVisible(true);
         discard7.setVisible(true);
+        card7text.setVisible(true);
         numCardsinHand++;
       }
     }
@@ -1639,7 +1653,14 @@ public class GuiController
     }
   }
 
-  private void tryDraftingCard(Button card, TextArea text,Label discard)
+  /**
+   * Called after card in hand is clicked on.
+   * Will draft card as long as there's not already 2 cards drafted.
+   * @param card Card clicked
+   * @param text  Card text
+   * @param discard Discard option 'X'
+   */
+  private void tryDraftingCard(Button card, TextArea text, ImageView cardImage, Label discard)
   {
 //    if(legal)
 //    {
@@ -1648,16 +1669,22 @@ public class GuiController
     {
       card.setDisable(true);
       discard.setDisable(true);
+      text.setDisable(true);
       discardDraft1.setVisible(true);
-      draft1text = text;
+      draft1text.setText(text.getText());
+      draft1Image = cardImage;
+      draft1text.setVisible(true);
       draft1.setVisible(true);
     }
     else if (cardsDrafted == 2)
     {
       card.setDisable(true);
       discard.setDisable(true);
+      card.setDisable(true);
       discardDraft2.setVisible(true);
-      draft2text = text;
+      draft2text.setText(text.getText());
+      draft2text.setVisible(true);
+      draft2Image = cardImage;
       draft2.setVisible(true);
     }
     else
@@ -1674,15 +1701,40 @@ public class GuiController
 //
   }
 
+
+  public void setCardTexts()
+  {
+    Font font = new Font("Arial",4);
+    card1text.setFont(font);
+    card2text.setFont(font);
+    card3text.setFont(font);
+    card4text.setFont(font);
+    card5text.setFont(font);
+    card6text.setFont(font);
+    card7text.setFont(font);
+
+    card1.setText(Main.gameController.getCardText(0));
+    card2.setText(Main.gameController.getCardText(1));
+    card3.setText(Main.gameController.getCardText(2));
+    card4.setText(Main.gameController.getCardText(3));
+    card5.setText(Main.gameController.getCardText(4));
+    card6.setText(Main.gameController.getCardText(5));
+    card7.setText(Main.gameController.getCardText(6));
+  }
+
   @FXML
   public void discard(MouseEvent event)
   {
+    Font font = new Font("Arial",4);
+    discardtext.setFont(font);
+
     Label discard = (Label)event.getSource();
     if(discard == discard1)
     {
       numCardsinHand--;
-      lastDiscardImage = card1Image;
+      discardtext.setText(card1text.getText());
       card1.setVisible(false);
+      card1text.setVisible(false);
       discard1.setVisible(false);
       disNum++;
       discardedNum.setText(""+disNum);
@@ -1690,7 +1742,8 @@ public class GuiController
     else if(discard == discard2)
     {
       numCardsinHand--;
-      lastDiscardImage = card2Image;
+      discardtext.setText(card2text.getText());
+      card2text.setVisible(false);
       card2.setVisible(false);
       discard2.setVisible(false);
       disNum++;
@@ -1699,7 +1752,8 @@ public class GuiController
     else if(discard == discard3)
     {
       numCardsinHand--;
-      lastDiscardImage = card3Image;
+      discardtext.setText(card3text.getText());
+      card3text.setVisible(false);
       card3.setVisible(false);
       discard3.setVisible(false);
       disNum++;
@@ -1708,7 +1762,8 @@ public class GuiController
     else if(discard == discard4)
     {
       numCardsinHand--;
-      lastDiscardImage = card4Image;
+      discardtext.setText(card4text.getText());
+      card4text.setVisible(false);
       card4.setVisible(false);
       discard4.setVisible(false);
       disNum++;
@@ -1717,7 +1772,8 @@ public class GuiController
     else if(discard == discard5)
     {
       numCardsinHand--;
-      lastDiscardImage = card5Image;
+      discardtext.setText(card5text.getText());
+      card5text.setVisible(false);
       card5.setVisible(false);
       discard5.setVisible(false);
       disNum++;
@@ -1726,7 +1782,8 @@ public class GuiController
     else if(discard == discard6)
     {
       numCardsinHand--;
-      lastDiscardImage = card6Image;
+      discardtext.setText(card6text.getText());
+      card6text.setVisible(false);
       card6.setVisible(false);
       discard6.setVisible(false);
       disNum++;
@@ -1735,7 +1792,8 @@ public class GuiController
     else if(discard == discard7)
     {
       numCardsinHand--;
-      lastDiscardImage = card7Image;
+      discardtext.setText(card7text.getText());
+      card7text.setVisible(false);
       card7.setVisible(false);
       discard7.setVisible(false);
       disNum++;
@@ -1747,34 +1805,42 @@ public class GuiController
       if(draft1Image == card1Image) {
         card1.setDisable(false);
         discard1.setDisable(false);
+        card1text.setDisable(false);
       }
       else if(draft1Image == card2Image) {
         card2.setDisable(false);
         discard2.setDisable(false);
+        card2text.setDisable(false);
       }
       else if(draft1Image == card3Image) {
         card3.setDisable(false);
         discard3.setDisable(false);
+        card3text.setDisable(false);
       }
       else if(draft1Image == card4Image) {
         card4.setDisable(false);
         discard4.setDisable(false);
+        card4text.setDisable(false);
       }
       else if(draft1Image == card5Image) {
         card5.setDisable(false);
         discard5.setDisable(false);
+        card5text.setDisable(false);
       }
       else if(draft1Image == card6Image){
         card6.setDisable(false);
         discard6.setDisable(false);
+        card6text.setDisable(false);
       }
       else if(draft1Image == card7Image) {
         card7.setDisable(false);
         discard7.setDisable(false);
+        card7text.setDisable(false);
       }
 
       draft1.setVisible(false);
       discardDraft1.setVisible(false);
+      draft1text.setVisible(false);
 
     }
     else if(discard == discardDraft2)
@@ -1783,33 +1849,41 @@ public class GuiController
       if(draft2Image == card1Image) {
         card1.setDisable(false);
         discard1.setDisable(false);
+        card1text.setDisable(false);
       }
       else if(draft2Image == card2Image) {
         card2.setDisable(false);
         discard2.setDisable(false);
+        card2text.setDisable(false);
       }
       else if(draft2Image == card3Image) {
         card3.setDisable(false);
         discard3.setDisable(false);
+        card3text.setDisable(false);
       }
       else if(draft2Image == card4Image) {
         card4.setDisable(false);
         discard4.setDisable(false);
+        card4text.setDisable(false);
       }
       else if(draft2Image == card5Image) {
         card5.setDisable(false);
         discard5.setDisable(false);
+        card5text.setDisable(false);
       }
       else if(draft2Image == card6Image){
         card6.setDisable(false);
         discard6.setDisable(false);
+        card6text.setDisable(false);
       }
       else if(draft2Image == card7Image) {
         card7.setDisable(false);
         discard7.setDisable(false);
+        card7text.setDisable(false);
       }
       draft2.setVisible(false);
       discardDraft2.setVisible(false);
+      draft2text.setVisible(false);
 
     }
   }

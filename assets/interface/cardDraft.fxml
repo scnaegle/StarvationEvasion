@@ -550,10 +550,10 @@
                 <Font name="System Bold" size="15.0" />
               </font>
             </Label>
-            <TextArea fx:id="card1text" editable="false" layoutX="32.0" layoutY="35.0" prefHeight="47.80999755859375" prefWidth="64.0" text="" wrapText="true" />
-            <TextArea id="card1text" fx:id="card2text" editable="false" layoutX="32.0" layoutY="121.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card3text" editable="false" layoutX="112.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card4text" editable="false" layoutX="195.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea fx:id="card1text" editable="false" layoutX="31.0" layoutY="36.0" prefHeight="47.80999755859375" prefWidth="64.0" text="" wrapText="true" />
+            <TextArea id="card1text" fx:id="card2text" editable="false" layoutX="31.0" layoutY="121.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card3text" editable="false" layoutX="113.0" layoutY="81.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
+            <TextArea id="card1text" fx:id="card4text" editable="false" layoutX="194.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
             <TextArea id="card1text" fx:id="card5text" editable="false" layoutX="274.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
             <TextArea id="card1text" fx:id="card6text" editable="false" layoutX="367.0" layoutY="36.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
             <TextArea id="card1text" fx:id="card7text" editable="false" layoutX="366.0" layoutY="119.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
@@ -873,6 +873,7 @@
             </Pane>
           </children>
         </StackPane>
+        <BorderPane fx:id="visPane" layoutX="10.0" layoutY="5.0" prefHeight="238.0" prefWidth="265.0" />
       </children>
     </Pane>
   </children>

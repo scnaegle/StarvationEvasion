@@ -24,7 +24,7 @@ public class GameController
   private Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  private GuiController gui;
+  private GuiController gui = new GuiController();
   private Stopwatch stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
@@ -72,6 +72,9 @@ public class GameController
     }
     player.setHand(hand);
     MAIN.switchScenes(3);
+
+    gui.showMyRegion();
+    gui.startTimer();
     if (singlePlayer)
     {
       Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
@@ -81,11 +84,11 @@ public class GameController
               "/password_file.tmpl");
 
     }
-    if (newMultiPlayer)
+    else if (newMultiPlayer)
     {
 
     }
-    if (joinMultiPlayer)
+    else if (joinMultiPlayer)
     {
       Client client = new Client(playerIP, Integer.parseInt(playerPort), this);
     }
@@ -423,4 +426,8 @@ public class GameController
 
   // public void setDraftedCard()
 
+  public void initVisualizer()
+  {
+
+  }
 }
