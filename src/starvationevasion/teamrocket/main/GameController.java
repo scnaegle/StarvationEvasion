@@ -200,13 +200,17 @@ public class GameController
   }
 
   /**
-   * Stores our login information for the server.
-   *
-   * @param login information of logins
+   * Tries to login into the designated server.
+   * @param username
+   * @param password
+   * @param ipAddress
+   * @param networkPort
+   * @return
    */
-  public void setLogin(Login login)
+  public boolean tryLogin(String username, String password, String ipAddress, String networkPort)
   {
 
+    return true;
   }
 
   /**
