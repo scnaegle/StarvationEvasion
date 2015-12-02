@@ -2,7 +2,6 @@ package starvationevasion.teamrocket.gui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
@@ -22,7 +21,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
@@ -36,12 +34,12 @@ public class GuiController
   @FXML
   private Button drawCardButton, discardPile;
   @FXML
-  private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton, 
+  private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton,
                  fishButton, meatButton, nutButton, oilButton, poultryButton, veggieButton, specialButton;
 
   /* ALL PLAYING CARDS. 2 FOR EACH REGION */
   @FXML
-  private Button caliCard1, caliCard2, mountCard1, mountCard2, nPlainCard1, nPlainCard2, sPlainCard1, 
+  private Button caliCard1, caliCard2, mountCard1, mountCard2, nPlainCard1, nPlainCard2, sPlainCard1,
                  sPlainCard2, heartCard1, heartCard2, neCard1, neCard2, seCard1, seCard2;
 
   /* CARD PANE WHEN CARD IS CLICKED ON. ALLOWS FOR VOTING */
@@ -110,7 +108,7 @@ public class GuiController
 
   /* VOTING LABELS THAT SHOW HOW MANY VOTES EVERYONE GAVE */
   @FXML
-  private HBox c1Votes, c2Votes, m1Votes, m2Votes, np1Votes, np2Votes, ne1Votes, ne2Votes, s1Votes, s2Votes, 
+  private HBox c1Votes, c2Votes, m1Votes, m2Votes, np1Votes, np2Votes, ne1Votes, ne2Votes, s1Votes, s2Votes,
                sp1Votes, sp2Votes, h1Votes, h2Votes;
 
   @FXML
@@ -146,7 +144,7 @@ public class GuiController
   private Label h1support, h1oppose, h1abstain;
   @FXML
   private Label h2support,h2oppose,h2abstain;
-  
+
   private int supc1votes,oppc1votes,abstc1votes = 0;
   private int supc2votes,oppc2votes,abstc2votes = 0;
   private int supm1votes,oppm1votes,abstm1votes = 0;
@@ -161,7 +159,7 @@ public class GuiController
   private int supse2votes,oppse2votes,abstse2votes = 0;
   private int suph1votes,opph1votes,absth1votes = 0;
   private int suph2votes,opph2votes,absth2votes = 0;
-  
+
 
 
   /* PRODUCE INFORMATION WINDOWS */
@@ -313,35 +311,17 @@ public class GuiController
   }
 
 
-  public void saveLoginInfo(){
-    saveUsername();
-    savePassword();
-    saveIPAddress();
-    savePort();
-  }
+  /**
+   * Passes login information to GameController.
+   * @return true if connection established; false if failed.
+   */
+  public boolean setLoginInformation(){
+    String playerUsername = username.getCharacters().toString();
+    String playerPassword = password.getCharacters().toString();
+    String playerIPAddress = ipAddress.getCharacters().toString();
+    String playerNetworkPort = port.getCharacters().toString();
 
-  private void savePort()
-  {
-    playerPort = port.getCharacters().toString();
-    Main.gameController.savePlayerPort(playerPort);
-  }
-
-  private void saveIPAddress()
-  {
-    playerIP = ipAddress.getCharacters().toString();
-    Main.gameController.savePlayerIP(playerIP);
-  }
-
-  private void savePassword()
-  {
-    playerPassword = password.getCharacters().toString();
-    Main.gameController.savePlayerPassword(playerPassword);
-  }
-
-  private void saveUsername()
-  {
-    playerUsername = username.getCharacters().toString();
-    Main.gameController.savePlayerUsername(playerUsername);
+    return Main.gameController.tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
   }
 
   @FXML
@@ -1103,8 +1083,9 @@ public class GuiController
       {
         return;
       }
-      saveLoginInfo();
-      //go to gameRoom
+      if( setLoginInformation())
+      {
+        //go to gameRoom
         try
         {
           Main.gameController.switchToGameScene();
@@ -1114,6 +1095,12 @@ public class GuiController
         {
           e.printStackTrace();
         }
+      }
+      else
+      {
+        //Set general server error.
+        addressError.setVisible(true);
+      }
 
 
     }
@@ -2555,7 +2542,7 @@ public class GuiController
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
 
-     // statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.CALIFORNIA)));
+     // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.CALIFORNIA)));
       statisticsPane.setCenter(testPieChart());
 
       System.out.println("Selected cali");
@@ -2565,7 +2552,7 @@ public class GuiController
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.HEARTLAND)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
     }
@@ -2574,7 +2561,7 @@ public class GuiController
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.MOUNTAIN)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
     }
@@ -2583,7 +2570,7 @@ public class GuiController
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
     }
@@ -2592,7 +2579,7 @@ public class GuiController
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
     }
@@ -2601,7 +2588,7 @@ public class GuiController
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.SOUTHEAST)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
 
@@ -2611,7 +2598,7 @@ public class GuiController
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
     }

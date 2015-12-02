@@ -8,12 +8,10 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import starvationevasion.common.EnumFood;
-import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.models.Region;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -29,14 +27,10 @@ public class CropChart
    * @param region the region that we are making the pie chart for.
    * @return Returns a pie chart to add to the gui.
    */
-  public static PieChart makePieChart(Region region)
+  public static PieChart makeRegionFoodPieChart(Region region)
   {
- //   PieChart pieChart;
-//    pieChart = getPieChartData(region.getEnumRegion());
     HashMap<EnumFood, Double> data = region.getLastCropData();
-
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
-
 
     for(EnumFood food : EnumFood.values())
     {
@@ -52,6 +46,26 @@ public class CropChart
     return chart;
   }
 
+  public static PieChart makeHDIPieChart(Region region)
+  {
+    HashMap<EnumFood, Double> data = region.getLastCropData();
+
+    ArrayList<PieChart.Data> dataList = new ArrayList<>();
+
+    dataList.add(new PieChart.Data("Malnurished", 1-region.getLastHDI()));
+    dataList.add(new PieChart.Data("Nurished", region.getLastHDI()));
+
+    ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(dataList);
+    PieChart chart = new PieChart(pieChartData);
+
+    chart.setTitle("HDI");
+    chart.setLegendSide(Side.BOTTOM);
+    chart.setVisible(true);
+    return chart;
+  }
+
+
 
   public static PieChart makeWealthPieChart(Region[] region)
   {
@@ -63,7 +77,7 @@ public class CropChart
 
     for(Region regions : region)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getWealth()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastRevenue()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
@@ -86,7 +100,7 @@ public class CropChart
 
     for(Region regions : region)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getPopulation()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastPopulation()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
@@ -98,27 +112,6 @@ public class CropChart
     return chart;
   }
 
-//  public static PieChart makeHDIPieChart(Region[] region)
-//  {
-//    //   PieChart pieChart;
-////    pieChart = getPieChartData(region.getEnumRegion());
-//
-//    ArrayList<PieChart.Data> dataList = new ArrayList<>();
-//
-//
-//    for(Region regions : region)
-//    {
-//      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getPopulation()));
-//    }
-//    ObservableList<PieChart.Data> pieChartData =
-//        FXCollections.observableArrayList(dataList);
-//    PieChart chart = new PieChart(pieChartData);
-//
-//    chart.setTitle("Population");
-//    chart.setLegendSide(Side.BOTTOM);
-//    chart.setVisible(true);
-//    return chart;
-//  }
 
   /**
    * Makes a line chart of the data from our crops and regions, which spans the entire
@@ -128,7 +121,8 @@ public class CropChart
    * @param food the type of food we are graphinf
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChart(Region region, EnumFood food)
+  public static LineChart makeLineChartRegionSpecificFood(Region region,
+                                                          EnumFood food)
   {
     final NumberAxis xAxis = new NumberAxis(1980,2052,3);
     final NumberAxis yAxis = new NumberAxis();
@@ -152,6 +146,86 @@ public class CropChart
     {
         series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), stackData));
         iterateTurnNumber++;
+    }
+
+    series.setName("My portfolio");
+//    populating the series with data
+//    series.getData().add(new XYChart.Data(1987, 1));
+//    series.getData().add(new XYChart.Data(1982,2 ));
+
+    lineChart.getData().add(series);
+    return lineChart;
+  }
+
+
+
+  /**
+   * Makes a line chart of the population
+   *
+   * @param region the region that we want the population from
+   * @return a line chart for being displayed.
+   */
+  public static LineChart makeLineChartRegionPopulation(Region region)
+  {
+    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
+    final NumberAxis yAxis = new NumberAxis();
+    xAxis.setLabel("Year");
+    //creating the chart
+    LineChart<Number,Number> lineChart =
+        new LineChart<Number,Number>(xAxis,yAxis);
+
+
+    ArrayList<Integer> population = region.getPopulation();
+
+    ArrayList<XYChart.Series> dataList = new ArrayList<>();
+
+    XYChart.Series series = new XYChart.Series();
+
+
+    int iterateTurnNumber = 0;
+    for(Integer populations : population)
+    {
+      series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), populations));
+      iterateTurnNumber++;
+    }
+
+    series.setName("My portfolio");
+//    populating the series with data
+//    series.getData().add(new XYChart.Data(1987, 1));
+//    series.getData().add(new XYChart.Data(1982,2 ));
+
+    lineChart.getData().add(series);
+    return lineChart;
+  }
+
+  /**
+   * Makes a line chart of the population
+   *
+   * @param region the region that we want the population from
+   * @return a line chart for being displayed.
+   */
+  public static LineChart makeLineChartRegionRevenue(Region region)
+  {
+    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
+    final NumberAxis yAxis = new NumberAxis();
+    xAxis.setLabel("Year");
+    //creating the chart
+    LineChart<Number,Number> lineChart =
+        new LineChart<Number,Number>(xAxis,yAxis);
+
+
+    ArrayList<Integer> revenue = region.getRevenue();
+
+    ArrayList<XYChart.Series> dataList = new ArrayList<>();
+
+    XYChart.Series series = new XYChart.Series();
+
+
+    int iterateTurnNumber = 0;
+    for(Integer revenues : revenue)
+    {
+      series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), revenues));
+      iterateTurnNumber++;
     }
 
     series.setName("My portfolio");
