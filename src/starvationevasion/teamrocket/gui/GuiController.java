@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
@@ -662,12 +663,12 @@ public class GuiController
   @FXML
   public void makeBigger(MouseEvent event)
   {
-
+    Font font = new Font("Arial",12);
     Button card = (Button)event.getSource();
     if(card == card1)
     {
       String text = Main.gameController.getCardText(0);
-      System.out.println(text);
+      //System.out.println(text);
       card1text.setText(text);
 
 
@@ -684,9 +685,9 @@ public class GuiController
       double w = card1text.getWidth();
       double h = card1text.getHeight();
 
-      card1text.setTranslateX(-w / 16);
-      card1text.setTranslateY(-h / 16);
-      card1text.setPrefSize(w * 4, h * 4);
+      card1text.setTranslateX(-w);
+      card1text.setPrefSize(w * 3, h * 3);
+      card1text.setFont(font);
 
       card1.toFront();
       card1text.toFront();
@@ -709,9 +710,9 @@ public class GuiController
       double w = card2text.getWidth();
       double h = card2text.getHeight();
 
-      card2text.setTranslateX(-w / 16);
-      card2text.setTranslateY(-h / 16);
-      card2text.setPrefSize(w * 4, h * 4);
+      card2text.setTranslateX(-w);
+      card2text.setPrefSize(w * 3, h * 3);
+      card2text.setFont(font);
 
       card2.toFront();
       card2text.toFront();
@@ -736,9 +737,9 @@ public class GuiController
       double w = card3text.getWidth();
       double h = card3text.getHeight();
 
-      card3text.setTranslateX(-w / 16);
-      card3text.setTranslateY(-h / 16);
-      card3text.setPrefSize(w * 4, h * 4);
+      card3text.setTranslateX(-w);
+      card3text.setPrefSize(w * 3, h * 3);
+      card3text.setFont(font);
 
       card3.toFront();
       card3text.toFront();
@@ -760,9 +761,9 @@ public class GuiController
       double w = card4text.getWidth();
       double h = card4text.getHeight();
 
-      card4text.setTranslateX(-w / 16);
-      card4text.setTranslateY(-h / 16);
-      card4text.setPrefSize(w * 4, h * 4);
+      card4text.setTranslateX(-w);
+      card4text.setPrefSize(w * 3, h * 3);
+      card4text.setFont(font);
 
       card4.toFront();
       card4text.toFront();
@@ -784,9 +785,9 @@ public class GuiController
       double w = card5text.getWidth();
       double h = card5text.getHeight();
 
-      card5text.setTranslateX(-w / 16);
-      card5text.setTranslateY(-h / 16);
-      card5text.setPrefSize(w * 4, h * 4);
+      card5text.setTranslateX(-w);
+      card5text.setPrefSize(w * 3, h * 3);
+      card5text.setFont(font);
 
       card5.toFront();
       card5text.toFront();
@@ -805,14 +806,15 @@ public class GuiController
       card6Image.setFitWidth(width * 4);
       card6Image.setFitHeight(height * 4);
 
-      double w = card1text.getWidth();
-      double h = card1text.getHeight();
+      double w = card6text.getWidth();
+      double h = card6text.getHeight();
 
-      card1text.setTranslateX(-w / 16);
-      card1text.setTranslateY(-h / 16);
-      card1text.setPrefSize(w * 4, h * 4);
+      card6text.setTranslateX(-w);
+      card6text.setPrefSize(w * 3, h * 3);
+      card6text.setFont(font);
 
       card6.toFront();
+      card6text.toFront();
     }
     else if (card == card7)
     {
@@ -828,14 +830,15 @@ public class GuiController
       card7Image.setFitWidth(width * 4);
       card7Image.setFitHeight(height * 4);
 
-      double w = card1text.getWidth();
-      double h = card1text.getHeight();
+      double w = card7text.getWidth();
+      double h = card7text.getHeight();
 
-      card1text.setTranslateX(-w/16);
-      card1text.setTranslateY(-h/16);
-      card1text.setPrefSize(w*4,h*4);
+      card7text.setTranslateX(-w);
+      card7text.setPrefSize(w * 3, h * 3);
+      card7text.setFont(font);
 
       card7.toFront();
+      card7text.toFront();
     }
 
 
@@ -845,6 +848,7 @@ public class GuiController
   @FXML
   public void returnToNormal(MouseEvent event)
   {
+    Font font = new Font("Arial",4);
     Button card = (Button)event.getSource();
     if(card == card1)
     {
@@ -852,10 +856,16 @@ public class GuiController
       double height = card1Image.getFitHeight();
 
       card1Image.setTranslateX(0);
-      card1Image.setTranslateY(0);
 
       card1Image.setFitWidth(width / 4);
       card1Image.setFitHeight(height / 4);
+
+      double w = card1text.getWidth();
+      double h = card1text.getHeight();
+
+      card1text.setFont(font);
+      card1text.setTranslateX(0);
+      card1text.setPrefSize(w / 3, h / 3);
     }
     else if(card == card2)
     {
@@ -868,6 +878,13 @@ public class GuiController
 
       card2Image.setFitWidth(width / 4);
       card2Image.setFitHeight(height / 4);
+
+      double w = card2text.getWidth();
+      double h = card2text.getHeight();
+
+      card2text.setFont(font);
+      card2text.setTranslateX(0);
+      card2text.setPrefSize(w / 3, h / 3);
 
     }
     else if(card == card3)
@@ -882,6 +899,13 @@ public class GuiController
       card3Image.setFitWidth(width / 4);
       card3Image.setFitHeight(height / 4);
 
+      double w = card3text.getWidth();
+      double h = card3text.getHeight();
+
+      card3text.setFont(font);
+      card3text.setTranslateX(0);
+      card3text.setPrefSize(w / 3, h / 3);
+
     }
     else if(card == card4)
     {
@@ -894,6 +918,13 @@ public class GuiController
 
       card4Image.setFitWidth(width / 4);
       card4Image.setFitHeight(height / 4);
+
+      double w = card4text.getWidth();
+      double h = card4text.getHeight();
+
+      card4text.setFont(font);
+      card4text.setTranslateX(0);
+      card4text.setPrefSize(w / 3, h / 3);
 
     }
     else if(card == card5)
@@ -908,6 +939,13 @@ public class GuiController
       card5Image.setFitWidth(width / 4);
       card5Image.setFitHeight(height / 4);
 
+      double w = card5text.getWidth();
+      double h = card5text.getHeight();
+
+      card5text.setFont(font);
+      card5text.setTranslateX(0);
+      card5text.setPrefSize(w / 3, h / 3);
+
     }
     else if(card == card6)
     {
@@ -921,6 +959,13 @@ public class GuiController
       card6Image.setFitWidth(width / 4);
       card6Image.setFitHeight(height / 4);
 
+      double w = card6text.getWidth();
+      double h = card6text.getHeight();
+
+      card6text.setFont(font);
+      card6text.setTranslateX(0);
+      card6text.setPrefSize(w / 3, h / 3);
+
     }
     else if(card == card7)
     {
@@ -933,6 +978,13 @@ public class GuiController
 
       card7Image.setFitWidth(width / 4);
       card7Image.setFitHeight(height / 4);
+
+      double w = card7text.getWidth();
+      double h = card7text.getHeight();
+
+      card7text.setFont(font);
+      card7text.setTranslateX(0);
+      card7text.setPrefSize(w / 3, h / 3);
 
     }
 
