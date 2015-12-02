@@ -138,7 +138,7 @@ public class Main extends Application {
   {
     Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - x);
-    stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - y);
+    stage.setY(primaryScreenBounds.getMinY());
   }
   public Stage getCurrentStage()
   {
