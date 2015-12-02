@@ -8,16 +8,12 @@ import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
-import starvationevasion.teamrocket.AI.AI;
-import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.gui.GuiController;
-import starvationevasion.teamrocket.models.Card;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
 import starvationevasion.teamrocket.server.Stopwatch;
 
-import java.nio.channels.NoConnectionPendingException;
 import java.util.*;
 
 /**
@@ -37,10 +33,9 @@ public class GameController
   private String playerPassword;
   private String playerIP;
   private String playerPort;
-  PolicyCard card;
 
   private Stack<String> error_messages = new Stack<>();
-  private boolean successfullLogin = false;
+  private boolean successfulLogin = false;
   private Client client;
 
   GameController(Main main)
@@ -65,7 +60,7 @@ public class GameController
     this.player = new Player(region, null, this);
 
     PolicyCard card;
-    LinkedList<PolicyCard> hand = new LinkedList<PolicyCard>();
+    LinkedList<PolicyCard> hand = new LinkedList<>();
 
     for(int i = 0; i < 7; i++)
     {
@@ -396,12 +391,12 @@ public class GameController
     return error_messages.pop();
   }
 
-  public void setSuccessfullLogin(boolean successfullLogin) {
-    this.successfullLogin = successfullLogin;
+  public void setSuccessfulLogin(boolean successfulLogin) {
+    this.successfulLogin = successfulLogin;
   }
 
-  public boolean getSuccessfullLogin() {
-    return successfullLogin;
+  public boolean getSuccessfulLogin() {
+    return successfulLogin;
   }
 
   public boolean verifyIPAddress()

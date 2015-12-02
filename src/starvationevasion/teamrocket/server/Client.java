@@ -8,10 +8,7 @@ import starvationevasion.teamrocket.messages.ServerEvent;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.IllegalFormatException;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Sean Naegle
@@ -39,7 +36,7 @@ public class Client
     while (!openConnection(host, portNumber))
     {
     }
-    
+
     listener = new ClientListener();
     System.out.println("Client(): Starting listener = : " + listener);
     listener.start();
@@ -150,10 +147,10 @@ public class Client
 
   public static void main(String[] args)
   {
-    
+
     String host = null;
     int port = 0;
-   
+
     try
     {
       host = args[0];
@@ -177,8 +174,8 @@ public class Client
 
   public void printStoreInfo() {
   }
-  
-  
+
+
   class ClientListener extends Thread
   {
     public void run()
@@ -213,25 +210,25 @@ public class Client
       switch (loginResponse.responseType) {
         case ACCESS_DENIED:
           // TODO let game controller know that
-          gameController.setSuccessfullLogin(false);
+          gameController.setSuccessfulLogin(false);
           gameController.addErrorMessage("Access was denied for this server.");
           closeAll();
           break;
         case DUPLICATE:
-          gameController.setSuccessfullLogin(false);
+          gameController.setSuccessfulLogin(false);
           gameController.addErrorMessage("There is already a user with this username connected to this server. Did someone steal your identity?");
           closeAll();
           break;
         case ASSIGNED_REGION:
-          gameController.setSuccessfullLogin(true);
+          gameController.setSuccessfulLogin(true);
           break;
         case REJOIN:
-          gameController.setSuccessfullLogin(false);
+          gameController.setSuccessfulLogin(false);
           gameController.addErrorMessage("There was an error with your request. Please try to rejoin this server.");
           closeAll();
           break;
         case CHOOSE_REGION:
-          gameController.setSuccessfullLogin(true);
+          gameController.setSuccessfulLogin(true);
           break;
       }
     }
