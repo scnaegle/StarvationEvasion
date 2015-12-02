@@ -50,12 +50,12 @@ public class Player implements PlayerInterface
    *
    * @param enumRegion the region that the player controls all stats are determined by this.
    */
-  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller, LinkedList<PolicyCard> hand)
+  public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller)
   {
     this.ENUM_REGION = enumRegion;
     AI = ai;
     this.controller = controller;
-    this.hand = hand;
+    income = 10000000;
   }
 
   /**

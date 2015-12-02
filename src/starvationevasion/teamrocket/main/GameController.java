@@ -61,8 +61,17 @@ public class GameController
   public Player startNewGame(EnumRegion region)
   {
     destroyGame(); //Destroy old game if exists.
-    this.player = new Player(region, null, this, null);
+    this.player = new Player(region, null, this);
 
+    PolicyCard card;
+    LinkedList<PolicyCard> hand = new LinkedList<PolicyCard>();
+
+    for(int i = 0; i < 7; i++)
+    {
+      card = PolicyCard.create(player.ENUM_REGION,EnumPolicy.Clean_River_Incentive);
+      hand.add(card);
+    }
+    player.setHand(hand);
     MAIN.switchScenes(3);
     if (singlePlayer)
     {

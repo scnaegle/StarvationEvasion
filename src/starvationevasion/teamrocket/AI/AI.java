@@ -28,8 +28,8 @@ public class AI extends Player
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController,
             LinkedList<PolicyCard> handFromServer)
   {
-    super(controlledRegion,aiLevel, gameController, handFromServer);
-
+    super(controlledRegion,aiLevel, gameController);
+    setHand(handFromServer);
     generator = new Random();
 
     setup();
@@ -51,19 +51,39 @@ public class AI extends Player
   }
 
   /**
+   * AI has a 1 in 5 chance to discard
    * AI picks random choice from 0 to 3 cards to discard
+   * @return True if AI chooses to discard cards, False if it doesn't
    */
-  public void discardCards()
+  public boolean discardCards()
   {
     if(generator.nextInt(5) == 0)
     {
       setHand(AI.discardCards(generator.nextInt(3)+1,getHand(),generator));
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Sets the targets of cards that are going to be played
+   * if those cards need a target selected
+   * @param cards array of cards being played
+   */
+  private void setCardTargets(PolicyCard[] cards)
+  {
+    for(PolicyCard card : cards)
+    {
+
     }
   }
 
   @Override
-  public PolicyCard[] playSelectedCards() {
-    return AI.selectCards(getHand(),generator);
+  public PolicyCard[] playSelectedCards()
+  {
+    PolicyCard[] cards = AI.selectCards(getHand(),generator);
+    setCardTargets(cards);
+    return cards;
   }
 
   @Override
