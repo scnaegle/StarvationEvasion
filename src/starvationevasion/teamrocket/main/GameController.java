@@ -422,6 +422,11 @@ public class GameController
     return playerUsername;
   }
 
- // public void setDraftedCard()
+  public void showDefaultRegion()
+  {
+    gui.showMyRegion();
+  }
+
+  // public void setDraftedCard()
 
 }

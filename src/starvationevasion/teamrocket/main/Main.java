@@ -74,13 +74,13 @@ public class Main extends Application {
 //        System.out.println("window has been shown");
 ////        controller.handleWindowShownEvent();
 //        System.out.println("controller: " + controller);
-//        controller.showMyRegion();
+//        //controller.showMyRegion();
 //        System.out.println("done with event...");
 //      }
 //    });
 
     primaryStage.show();
-    if(primaryStage.isShowing()) System.out.println("window is showing");
+    //if(primaryStage.isShowing()) System.out.println("window is showing");
 
 
   }

@@ -57,7 +57,8 @@ public class GuiController
   @FXML
   private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
 
-  private Text card1text;
+  @FXML
+  private TextArea card1text, card2text,card3text,card4text,card5text,card6text,card7text,draft1text,draft2text,discardtext;
 
   private int cardsDrafted = 0;
 
@@ -661,12 +662,14 @@ public class GuiController
   @FXML
   public void makeBigger(MouseEvent event)
   {
-   // card1text.setText(Main.gameController.getCardText(1));
-
 
     Button card = (Button)event.getSource();
     if(card == card1)
     {
+      String text = Main.gameController.getCardText(0);
+      System.out.println(text);
+      card1text.setText(text);
+
 
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
@@ -677,12 +680,22 @@ public class GuiController
       card1Image.setFitWidth(width * 4);
       card1Image.setFitHeight(height * 4);
 
+
+      double w = card1text.getWidth();
+      double h = card1text.getHeight();
+
+      card1text.setTranslateX(-w / 16);
+      card1text.setTranslateY(-h / 16);
+      card1text.setPrefSize(w * 4, h * 4);
+
       card1.toFront();
-      String text = Main.gameController.getCardText(0);
-      System.out.println(text);
+      card1text.toFront();
+
     }
     else if(card == card2)
     {
+      String text = Main.gameController.getCardText(1);
+      card2text.setText(text);
 
       double width = card2Image.getFitWidth();
       double height = card2Image.getFitHeight();
@@ -693,10 +706,23 @@ public class GuiController
       card2Image.setFitWidth(width * 4);
       card2Image.setFitHeight(height * 4);
 
+      double w = card2text.getWidth();
+      double h = card2text.getHeight();
+
+      card2text.setTranslateX(-w / 16);
+      card2text.setTranslateY(-h / 16);
+      card2text.setPrefSize(w * 4, h * 4);
+
       card2.toFront();
+      card2text.toFront();
+
+
     }
     else if(card == card3)
     {
+
+      String text = Main.gameController.getCardText(2);
+      card3text.setText(text);
 
       double width = card3Image.getFitWidth();
       double height = card3Image.getFitHeight();
@@ -707,10 +733,20 @@ public class GuiController
       card3Image.setFitWidth(width * 4);
       card3Image.setFitHeight(height * 4);
 
+      double w = card3text.getWidth();
+      double h = card3text.getHeight();
+
+      card3text.setTranslateX(-w / 16);
+      card3text.setTranslateY(-h / 16);
+      card3text.setPrefSize(w * 4, h * 4);
+
       card3.toFront();
+      card3text.toFront();
     }
     else if(card == card4)
     {
+      String text = Main.gameController.getCardText(3);
+      card4text.setText(text);
 
       double width = card4Image.getFitWidth();
       double height = card4Image.getFitHeight();
@@ -721,10 +757,20 @@ public class GuiController
       card4Image.setFitWidth(width * 4);
       card4Image.setFitHeight(height * 4);
 
+      double w = card4text.getWidth();
+      double h = card4text.getHeight();
+
+      card4text.setTranslateX(-w / 16);
+      card4text.setTranslateY(-h / 16);
+      card4text.setPrefSize(w * 4, h * 4);
+
       card4.toFront();
+      card4text.toFront();
     }
     else if(card == card5)
     {
+      String text = Main.gameController.getCardText(4);
+      card5text.setText(text);
 
       double width = card5Image.getFitWidth();
       double height = card5Image.getFitHeight();
@@ -735,10 +781,20 @@ public class GuiController
       card5Image.setFitWidth(width * 4);
       card5Image.setFitHeight(height * 4);
 
+      double w = card5text.getWidth();
+      double h = card5text.getHeight();
+
+      card5text.setTranslateX(-w / 16);
+      card5text.setTranslateY(-h / 16);
+      card5text.setPrefSize(w * 4, h * 4);
+
       card5.toFront();
+      card5text.toFront();
     }
     else if(card == card6)
     {
+      String text = Main.gameController.getCardText(5);
+      card6text.setText(text);
 
       double width = card6Image.getFitWidth();
       double height = card6Image.getFitHeight();
@@ -749,10 +805,19 @@ public class GuiController
       card6Image.setFitWidth(width * 4);
       card6Image.setFitHeight(height * 4);
 
+      double w = card1text.getWidth();
+      double h = card1text.getHeight();
+
+      card1text.setTranslateX(-w / 16);
+      card1text.setTranslateY(-h / 16);
+      card1text.setPrefSize(w * 4, h * 4);
+
       card6.toFront();
     }
     else if (card == card7)
     {
+      String text = Main.gameController.getCardText(6);
+      card7text.setText(text);
 
       double width = card7Image.getFitWidth();
       double height = card7Image.getFitHeight();
@@ -762,6 +827,13 @@ public class GuiController
 
       card7Image.setFitWidth(width * 4);
       card7Image.setFitHeight(height * 4);
+
+      double w = card1text.getWidth();
+      double h = card1text.getHeight();
+
+      card1text.setTranslateX(-w/16);
+      card1text.setTranslateY(-h/16);
+      card1text.setPrefSize(w*4,h*4);
 
       card7.toFront();
     }
@@ -1071,31 +1143,31 @@ public class GuiController
     }
     else if(button == card1)
     {
-      tryDraftingCard(card1, card1Image, discard1);
+      tryDraftingCard(card1, card1text, discard1);
     }
     else if(button == card2)
     {
-      tryDraftingCard(card2, card2Image, discard2);
+      tryDraftingCard(card2, card2text, discard2);
     }
     else if(button == card3)
     {
-      tryDraftingCard(card3, card3Image, discard3);
+      tryDraftingCard(card3, card3text, discard3);
     }
     else if(button == card4)
     {
-      tryDraftingCard(card4, card4Image, discard4);
+      tryDraftingCard(card4, card4text, discard4);
     }
     else if(button == card5)
     {
-      tryDraftingCard(card5, card5Image, discard5);
+      tryDraftingCard(card5, card5text, discard5);
     }
     else if(button == card6)
     {
-      tryDraftingCard(card6, card6Image, discard6);
+      tryDraftingCard(card6, card6text, discard6);
     }
     else if(button == card7)
     {
-      tryDraftingCard(card7, card7Image, discard7);
+      tryDraftingCard(card7, card7text, discard7);
     }
     else if(button == caliCard1)
     {
@@ -1528,7 +1600,7 @@ public class GuiController
     }
   }
 
-  private void tryDraftingCard(Button card, ImageView cardImage,Label discard)
+  private void tryDraftingCard(Button card, TextArea text,Label discard)
   {
 //    if(legal)
 //    {
@@ -1538,7 +1610,7 @@ public class GuiController
       card.setDisable(true);
       discard.setDisable(true);
       discardDraft1.setVisible(true);
-      draft1Image = cardImage;
+      draft1text = text;
       draft1.setVisible(true);
     }
     else if (cardsDrafted == 2)
@@ -1546,7 +1618,7 @@ public class GuiController
       card.setDisable(true);
       discard.setDisable(true);
       discardDraft2.setVisible(true);
-      draft2Image = cardImage;
+      draft2text = text;
       draft2.setVisible(true);
     }
     else
