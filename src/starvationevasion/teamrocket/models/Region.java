@@ -33,11 +33,8 @@ public class Region
   private ArrayList<Integer> proteinEnergyMalnourished = new ArrayList<>();
   private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
   private ArrayList<Double> HDI = new ArrayList<>();
-  
-  private ArrayList<Integer> revenue = new ArrayList<>();
-      //revenue of the player and there country (a way of measuring score)
-  private ArrayList<Integer> population = new ArrayList<>();
-      // population of the people in the region (a way of measuring score)
+  private ArrayList<Integer> revenue = new ArrayList<>(); //revenue of the player and there country (a way of measuring score)
+  private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
 
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
@@ -55,7 +52,6 @@ public class Region
   {
     this.ENUM_REGION = enumRegion;
     deck = new Deck(this);
-
 
     for(EnumFood food : EnumFood.values())
     {
@@ -108,7 +104,6 @@ public class Region
   public void addCropValue(EnumFood food, double value)
   {
     cropValues.get(food).push(value);
-
   }
 
   public double getCropValue(EnumFood food)
@@ -126,10 +121,19 @@ public class Region
     return latestData;
   }
 
-  
+  public void addPopulation(int nextPopulation)
+  {
+    population.add(nextPopulation);
+  }
+
   public int getLastPopulation()
   {
     return population.lastIndexOf(population);
+  }
+
+  public void addRevenue(int nextRevenue)
+  {
+    revenue.add(nextRevenue);
   }
 
   public int getLastRevenue()
@@ -143,6 +147,17 @@ public class Region
     return new HashMap<>(cropValues);
   }
 
+  public void addProteinEnergyMalnourished(int nextMalNut)
+  {
+    proteinEnergyMalnourished.add(nextMalNut);
+  }
+
+
+  public void addMicronutrientMalnourished(int nextMalNut)
+  {
+    micronutrientMalnourished.add(nextMalNut);
+  }
+
   public ArrayList<Integer> getProteinEnergyMalnourished()
   {
     return proteinEnergyMalnourished;
@@ -151,6 +166,12 @@ public class Region
   public ArrayList<Integer> getMicronutrientMalnourished()
   {
     return micronutrientMalnourished;
+  }
+
+  //this Must be called after microNut and ProNutrient have been set.
+  public void addHDI()
+  {
+    HDI.add(((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished())) /(double) getLastPopulation());
   }
 
   public Double getLastHDI()
@@ -174,7 +195,6 @@ public class Region
   {
     return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);
   }
-
 
   public ArrayList<Integer> getPopulation()
   {

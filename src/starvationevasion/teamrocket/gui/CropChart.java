@@ -69,11 +69,7 @@ public class CropChart
 
   public static PieChart makeWealthPieChart(Region[] region)
   {
-    //   PieChart pieChart;
-//    pieChart = getPieChartData(region.getEnumRegion());
-
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
-
 
     for(Region regions : region)
     {
@@ -92,8 +88,6 @@ public class CropChart
 
   public static PieChart makePopulationPieChart(Region[] region)
   {
-    //   PieChart pieChart;
-//    pieChart = getPieChartData(region.getEnumRegion());
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
@@ -133,8 +127,6 @@ public class CropChart
 
     HashMap<EnumFood, Stack<Double>> data = region.getCropValues();
 
-//    ArrayList<Double> arrayListData = region.getCropValues(food);
-
     ArrayList<XYChart.Series> dataList = new ArrayList<>();
 
     XYChart.Series series = new XYChart.Series();
@@ -149,10 +141,6 @@ public class CropChart
     }
 
     series.setName("My portfolio");
-//    populating the series with data
-//    series.getData().add(new XYChart.Data(1987, 1));
-//    series.getData().add(new XYChart.Data(1982,2 ));
-
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -190,10 +178,6 @@ public class CropChart
     }
 
     series.setName("My portfolio");
-//    populating the series with data
-//    series.getData().add(new XYChart.Data(1987, 1));
-//    series.getData().add(new XYChart.Data(1982,2 ));
-
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -220,7 +204,6 @@ public class CropChart
 
     XYChart.Series series = new XYChart.Series();
 
-
     int iterateTurnNumber = 0;
     for(Integer revenues : revenue)
     {
@@ -229,10 +212,6 @@ public class CropChart
     }
 
     series.setName("My portfolio");
-//    populating the series with data
-//    series.getData().add(new XYChart.Data(1987, 1));
-//    series.getData().add(new XYChart.Data(1982,2 ));
-
     lineChart.getData().add(series);
     return lineChart;
   }
