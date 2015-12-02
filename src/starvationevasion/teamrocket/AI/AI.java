@@ -79,7 +79,7 @@ public class AI extends Player
   }
 
   @Override
-  public PolicyCard[] playSelectedCards()
+  public PolicyCard[] getDraftedCards()
   {
     PolicyCard[] cards = AI.selectCards(getHand(),generator);
     setCardTargets(cards);

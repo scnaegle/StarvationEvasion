@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.main;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.Util;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
@@ -70,7 +71,8 @@ public class GameController
 
     for(int i = 0; i < 7; i++)
     {
-      card = PolicyCard.create(player.ENUM_REGION,EnumPolicy.Clean_River_Incentive);
+      EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
+      card = PolicyCard.create(player.ENUM_REGION,policy);
       hand.add(card);
     }
     player.setHand(hand);
@@ -126,16 +128,6 @@ public class GameController
   }
 
   /**
-   * Returns the current hand of cards for the player.
-   *
-   * @return a Hand containing this client's hand.
-   */
-  public ArrayList<PolicyCard> getHand()
-  {
-    return null; //player.getRegion().getDeck().getHand();
-  }
-
-  /**
    * Get the card text of the card in the given position
    * of the player's hand
    * @param cardPosition position of card in hand
@@ -149,18 +141,21 @@ public class GameController
   /**
    * Handles the actions the player can do, play or discard cards, from
    * the GUI and update the Player class with this information
-   * @param cards array of card positions that is related to the action being down
+   * @param cardPositions array of card positions that is related to the action being down
    * @param playedCard True is the cards are being played, False if cards are being discarded
    */
-  public void playerAction(int[] cards, boolean playedCard)
+  public void playerAction(int[] cardPositions, boolean playedCard)
   {
     if(!playedCard)
-      for(int i = 0; i < cards.length; i++) player.discardCard(cards[i]);
+      for(int i = 0; i < cardPositions.length; i++)
+      {
+        player.discardCard(cardPositions[i]);
+      }
 
     else
     {
-      if(cards.length == 1) player.selectedCards(cards[0], -1);
-      else if(cards.length == 2) player.selectedCards(cards[0], cards[1]);
+      if(cardPositions.length == 1) player.selectedCards(cardPositions[0], -1);
+      else if(cardPositions.length == 2) player.selectedCards(cardPositions[0], cardPositions[1]);
       else player.selectedCards(-1,-1);
     }
   }
