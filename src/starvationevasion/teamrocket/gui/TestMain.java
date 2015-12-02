@@ -1,9 +1,6 @@
 package starvationevasion.teamrocket.gui;
 
-import com.sun.scenario.effect.Crop;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.chart.*;
@@ -18,7 +15,8 @@ public class TestMain extends Application {
     stage.setTitle("Imported Fruits");
     stage.setWidth(500);
     stage.setHeight(500);
-   PieChart chart = CropChart.makePieChart(new Region(EnumRegion.HEARTLAND));
+   PieChart chart = CropChart.makeRegionFoodPieChart(
+       new Region(EnumRegion.HEARTLAND));
 
     ((Group) scene.getRoot()).getChildren().add(chart);
     stage.setScene(scene);

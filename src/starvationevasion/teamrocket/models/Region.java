@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.models;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
@@ -29,9 +30,13 @@ public class Region
 
   private Player player;
 
-  private double wealth;
-      //wealth of the player and there country (a way of measuring score)
-  private double population;
+  private ArrayList<Integer> proteinEnergyMalnourished = new ArrayList<>();
+  private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
+  private ArrayList<Double> HDI = new ArrayList<>();
+  
+  private ArrayList<Integer> revenue = new ArrayList<>();
+      //revenue of the player and there country (a way of measuring score)
+  private ArrayList<Integer> population = new ArrayList<>();
       // population of the people in the region (a way of measuring score)
 
   /**
@@ -44,7 +49,7 @@ public class Region
    * Creates a new Region with defaults based upon an EnumRegion. This will
    * only be called at the start of the game.
    *
-   * @param enumRegion Deterines starting wealth and crops.
+   * @param enumRegion Deterines starting revenue and crops.
    */
   public Region(EnumRegion enumRegion)
   {
@@ -121,14 +126,15 @@ public class Region
     return latestData;
   }
 
-  public double getPopulation()
+  
+  public int getLastPopulation()
   {
-    return population;
+    return population.lastIndexOf(population);
   }
 
-  public double getWealth()
+  public int getLastRevenue()
   {
-    return wealth;
+    return revenue.lastIndexOf(revenue);
   }
 
 
@@ -137,15 +143,46 @@ public class Region
     return new HashMap<>(cropValues);
   }
 
-//  public ArrayList<Double> getCropValues(EnumFood food)
-//  {
-//    HashMap<EnumFood,Double> tempMap = getLastCropData();
-//    ArrayList<Double> arrayList = new ArrayList<>();
-//    for(Double value : tempMap.values())
-//    {
-//      arrayList.add(value);
-//    }
-//    return arrayList;
-//  }
+  public ArrayList<Integer> getProteinEnergyMalnourished()
+  {
+    return proteinEnergyMalnourished;
+  }
 
+  public ArrayList<Integer> getMicronutrientMalnourished()
+  {
+    return micronutrientMalnourished;
+  }
+
+  public Double getLastHDI()
+  {
+    return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
+        /(double) getLastPopulation();
+  }
+  
+  public ArrayList<Double> getHDI()
+  {
+    return HDI;
+  }
+  
+
+  public int getLastProteinEnergyMalnourished()
+  {
+    return proteinEnergyMalnourished.lastIndexOf(proteinEnergyMalnourished);
+  }
+  
+  public int getLastMicronutrientMalnourished()
+  {
+    return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);
+  }
+
+
+  public ArrayList<Integer> getPopulation()
+  {
+    return population;
+  }
+
+  public ArrayList<Integer> getRevenue()
+  {
+    return revenue;
+  }
 }

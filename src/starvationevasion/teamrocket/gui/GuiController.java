@@ -2428,7 +2428,7 @@ public class GuiController
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
 
-     // statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.CALIFORNIA)));
+     // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.CALIFORNIA)));
       statisticsPane.setCenter(testPieChart());
 
       System.out.println("Selected cali");
@@ -2438,7 +2438,7 @@ public class GuiController
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.HEARTLAND)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
     }
@@ -2447,7 +2447,7 @@ public class GuiController
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.MOUNTAIN)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
     }
@@ -2456,7 +2456,7 @@ public class GuiController
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
     }
@@ -2465,7 +2465,7 @@ public class GuiController
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
     }
@@ -2474,7 +2474,7 @@ public class GuiController
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.SOUTHEAST)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
 
@@ -2484,7 +2484,7 @@ public class GuiController
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makePieChart(Main.gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
     }
