@@ -389,7 +389,7 @@ public class GuiController implements javafx.fxml.Initializable
     if(event.getCode().equals(KeyCode.ENTER))
     {
       try{
-        Main.gameController.startNewGame(myRegion);
+        this.player = Main.gameController.startNewGame(myRegion);
       }
       catch (Exception e)
       {
@@ -1136,7 +1136,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(button == doneGameRoom)
     {
       try{
-        Main.gameController.startNewGame(myRegion);
+        this.player = Main.gameController.startNewGame(myRegion);
       }
       catch (Exception e)
       {
