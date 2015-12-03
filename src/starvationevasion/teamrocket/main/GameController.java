@@ -8,7 +8,6 @@ import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
-import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
@@ -29,7 +28,6 @@ public class GameController
   private Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  private GameClock stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
   private boolean joinMultiPlayer;
