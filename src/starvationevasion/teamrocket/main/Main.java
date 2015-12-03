@@ -68,7 +68,7 @@ public class Main extends Application {
 
     Group root = new Group();
 
-    Media video = new Media(OpeningScene.class.getResource("/images/Try5.mp4").toString());
+    Media video = new Media(Main.class.getResource("/images/Try5.mp4").toString());
     MediaPlayer videoPlayer = new MediaPlayer(video);
     MediaView viewer = new MediaView(videoPlayer);
 
