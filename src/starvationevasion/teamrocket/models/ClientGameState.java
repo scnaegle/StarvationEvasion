@@ -1,5 +1,6 @@
-package starvationevasion.teamrocket.server;
+package starvationevasion.teamrocket.models;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.server.Server;
 import starvationevasion.sim.CardDeck;
@@ -8,6 +9,7 @@ import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ChatHistory;
 import starvationevasion.teamrocket.models.PolicyVote;
 import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.server.Stopwatch;
 
 import java.io.Serializable;
 import java.util.IllegalFormatException;
@@ -30,6 +32,7 @@ public class ClientGameState implements Serializable
   public Stopwatch stopwatch; // Current timer of the stop
   public int currentYear; // Current year of game
   public int currentTurn; // Current turn count in the game
+  public EnumPolicy[] hand; // Current player's hand
   public Region[] regions; // All the region stats
   public Map<EnumRegion, CardDeck> regionDecks; // All player's cards
   public Map<EnumRegion, PolicyVote[]> policyVotes;
