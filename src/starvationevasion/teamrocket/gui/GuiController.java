@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.vis.visuals.EarthViewer;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -248,6 +250,17 @@ public class GuiController implements javafx.fxml.Initializable
   public GridPane cardPane;
 
 
+  @FXML
+  public GridPane visPane;
+
+  private void displayEarth()
+  {
+    EarthViewer earthViewer = new EarthViewer(200,800);
+    earthViewer.startRotate();
+    visPane.add(earthViewer.getMiniEarth(),1,1);
+  }
+
+
   private Player player;
 
 
@@ -299,8 +312,6 @@ public class GuiController implements javafx.fxml.Initializable
   private boolean hasText = false;
   /**************************/
 
-  @FXML
-  private GridPane visPane;
 
   @Override
   public void initialize(URL location, ResourceBundle resources)
@@ -602,7 +613,6 @@ public class GuiController implements javafx.fxml.Initializable
     }
   }
 
-
   private void disableCards()
   {
     caliCard1.setDisable(true);
@@ -648,6 +658,9 @@ public class GuiController implements javafx.fxml.Initializable
     h1rect.setVisible(false);
 
   }
+
+
+
 
   private boolean isVotable(Button card)
   {
@@ -968,8 +981,10 @@ public class GuiController implements javafx.fxml.Initializable
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      String portNum = Main.getGameController().checkPort(port.getCharacters().toString());
-      String IPAddress = Main.getGameController().checkAddress(ipAddress.getCharacters().toString());
+      String portNum = Main.getGameController().checkPort(
+          port.getCharacters().toString());
+      String IPAddress = Main.getGameController().checkAddress(
+          ipAddress.getCharacters().toString());
       if (portNum.equals("bad"))
       {
         portError.setVisible(true);
