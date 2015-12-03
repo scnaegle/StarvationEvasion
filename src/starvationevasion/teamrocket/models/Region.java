@@ -223,11 +223,19 @@ public class Region
     return totalRevenue.lastIndexOf(totalRevenue);
   }
 
+  /**
+   *
+   * @return
+   */
   public HashMap<EnumFood, Stack<Integer>> getCropValues()
   {
     return new HashMap<>(cropValues);
   }
 
+  /**
+   *
+   * @param nextMalNut
+   */
   public void addProteinEnergyMalnourished(int nextMalNut)
   {
     proteinEnergyMalnourished.add(nextMalNut);
@@ -242,49 +250,82 @@ public class Region
     micronutrientMalnourished.add(nextMalNut);
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Integer> getProteinEnergyMalnourished()
   {
     return proteinEnergyMalnourished;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Integer> getMicronutrientMalnourished()
   {
     return micronutrientMalnourished;
   }
 
-  //this Must be called after microNut and ProNutrient have been set.
+  /**
+   *
+   */
   public void addHDI()
   {
     HDI.add(((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished())) /(double) getLastPopulation());
   }
 
+  /**
+   *
+   * @return
+   */
   public Double getLastHDI()
   {
     return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
         /(double) getLastPopulation();
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Double> getHDI()
   {
     return HDI;
   }
 
-
+  /**
+   *
+   * @return
+   */
   public int getLastProteinEnergyMalnourished()
   {
     return proteinEnergyMalnourished.lastIndexOf(proteinEnergyMalnourished);
   }
 
+  /**
+   *
+   * @return
+   */
   public int getLastMicronutrientMalnourished()
   {
     return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Integer> getPopulation()
   {
     return population;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Integer> getTotalRevenue()
   {
     return totalRevenue;

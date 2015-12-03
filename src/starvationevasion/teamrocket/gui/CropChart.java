@@ -29,7 +29,7 @@ public class CropChart
    */
   public static PieChart makeRegionFoodPieChart(Region region)
   {
-    HashMap<EnumFood, Double> data = region.getLastCropProducedData();
+    HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
     for(EnumFood food : EnumFood.values())
@@ -68,7 +68,7 @@ public class CropChart
 
   public static PieChart makeHDIPieChart(Region region)
   {
-    HashMap<EnumFood, Double> data = region.getLastCropProducedData();
+    HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
@@ -145,7 +145,7 @@ public class CropChart
     LineChart<Number,Number> lineChart =
         new LineChart<Number,Number>(xAxis,yAxis);
 
-    HashMap<EnumFood, Stack<Double>> data = region.getCropValues();
+    HashMap<EnumFood, Stack<Integer>> data = region.getCropValues();
 
     ArrayList<XYChart.Series> dataList = new ArrayList<>();
 
