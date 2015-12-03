@@ -37,7 +37,7 @@
     <Rectangle id="c1rect" fx:id="m1rect" arcHeight="5.0" arcWidth="5.0" fill="$x5" height="169.0" layoutX="152.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
     <Rectangle id="c1rect" fx:id="c2rect" arcHeight="5.0" arcWidth="5.0" fill="$x5" height="169.0" layoutX="19.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
     <Rectangle fx:id="c1rect" arcHeight="5.0" arcWidth="5.0" fill="$x5" height="169.0" layoutX="19.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
-    <Label fx:id="voteTime" contentDisplay="CENTER" layoutX="64.0" layoutY="61.0" prefWidth="142.77740478515625" text="Time" textFill="#00cc21">
+    <Label id="voteTime" fx:id="time" contentDisplay="CENTER" layoutX="64.0" layoutY="61.0" prefWidth="142.77740478515625" text="Time" textFill="#00cc21">
       <font>
         <Font name="Avenir Next Demi Bold" size="40.0" />
       </font>

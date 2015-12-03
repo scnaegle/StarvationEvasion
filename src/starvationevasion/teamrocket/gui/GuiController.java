@@ -1466,7 +1466,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(draft2Image.getImage()==card7Image.getImage()){ draftedCards[1] = 7;}
 
 
-    Main.gameController.playerAction(draftedCards,true);
+    Main.getGameController().playerAction(draftedCards,true);
   }
 
   private boolean verifyLoginInput()
