@@ -231,6 +231,10 @@ public class GameController
    */
   public boolean tryLogin(String username, String password, String ipAddress, String networkPort)
   {
+    this.playerUsername = username;
+    this.playerPassword = password;
+    this.playerIP = ipAddress;
+    this.playerPort = networkPort;
 
     return true;
   }
