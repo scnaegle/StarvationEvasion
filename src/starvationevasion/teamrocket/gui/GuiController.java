@@ -62,9 +62,6 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
 
-  @FXML
-  private TextArea card1text, card2text,card3text,card4text,card5text,card6text,card7text,draft1text,draft2text,discardtext;
-
   private int cardsDrafted = 0;
 
   @FXML
@@ -73,6 +70,10 @@ public class GuiController implements javafx.fxml.Initializable
   private int disNum=0;
 
   /***************************************************************************************/
+  /*      VOTING PHASE VARIABLES      */
+
+  @FXML
+  private ImageView voteCard; //Large view of card being voted on
 
   @FXML
   private Button support, oppose, abstain;
@@ -166,7 +167,7 @@ public class GuiController implements javafx.fxml.Initializable
   private int suph1votes,opph1votes,absth1votes = 0;
   private int suph2votes,opph2votes,absth2votes = 0;
 
-
+/********************************************************************************/
 
   /* PRODUCE INFORMATION WINDOWS */
   @FXML
@@ -673,7 +674,7 @@ public class GuiController implements javafx.fxml.Initializable
   public void makeBigger(MouseEvent event)
   {
     //Button card = (Button)event.getSource();
-    if(event.getSource() == card1 || event.getSource() == card1text)
+    if (event.getSource() == card1)
     {
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
@@ -689,11 +690,8 @@ public class GuiController implements javafx.fxml.Initializable
 
 
     }
-    else if(event.getSource() == card2)
+    else if (event.getSource() == card2)
     {
-//      String text = Main.gameController.getCard(1);
-//      card2text.setText(text);
-
       double width = card2Image.getFitWidth();
       double height = card2Image.getFitHeight();
 
@@ -708,12 +706,8 @@ public class GuiController implements javafx.fxml.Initializable
 
 
     }
-    else if(event.getSource() == card3)
+    else if (event.getSource() == card3)
     {
-
-//      String text = Main.gameController.getCard(2);
-//      card3text.setText(text);
-
       double width = card3Image.getFitWidth();
       double height = card3Image.getFitHeight();
 
@@ -726,11 +720,8 @@ public class GuiController implements javafx.fxml.Initializable
 
       card3.toFront();
     }
-    else if(event.getSource() == card4)
+    else if (event.getSource() == card4)
     {
-//      String text = Main.gameController.getCard(3);
-//      card4text.setText(text);
-
       double width = card4Image.getFitWidth();
       double height = card4Image.getFitHeight();
 
@@ -742,10 +733,8 @@ public class GuiController implements javafx.fxml.Initializable
 
       card4.toFront();
     }
-    else if(event.getSource() == card5)
+    else if (event.getSource() == card5)
     {
-//      String text = Main.gameController.getCard(4);
-//      card5text.setText(text);
 
       double width = card5Image.getFitWidth();
       double height = card5Image.getFitHeight();
@@ -760,9 +749,6 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(event.getSource() == card6)
     {
-//      String text = Main.gameController.getCard(5);
-//      card6text.setText(text);
-
       double width = card6Image.getFitWidth();
       double height = card6Image.getFitHeight();
 
@@ -776,9 +762,6 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if (event.getSource() == card7)
     {
-//      String text = Main.gameController.getCard(6);
-//      card7text.setText(text);
-
       double width = card7Image.getFitWidth();
       double height = card7Image.getFitHeight();
 
@@ -788,20 +771,14 @@ public class GuiController implements javafx.fxml.Initializable
       card7Image.setFitWidth(width * 4);
       card7Image.setFitHeight(height * 4);
 
-
       card7.toFront();
 
     }
-
-
-
   }
 
   @FXML
   public void returnToNormal(MouseEvent event)
   {
-
-    //Button card = (Button)event.getSource();
     if(event.getSource() == card1)
     {
       double width = card1Image.getFitWidth();
@@ -913,19 +890,19 @@ public class GuiController implements javafx.fxml.Initializable
     if(gamePlay == singlePlayer)
     {
       singlePlayerMode = true;
+      //tell game control theres only one player
       Main.gameController.setSinglePlayerMode(true);
       multiPlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
-      //tell game control theres only one player
     }
     else if(gamePlay == multiPlayer)
     {
       newMultiPlayerMode = true;
+      //tell game control there's many players
       Main.gameController.setNewMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
-      //tell game control there's many players
-      //switch to login scene
+
     }
     else if(gamePlay == joinMultiPlayer)
     {
@@ -1064,6 +1041,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(button == doneWithCards)
     {
       //make sure card has been played, show error label if not
+      saveDraftedCards();
       try
       {
         Main.gameController.finishedCardDraft();
@@ -1471,6 +1449,30 @@ public class GuiController implements javafx.fxml.Initializable
     }
   }
 
+  private void saveDraftedCards()
+  {
+    int[] draftedCards = new int[2];
+
+    if(draft1Image.getImage()==card1Image.getImage()){ draftedCards[0] = 1;}
+    else if(draft1Image.getImage()==card2Image.getImage()){ draftedCards[0] = 2;}
+    else if(draft1Image.getImage()==card3Image.getImage()){ draftedCards[0] = 3;}
+    else if(draft1Image.getImage()==card4Image.getImage()){ draftedCards[0] = 4;}
+    else if(draft1Image.getImage()==card5Image.getImage()){ draftedCards[0] = 5;}
+    else if(draft1Image.getImage()==card6Image.getImage()){ draftedCards[0] = 6;}
+    else if(draft1Image.getImage()==card7Image.getImage()){ draftedCards[0] = 7;}
+
+    if(draft2Image.getImage()==card1Image.getImage()){ draftedCards[1] = 1;}
+    else if(draft2Image.getImage()==card2Image.getImage()){ draftedCards[1] = 2;}
+    else if(draft2Image.getImage()==card3Image.getImage()){ draftedCards[1] = 3;}
+    else if(draft2Image.getImage()==card4Image.getImage()){ draftedCards[1] = 4;}
+    else if(draft2Image.getImage()==card5Image.getImage()){ draftedCards[1] = 5;}
+    else if(draft2Image.getImage()==card6Image.getImage()){ draftedCards[1] = 6;}
+    else if(draft2Image.getImage()==card7Image.getImage()){ draftedCards[1] = 7;}
+
+
+    Main.gameController.playerAction(draftedCards,true);
+  }
+
   private boolean verifyLoginInput()
   {
     emptyFieldError.setVisible(false);
@@ -1518,49 +1520,42 @@ public class GuiController implements javafx.fxml.Initializable
       {
         card1.setVisible(true);
         discard1.setVisible(true);
-        card1text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card2.isVisible())
       {
         card2.setVisible(true);
         discard2.setVisible(true);
-        card2text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card3.isVisible())
       {
         card3.setVisible(true);
         discard3.setVisible(true);
-        card3text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card4.isVisible())
       {
         card4.setVisible(true);
         discard4.setVisible(true);
-        card4text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card5.isVisible())
       {
         card5.setVisible(true);
         discard5.setVisible(true);
-        card5text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card6.isVisible())
       {
         card6.setVisible(true);
         discard6.setVisible(true);
-        card6text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card7.isVisible())
       {
         card7.setVisible(true);
         discard7.setVisible(true);
-        card7text.setVisible(true);
         numCardsinHand++;
       }
     }
@@ -1589,6 +1584,8 @@ public class GuiController implements javafx.fxml.Initializable
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
+
+
     }
     else if (cardsDrafted == 2)
     {
