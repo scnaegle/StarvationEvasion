@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -18,23 +19,28 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.server.Stopwatch;
 
+import java.applet.Applet;
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
-public class GuiController
+public class GuiController implements javafx.fxml.Initializable
 {
   /* PRODUCE AND DRAWING A CARD BUTTONS */
   @FXML
@@ -247,6 +253,10 @@ public class GuiController
   @FXML
   private BorderPane statisticsPane;
 
+  @FXML
+  public GridPane cardPane;
+
+
   private Player player;
 
 
@@ -286,8 +296,17 @@ public class GuiController
 
   private CharSequence text;
   private boolean hasText = false;
-
   /**************************/
+
+  @FXML
+  private GridPane visPane;
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources)
+  {
+
+  }
+
 
   @FXML
   public void startTimer()
@@ -329,6 +348,8 @@ public class GuiController
     String playerPassword = password.getCharacters().toString();
     String playerIPAddress = ipAddress.getCharacters().toString();
     String playerNetworkPort = port.getCharacters().toString();
+
+    Main.gameController.gui = this;
 
     return Main.gameController.tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
   }
@@ -2659,6 +2680,7 @@ public class GuiController
     }
     else if (ImageRegion.SOUTHEAST.contains(x, y))
     {
+
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
@@ -2875,6 +2897,7 @@ public class GuiController
 
     System.out.println(x + "," + y + ",");
   }
+
 
 }
 

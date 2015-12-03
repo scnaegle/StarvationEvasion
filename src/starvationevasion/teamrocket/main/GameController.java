@@ -27,7 +27,7 @@ public class GameController
   private Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  private GuiController gui = new GuiController();
+  public GuiController gui;
   private Stopwatch stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
@@ -79,7 +79,9 @@ public class GameController
     player.setHand(hand);
     MAIN.switchScenes(3);
 
+
     gui.showMyRegion();
+
     gui.startTimer();
     if (singlePlayer)
     {

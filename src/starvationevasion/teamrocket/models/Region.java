@@ -36,7 +36,7 @@ public class Region
   private ArrayList<Integer> totalRevenue = new ArrayList<>(); //totalRevenue of the player and there country (a way of measuring score)
   private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
 
-  private HashMap<EnumFood, ArrayList<Integer>> cropRevenue;
+  private HashMap<EnumFood, ArrayList<Integer>> cropRevenue = new HashMap<>();
 
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
