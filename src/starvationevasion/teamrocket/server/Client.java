@@ -4,6 +4,7 @@ import starvationevasion.common.messages.*;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.messages.ServerEvent;
+import starvationevasion.teamrocket.models.ClientGameState;
 
 import java.io.*;
 import java.net.Socket;
@@ -192,21 +193,23 @@ public class Client
       if (msg instanceof Response) {
         handleResponse((Response) msg);
       }
-      if (msg instanceof LoginResponse) {
+      else if (msg instanceof LoginResponse) {
         handleLoginResponse((LoginResponse) msg);
       }
-      if (msg instanceof AvailableRegions) {
+      else if (msg instanceof AvailableRegions) {
         handleAvailableRegionsResponse((AvailableRegions) msg);
       }
-      if (msg instanceof ReadyToBegin) {
+      else if (msg instanceof ReadyToBegin) {
         handleReadyToBeginResponse((ReadyToBegin) msg);
       }
-      if (msg instanceof PhaseStart) {
+      else if (msg instanceof PhaseStart) {
         handlePhaseStartResponse((PhaseStart) msg);
       }
-//      if (msg instanceof )
-      if (msg instanceof GameState) {
-
+      else if (msg instanceof GameState) {
+        handleGameStateResponse((GameState) msg);
+      }
+      else if (msg instanceof ServerChatMessage) {
+        handleChatMessageResponse((ServerChatMessage) msg);
       } else {
         System.out.println("Unrecognized message from Server = " + msg);
       }
@@ -266,8 +269,13 @@ public class Client
 
     }
 
-    private void handleChatMessage(ClientChatMessage message) {
+    private void handleGameStateResponse(GameState gameState) {
 
     }
+
+    private void handleChatMessageResponse(ServerChatMessage message) {
+
+    }
+
   }
 }
