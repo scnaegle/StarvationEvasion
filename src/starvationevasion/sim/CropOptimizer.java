@@ -42,29 +42,25 @@ public class CropOptimizer
     tileYields = new ArrayList<TileYield>();
     cropYields = new double[EnumFood.SIZE];
 
-    int zeros = 0;
+    boolean isAllZero = true;
     for (EnumFood crop:EnumFood.values())
     {
       int index = crop.ordinal();
-      double yield = territory.getCropYield(Constant.FIRST_YEAR, crop);
-      if (Double.isFinite(yield)) cropYields[index] = yield;
-      else cropYields[index] = 0.;
-
-      if (cropYields[index] == 0.) zeros += 1;
-
-      /*if (agriculturalUnit.getName().equals("Brazil"))
-      {
-        System.out.println("Brazil yield for "+crop+" is "+yield);
-      }*/
+      double yield = territory.getCropYield(crop);
+      if (yield > 0.0000001)
+      { cropYields[index] = yield;
+        isAllZero = false;
+      }
+      else cropYields[index] = 0.0;
     }
 
     // The only time we see all zero crop yields is when the crop data is
     // incomplete in the configuration files. Log it and set a uniform
     // distribution.
     //
-    if (zeros == EnumFood.SIZE)
+    if (isAllZero)
     {
-      Logger.getGlobal().log(Level.SEVERE, "Territory {0} has nil crop yields.",  territory.getName());
+      Logger.getGlobal().log(Level.FINEST, "Territory {0} has nil crop yields.",  territory.getName());
     }
   }
   
@@ -90,7 +86,7 @@ public class CropOptimizer
     // figure out how many tiles needed for each crop
     for (EnumFood crop:EnumFood.values())
     {
-      double cropLand = territory.getCropLand(year, crop);
+      double cropLand = territory.getCropLand(crop);
       CropBin bin = new CropBin(crop, (int) cropLand/100);
       cropBins.add(bin);
     }
@@ -114,7 +110,7 @@ public class CropOptimizer
   { 
     EnumFood crop = bin.crop;
     int tilesToPlant = bin.tilesNeeded;
-    double production = 0;
+    int production = 0;
     Comparator reverseComparator = Collections.reverseOrder(new TileYieldComparator(crop)); 
     Collections.sort(tileYields, reverseComparator);                     // sort tiles by descending yield 
     while (tilesToPlant > 0 && tileYields.isEmpty() == false)            // for top n tiles, where n = tilesNeeded for crop
@@ -130,7 +126,7 @@ public class CropOptimizer
     // after getting all the tiles we need, set total production for year
     if (year !=Constant.FIRST_YEAR)
     {
-      territory.setCropProduction(year, crop, production);
+      territory.setCropProduction(crop, production);
     }
   }
   
