@@ -301,12 +301,6 @@ public class GuiController implements javafx.fxml.Initializable
 
   }
 
-  @FXML
-  public void getVisulizationWorld()
-  {
-    
-  }
-
 
   @FXML
   public void startTimer()
