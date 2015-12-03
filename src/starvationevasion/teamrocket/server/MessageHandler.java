@@ -6,7 +6,6 @@ import starvationevasion.common.messages.Login;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.common.messages.Response;
-import starvationevasion.teamrocket.server.Stopwatch;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,7 +39,7 @@ public class MessageHandler {
         case START_GAME:
           return (T) (String)message.getPayload();
         case TIMER:
-          return (T) (Stopwatch)message.getPayload();
+          return (T) (GameClock)message.getPayload();
         case SIM_STATS:
         case CARDS_CHOSEN:
           return (T) (ArrayList<PolicyCard>)message.getPayload();

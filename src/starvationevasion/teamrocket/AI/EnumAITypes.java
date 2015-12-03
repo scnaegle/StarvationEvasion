@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.PolicyCard;
 
 import java.util.LinkedList;
@@ -58,12 +59,13 @@ public enum EnumAITypes
         {
           for(PolicyCard card : hand)
           {
-            if(!(card.votesRequired() > 0))
+            if(!(card.votesRequired() > 0) && cardsSelected < selectXNumCards)
             {
               playedCards[cardsSelected] = card;
+              System.out.println(cardsSelected);
               cardsSelected++;
             }
-            else if(generator.nextInt(5) == 0)
+            else if(generator.nextInt(5) == 0 && selectXNumCards > 0 && cardsSelected < selectXNumCards)
             {
               playedCards[cardsSelected] = card;
               cardsSelected++;
@@ -74,6 +76,25 @@ public enum EnumAITypes
         }
 
         return playedCards;
+      }
+
+      @Override
+      public String[] setCardTargets(PolicyCard[] cards, Random generator)
+      {
+        String[] targets = new String[5];
+
+        for(PolicyCard card : cards)
+        {
+          if(card.getValidTargetFoods() != null)
+          {
+            EnumFood[] targetFoods = card.getValidTargetFoods();
+            targets[0] = targetFoods[generator.nextInt(targetFoods.length)].toString();
+            System.out.println(targets[0]);
+          }
+          if(card.getValidTargetRegions() != null);
+        }
+
+        return null;
       }
     },
 
@@ -107,6 +128,11 @@ public enum EnumAITypes
       public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
         return new PolicyCard[0];
       }
+
+      @Override
+      public String[] setCardTargets(PolicyCard[] cards, Random generator) {
+        return new String[0];
+      }
     },
 
   /**
@@ -133,6 +159,11 @@ public enum EnumAITypes
       @Override
       public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
         return new PolicyCard[0];
+      }
+
+      @Override
+      public String[] setCardTargets(PolicyCard[] cards, Random generator) {
+        return new String[0];
       }
     };
 
@@ -161,4 +192,11 @@ public enum EnumAITypes
    * @return card array of selected cards
    */
   public abstract  PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator);
+
+  /**
+   * If played cards need a target selected, AI will select
+   * what the targets are
+   * @param cards array of cards that are being played
+   */
+  public abstract String[] setCardTargets(PolicyCard[] cards, Random generator);
 }

@@ -1,13 +1,12 @@
-package starvationevasion.teamrocket.server;
+package starvationevasion.teamrocket.models;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.WorldData;
 import starvationevasion.server.Server;
-import starvationevasion.sim.CardDeck;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
-import starvationevasion.teamrocket.models.ChatHistory;
-import starvationevasion.teamrocket.models.PolicyVote;
-import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.server.GameClock;
 
 import java.io.Serializable;
 import java.util.IllegalFormatException;
@@ -27,11 +26,11 @@ public class ClientGameState implements Serializable
   public EnumGameState gameState;
   public EnumRegion myRegion;
   // The current state of the game as defined by the EnumGameState
-  public Stopwatch stopwatch; // Current timer of the stop
+  public GameClock stopwatch; // Current timer of the stop
   public int currentYear; // Current year of game
   public int currentTurn; // Current turn count in the game
-  public Region[] regions; // All the region stats
-  public Map<EnumRegion, CardDeck> regionDecks; // All player's cards
+  public EnumPolicy[] hand; // Current player's hand
+  public WorldData worldData; // all the word data
   public Map<EnumRegion, PolicyVote[]> policyVotes;
   // All players votes for each card
   public ChatHistory chatHistory; // Chat history
@@ -42,27 +41,26 @@ public class ClientGameState implements Serializable
     this.gameState = gameState;
   }
 
-  public ClientGameState(EnumGameState gameState, Stopwatch stopwatch,
-                         int current_year, int current_turn, Region[] regions,
-                         Map<EnumRegion, CardDeck> region_decks,
-                         ChatHistory chatHistory)
-  {
-    this(gameState, stopwatch, current_year, current_turn, regions,
-        region_decks, chatHistory, null);
+  public ClientGameState(EnumGameState gameState, EnumRegion region) {
+    this.gameState = gameState;
+    this.myRegion = region;
   }
 
-  public ClientGameState(EnumGameState gameState, Stopwatch stopwatch,
-                         int currentYear, int currentTurn, Region[] regions,
-                         Map<EnumRegion, CardDeck> regionDecks,
-                         ChatHistory chatHistory,
-                         Map<EnumRegion, PolicyVote[]> policyVotes)
+  public ClientGameState(EnumGameState gameState, GameClock stopwatch,
+                         int current_year, int current_turn, ChatHistory chatHistory)
+
+  {
+    this(gameState, stopwatch, current_year, current_turn, chatHistory, null);
+  }
+
+  public ClientGameState(EnumGameState gameState, GameClock stopwatch, int currentYear, int currentTurn,
+                         ChatHistory chatHistory, Map<EnumRegion, PolicyVote[]> policyVotes)
+
   {
     this.gameState = gameState;
     this.stopwatch = stopwatch;
     this.currentYear = currentYear;
     this.currentTurn = currentTurn;
-    this.regions = regions;
-    this.regionDecks = regionDecks;
     this.chatHistory = chatHistory;
     this.policyVotes = policyVotes;
   }
@@ -104,7 +102,7 @@ public class ClientGameState implements Serializable
    *
    * @return the time that has elapsed
    */
-  public Stopwatch getStopwatch()
+  public GameClock getStopwatch()
   {
     return stopwatch;
   }
@@ -130,16 +128,6 @@ public class ClientGameState implements Serializable
   }
 
   /**
-   * All of the regions of all the players
-   *
-   * @return the regions of all the players
-   */
-  public Region[] getRegions()
-  {
-    return regions;
-  }
-
-  /**
    * Gets the chat history
    *
    * @return the chat history that people have used
@@ -147,16 +135,6 @@ public class ClientGameState implements Serializable
   public ChatHistory getChatHistory()
   {
     return chatHistory;
-  }
-
-  /**
-   * getting the region decks that way we can see the discard piles
-   *
-   * @return the regions decks for viewing the discard piles
-   */
-  public Map<EnumRegion, CardDeck> getRegionDecks()
-  {
-    return regionDecks;
   }
 
   /**
