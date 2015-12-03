@@ -41,7 +41,7 @@ public class Region
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
    */
-  private HashMap<EnumFood, Stack<Double>>  cropValues = new HashMap<>();
+  private HashMap<EnumFood, Stack<Integer>>  cropValues = new HashMap<>();
 
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will
@@ -57,7 +57,7 @@ public class Region
     for(EnumFood food : EnumFood.values())
     {
       cropRevenue.put(food, new ArrayList<Integer>());
-      cropValues.put(food, new Stack<Double>());
+      cropValues.put(food, new Stack<Integer>());
     }
     // This is where a regions starting crops are determined.
     // This might be replaced with something from the simulator or possibly
@@ -103,12 +103,23 @@ public class Region
 
   }*/
 
+  /**
+   * adds the amount of revenue for a specfic crop
+   *
+   * @param food the type of food revenue
+   * @param value the value that the food is being used for
+   */
   public void addCropRevenue(EnumFood food, int value)
   {
     cropRevenue.get(food).add(value);
   }
 
 
+  /**
+   * gets a hashmap of the revenue for all of thelast crops.
+   *
+   * @return the the revenue for the last crops
+   */
   public HashMap<EnumFood, Integer> getLastCropRevenue()
   {
     HashMap<EnumFood, Integer> latestData = new HashMap<>();
@@ -119,26 +130,49 @@ public class Region
     return latestData;
   }
 
+  /**
+   * gets the crop revenue for all the turns
+   *
+   * @param food the type of food that we want
+   * @return An arraylist of the food
+   */
   public ArrayList<Integer> getCropRevenue(EnumFood food)
   {
     return cropRevenue.get(food);
   }
 
 
-
-  public void addCropValue(EnumFood food, double value)
+  /**
+   * A value of how much of a crop is being produced
+   *
+   * @param food The type of food of food we want produced
+   * @param value The amount of food that we want produced
+   */
+  public void addCropValue(EnumFood food, int value)
   {
     cropValues.get(food).push(value);
   }
 
-  public double getCropValue(EnumFood food)
+  /**
+   * the amount of food a crop is producing
+   *
+   * @param food the type of food
+   * @return the amount produced
+   */
+  public int getCropProduced(EnumFood food)
   {
     return cropValues.get(food).peek();
   }
 
-  public HashMap<EnumFood, Double> getLastCropData()
+  /**
+   *  produces a hashmap of how much food was produced for every food on the
+   *  last turn
+   *
+   *  @return a hashmap of all of the crops produced
+   */
+  public HashMap<EnumFood, Integer> getLastCropProducedData()
   {
-    HashMap<EnumFood, Double> latestData = new HashMap<>();
+    HashMap<EnumFood, Integer> latestData = new HashMap<>();
     for(EnumFood food : EnumFood.values())
     {
       latestData.put(food, cropValues.get(food).peek());
@@ -146,17 +180,29 @@ public class Region
     return latestData;
   }
 
+  /**
+   * adds a measure of the popualtion for a turn.
+   * @param nextPopulation
+   */
   public void addPopulation(int nextPopulation)
   {
     population.add(nextPopulation);
   }
 
+  /**
+   * get the population for the last turn.
+   *
+   * @return
+   */
   public int getLastPopulation()
   {
     return population.lastIndexOf(population);
   }
 
-  public void addRevenue(int nextRevenue)
+  /**
+   * adds to the total revenue by taking from all of the induvigual revenues
+   */
+  public void addTotalRevenue()
   {
     HashMap<EnumFood, Integer> temp = getLastCropRevenue();
     int total=0;
@@ -167,12 +213,17 @@ public class Region
     totalRevenue.add(total);
   }
 
+  /**
+   * gets total revenue for last turn
+   *
+   * @return
+   */
   public int getLastTotalRevenue()
   {
     return totalRevenue.lastIndexOf(totalRevenue);
   }
 
-  public HashMap<EnumFood, Stack<Double>> getCropValues()
+  public HashMap<EnumFood, Stack<Integer>> getCropValues()
   {
     return new HashMap<>(cropValues);
   }
@@ -182,7 +233,10 @@ public class Region
     proteinEnergyMalnourished.add(nextMalNut);
   }
 
-
+  /**
+   *
+   * @param nextMalNut 
+   */
   public void addMicronutrientMalnourished(int nextMalNut)
   {
     micronutrientMalnourished.add(nextMalNut);
