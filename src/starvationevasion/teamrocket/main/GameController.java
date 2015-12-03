@@ -4,11 +4,15 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.Util;
+import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.GameState;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.gui.GuiController;
+import starvationevasion.teamrocket.messages.EnumGameState;
+import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
@@ -24,7 +28,7 @@ public class GameController
   private Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  private GuiController gui;
+  public GuiController gui;
   private Stopwatch stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
@@ -39,6 +43,9 @@ public class GameController
   private Stack<String> error_messages = new Stack<>();
   private boolean successfulLogin = false;
   private Client client;
+
+  public ClientGameState gameState;
+  private AvailableRegions availableRegions;
 
   GameController(Main main)
   {
@@ -72,6 +79,12 @@ public class GameController
     }
     player.setHand(hand);
     MAIN.switchScenes(3);
+
+    this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
+
+    gui.showMyRegion();
+
+    gui.startTimer();
     if (singlePlayer)
     {
       Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
@@ -81,17 +94,19 @@ public class GameController
               "/password_file.tmpl");
 
     }
-    if (newMultiPlayer)
+    else if (newMultiPlayer)
     {
 
     }
-    if (joinMultiPlayer)
+    else if (joinMultiPlayer)
     {
       Client client = new Client(playerIP, Integer.parseInt(playerPort), this);
     }
 
     return this.player;
   }
+
+
   private void initializeGame(String gameType, String ip, int port)
   {
   }
@@ -199,6 +214,14 @@ public class GameController
   public EnumRegion getMyRegion()
   {
     return player.ENUM_REGION;
+  }
+
+  public void setAvailableRegions(AvailableRegions availableRegions) {
+    this.availableRegions = availableRegions;
+  }
+
+  public AvailableRegions getAvailableRegions() {
+    return availableRegions;
   }
 
   /**
@@ -423,4 +446,8 @@ public class GameController
 
   // public void setDraftedCard()
 
+  public void initVisualizer()
+  {
+
+  }
 }

@@ -36,7 +36,7 @@ public class Region
   private ArrayList<Integer> totalRevenue = new ArrayList<>(); //totalRevenue of the player and there country (a way of measuring score)
   private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
 
-  private HashMap<EnumFood, ArrayList<Integer>> cropRevenue;
+  private HashMap<EnumFood, ArrayList<Integer>> cropRevenue = new HashMap<>();
 
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
@@ -263,18 +263,18 @@ public class Region
     return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
         /(double) getLastPopulation();
   }
-  
+
   public ArrayList<Double> getHDI()
   {
     return HDI;
   }
-  
+
 
   public int getLastProteinEnergyMalnourished()
   {
     return proteinEnergyMalnourished.lastIndexOf(proteinEnergyMalnourished);
   }
-  
+
   public int getLastMicronutrientMalnourished()
   {
     return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);

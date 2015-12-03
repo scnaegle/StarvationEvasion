@@ -35,7 +35,6 @@ public class Main extends Application {
   Scene gameRoomScene;
   Scene chatScene;
 
-  GuiController controller = new GuiController();
 
 
   @Override
@@ -62,6 +61,8 @@ public class Main extends Application {
     votingScene = new Scene(voting);
     gameRoomScene = new Scene(gameRoom);
     chatScene = new Scene(chat);
+
+
 
     primaryStage.setTitle("Starvation Evasion");
     primaryStage.setScene(welcomeScene);
@@ -99,7 +100,7 @@ public class Main extends Application {
     else if (scene == 3)
     {
       primaryStage.setScene(cardDraftScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
+
 //      primaryStage.fireEvent(new WindowEvent(regionScene.getWindow(), WindowEvent.WINDOW_SHOWN));
 //      controller.showMyRegion();
 
@@ -107,12 +108,12 @@ public class Main extends Application {
     else if (scene == 4)
     {
       primaryStage.setScene(votingScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
+
     }
     else if (scene == 5)
     {
       primaryStage.setScene(loginScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
+
     }
     else if (scene == 6)
     {
@@ -146,6 +147,9 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-        launch(args);
+
+    launch(args);
+
+    System.out.println("hiiiiii");
     }
 }
