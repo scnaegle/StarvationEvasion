@@ -90,29 +90,30 @@ public class Main extends Application
 
     Group root = new Group();
 
-    Media video = new Media(Main.class.getResource("/images/animation.mp4").toString());
-    MediaPlayer videoPlayer = new MediaPlayer(video);
-    MediaView viewer = new MediaView(videoPlayer);
+//    Media video = new Media(Main.class.getResource("/images/animation.mp4").toString());
+//    MediaPlayer videoPlayer = new MediaPlayer(video);
+//    MediaView viewer = new MediaView(videoPlayer);
+//
+//    primaryStage.setTitle("Starvation Evasion");
+//
+//    root.getChildren().add(viewer);
+//    Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
+//    primaryStage.setScene(startAnimation);
+//    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
+//    {
+//      @Override
+//      public void handle(KeyEvent key)
+//      {
+//        if(key.getCode() == KeyCode.SPACE)
+//        {
+//          switchScenes(1);
+//        }
+//      }
+//    });
+//    primaryStage.show();
+//    videoPlayer.play();
 
-    primaryStage.setTitle("Starvation Evasion");
-
-    root.getChildren().add(viewer);
-    Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
-    primaryStage.setScene(startAnimation);
-    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
-    {
-      @Override
-      public void handle(KeyEvent key)
-      {
-        if(key.getCode() == KeyCode.SPACE)
-        {
-          switchScenes(1);
-        }
-      }
-    });
-    primaryStage.show();
-    videoPlayer.play();
-
+    primaryStage.setScene(cardDraftScene);
     primaryStage.show();
   }
 
