@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.GameState;
 import starvationevasion.common.messages.Login;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.common.messages.RegionChoice;
