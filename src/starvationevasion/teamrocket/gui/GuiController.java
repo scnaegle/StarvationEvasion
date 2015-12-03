@@ -301,6 +301,12 @@ public class GuiController implements javafx.fxml.Initializable
 
   }
 
+  @FXML
+  public void getVisulizationWorld()
+  {
+    
+  }
+
 
   @FXML
   public void startTimer()
@@ -331,7 +337,6 @@ public class GuiController implements javafx.fxml.Initializable
     user1Region.setText("" + myRegion);
     user1Region.setVisible(true);
   }
-
 
   /**
    * Passes login information to GameController.
