@@ -4,6 +4,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.WorldData;
 import starvationevasion.server.Server;
+import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.server.GameClock;
@@ -23,6 +24,7 @@ import java.util.Map;
  */
 public class ClientGameState implements Serializable
 {
+  public ServerState serverState;
   public EnumGameState gameState;
   public EnumRegion myRegion;
   // The current state of the game as defined by the EnumGameState
@@ -84,6 +86,35 @@ public class ClientGameState implements Serializable
     if (gameType.equals("joinMultiPlayer"))
     {
 //        Client client = new Client(ip, port);
+    }
+  }
+
+  public void setGameState(ServerState serverState) {
+    this.serverState = serverState;
+    switch(serverState) {
+      case LOGIN:
+        this.gameState = EnumGameState.GAME_ROOM;
+        break;
+      case BEGINNING:
+        this.gameState = EnumGameState.BEGINNING;
+        break;
+      case DRAWING:
+        break;
+      case DRAFTING:
+        this.gameState = EnumGameState.DRAFTING;
+        break;
+      case VOTING:
+        this.gameState = EnumGameState.VOTING;
+        break;
+      case WIN:
+        this.gameState = EnumGameState.END;
+        break;
+      case LOSE:
+        this.gameState = EnumGameState.END;
+        break;
+      case END:
+        this.gameState = EnumGameState.END;
+        break;
     }
   }
 
