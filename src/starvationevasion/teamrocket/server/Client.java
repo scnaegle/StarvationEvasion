@@ -269,7 +269,7 @@ public class Client
     }
 
     private void handlePhaseStartResponse(PhaseStart phaseStart) {
-      Main.GAME_CLOCK.setTimeLeft(phaseStart.phaseEndTime);
+      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime)*1000);
       gameController.gameState.setGameState(phaseStart.currentGameState);
     }
 
