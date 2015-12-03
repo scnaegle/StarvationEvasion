@@ -550,7 +550,7 @@
                 <Font name="System Bold" size="15.0" />
               </font>
             </Label>
-            <TextArea fx:id="card1text" editable="false" layoutX="31.0" layoutY="36.0" prefHeight="47.80999755859375" prefWidth="64.0" text="" wrapText="true" />
+            <TextArea fx:id="card1text" editable="false" layoutX="31.0" layoutY="36.0" onMouseEntered="#mouseOnCardText" prefHeight="47.80999755859375" prefWidth="64.0" text="" wrapText="true" />
             <TextArea id="card1text" fx:id="card2text" editable="false" layoutX="31.0" layoutY="121.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
             <TextArea id="card1text" fx:id="card3text" editable="false" layoutX="113.0" layoutY="81.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
             <TextArea id="card1text" fx:id="card4text" editable="false" layoutX="194.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />

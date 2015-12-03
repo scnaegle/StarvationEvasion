@@ -670,7 +670,14 @@ public class GuiController implements javafx.fxml.Initializable
     else return false;
   }
 
-
+  @FXML
+  public void mouseOnCardText(MouseEvent event)
+  {
+    if(event.getSource() == card1text)
+    {
+      makeBigger(event);
+    }
+  }
   @FXML
   public void makeBigger(MouseEvent event)
   {
