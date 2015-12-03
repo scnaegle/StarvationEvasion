@@ -3,8 +3,13 @@ package starvationevasion.teamrocket.main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.teamrocket.gui.GuiController;
@@ -61,8 +66,21 @@ public class Main extends Application {
 
 
 
+    Group root = new Group();
+
+    Media video = new Media(OpeningScene.class.getResource("/images/Try5.mp4").toString());
+    MediaPlayer videoPlayer = new MediaPlayer(video);
+    MediaView viewer = new MediaView(videoPlayer);
+
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(welcomeScene);
+    
+    root.getChildren().add(viewer);
+    Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
+    primaryStage.setScene(startAnimation);
+    primaryStage.show();
+    videoPlayer.play();
+
+
 
 //    primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
 //    {
