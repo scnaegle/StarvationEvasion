@@ -208,8 +208,6 @@
               </font>
             </Label>
             <Label fx:id="discardDraft2" font="$x4" layoutX="230.0" layoutY="6.0" onMouseClicked="#discard" text="X" visible="false" />
-            <TextArea id="card1text" fx:id="draft1text" editable="false" layoutX="50.0" layoutY="31.0" prefHeight="47.80999755859375" prefWidth="64.0" visible="false" wrapText="true" />
-            <TextArea id="card1text" fx:id="draft2text" editable="false" layoutX="158.0" layoutY="31.0" prefHeight="47.80999755859375" prefWidth="64.0" visible="false" wrapText="true" />
           </children>
         </Pane>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a80079" height="268.0" layoutX="681.0" layoutY="373.0" opacity="0.29" stroke="WHITE" strokeType="INSIDE" width="291.0" />
@@ -479,7 +477,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card6Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/foodrelief.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -488,7 +486,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card7Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/foreignaid.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -497,7 +495,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card5Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/feedsubsidy.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -506,7 +504,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card4Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/educatewomen.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -515,7 +513,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card2Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/ethanoltax.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -524,7 +522,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/cleanriver.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -533,7 +531,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card3Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/coverintel.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -550,14 +548,6 @@
                 <Font name="System Bold" size="15.0" />
               </font>
             </Label>
-            <TextArea fx:id="card1text" editable="false" layoutX="31.0" layoutY="36.0" onMouseEntered="#mouseOnCardText" prefHeight="47.80999755859375" prefWidth="64.0" text="" wrapText="true" />
-            <TextArea id="card1text" fx:id="card2text" editable="false" layoutX="31.0" layoutY="121.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card3text" editable="false" layoutX="113.0" layoutY="81.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card4text" editable="false" layoutX="194.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card5text" editable="false" layoutX="274.0" layoutY="82.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card6text" editable="false" layoutX="367.0" layoutY="36.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="card7text" editable="false" layoutX="366.0" layoutY="119.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
-            <TextArea id="card1text" fx:id="discardtext" editable="false" layoutX="-95.0" layoutY="119.0" prefHeight="47.80999755859375" prefWidth="64.0" wrapText="true" />
           </children>
         </Pane>
         <Pane fx:id="appleWindow" layoutX="0.0" layoutY="0.0" prefHeight="760.0" prefWidth="1024.0" visible="false">

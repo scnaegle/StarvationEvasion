@@ -671,22 +671,11 @@ public class GuiController implements javafx.fxml.Initializable
   }
 
   @FXML
-  public void mouseOnCardText(MouseEvent event)
-  {
-    if(event.getSource() == card1text)
-    {
-      makeBigger(event);
-    }
-  }
-  @FXML
   public void makeBigger(MouseEvent event)
   {
-    Font font = new Font("Arial",11);
-    Button card = (Button)event.getSource();
-    if(card == card1)
+    //Button card = (Button)event.getSource();
+    if(event.getSource() == card1 || event.getSource() == card1text)
     {
-
-      //card1text.setText(Main.gameController.getCardText(0));
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
 
@@ -697,18 +686,11 @@ public class GuiController implements javafx.fxml.Initializable
       card1Image.setFitHeight(height * 4);
 
 
-      double w = card1text.getWidth();
-      double h = card1text.getHeight();
-
-      card1text.setTranslateX(-w);
-      card1text.setPrefSize(w * 3, h * 3);
-      card1text.setFont(font);
-
       card1.toFront();
-      card1text.toFront();
+
 
     }
-    else if(card == card2)
+    else if(event.getSource() == card2)
     {
 //      String text = Main.gameController.getCardText(1);
 //      card2text.setText(text);
@@ -722,19 +704,12 @@ public class GuiController implements javafx.fxml.Initializable
       card2Image.setFitWidth(width * 4);
       card2Image.setFitHeight(height * 4);
 
-      double w = card2text.getWidth();
-      double h = card2text.getHeight();
-
-      card2text.setTranslateX(-w);
-      card2text.setPrefSize(w * 3, h * 3);
-      card2text.setFont(font);
 
       card2.toFront();
-      card2text.toFront();
 
 
     }
-    else if(card == card3)
+    else if(event.getSource() == card3)
     {
 
 //      String text = Main.gameController.getCardText(2);
@@ -749,17 +724,10 @@ public class GuiController implements javafx.fxml.Initializable
       card3Image.setFitWidth(width * 4);
       card3Image.setFitHeight(height * 4);
 
-      double w = card3text.getWidth();
-      double h = card3text.getHeight();
-
-      card3text.setTranslateX(-w);
-      card3text.setPrefSize(w * 3, h * 3);
-      card3text.setFont(font);
 
       card3.toFront();
-      card3text.toFront();
     }
-    else if(card == card4)
+    else if(event.getSource() == card4)
     {
 //      String text = Main.gameController.getCardText(3);
 //      card4text.setText(text);
@@ -773,17 +741,9 @@ public class GuiController implements javafx.fxml.Initializable
       card4Image.setFitWidth(width * 4);
       card4Image.setFitHeight(height * 4);
 
-      double w = card4text.getWidth();
-      double h = card4text.getHeight();
-
-      card4text.setTranslateX(-w);
-      card4text.setPrefSize(w * 3, h * 3);
-      card4text.setFont(font);
-
       card4.toFront();
-      card4text.toFront();
     }
-    else if(card == card5)
+    else if(event.getSource() == card5)
     {
 //      String text = Main.gameController.getCardText(4);
 //      card5text.setText(text);
@@ -797,17 +757,9 @@ public class GuiController implements javafx.fxml.Initializable
       card5Image.setFitWidth(width * 4);
       card5Image.setFitHeight(height * 4);
 
-      double w = card5text.getWidth();
-      double h = card5text.getHeight();
-
-      card5text.setTranslateX(-w);
-      card5text.setPrefSize(w * 3, h * 3);
-      card5text.setFont(font);
-
       card5.toFront();
-      card5text.toFront();
     }
-    else if(card == card6)
+    else if(event.getSource() == card6)
     {
 //      String text = Main.gameController.getCardText(5);
 //      card6text.setText(text);
@@ -821,17 +773,9 @@ public class GuiController implements javafx.fxml.Initializable
       card6Image.setFitWidth(width * 4);
       card6Image.setFitHeight(height * 4);
 
-      double w = card6text.getWidth();
-      double h = card6text.getHeight();
-
-      card6text.setTranslateX(-w);
-      card6text.setPrefSize(w * 3, h * 3);
-      card6text.setFont(font);
-
       card6.toFront();
-      card6text.toFront();
     }
-    else if (card == card7)
+    else if (event.getSource() == card7)
     {
 //      String text = Main.gameController.getCardText(6);
 //      card7text.setText(text);
@@ -845,15 +789,9 @@ public class GuiController implements javafx.fxml.Initializable
       card7Image.setFitWidth(width * 4);
       card7Image.setFitHeight(height * 4);
 
-      double w = card7text.getWidth();
-      double h = card7text.getHeight();
-
-      card7text.setTranslateX(-w);
-      card7text.setPrefSize(w * 3, h * 3);
-      card7text.setFont(font);
 
       card7.toFront();
-      card7text.toFront();
+
     }
 
 
@@ -863,9 +801,9 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public void returnToNormal(MouseEvent event)
   {
-    Font font = new Font("Arial",4);
-    Button card = (Button)event.getSource();
-    if(card == card1)
+
+    //Button card = (Button)event.getSource();
+    if(event.getSource() == card1)
     {
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
@@ -875,14 +813,8 @@ public class GuiController implements javafx.fxml.Initializable
       card1Image.setFitWidth(width / 4);
       card1Image.setFitHeight(height / 4);
 
-      double w = card1text.getWidth();
-      double h = card1text.getHeight();
-
-      card1text.setFont(font);
-      card1text.setTranslateX(0);
-      card1text.setPrefSize(w / 3, h / 3);
     }
-    else if(card == card2)
+    else if(event.getSource() == card2)
     {
 
       double width = card2Image.getFitWidth();
@@ -894,15 +826,8 @@ public class GuiController implements javafx.fxml.Initializable
       card2Image.setFitWidth(width / 4);
       card2Image.setFitHeight(height / 4);
 
-      double w = card2text.getWidth();
-      double h = card2text.getHeight();
-
-      card2text.setFont(font);
-      card2text.setTranslateX(0);
-      card2text.setPrefSize(w / 3, h / 3);
-
     }
-    else if(card == card3)
+    else if(event.getSource() == card3)
     {
 
       double width = card3Image.getFitWidth();
@@ -914,15 +839,9 @@ public class GuiController implements javafx.fxml.Initializable
       card3Image.setFitWidth(width / 4);
       card3Image.setFitHeight(height / 4);
 
-      double w = card3text.getWidth();
-      double h = card3text.getHeight();
-
-      card3text.setFont(font);
-      card3text.setTranslateX(0);
-      card3text.setPrefSize(w / 3, h / 3);
 
     }
-    else if(card == card4)
+    else if(event.getSource() == card4)
     {
 
       double width = card4Image.getFitWidth();
@@ -934,15 +853,8 @@ public class GuiController implements javafx.fxml.Initializable
       card4Image.setFitWidth(width / 4);
       card4Image.setFitHeight(height / 4);
 
-      double w = card4text.getWidth();
-      double h = card4text.getHeight();
-
-      card4text.setFont(font);
-      card4text.setTranslateX(0);
-      card4text.setPrefSize(w / 3, h / 3);
-
     }
-    else if(card == card5)
+    else if(event.getSource() == card5)
     {
 
       double width = card5Image.getFitWidth();
@@ -954,15 +866,8 @@ public class GuiController implements javafx.fxml.Initializable
       card5Image.setFitWidth(width / 4);
       card5Image.setFitHeight(height / 4);
 
-      double w = card5text.getWidth();
-      double h = card5text.getHeight();
-
-      card5text.setFont(font);
-      card5text.setTranslateX(0);
-      card5text.setPrefSize(w / 3, h / 3);
-
     }
-    else if(card == card6)
+    else if(event.getSource() == card6)
     {
 
       double width = card6Image.getFitWidth();
@@ -974,15 +879,8 @@ public class GuiController implements javafx.fxml.Initializable
       card6Image.setFitWidth(width / 4);
       card6Image.setFitHeight(height / 4);
 
-      double w = card6text.getWidth();
-      double h = card6text.getHeight();
-
-      card6text.setFont(font);
-      card6text.setTranslateX(0);
-      card6text.setPrefSize(w / 3, h / 3);
-
     }
-    else if(card == card7)
+    else if(event.getSource() == card7)
     {
 
       double width = card7Image.getFitWidth();
@@ -993,13 +891,6 @@ public class GuiController implements javafx.fxml.Initializable
 
       card7Image.setFitWidth(width / 4);
       card7Image.setFitHeight(height / 4);
-
-      double w = card7text.getWidth();
-      double h = card7text.getHeight();
-
-      card7text.setFont(font);
-      card7text.setTranslateX(0);
-      card7text.setPrefSize(w / 3, h / 3);
 
     }
 
@@ -1217,31 +1108,31 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(button == card1)
     {
-      tryDraftingCard(card1, card1text, card1Image, discard1);
+      tryDraftingCard(card1, card1Image, discard1);
     }
     else if(button == card2)
     {
-      tryDraftingCard(card2, card2text,card2Image, discard2);
+      tryDraftingCard(card2, card2Image, discard2);
     }
     else if(button == card3)
     {
-      tryDraftingCard(card3, card3text,card3Image, discard3);
+      tryDraftingCard(card3, card3Image, discard3);
     }
     else if(button == card4)
     {
-      tryDraftingCard(card4, card4text,card4Image, discard4);
+      tryDraftingCard(card4, card4Image, discard4);
     }
     else if(button == card5)
     {
-      tryDraftingCard(card5, card5text,card5Image, discard5);
+      tryDraftingCard(card5, card5Image, discard5);
     }
     else if(button == card6)
     {
-      tryDraftingCard(card6, card6text,card6Image, discard6);
+      tryDraftingCard(card6, card6Image, discard6);
     }
     else if(button == card7)
     {
-      tryDraftingCard(card7, card7text,card7Image, discard7);
+      tryDraftingCard(card7, card7Image, discard7);
     }
     else if(button == caliCard1)
     {
@@ -1685,10 +1576,9 @@ public class GuiController implements javafx.fxml.Initializable
    * Called after card in hand is clicked on.
    * Will draft card as long as there's not already 2 cards drafted.
    * @param card Card clicked
-   * @param text  Card text
    * @param discard Discard option 'X'
    */
-  private void tryDraftingCard(Button card, TextArea text, ImageView cardImage, Label discard)
+  private void tryDraftingCard(Button card, ImageView cardImage, Label discard)
   {
 //    if(legal)
 //    {
@@ -1697,22 +1587,16 @@ public class GuiController implements javafx.fxml.Initializable
     {
       card.setDisable(true);
       discard.setDisable(true);
-      text.setDisable(true);
       discardDraft1.setVisible(true);
-      draft1text.setText(text.getText());
-      draft1Image = cardImage;
-      draft1text.setVisible(true);
+      draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
     }
     else if (cardsDrafted == 2)
     {
       card.setDisable(true);
       discard.setDisable(true);
-      card.setDisable(true);
       discardDraft2.setVisible(true);
-      draft2text.setText(text.getText());
-      draft2text.setVisible(true);
-      draft2Image = cardImage;
+      draft2Image.setImage(cardImage.getImage());
       draft2.setVisible(true);
     }
     else
@@ -1730,188 +1614,156 @@ public class GuiController implements javafx.fxml.Initializable
   }
 
 
-  public void setCardTexts()
-  {
-    Font font = new Font("Arial",4);
-    card1text.setFont(font);
-    card2text.setFont(font);
-    card3text.setFont(font);
-    card4text.setFont(font);
-    card5text.setFont(font);
-    card6text.setFont(font);
-    card7text.setFont(font);
-
-    card1.setText(Main.gameController.getCardText(0));
-    card2.setText(Main.gameController.getCardText(1));
-    card3.setText(Main.gameController.getCardText(2));
-    card4.setText(Main.gameController.getCardText(3));
-    card5.setText(Main.gameController.getCardText(4));
-    card6.setText(Main.gameController.getCardText(5));
-    card7.setText(Main.gameController.getCardText(6));
-  }
-
   @FXML
   public void discard(MouseEvent event)
   {
-    Font font = new Font("Arial",4);
-    discardtext.setFont(font);
-
     Label discard = (Label)event.getSource();
     if(discard == discard1)
     {
       numCardsinHand--;
-      discardtext.setText(card1text.getText());
       card1.setVisible(false);
-      card1text.setVisible(false);
       discard1.setVisible(false);
+      lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discard2)
     {
       numCardsinHand--;
-      discardtext.setText(card2text.getText());
-      card2text.setVisible(false);
       card2.setVisible(false);
       discard2.setVisible(false);
+      lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discard3)
     {
       numCardsinHand--;
-      discardtext.setText(card3text.getText());
-      card3text.setVisible(false);
       card3.setVisible(false);
       discard3.setVisible(false);
+      lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discard4)
     {
       numCardsinHand--;
-      discardtext.setText(card4text.getText());
-      card4text.setVisible(false);
       card4.setVisible(false);
       discard4.setVisible(false);
+      lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discard5)
     {
       numCardsinHand--;
-      discardtext.setText(card5text.getText());
-      card5text.setVisible(false);
       card5.setVisible(false);
       discard5.setVisible(false);
+      lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discard6)
     {
       numCardsinHand--;
-      discardtext.setText(card6text.getText());
-      card6text.setVisible(false);
       card6.setVisible(false);
       discard6.setVisible(false);
+      lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discard7)
     {
       numCardsinHand--;
-      discardtext.setText(card7text.getText());
-      card7text.setVisible(false);
       card7.setVisible(false);
       discard7.setVisible(false);
+      lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
       discardedNum.setText(""+disNum);
     }
     else if(discard == discardDraft1)
     {
       cardsDrafted--;
-      if(draft1Image == card1Image) {
+      if(draft1Image.getImage() == card1Image.getImage()) {
         card1.setDisable(false);
         discard1.setDisable(false);
-        card1text.setDisable(false);
+        card1Image.setDisable(false);
       }
-      else if(draft1Image == card2Image) {
+      else if(draft1Image.getImage() == card2Image.getImage()) {
         card2.setDisable(false);
         discard2.setDisable(false);
-        card2text.setDisable(false);
+        card2Image.setDisable(false);
       }
-      else if(draft1Image == card3Image) {
+      else if(draft1Image.getImage() == card3Image.getImage()) {
         card3.setDisable(false);
         discard3.setDisable(false);
-        card3text.setDisable(false);
+        card3Image.setDisable(false);
       }
-      else if(draft1Image == card4Image) {
+      else if(draft1Image.getImage() == card4Image.getImage()) {
         card4.setDisable(false);
         discard4.setDisable(false);
-        card4text.setDisable(false);
+        card4Image.setDisable(false);
       }
-      else if(draft1Image == card5Image) {
+      else if(draft1Image.getImage() == card5Image.getImage()) {
         card5.setDisable(false);
         discard5.setDisable(false);
-        card5text.setDisable(false);
+        card5Image.setDisable(false);
       }
-      else if(draft1Image == card6Image){
+      else if(draft1Image.getImage() == card6Image.getImage()){
         card6.setDisable(false);
         discard6.setDisable(false);
-        card6text.setDisable(false);
+        card6Image.setDisable(false);
       }
-      else if(draft1Image == card7Image) {
+      else if(draft1Image.getImage() == card7Image.getImage()) {
         card7.setDisable(false);
         discard7.setDisable(false);
-        card7text.setDisable(false);
+        card7Image.setDisable(false);
       }
 
       draft1.setVisible(false);
       discardDraft1.setVisible(false);
-      draft1text.setVisible(false);
 
     }
     else if(discard == discardDraft2)
     {
       cardsDrafted--;
-      if(draft2Image == card1Image) {
+      if(draft2Image.getImage() == card1Image.getImage()) {
         card1.setDisable(false);
         discard1.setDisable(false);
-        card1text.setDisable(false);
+        card1Image.setDisable(false);
       }
-      else if(draft2Image == card2Image) {
+      else if(draft2Image.getImage() == card2Image.getImage()) {
         card2.setDisable(false);
         discard2.setDisable(false);
-        card2text.setDisable(false);
+        card2Image.setDisable(false);
       }
-      else if(draft2Image == card3Image) {
+      else if(draft2Image.getImage() == card3Image.getImage()) {
         card3.setDisable(false);
         discard3.setDisable(false);
-        card3text.setDisable(false);
+        card3Image.setDisable(false);
       }
-      else if(draft2Image == card4Image) {
+      else if(draft2Image.getImage() == card4Image.getImage()) {
         card4.setDisable(false);
         discard4.setDisable(false);
-        card4text.setDisable(false);
+        card4Image.setDisable(false);
       }
-      else if(draft2Image == card5Image) {
+      else if(draft2Image.getImage() == card5Image.getImage()) {
         card5.setDisable(false);
         discard5.setDisable(false);
-        card5text.setDisable(false);
+        card5Image.setDisable(false);
       }
-      else if(draft2Image == card6Image){
+      else if(draft2Image.getImage() == card6Image.getImage()){
         card6.setDisable(false);
         discard6.setDisable(false);
-        card6text.setDisable(false);
+        card6Image.setDisable(false);
       }
-      else if(draft2Image == card7Image) {
+      else if(draft2Image.getImage() == card7Image.getImage()) {
         card7.setDisable(false);
+        card7Image.setDisable(false);
         discard7.setDisable(false);
-        card7text.setDisable(false);
       }
       draft2.setVisible(false);
       discardDraft2.setVisible(false);
-      draft2text.setVisible(false);
 
     }
   }

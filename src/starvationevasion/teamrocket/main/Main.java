@@ -65,7 +65,7 @@ public class Main extends Application {
 
 
     primaryStage.setTitle("Starvation Evasion");
-    primaryStage.setScene(welcomeScene);
+    primaryStage.setScene(cardDraftScene);
 
 //    primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
 //    {
@@ -150,6 +150,5 @@ public class Main extends Application {
 
     launch(args);
 
-    System.out.println("hiiiiii");
     }
 }
