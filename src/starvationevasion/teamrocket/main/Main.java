@@ -1,11 +1,14 @@
 package starvationevasion.teamrocket.main;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -68,7 +71,7 @@ public class Main extends Application {
 
     Group root = new Group();
 
-    Media video = new Media(OpeningScene.class.getResource("/images/Try5.mp4").toString());
+    Media video = new Media(OpeningScene.class.getResource("/images/animation.mp4").toString());
     MediaPlayer videoPlayer = new MediaPlayer(video);
     MediaView viewer = new MediaView(videoPlayer);
 
@@ -77,26 +80,19 @@ public class Main extends Application {
     root.getChildren().add(viewer);
     Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
     primaryStage.setScene(startAnimation);
+    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
+    {
+      @Override
+      public void handle(KeyEvent key)
+      {
+        if(key.getCode() == KeyCode.SPACE)
+        {
+          switchScenes(1);
+        }
+      }
+    });
     primaryStage.show();
     videoPlayer.play();
-
-
-
-//    primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
-//    {
-//      @Override
-//      public void handle(WindowEvent window)
-//      {
-//        System.out.println("window has been shown");
-////        controller.handleWindowShownEvent();
-//        System.out.println("controller: " + controller);
-//        //controller.showMyRegion();
-//        System.out.println("done with event...");
-//      }
-//    });
-
-    primaryStage.show();
-    //if(primaryStage.isShowing()) System.out.println("window is showing");
 
 
   }
@@ -107,18 +103,17 @@ public class Main extends Application {
    */
   public void switchScenes(int scene)
   {
-    if (scene == 2)
+    if(scene == 1)
+    {
+      primaryStage.setScene(welcomeScene);
+    }
+    else if (scene == 2)
     {
       primaryStage.setScene(regionScene);
-//      primaryStage.fireEvent(new WindowEvent(regionScene.getWindow(), WindowEvent.WINDOW_SHOWN));
     }
     else if (scene == 3)
     {
       primaryStage.setScene(cardDraftScene);
-
-//      primaryStage.fireEvent(new WindowEvent(regionScene.getWindow(), WindowEvent.WINDOW_SHOWN));
-//      controller.showMyRegion();
-
     }
     else if (scene == 4)
     {
