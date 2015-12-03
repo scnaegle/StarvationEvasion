@@ -8,6 +8,7 @@ import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
+import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
@@ -29,8 +30,6 @@ public class GameController
   private Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  public GuiController gui;
-  private GameClock stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
   private boolean joinMultiPlayer;
@@ -83,9 +82,6 @@ public class GameController
 
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
-//    gui.showMyRegion();
-
-//    gui.startTimer();
     if (singlePlayer)
     {
       Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
@@ -110,6 +106,33 @@ public class GameController
 
   private void initializeGame(String gameType, String ip, int port)
   {
+  }
+
+  public void switchToScene(ServerState serverState) {
+    switch(serverState) {
+      case LOGIN:
+        if (player.ENUM_REGION == null) {
+          switchToSelectRegion();
+        } else {
+          switchToGameScene();
+        }
+        break;
+      case BEGINNING:
+        switchToGameScene();
+        break;
+      case DRAWING:
+        break;
+      case DRAFTING:
+        break;
+      case VOTING:
+        break;
+      case WIN:
+        break;
+      case LOSE:
+        break;
+      case END:
+        break;
+    }
   }
 
   /**
@@ -235,6 +258,10 @@ public class GameController
    */
   public boolean tryLogin(String username, String password, String ipAddress, String networkPort)
   {
+    this.playerUsername = username;
+    this.playerPassword = password;
+    this.playerIP = ipAddress;
+    this.playerPort = networkPort;
 
     return true;
   }
@@ -257,23 +284,6 @@ public class GameController
   public void setStartGame(String message)
   {
 
-  }
-
-  /**
-   * Update the timer with time left in current stage.
-   *
-   * @param stopwatch seconds
-   */
-  public void setTimer(GameClock stopwatch)
-  {
-    if (this.stopwatch == null)
-    {
-      this.stopwatch = new GameClock(stopwatch.getTimeLeft());
-    }
-    else
-    {
-      this.stopwatch.setTimeLeft(stopwatch.getTimeLeft());
-    }
   }
 
   /**
@@ -440,15 +450,14 @@ public class GameController
     return playerUsername;
   }
 
-  public void showDefaultRegion()
-  {
-    gui.showMyRegion();
-  }
-
-  // public void setDraftedCard()
-
   public void initVisualizer()
   {
+
+  }
+
+  public void timerUpdate(long timeLeft)
+  {
+
 
   }
 }

@@ -37,7 +37,7 @@
     <Rectangle id="c1rect" fx:id="m1rect" arcHeight="5.0" arcWidth="5.0" fill="$x5" height="169.0" layoutX="152.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
     <Rectangle id="c1rect" fx:id="c2rect" arcHeight="5.0" arcWidth="5.0" fill="$x5" height="169.0" layoutX="19.0" layoutY="577.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
     <Rectangle fx:id="c1rect" arcHeight="5.0" arcWidth="5.0" fill="$x5" height="169.0" layoutX="19.0" layoutY="405.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="130.0" />
-    <Label fx:id="voteTime" contentDisplay="CENTER" layoutX="64.0" layoutY="61.0" prefWidth="142.77740478515625" text="Time" textFill="#00cc21">
+    <Label id="voteTime" fx:id="time" contentDisplay="CENTER" layoutX="64.0" layoutY="61.0" prefWidth="142.77740478515625" text="Time" textFill="#00cc21">
       <font>
         <Font name="Avenir Next Demi Bold" size="40.0" />
       </font>
@@ -639,6 +639,11 @@
         <Label fx:id="supportLabel" layoutX="332.0" layoutY="579.0" text="Click to support" visible="false" />
         <Label fx:id="opposeLabel" layoutX="448.0" layoutY="580.0" text="Click to oppose" visible="false" />
         <Label fx:id="abstainLabel" layoutX="564.0" layoutY="580.0" text="Click to abstain" visible="false" />
+        <ImageView id="insideCard" fx:id="voteCard" fitHeight="415.2" fitWidth="346.0" layoutX="339.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
       </children>
     </Pane>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccffed" height="41.0" layoutX="277.0" layoutY="4.0" opacity="0.68" stroke="#606060" strokeType="INSIDE" visible="true" width="610.0" />

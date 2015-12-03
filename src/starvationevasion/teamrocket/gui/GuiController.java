@@ -23,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
@@ -62,9 +61,6 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
 
-  @FXML
-  private TextArea card1text, card2text,card3text,card4text,card5text,card6text,card7text,draft1text,draft2text,discardtext;
-
   private int cardsDrafted = 0;
 
   @FXML
@@ -73,6 +69,10 @@ public class GuiController implements javafx.fxml.Initializable
   private int disNum=0;
 
   /***************************************************************************************/
+  /*      VOTING PHASE VARIABLES      */
+
+  @FXML
+  private ImageView voteCard; //Large view of card being voted on
 
   @FXML
   private Button support, oppose, abstain;
@@ -166,7 +166,7 @@ public class GuiController implements javafx.fxml.Initializable
   private int suph1votes,opph1votes,absth1votes = 0;
   private int suph2votes,opph2votes,absth2votes = 0;
 
-
+/********************************************************************************/
 
   /* PRODUCE INFORMATION WINDOWS */
   @FXML
@@ -298,6 +298,7 @@ public class GuiController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
+    Main.setGuiController(this);
 
   }
 
@@ -309,7 +310,7 @@ public class GuiController implements javafx.fxml.Initializable
   public void connectUsers()
   {
     //if(user1 has logged in)
-    user1.setText(Main.gameController.getPlayerUsername());
+    user1.setText(Main.getGameController().getPlayerUsername());
     user1.setVisible(true);
     //if(user2 has logged in)....
 
@@ -342,15 +343,13 @@ public class GuiController implements javafx.fxml.Initializable
     String playerIPAddress = ipAddress.getCharacters().toString();
     String playerNetworkPort = port.getCharacters().toString();
 
-    Main.gameController.gui = this;
-
-    return Main.gameController.tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
+    return Main.getGameController().tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
   }
 
   @FXML
   public void sendMessage()
   {
-    String username = Main.gameController.getPlayerUsername();
+    String username = Main.getGameController().getPlayerUsername();
 
     if(hasText)
     {
@@ -382,7 +381,7 @@ public class GuiController implements javafx.fxml.Initializable
     if(event.getCode().equals(KeyCode.ENTER))
     {
       try{
-        this.player = Main.gameController.startNewGame(myRegion);
+        this.player = Main.getGameController().startNewGame(myRegion);
       }
       catch (Exception e)
       {
@@ -397,7 +396,7 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public void highlightCards()
   {
-    if(Main.gameController.getMyRegion() == EnumRegion.CALIFORNIA)
+    if(Main.getGameController().getMyRegion() == EnumRegion.CALIFORNIA)
     {
       Color purple = new Color(.69,.59,.72,1);
       c1rect.setFill(purple);
@@ -415,7 +414,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(purple);
       h2rect.setFill(purple);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.MOUNTAIN)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.MOUNTAIN)
     {
       Color brown = new Color(.68,.54,.43,1);
       c1rect.setFill(brown);
@@ -433,7 +432,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(brown);
       h2rect.setFill(brown);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.NORTHERN_PLAINS)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_PLAINS)
     {
       Color blue = new Color(.7,.81,.89,1);
       c1rect.setFill(blue);
@@ -451,7 +450,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(blue);
       h2rect.setFill(blue);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
     {
       Color red = new Color(.91,.6,.6,1);
       c1rect.setFill(red);
@@ -469,7 +468,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(red);
       h2rect.setFill(red);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.HEARTLAND)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.HEARTLAND)
     {
       Color yellow = new Color(.99,.92,.62,1);
       c1rect.setFill(yellow);
@@ -487,7 +486,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(yellow);
       h2rect.setFill(yellow);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
     {
       Color green = new Color(.75,.8,.62,1);
       c1rect.setFill(green);
@@ -505,7 +504,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(green);
       h2rect.setFill(green);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.SOUTHEAST)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.SOUTHEAST)
     {
       Color orange = new Color(.97,.66,.37,1);
       c1rect.setFill(orange);
@@ -667,7 +666,7 @@ public class GuiController implements javafx.fxml.Initializable
   public void makeBigger(MouseEvent event)
   {
     //Button card = (Button)event.getSource();
-    if(event.getSource() == card1 || event.getSource() == card1text)
+    if (event.getSource() == card1)
     {
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
@@ -683,11 +682,8 @@ public class GuiController implements javafx.fxml.Initializable
 
 
     }
-    else if(event.getSource() == card2)
+    else if (event.getSource() == card2)
     {
-//      String text = Main.gameController.getCard(1);
-//      card2text.setText(text);
-
       double width = card2Image.getFitWidth();
       double height = card2Image.getFitHeight();
 
@@ -702,12 +698,8 @@ public class GuiController implements javafx.fxml.Initializable
 
 
     }
-    else if(event.getSource() == card3)
+    else if (event.getSource() == card3)
     {
-
-//      String text = Main.gameController.getCard(2);
-//      card3text.setText(text);
-
       double width = card3Image.getFitWidth();
       double height = card3Image.getFitHeight();
 
@@ -720,11 +712,8 @@ public class GuiController implements javafx.fxml.Initializable
 
       card3.toFront();
     }
-    else if(event.getSource() == card4)
+    else if (event.getSource() == card4)
     {
-//      String text = Main.gameController.getCard(3);
-//      card4text.setText(text);
-
       double width = card4Image.getFitWidth();
       double height = card4Image.getFitHeight();
 
@@ -736,10 +725,8 @@ public class GuiController implements javafx.fxml.Initializable
 
       card4.toFront();
     }
-    else if(event.getSource() == card5)
+    else if (event.getSource() == card5)
     {
-//      String text = Main.gameController.getCard(4);
-//      card5text.setText(text);
 
       double width = card5Image.getFitWidth();
       double height = card5Image.getFitHeight();
@@ -754,9 +741,6 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(event.getSource() == card6)
     {
-//      String text = Main.gameController.getCard(5);
-//      card6text.setText(text);
-
       double width = card6Image.getFitWidth();
       double height = card6Image.getFitHeight();
 
@@ -770,9 +754,6 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if (event.getSource() == card7)
     {
-//      String text = Main.gameController.getCard(6);
-//      card7text.setText(text);
-
       double width = card7Image.getFitWidth();
       double height = card7Image.getFitHeight();
 
@@ -782,20 +763,14 @@ public class GuiController implements javafx.fxml.Initializable
       card7Image.setFitWidth(width * 4);
       card7Image.setFitHeight(height * 4);
 
-
       card7.toFront();
 
     }
-
-
-
   }
 
   @FXML
   public void returnToNormal(MouseEvent event)
   {
-
-    //Button card = (Button)event.getSource();
     if(event.getSource() == card1)
     {
       double width = card1Image.getFitWidth();
@@ -900,31 +875,29 @@ public class GuiController implements javafx.fxml.Initializable
     newMultiPlayerMode = false;
     joinMultiPlayerMode = false;
 
-    Main.gameController.setSinglePlayerMode(false);
-    Main.gameController.setNewMultiPlayerMode(false);
-    Main.gameController.setJoinMultiPlayerMode(false);
+    Main.getGameController().setSinglePlayerMode(false);
+    Main.getGameController().setNewMultiPlayerMode(false);
+    Main.getGameController().setJoinMultiPlayerMode(false);
 
     if(gamePlay == singlePlayer)
     {
       singlePlayerMode = true;
-      Main.gameController.setSinglePlayerMode(true);
+      Main.getGameController().setSinglePlayerMode(true);
       multiPlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
-      //tell game control theres only one player
     }
     else if(gamePlay == multiPlayer)
     {
       newMultiPlayerMode = true;
-      Main.gameController.setNewMultiPlayerMode(true);
+      Main.getGameController().setNewMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
-      //tell game control there's many players
-      //switch to login scene
+
     }
     else if(gamePlay == joinMultiPlayer)
     {
       joinMultiPlayerMode = true;
-      Main.gameController.setJoinMultiPlayerMode(true);
+      Main.getGameController().setJoinMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       multiPlayer.setSelected(false);
     }
@@ -949,7 +922,7 @@ public class GuiController implements javafx.fxml.Initializable
       {
         try
         {
-          Main.gameController.switchToSelectRegion();
+          Main.getGameController().switchToSelectRegion();
         }
         catch (Exception e)
         {
@@ -960,7 +933,7 @@ public class GuiController implements javafx.fxml.Initializable
       {
         //go to gameSetting scene, then gameRoom scene, then game
         try{
-          Main.gameController.switchToLoginScene();
+          Main.getGameController().switchToLoginScene();
 
         }
         catch (Exception e)
@@ -973,7 +946,7 @@ public class GuiController implements javafx.fxml.Initializable
       {
         //go to login scene, then gameRoom, then game
         try{
-          Main.gameController.switchToLoginScene();
+          Main.getGameController().switchToLoginScene();
         }
         catch (Exception e)
         {
@@ -988,8 +961,8 @@ public class GuiController implements javafx.fxml.Initializable
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      String portNum = Main.gameController.checkPort(port.getCharacters().toString());
-      String IPAddress = Main.gameController.checkAddress(ipAddress.getCharacters().toString());
+      String portNum = Main.getGameController().checkPort(port.getCharacters().toString());
+      String IPAddress = Main.getGameController().checkAddress(ipAddress.getCharacters().toString());
       if (portNum.equals("bad"))
       {
         portError.setVisible(true);
@@ -1007,8 +980,8 @@ public class GuiController implements javafx.fxml.Initializable
         //go to gameRoom
         try
         {
-          Main.gameController.switchToGameScene();
-          Main.gameController.openChat();
+          Main.getGameController().switchToGameScene();
+          Main.getGameController().openChat();
         }
         catch (Exception e)
         {
@@ -1027,7 +1000,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(button == doneGameRoom)
     {
       try{
-        this.player = Main.gameController.startNewGame(myRegion);
+        this.player = Main.getGameController().startNewGame(myRegion);
       }
       catch (Exception e)
       {
@@ -1046,7 +1019,7 @@ public class GuiController implements javafx.fxml.Initializable
       //Go to next scene
       try
       {
-        this.player = Main.gameController.startNewGame(this.myRegion);
+        this.player = Main.getGameController().startNewGame(this.myRegion);
 
       }
       catch (Exception e)
@@ -1058,9 +1031,10 @@ public class GuiController implements javafx.fxml.Initializable
     else if(button == doneWithCards)
     {
       //make sure card has been played, show error label if not
+      saveDraftedCards();
       try
       {
-        Main.gameController.finishedCardDraft();
+        Main.getGameController().finishedCardDraft();
       }
       catch (Exception e)
       {
@@ -1079,7 +1053,7 @@ public class GuiController implements javafx.fxml.Initializable
       //update variables
       try
       {
-        Main.gameController.finishedVoting();
+        Main.getGameController().finishedVoting();
       }
       catch (Exception e)
       {
@@ -1465,6 +1439,30 @@ public class GuiController implements javafx.fxml.Initializable
     }
   }
 
+  private void saveDraftedCards()
+  {
+    int[] draftedCards = new int[2];
+
+    if(draft1Image.getImage()==card1Image.getImage()){ draftedCards[0] = 1;}
+    else if(draft1Image.getImage()==card2Image.getImage()){ draftedCards[0] = 2;}
+    else if(draft1Image.getImage()==card3Image.getImage()){ draftedCards[0] = 3;}
+    else if(draft1Image.getImage()==card4Image.getImage()){ draftedCards[0] = 4;}
+    else if(draft1Image.getImage()==card5Image.getImage()){ draftedCards[0] = 5;}
+    else if(draft1Image.getImage()==card6Image.getImage()){ draftedCards[0] = 6;}
+    else if(draft1Image.getImage()==card7Image.getImage()){ draftedCards[0] = 7;}
+
+    if(draft2Image.getImage()==card1Image.getImage()){ draftedCards[1] = 1;}
+    else if(draft2Image.getImage()==card2Image.getImage()){ draftedCards[1] = 2;}
+    else if(draft2Image.getImage()==card3Image.getImage()){ draftedCards[1] = 3;}
+    else if(draft2Image.getImage()==card4Image.getImage()){ draftedCards[1] = 4;}
+    else if(draft2Image.getImage()==card5Image.getImage()){ draftedCards[1] = 5;}
+    else if(draft2Image.getImage()==card6Image.getImage()){ draftedCards[1] = 6;}
+    else if(draft2Image.getImage()==card7Image.getImage()){ draftedCards[1] = 7;}
+
+
+    Main.getGameController().playerAction(draftedCards,true);
+  }
+
   private boolean verifyLoginInput()
   {
     emptyFieldError.setVisible(false);
@@ -1512,49 +1510,42 @@ public class GuiController implements javafx.fxml.Initializable
       {
         card1.setVisible(true);
         discard1.setVisible(true);
-        card1text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card2.isVisible())
       {
         card2.setVisible(true);
         discard2.setVisible(true);
-        card2text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card3.isVisible())
       {
         card3.setVisible(true);
         discard3.setVisible(true);
-        card3text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card4.isVisible())
       {
         card4.setVisible(true);
         discard4.setVisible(true);
-        card4text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card5.isVisible())
       {
         card5.setVisible(true);
         discard5.setVisible(true);
-        card5text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card6.isVisible())
       {
         card6.setVisible(true);
         discard6.setVisible(true);
-        card6text.setVisible(true);
         numCardsinHand++;
       }
       else if(!card7.isVisible())
       {
         card7.setVisible(true);
         discard7.setVisible(true);
-        card7text.setVisible(true);
         numCardsinHand++;
       }
     }
@@ -1583,6 +1574,8 @@ public class GuiController implements javafx.fxml.Initializable
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
+
+
     }
     else if (cardsDrafted == 2)
     {
@@ -1795,9 +1788,9 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public void showMyRegion()
   {
-    highlightMyRegion(Main.gameController.getMyRegion());
-    playerRegion.setText("My Region: " + Main.gameController.getMyRegion());
-    currentRegion.setText("Current Region: " + Main.gameController.getMyRegion());
+    highlightMyRegion(Main.getGameController().getMyRegion());
+    playerRegion.setText("My Region: " + Main.getGameController().getMyRegion());
+    currentRegion.setText("Current Region: " + Main.getGameController().getMyRegion());
   }
 
 
@@ -2479,7 +2472,7 @@ public class GuiController implements javafx.fxml.Initializable
     double x = event.getX();
     double y = event.getY();
 
-    System.out.println("myRegion: " + Main.gameController.getMyRegion());
+    System.out.println("myRegion: " + Main.getGameController().getMyRegion());
 
     makeAllInvisible();
 
@@ -2599,7 +2592,7 @@ public class GuiController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       myRegion = EnumRegion.SOUTHERN_PLAINS;
     }
-    Main.gameController.setSelectRegion(new RegionChoice(myRegion));
+    Main.getGameController().setSelectRegion(new RegionChoice(myRegion));
     showUsersRegion();
   }
 
@@ -2751,5 +2744,9 @@ public class GuiController implements javafx.fxml.Initializable
   }
 
 
+  public void timerUpdate(long timeLeft)
+  {
+    //find what scene we are on and do stuff accordingly
+  }
 }
 

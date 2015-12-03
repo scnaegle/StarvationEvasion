@@ -2,6 +2,8 @@ package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.messages.*;
 import starvationevasion.teamrocket.main.GameController;
+import starvationevasion.teamrocket.main.Main;
+import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.messages.ServerEvent;
 import starvationevasion.teamrocket.models.ClientGameState;
@@ -262,11 +264,13 @@ public class Client
     }
 
     private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
-
+      Main.GAME_CLOCK.setTimeLeft(readyToBegin.gameStartServerTime);
+      gameController.gameState.gameState = EnumGameState.BEGINNING;
     }
 
     private void handlePhaseStartResponse(PhaseStart phaseStart) {
-
+      Main.GAME_CLOCK.setTimeLeft(phaseStart.phaseEndTime);
+      gameController.gameState.setGameState(phaseStart.currentGameState);
     }
 
     private void handleGameStateResponse(GameState gameState) {
