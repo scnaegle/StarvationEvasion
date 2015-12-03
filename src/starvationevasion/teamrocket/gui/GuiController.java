@@ -256,11 +256,13 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public GridPane visPane;
 
-  private void displayEarth()
+
+  private void displayEarth(KeyEvent event)
   {
     EarthViewer earthViewer = new EarthViewer(200,800);
     earthViewer.startRotate();
     visPane.add(earthViewer.getMiniEarth(),1,1);
+    visPane.setVisible(true);
   }
 
 
