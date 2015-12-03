@@ -18,11 +18,11 @@ import java.util.Map;
  * <p>
  * Represent the state of the StarvationEvasion game from one player's
  * point of view. The full state of the game is kept on the server. The
- * server sends messages of type GameState to each player when the game
+ * server sends messages of type ClientGameState to each player when the game
  * state changes. Every player receives a different message that reflects
  * their own view of the status of the game.
  */
-public class GameState implements Serializable
+public class ClientGameState implements Serializable
 {
   public EnumGameState gameState;
   public EnumRegion myRegion;
@@ -38,24 +38,24 @@ public class GameState implements Serializable
   public GameController gameController;
 
 
-  public GameState(EnumGameState gameState) {
+  public ClientGameState(EnumGameState gameState) {
     this.gameState = gameState;
   }
 
-  public GameState(EnumGameState gameState, Stopwatch stopwatch,
-                   int current_year, int current_turn, Region[] regions,
-                   Map<EnumRegion, CardDeck> region_decks,
-                   ChatHistory chatHistory)
+  public ClientGameState(EnumGameState gameState, Stopwatch stopwatch,
+                         int current_year, int current_turn, Region[] regions,
+                         Map<EnumRegion, CardDeck> region_decks,
+                         ChatHistory chatHistory)
   {
     this(gameState, stopwatch, current_year, current_turn, regions,
         region_decks, chatHistory, null);
   }
 
-  public GameState(EnumGameState gameState, Stopwatch stopwatch,
-                   int currentYear, int currentTurn, Region[] regions,
-                   Map<EnumRegion, CardDeck> regionDecks,
-                   ChatHistory chatHistory,
-                   Map<EnumRegion, PolicyVote[]> policyVotes)
+  public ClientGameState(EnumGameState gameState, Stopwatch stopwatch,
+                         int currentYear, int currentTurn, Region[] regions,
+                         Map<EnumRegion, CardDeck> regionDecks,
+                         ChatHistory chatHistory,
+                         Map<EnumRegion, PolicyVote[]> policyVotes)
   {
     this.gameState = gameState;
     this.stopwatch = stopwatch;
