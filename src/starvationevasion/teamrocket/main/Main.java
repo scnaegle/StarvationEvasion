@@ -73,7 +73,7 @@ public class Main extends Application {
     MediaView viewer = new MediaView(videoPlayer);
 
     primaryStage.setTitle("Starvation Evasion");
-    
+
     root.getChildren().add(viewer);
     Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
     primaryStage.setScene(startAnimation);
