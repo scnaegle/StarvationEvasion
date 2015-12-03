@@ -17,10 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumRegion;
@@ -276,6 +273,16 @@ public class GuiController implements javafx.fxml.Initializable
   private boolean seCard2Selected = false;
   private boolean heartCard1Selected = false;
   private boolean heartCard2Selected = false;
+
+  /* VARIABLES FOR USER INPUT NEEDED POPUP */
+  @FXML
+  private StackPane cardInputs;
+  @FXML
+  private Button addedInputs;
+  @FXML
+  private Pane inputPane;
+
+  /******************************************/
 
   private boolean votable = false;
   private int numCardsinHand = 7;
@@ -1073,32 +1080,44 @@ public class GuiController implements javafx.fxml.Initializable
     {
       closeProduceWindows();
     }
+    else if(button == addedInputs)
+    {
+      cardInputs.setVisible(false);
+
+    }
     else if(button == card1)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card1, card1Image, discard1);
     }
     else if(button == card2)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card2, card2Image, discard2);
     }
     else if(button == card3)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card3, card3Image, discard3);
     }
     else if(button == card4)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card4, card4Image, discard4);
     }
     else if(button == card5)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card5, card5Image, discard5);
     }
     else if(button == card6)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card6, card6Image, discard6);
     }
     else if(button == card7)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card7, card7Image, discard7);
     }
     else if(button == caliCard1)
