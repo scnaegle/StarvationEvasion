@@ -5,8 +5,6 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.Util;
 import starvationevasion.common.messages.AvailableRegions;
-import starvationevasion.common.messages.GameState;
-import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
@@ -16,9 +14,12 @@ import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
-import starvationevasion.teamrocket.server.Stopwatch;
+import starvationevasion.teamrocket.server.GameClock;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -29,7 +30,7 @@ public class GameController
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
   public GuiController gui;
-  private Stopwatch stopwatch;
+  private GameClock stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
   private boolean joinMultiPlayer;
@@ -82,9 +83,9 @@ public class GameController
 
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
-    gui.showMyRegion();
+//    gui.showMyRegion();
 
-    gui.startTimer();
+//    gui.startTimer();
     if (singlePlayer)
     {
       Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
@@ -263,15 +264,15 @@ public class GameController
    *
    * @param stopwatch seconds
    */
-  public void setTimer(Stopwatch stopwatch)
+  public void setTimer(GameClock stopwatch)
   {
     if (this.stopwatch == null)
     {
-      this.stopwatch = new Stopwatch(stopwatch.getInterval());
+      this.stopwatch = new GameClock(stopwatch.getTimeLeft());
     }
     else
     {
-      this.stopwatch.setInterval(stopwatch.getInterval());
+      this.stopwatch.setTimeLeft(stopwatch.getTimeLeft());
     }
   }
 
