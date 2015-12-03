@@ -2,6 +2,8 @@ package starvationevasion.sim;
 
 import starvationevasion.common.EnumFood;
 import starvationevasion.io.CSVReader;
+
+import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 public class CropData
@@ -34,8 +36,16 @@ public class CropData
 
   public CropData()
   {
-    final String PATH = "data/sim/CropData.csv";
-    CSVReader fileReader = new CSVReader(PATH, 2);
+    final String PATH = "/sim/CropData.csv";
+    CSVReader fileReader;
+    try {
+      fileReader = new CSVReader(PATH, 2);
+    } catch (FileNotFoundException ex)
+    {
+      LOGGER.severe("**ERROR** Resource does not exist     " + PATH);
+      LOGGER.severe("**ERROR** Check your class path or IDE resource settings");
+      return;
+    }
 
     for (int i=0; i< EnumFood.SIZE; i++)
     {
