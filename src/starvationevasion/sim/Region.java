@@ -13,7 +13,7 @@ import java.util.Collection;
  * Region class extends AbstractAgriculturalUnit, includes methods for accessing its
  * fields.
  */
-public class Region extends AbstractAgriculturalUnit
+public class Region extends AbstractTerritory
 {
   private static final int START_YEAR = Constant.FIRST_YEAR;
   private static final int PLAYER_START_REVENUE = 50; //million dollars
@@ -61,11 +61,6 @@ public class Region extends AbstractAgriculturalUnit
   {
     territories.add(tile);
     area.add(tile.getArea());
-
-    for (int i = Constant.FIRST_YEAR ; i < Constant.LAST_YEAR ; i += 1)
-      {
-        population[i - Constant.FIRST_YEAR] += tile.getPopulation(i);
-    }
   }
 
   public void optimizeCrops(int year)
@@ -145,240 +140,58 @@ public class Region extends AbstractAgriculturalUnit
     for (Territory t : territories) t.estimateInitialYield();
   }
 
-  /**
-   * The loader loads 2014 data.  This function scales the data for 1981 given the scale factor.
-   * @param factor The scaling factor.
-   */
-  public void scaleInitialStatistics(double factor)
-  {
-    for (Territory t : territories) t.scaleInitialStatistics(factor);
-  }
 
   /**
-   * Updates population for given year based on formula in spec
-   *
-   * @param year Year index for which to calculate population (e.g.2014)
+   * A region is a collection of one or more territories.
    */
-  public void updateStatistics(int year)
+  public void aggregateTerritoryFields(int year)
   {
-    int index = year - START_YEAR;
+    System.out.println("========> aggregateTerritoryFields("+year+")  territories="+ territories.size());
 
-    // Re-initialize to zero.
-	//
-    medianAge[index] = 0;
-    births[index] = 0;
-    mortality[index] = 0;
-    migration[index] = 0;
-    undernourished[index] = 0;
-
-    landTotal[index] = 0;
-    landArable[index] = 0;
-
-    for (int i = 0 ; i < EnumFood.values().length ; i += 1)
+    population[year - Constant.FIRST_YEAR] = 0;
+    births = 0;
+    mortality = 0;
+    migration = 0;
+    undernourished = 0;
+    landTotal = 0;
+    for (int i=0; i<EnumFood.SIZE; i++)
     {
-      cropYield[i] = 0;
-      cropNeedPerCapita[i] = 0;
-      cropIncome[i][index] = 0;
-      cropProduction[i][index] = 0;
-      landCrop[i][index] = 0;
+      cropIncome[i] = 0;
+      cropProduction[i] = 0;
+      landCrop[i] = 0;
+      cropImport[i] = 0;
+      cropExport[i] = 0;
     }
 
-    for (int i = 0 ; i < EnumGrowMethod.values().length ; i += 1)
+    for (Territory part : territories)
     {
-      cultivationMethod[i][index] = 0;
-    }
-
-    // Sum.
-	//
-    for (Territory t : territories)
-    {
-      medianAge[index] += t.getMedianAge(year);
-      births[index] += t.getBirths(year);
-      mortality[index] += t.getMortality(year);
-      migration[index] += t.getMigration(year);
-      undernourished[index] += t.getUndernourished(year);
-
-      landTotal[index] += t.getLandTotal(year);
-      landArable[index] += t.getLandArable(year);
-
-      for (EnumFood food : EnumFood.values())
+      population[year - Constant.FIRST_YEAR] += part.getPopulation(year);
+      births          += part.births;
+      mortality       += part.mortality;
+      migration       += part.migration;
+      undernourished  += part.undernourished;
+      landTotal       += part.landTotal;
+      for (int i=0; i<EnumFood.SIZE; i++)
       {
-        cropYield[food.ordinal()] += t.getCropYield(year, food);
-        cropNeedPerCapita[food.ordinal()] += t.getCropNeedPerCapita(food);
-        cropIncome[food.ordinal()][index] += t.getCropIncome(year, food);
-        cropProduction[food.ordinal()][index] += t.getCropProduction(year, food);
-        landCrop[food.ordinal()][index] += t.getCropLand(year, food); // Yes, they named it backwards.
-      }
-
-      for (EnumGrowMethod method : EnumGrowMethod.values())
-      {
-        cultivationMethod[method.ordinal()][index] += t.getMethodPercentage(year, method);
-      }
-    }
-
-    // Update average values.
-	//
-    medianAge[index] /= territories.size();
-  }
-
-  /**
-   * @param year  year in question
-   * @param crop  crop in question
-   * @param metTons tons produced
-   */
-  public void setCropProduction(int year, EnumFood crop, double metTons)
-  {
-    if (metTons >= 0)
-    {
-      // Divide it up amongst the units.
-      //
-      double perUnit = metTons / territories.size();
-      double remainder = metTons % (territories.size() * perUnit);
-      for (Territory t : territories)
-      {
-        t.setCropProduction(year, crop, perUnit + remainder);
-        remainder = 0;
-      }
-
-      cropProduction[crop.ordinal()][year - START_YEAR] = metTons;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for Territory.setCropProduction method");
-      }
-    }
-  }
-
-  /**
-   * @param year
-   * @param kilomsq total land area
-   */
-  private void setLandTotal(int year, double kilomsq)
-  {
-    if (kilomsq > 0)
-    {
-      // TODO : PAB : We should probably add the unit's total land
-      //
-      for (int i = 0; i < (YEARS_OF_SIM); i++) landTotal[i] = kilomsq;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for Territory.setLandTotal method");
-      }
-    }
-  }
-
-  /**
-   * @param year
-   * @param kilomsq area of arable land
-   */
-  private void setArableLand(int year, double kilomsq)
-  {
-    if (kilomsq >= 0)
-    {
-      for (int i = 0; i < (YEARS_OF_SIM); i++) landArable[i] = kilomsq;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for Territory.setArableLand method for country " + getName());
+        cropIncome[i]     += part.cropIncome[i];
+        cropProduction[i] += part.cropProduction[i];
+        if (part.cropProduction[i] > 0)
+        { System.out.println("Region.aggregateTerritoryFields(): " + region +": cropProduction["+EnumFood.values()[i]+"] ="+cropProduction[i]);
+        }
+        landCrop[i]       += part.landCrop[i];
+        cropImport[i]     += part.cropImport[i];
+        cropExport[i]     += part.cropExport[i];
       }
     }
   }
 
 
-  /**
-   * Set crop land value; use this method when initializing
-   *
-   * @param year  year in question
-   * @param crop  crop in question
-   * @param kilomsq area to set
-   */
-  private void setCropLand(int year, EnumFood crop, double kilomsq)
-  {
-    if (kilomsq >= 0 && kilomsq <= getArableLand(year))
-    {
-      for (int i = 0; i < (YEARS_OF_SIM); i++)
-        landCrop[crop.ordinal()][i] = kilomsq;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for Territory.setCropLand method for country " + getName() + " crop " + crop);
-      }
-    }
-  }
 
-  /**
-   * Sets area to be planted with given crop in given year based on user input
-   *
-   * @param year  year in question
-   * @param crop  crop in question
-   * @param kilomsq number square km user wants to plant with that crop
-   */
-  public void updateCropLand(int year, EnumFood crop, double kilomsq)
-  {
-    double cropLand = 0.;
 
-    for (Territory unit : territories)
-    {
-      unit.updateCropLand(year, crop, kilomsq);
-      cropLand += unit.getCropLand(year, crop);
-    }
 
-    setCropLand(year, crop, cropLand);
-  }
 
-  /**
-   * @param year     year in question
-   * @param method   cultivation method
-   * @param percentage % land cultivated by method
-   */
-  public void setMethodPercentage(int year, EnumGrowMethod method, double percentage)
-  {
-    if (percentage >= 0)
-    {
-      for (Territory unit : territories)
-      {
-        unit.setMethodPercentage(year, method, percentage);
-      }
 
-      cultivationMethod[method.ordinal()][year - START_YEAR] = percentage;
-    }
-    else
-    {
-      if (VERBOSE)
-      {
-        System.err.println("Invalid argument for Territory.setMethodPercentage method");
-      }
-    }
-  }
 
-  /**
-   * @param year      (passing year might be useful in the next milestone?)
-   * @param crop
-   * @param tonPerSqKilom yield for crop
-   */
-  public void setCropYield(int year, EnumFood crop, double tonPerSqKilom)
-  {
-    // Divide it up amongst the units.
-    //
-    double perUnit = tonPerSqKilom / territories.size();
-    double remainder = tonPerSqKilom % (territories.size() * perUnit);
-    for (Territory unit : territories)
-    {
-      unit.setCropYield(year, crop, perUnit + remainder);
-      remainder = 0;
-    }
-
-    cropYield[crop.ordinal()] = tonPerSqKilom;
-  }
 
   /**
    * Method for calculating and setting crop need
@@ -387,7 +200,7 @@ public class Region extends AbstractAgriculturalUnit
    * @param tonsConsumed      2014 production + imports - exports
    * @param percentUndernourished 2014 percent of population undernourished
    */
-  final public void setCropNeedPerCapita(EnumFood crop, double tonsConsumed, double percentUndernourished)
+  public void setCropNeedPerCapita(EnumFood crop, double tonsConsumed, double percentUndernourished)
   {
     for (Territory unit : territories)
     {
@@ -405,7 +218,7 @@ public class Region extends AbstractAgriculturalUnit
    * @param crop     EnumFood
    * @param tonPerPerson 2014 ton/person
    */
-  final public void setCropNeedPerCapita(EnumFood crop, double tonPerPerson)
+  public void setCropNeedPerCapita(EnumFood crop, double tonPerPerson)
   {
     // Divide it up amongst the units.
     //

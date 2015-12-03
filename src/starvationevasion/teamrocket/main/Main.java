@@ -71,12 +71,12 @@ public class Main extends Application {
 
     Group root = new Group();
 
-    Media video = new Media(OpeningScene.class.getResource("/images/animation.mp4").toString());
+    Media video = new Media(Main.class.getResource("/images/Try5.mp4").toString());
     MediaPlayer videoPlayer = new MediaPlayer(video);
     MediaView viewer = new MediaView(videoPlayer);
 
     primaryStage.setTitle("Starvation Evasion");
-    
+
     root.getChildren().add(viewer);
     Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
     primaryStage.setScene(startAnimation);

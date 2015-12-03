@@ -83,7 +83,9 @@ public class Model
   private int year;
   private Region[] regionList = new Region[EnumRegion.SIZE];
 
-  private double[] foodPrice = new double[EnumFood.SIZE];
+
+  private SeaLevel seaLevel;
+  private CropData cropData;
 
 
 
@@ -92,6 +94,7 @@ public class Model
   {
     this.startYear = startYear;
     year = startYear;
+    seaLevel = new SeaLevel();
   }
 
 
@@ -108,21 +111,19 @@ public class Model
       regionList[i] = new Region(EnumRegion.values()[i]);
     }
 
+    cropData = new CropData();
+
+
     WorldLoader loader = new WorldLoader(regionList);
 
     float[] avgConversionFactors = new float[EnumFood.SIZE];
 
-
     for (Region region : regionList)
     { // The loader builds regions in the order that it finds them in the data file.  We need to
       // put them in ordinal order.
-      //
 
-      // Aggregate the statistics from all territories.
-      //
-      region.updateStatistics(Constant.FIRST_YEAR);
-
-      if (debugLevel.intValue() < Level.INFO.intValue()) printRegion(region, Constant.FIRST_YEAR);
+      region.aggregateTerritoryFields(Constant.FIRST_YEAR);
+      //if (debugLevel.intValue() < Level.INFO.intValue()) printRegion(region, Constant.FIRST_YEAR);
     }
   }
 
@@ -155,9 +156,33 @@ public class Model
   protected void appendWorldData(WorldData threeYearData)
   {
     threeYearData.year = year;
+    threeYearData.seaLevel = seaLevel.getSeaLevel(year);
+    for (int i=0; i< EnumFood.SIZE; i++)
+    {
+      threeYearData.foodPrice[i] = (int)cropData.foodPrice[i];
+    }
+
+
+    //Region Data
     for (int i=0; i<EnumRegion.SIZE; i++)
     {
-      threeYearData.regionData[i].revenueBalance = regionList[i].getRevenue();
+      RegionData region = threeYearData.regionData[i];
+
+      region.revenueBalance = regionList[i].getRevenue();
+
+      for (EnumFood food : EnumFood.values())
+      {
+        region.foodProduced[food.ordinal()] += regionList[i].getCropProduction(food);
+
+        //Simulator keeps income in $1000s but client is given income in millions of dollars.
+        int thousandsOfDollars = regionList[i].getCropIncome(food);
+
+        //If a very small amount, then make at least 1 million.
+        if ((thousandsOfDollars > 1) && (thousandsOfDollars<500)) thousandsOfDollars+= 500;
+
+        //Round up
+        region.foodIncome[food.ordinal()]   += ( thousandsOfDollars + 600)/1000;
+      }
     }
   }
 
@@ -173,7 +198,11 @@ public class Model
   private void updateFoodDistribution(){}
   private void updatePlayerRegionRevenue(){}
   private void updateHumanDevelopmentIndex(){}
-  
+
+
+
+
+
   public static void printRegion(Region region, int year)
   {
     System.out.println("Region : " + region.getName());
@@ -198,7 +227,7 @@ public class Model
     }
   }
   
-  public static void printData(AbstractAgriculturalUnit unit, int year, String prefix)
+  public static void printData(AbstractTerritory unit, int year, String prefix)
   {
     System.out.println(prefix + "Data for " + unit.getName() + " in year " + year);
     System.out.print(prefix + prefix + "\t");
@@ -216,13 +245,12 @@ public class Model
     }
     else System.out.print(" population : " + unit.getPopulation(year));
 
-    System.out.print(", medianAge : " + unit.getMedianAge(year));
-    System.out.print(", births : " + unit.getBirths(year));
-    System.out.print(", mortality : " + unit.getMortality(year));
-    System.out.print(", migration : " + unit.getMigration(year));
-    System.out.print(", undernourished : " + unit.getUndernourished(year));
-    System.out.print(", landTotal : " + unit.getLandTotal(year));
-    System.out.print(", landArable : " + unit.getLandArable(year));
+    System.out.print(", medianAge : " + unit.getMedianAge());
+    System.out.print(", births : " + unit.getBirths());
+    System.out.print(", mortality : " + unit.getMortality());
+    System.out.print(", migration : " + unit.getMigration());
+    System.out.print(", undernourished : " + unit.getUndernourished());
+    System.out.print(", landTotal : " + unit.getLandTotal());
     System.out.println();
 
     System.out.print(prefix + "\t            ");
@@ -230,7 +258,7 @@ public class Model
     System.out.println();
 
     System.out.print(prefix + "\tcropYield : ");
-    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropYield(year, food));
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropYield(food));
     System.out.println();
 
     System.out.print(prefix + "\tcropNeedPerCapita : ");
@@ -238,22 +266,22 @@ public class Model
     System.out.println();
 
     System.out.print(prefix + "\tcropProduction : ");
-    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropProduction(year, food));
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropProduction(food));
     System.out.println();
 
     System.out.print(prefix + "\tcropIncome : ");
-    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropIncome(year, food));
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropIncome(food));
     System.out.println();
 
     System.out.print(prefix + "\tlandCrop : ");
-    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropLand(year, food)); // Yes, they named it backwards.
+    for (EnumFood food : EnumFood.values()) System.out.print("\t" + unit.getCropLand(food)); // Yes, they named it backwards.
     System.out.println();
 
     System.out.print(prefix + "\t            ");
-    for (EnumGrowMethod method : EnumGrowMethod.values()) System.out.print("\t" + method);
+    for (EnumFarmMethod method : EnumFarmMethod.values()) System.out.print("\t" + method);
     System.out.println();
     System.out.print(prefix + "\tcultivationMethod : ");
-    for (EnumGrowMethod method : EnumGrowMethod.values()) System.out.print("\t" + unit.getMethodPercentage(year, method));
+    for (EnumFarmMethod method : EnumFarmMethod.values()) System.out.print("\t" + unit.getMethod(method));
     System.out.println();
   }
 }

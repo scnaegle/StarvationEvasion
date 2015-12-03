@@ -144,9 +144,9 @@ public class GameController
    * @param cardPosition position of card in hand
    * @return text of card
    */
-  public String getCardText(int cardPosition)
+  public PolicyCard getCard(int cardPosition)
   {
-    return player.getHand().get(cardPosition).getGameText();
+    return player.getHand().get(cardPosition);
   }
 
   /**
