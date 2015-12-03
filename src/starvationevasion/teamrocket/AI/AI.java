@@ -72,10 +72,7 @@ public class AI extends Player
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    for(PolicyCard card : cards)
-    {
-
-    }
+    AI.setCardTargets(cards, generator);
   }
 
   @Override
