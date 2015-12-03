@@ -209,18 +209,18 @@ public class Region
     return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
         /(double) getLastPopulation();
   }
-  
+
   public ArrayList<Double> getHDI()
   {
     return HDI;
   }
-  
+
 
   public int getLastProteinEnergyMalnourished()
   {
     return proteinEnergyMalnourished.lastIndexOf(proteinEnergyMalnourished);
   }
-  
+
   public int getLastMicronutrientMalnourished()
   {
     return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);

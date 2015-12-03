@@ -100,7 +100,7 @@ public class Main extends Application {
     else if (scene == 3)
     {
       primaryStage.setScene(cardDraftScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
+
 //      primaryStage.fireEvent(new WindowEvent(regionScene.getWindow(), WindowEvent.WINDOW_SHOWN));
 //      controller.showMyRegion();
 
@@ -108,12 +108,12 @@ public class Main extends Application {
     else if (scene == 4)
     {
       primaryStage.setScene(votingScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
+
     }
     else if (scene == 5)
     {
       primaryStage.setScene(loginScene);
-      placeWindowonScreen(primaryStage, 1350, 1000);
+
     }
     else if (scene == 6)
     {
