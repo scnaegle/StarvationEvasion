@@ -3,13 +3,12 @@ package starvationevasion.teamrocket.gui;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.PolicyCard;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Maps every card image to a playable policy card.
+ * Maps every card image to a playable policy.
  */
 public class CardImage
 {
