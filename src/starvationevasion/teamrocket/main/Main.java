@@ -21,7 +21,7 @@ import starvationevasion.teamrocket.server.GameClock;
 public class Main extends Application
 {
   private static GameController gameController;
-  private static GameClock gameClock;
+  public static final GameClock GAME_CLOCK = new GameClock(300000l);
   private static GuiController guiController;
 
   private Stage primaryStage;
@@ -49,16 +49,6 @@ public class Main extends Application
   public static void setGameController(GameController gameController)
   {
     Main.gameController = gameController;
-  }
-
-  public static GameClock getGameClock()
-  {
-    return gameClock;
-  }
-
-  public static void setGameClock(GameClock gameClock)
-  {
-    Main.gameClock = gameClock;
   }
 
   public static GuiController getGuiController()

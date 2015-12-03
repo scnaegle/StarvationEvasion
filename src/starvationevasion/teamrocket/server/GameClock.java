@@ -14,7 +14,7 @@ public class GameClock
   /**
    * Time between updates in milliseconds 17 ms = 60 hz
    */
-  private final int DELAY = 17;
+  private final long DELAY = 17;
 
   /**
    * Time remaining milliseconds
@@ -22,7 +22,7 @@ public class GameClock
   private long timeLeft;
   private Timer timer;
 
-  public GameClock(int timeLeft)
+  public GameClock(long timeLeft)
   {
     this.timeLeft = timeLeft;
 
@@ -51,7 +51,7 @@ public class GameClock
    *
    * @param milliLeft milliseconds
    */
-  public void setTimeLeft(int milliLeft)
+  public void setTimeLeft(long milliLeft)
   {
     this.timeLeft = milliLeft;
   }
@@ -63,8 +63,14 @@ public class GameClock
 
   private long updateInterval()
   {
-    Main.getGameController().timerUpdate(timeLeft);
-    Main.getGuiController().timerUpdate(timeLeft);
+    if(Main.getGameController() != null)
+    {
+      Main.getGameController().timerUpdate(timeLeft);
+    }
+    if(Main.getGuiController() != null)
+    {
+      Main.getGuiController().timerUpdate(timeLeft);
+    }
 
 
     return --timeLeft;
