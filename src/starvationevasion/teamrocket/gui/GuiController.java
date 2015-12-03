@@ -686,7 +686,7 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(event.getSource() == card2)
     {
-//      String text = Main.gameController.getCardText(1);
+//      String text = Main.gameController.getCard(1);
 //      card2text.setText(text);
 
       double width = card2Image.getFitWidth();
@@ -706,7 +706,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(event.getSource() == card3)
     {
 
-//      String text = Main.gameController.getCardText(2);
+//      String text = Main.gameController.getCard(2);
 //      card3text.setText(text);
 
       double width = card3Image.getFitWidth();
@@ -723,7 +723,7 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(event.getSource() == card4)
     {
-//      String text = Main.gameController.getCardText(3);
+//      String text = Main.gameController.getCard(3);
 //      card4text.setText(text);
 
       double width = card4Image.getFitWidth();
@@ -739,7 +739,7 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(event.getSource() == card5)
     {
-//      String text = Main.gameController.getCardText(4);
+//      String text = Main.gameController.getCard(4);
 //      card5text.setText(text);
 
       double width = card5Image.getFitWidth();
@@ -755,7 +755,7 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if(event.getSource() == card6)
     {
-//      String text = Main.gameController.getCardText(5);
+//      String text = Main.gameController.getCard(5);
 //      card6text.setText(text);
 
       double width = card6Image.getFitWidth();
@@ -771,7 +771,7 @@ public class GuiController implements javafx.fxml.Initializable
     }
     else if (event.getSource() == card7)
     {
-//      String text = Main.gameController.getCardText(6);
+//      String text = Main.gameController.getCard(6);
 //      card7text.setText(text);
 
       double width = card7Image.getFitWidth();
