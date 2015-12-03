@@ -77,7 +77,7 @@ public class Model
 
   // Verbosity of debug information during startup
   //
-  private final static Level debugLevel = Level.FINEST; // FINE;
+  private final static Level debugLevel = Level.FINE;
 
   private final int startYear;
   private int year;
@@ -123,7 +123,7 @@ public class Model
       // put them in ordinal order.
 
       region.aggregateTerritoryFields(Constant.FIRST_YEAR);
-      //if (debugLevel.intValue() < Level.INFO.intValue()) printRegion(region, Constant.FIRST_YEAR);
+      if (debugLevel.intValue() < Level.INFO.intValue()) printRegion(region, Constant.FIRST_YEAR);
     }
   }
 
@@ -138,7 +138,9 @@ public class Model
 
     applyPolicies();
     updateLandUse();
+
     updatePopulation();
+
     updateClimate();
     generateSpecialEvents();
     updateFarmProductYield();
@@ -167,6 +169,9 @@ public class Model
     for (int i=0; i<EnumRegion.SIZE; i++)
     {
       RegionData region = threeYearData.regionData[i];
+      region.population = regionList[i].getPopulation(year);
+      region.undernourished = regionList[i].getUndernourished();
+      region.humanDevelopmentIndex = regionList[i].getHumanDevelopmentIndex();
 
       region.revenueBalance = regionList[i].getRevenue();
 
@@ -182,17 +187,48 @@ public class Model
 
         //Round up
         region.foodIncome[food.ordinal()]   += ( thousandsOfDollars + 600)/1000;
+
+        region.farmArea[food.ordinal()] = regionList[i].getCropLand(food);
       }
     }
   }
 
-
   private void applyPolicies(){}
   private void updateLandUse(){}
-  private void updatePopulation(){}
+
+  /**
+   * Updates the population of each region.
+   */
+  private void updatePopulation()
+  {
+    // TODO: Year to year population changes are now a fixed value, provided in the .csv
+    // file.  We need a way to take the net change in population, and back that number
+    // out to birth rate, mortality rate, and undernourishment.
+    //
+    // Note : The total population for the region is updated in region.aggregateTerritoryFields().
+    //
+    for (int i=0; i<EnumRegion.SIZE; i++)
+    {
+      for (Territory territory : regionList[i].getTerritories())
+      {
+        // territory.updatePopulation(year);
+      }
+    }
+  }
+
   private void updateClimate(){}
   private void generateSpecialEvents(){}
-  private void updateFarmProductYield(){}
+
+  private void updateFarmProductYield()
+  {
+    for (int i = 0; i < EnumRegion.SIZE ; i++)
+    {
+      for (Territory territory : regionList[i].getTerritories()) {
+        // territory.updatePopulation(year);
+      }
+    }
+  }
+
   private void updateFarmProductNeed(){}
   private void updateFarmProductMarket(){}
   private void updateFoodDistribution(){}
@@ -207,16 +243,14 @@ public class Model
   {
     System.out.println("Region : " + region.getName());
     System.out.print("\tTerritories : ");
-    for (Territory territory : region.getAgriculturalUnits())
-    {
+    for (Territory territory : region.getTerritories()) {
       System.out.print("\t" + territory.getName());
     }
     System.out.println();
 
     printData(region, year, "");
 
-    for (Territory territory : region.getAgriculturalUnits())
-    {
+    for (Territory territory : region.getTerritories()) {
       if (debugLevel.intValue() <= Level.FINER.intValue()) printData(territory, year, "\t");
       if (debugLevel.intValue() <= Level.FINEST.intValue())
       {
