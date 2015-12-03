@@ -8,6 +8,8 @@ import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
+import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
@@ -104,6 +106,33 @@ public class GameController
 
   private void initializeGame(String gameType, String ip, int port)
   {
+  }
+
+  public void switchToScene(ServerState serverState) {
+    switch(serverState) {
+      case LOGIN:
+        if (player.ENUM_REGION == null) {
+          switchToSelectRegion();
+        } else {
+          switchToGameScene();
+        }
+        break;
+      case BEGINNING:
+        switchToGameScene();
+        break;
+      case DRAWING:
+        break;
+      case DRAFTING:
+        break;
+      case VOTING:
+        break;
+      case WIN:
+        break;
+      case LOSE:
+        break;
+      case END:
+        break;
+    }
   }
 
   /**
