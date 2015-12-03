@@ -12,6 +12,7 @@ import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.messages.EnumGameState;
+import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
@@ -43,7 +44,7 @@ public class GameController
   private boolean successfulLogin = false;
   private Client client;
 
-  public GameState gameState;
+  public ClientGameState gameState;
   private AvailableRegions availableRegions;
 
   GameController(Main main)
@@ -79,6 +80,7 @@ public class GameController
     player.setHand(hand);
     MAIN.switchScenes(3);
 
+    this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
     gui.showMyRegion();
 
