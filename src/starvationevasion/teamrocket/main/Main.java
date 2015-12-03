@@ -16,38 +16,70 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.teamrocket.gui.GuiController;
+import starvationevasion.teamrocket.server.GameClock;
 
+public class Main extends Application
+{
+  private static GameController gameController;
+  private static GameClock gameClock;
+  private static GuiController guiController;
 
+  private Stage primaryStage;
+  private Parent welcome;
+  private Parent chooseRegion;
+  private Parent cardDraft;
+  private Parent voting;
+  private Parent login;
+  private Parent gameRoom;
+  private Parent chat;
 
-public class Main extends Application {
-  public static GameController gameController;
-  public GuiController gui;
+  private Scene welcomeScene;
+  private Scene regionScene;
+  private Scene cardDraftScene;
+  private Scene votingScene;
+  private Scene loginScene;
+  private Scene gameRoomScene;
+  private Scene chatScene;
 
-  Stage primaryStage;
-  Parent welcome;
-  Parent chooseRegion;
-  Parent cardDraft;
-  Parent voting;
-  Parent login;
-  Parent gameRoom;
-  Parent chat;
+  public static GameController getGameController()
+  {
+    return gameController;
+  }
 
-  Scene welcomeScene;
-  Scene regionScene;
-  Scene cardDraftScene;
-  Scene votingScene;
-  Scene loginScene;
-  Scene gameRoomScene;
-  Scene chatScene;
+  public static void setGameController(GameController gameController)
+  {
+    Main.gameController = gameController;
+  }
 
+  public static GameClock getGameClock()
+  {
+    return gameClock;
+  }
+
+  public static void setGameClock(GameClock gameClock)
+  {
+    Main.gameClock = gameClock;
+  }
+
+  public static GuiController getGuiController()
+  {
+    return guiController;
+  }
+
+  public static void setGuiController(GuiController guiController)
+  {
+    Main.guiController = guiController;
+  }
 
 
   @Override
-  public void start(Stage primaryStage) throws Exception{
-    if(Main.gameController == null)
+  public void start(Stage primaryStage) throws Exception
+  {
+    if (Main.getGameController() == null)
     {
-      gameController = new GameController(this);
+      setGameController(new GameController(this));
     }
+
     this.primaryStage = primaryStage;
 
     welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
@@ -58,7 +90,6 @@ public class Main extends Application {
     gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
     chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
 
-
     welcomeScene = new Scene(welcome);
     loginScene = new Scene(login);
     regionScene = new Scene(chooseRegion);
@@ -66,8 +97,6 @@ public class Main extends Application {
     votingScene = new Scene(voting);
     gameRoomScene = new Scene(gameRoom);
     chatScene = new Scene(chat);
-
-
 
     Group root = new Group();
 
@@ -94,11 +123,12 @@ public class Main extends Application {
     primaryStage.show();
     videoPlayer.play();
 
-
+    primaryStage.show();
   }
 
   /**
    * switches between scenes.
+   *
    * @param scene the number that the scene is on
    */
   public void switchScenes(int scene)
@@ -118,19 +148,16 @@ public class Main extends Application {
     else if (scene == 4)
     {
       primaryStage.setScene(votingScene);
-
     }
     else if (scene == 5)
     {
       primaryStage.setScene(loginScene);
-
     }
     else if (scene == 6)
     {
       primaryStage.setScene(gameRoomScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
     }
-
   }
 
   /**
@@ -140,7 +167,7 @@ public class Main extends Application {
   {
     Stage secondStage = new Stage();
     secondStage.setTitle("Chat here!");
-    placeWindowonScreen(secondStage,320,1000);
+    placeWindowonScreen(secondStage, 320, 1000);
     secondStage.setScene(chatScene);
     secondStage.show();
   }
@@ -151,13 +178,14 @@ public class Main extends Application {
     stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - x);
     stage.setY(primaryScreenBounds.getMinY());
   }
+
   public Stage getCurrentStage()
   {
     return primaryStage;
   }
 
-  public static void main(String[] args) {
-
+  public static void main(String[] args)
+  {
     launch(args);
-    }
+  }
 }

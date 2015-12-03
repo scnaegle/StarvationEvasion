@@ -29,7 +29,6 @@ public class GameController
   private Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, Region> regions = new HashMap<>();
-  public GuiController gui;
   private GameClock stopwatch;
   private boolean singlePlayer;
   private boolean newMultiPlayer;
@@ -83,9 +82,6 @@ public class GameController
 
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
-//    gui.showMyRegion();
-
-//    gui.startTimer();
     if (singlePlayer)
     {
       Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
@@ -260,23 +256,6 @@ public class GameController
   }
 
   /**
-   * Update the timer with time left in current stage.
-   *
-   * @param stopwatch seconds
-   */
-  public void setTimer(GameClock stopwatch)
-  {
-    if (this.stopwatch == null)
-    {
-      this.stopwatch = new GameClock(stopwatch.getTimeLeft());
-    }
-    else
-    {
-      this.stopwatch.setTimeLeft(stopwatch.getTimeLeft());
-    }
-  }
-
-  /**
    * Store the new Regions
    *
    * @param newRegions
@@ -440,15 +419,14 @@ public class GameController
     return playerUsername;
   }
 
-  public void showDefaultRegion()
-  {
-    gui.showMyRegion();
-  }
-
-  // public void setDraftedCard()
-
   public void initVisualizer()
   {
+
+  }
+
+  public void timerUpdate(long timeLeft)
+  {
+
 
   }
 }

@@ -23,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
@@ -298,6 +297,7 @@ public class GuiController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
+    Main.setGuiController(this);
 
   }
 
@@ -315,7 +315,7 @@ public class GuiController implements javafx.fxml.Initializable
   public void connectUsers()
   {
     //if(user1 has logged in)
-    user1.setText(Main.gameController.getPlayerUsername());
+    user1.setText(Main.getGameController().getPlayerUsername());
     user1.setVisible(true);
     //if(user2 has logged in)....
 
@@ -348,15 +348,13 @@ public class GuiController implements javafx.fxml.Initializable
     String playerIPAddress = ipAddress.getCharacters().toString();
     String playerNetworkPort = port.getCharacters().toString();
 
-    Main.gameController.gui = this;
-
-    return Main.gameController.tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
+    return Main.getGameController().tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
   }
 
   @FXML
   public void sendMessage()
   {
-    String username = Main.gameController.getPlayerUsername();
+    String username = Main.getGameController().getPlayerUsername();
 
     if(hasText)
     {
@@ -388,7 +386,7 @@ public class GuiController implements javafx.fxml.Initializable
     if(event.getCode().equals(KeyCode.ENTER))
     {
       try{
-        this.player = Main.gameController.startNewGame(myRegion);
+        this.player = Main.getGameController().startNewGame(myRegion);
       }
       catch (Exception e)
       {
@@ -403,7 +401,7 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public void highlightCards()
   {
-    if(Main.gameController.getMyRegion() == EnumRegion.CALIFORNIA)
+    if(Main.getGameController().getMyRegion() == EnumRegion.CALIFORNIA)
     {
       Color purple = new Color(.69,.59,.72,1);
       c1rect.setFill(purple);
@@ -421,7 +419,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(purple);
       h2rect.setFill(purple);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.MOUNTAIN)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.MOUNTAIN)
     {
       Color brown = new Color(.68,.54,.43,1);
       c1rect.setFill(brown);
@@ -439,7 +437,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(brown);
       h2rect.setFill(brown);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.NORTHERN_PLAINS)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_PLAINS)
     {
       Color blue = new Color(.7,.81,.89,1);
       c1rect.setFill(blue);
@@ -457,7 +455,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(blue);
       h2rect.setFill(blue);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
     {
       Color red = new Color(.91,.6,.6,1);
       c1rect.setFill(red);
@@ -475,7 +473,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(red);
       h2rect.setFill(red);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.HEARTLAND)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.HEARTLAND)
     {
       Color yellow = new Color(.99,.92,.62,1);
       c1rect.setFill(yellow);
@@ -493,7 +491,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(yellow);
       h2rect.setFill(yellow);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
     {
       Color green = new Color(.75,.8,.62,1);
       c1rect.setFill(green);
@@ -511,7 +509,7 @@ public class GuiController implements javafx.fxml.Initializable
       h1rect.setFill(green);
       h2rect.setFill(green);
     }
-    else if(Main.gameController.getMyRegion() == EnumRegion.SOUTHEAST)
+    else if(Main.getGameController().getMyRegion() == EnumRegion.SOUTHEAST)
     {
       Color orange = new Color(.97,.66,.37,1);
       c1rect.setFill(orange);
@@ -906,14 +904,14 @@ public class GuiController implements javafx.fxml.Initializable
     newMultiPlayerMode = false;
     joinMultiPlayerMode = false;
 
-    Main.gameController.setSinglePlayerMode(false);
-    Main.gameController.setNewMultiPlayerMode(false);
-    Main.gameController.setJoinMultiPlayerMode(false);
+    Main.getGameController().setSinglePlayerMode(false);
+    Main.getGameController().setNewMultiPlayerMode(false);
+    Main.getGameController().setJoinMultiPlayerMode(false);
 
     if(gamePlay == singlePlayer)
     {
       singlePlayerMode = true;
-      Main.gameController.setSinglePlayerMode(true);
+      Main.getGameController().setSinglePlayerMode(true);
       multiPlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
       //tell game control theres only one player
@@ -921,7 +919,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(gamePlay == multiPlayer)
     {
       newMultiPlayerMode = true;
-      Main.gameController.setNewMultiPlayerMode(true);
+      Main.getGameController().setNewMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
       //tell game control there's many players
@@ -930,7 +928,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(gamePlay == joinMultiPlayer)
     {
       joinMultiPlayerMode = true;
-      Main.gameController.setJoinMultiPlayerMode(true);
+      Main.getGameController().setJoinMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       multiPlayer.setSelected(false);
     }
@@ -955,7 +953,7 @@ public class GuiController implements javafx.fxml.Initializable
       {
         try
         {
-          Main.gameController.switchToSelectRegion();
+          Main.getGameController().switchToSelectRegion();
         }
         catch (Exception e)
         {
@@ -966,7 +964,7 @@ public class GuiController implements javafx.fxml.Initializable
       {
         //go to gameSetting scene, then gameRoom scene, then game
         try{
-          Main.gameController.switchToLoginScene();
+          Main.getGameController().switchToLoginScene();
 
         }
         catch (Exception e)
@@ -979,7 +977,7 @@ public class GuiController implements javafx.fxml.Initializable
       {
         //go to login scene, then gameRoom, then game
         try{
-          Main.gameController.switchToLoginScene();
+          Main.getGameController().switchToLoginScene();
         }
         catch (Exception e)
         {
@@ -994,8 +992,8 @@ public class GuiController implements javafx.fxml.Initializable
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      String portNum = Main.gameController.checkPort(port.getCharacters().toString());
-      String IPAddress = Main.gameController.checkAddress(ipAddress.getCharacters().toString());
+      String portNum = Main.getGameController().checkPort(port.getCharacters().toString());
+      String IPAddress = Main.getGameController().checkAddress(ipAddress.getCharacters().toString());
       if (portNum.equals("bad"))
       {
         portError.setVisible(true);
@@ -1013,8 +1011,8 @@ public class GuiController implements javafx.fxml.Initializable
         //go to gameRoom
         try
         {
-          Main.gameController.switchToGameScene();
-          Main.gameController.openChat();
+          Main.getGameController().switchToGameScene();
+          Main.getGameController().openChat();
         }
         catch (Exception e)
         {
@@ -1033,7 +1031,7 @@ public class GuiController implements javafx.fxml.Initializable
     else if(button == doneGameRoom)
     {
       try{
-        this.player = Main.gameController.startNewGame(myRegion);
+        this.player = Main.getGameController().startNewGame(myRegion);
       }
       catch (Exception e)
       {
@@ -1052,7 +1050,7 @@ public class GuiController implements javafx.fxml.Initializable
       //Go to next scene
       try
       {
-        this.player = Main.gameController.startNewGame(this.myRegion);
+        this.player = Main.getGameController().startNewGame(this.myRegion);
 
       }
       catch (Exception e)
@@ -1066,7 +1064,7 @@ public class GuiController implements javafx.fxml.Initializable
       //make sure card has been played, show error label if not
       try
       {
-        Main.gameController.finishedCardDraft();
+        Main.getGameController().finishedCardDraft();
       }
       catch (Exception e)
       {
@@ -1085,7 +1083,7 @@ public class GuiController implements javafx.fxml.Initializable
       //update variables
       try
       {
-        Main.gameController.finishedVoting();
+        Main.getGameController().finishedVoting();
       }
       catch (Exception e)
       {
@@ -1801,9 +1799,9 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public void showMyRegion()
   {
-    highlightMyRegion(Main.gameController.getMyRegion());
-    playerRegion.setText("My Region: " + Main.gameController.getMyRegion());
-    currentRegion.setText("Current Region: " + Main.gameController.getMyRegion());
+    highlightMyRegion(Main.getGameController().getMyRegion());
+    playerRegion.setText("My Region: " + Main.getGameController().getMyRegion());
+    currentRegion.setText("Current Region: " + Main.getGameController().getMyRegion());
   }
 
 
@@ -2485,7 +2483,7 @@ public class GuiController implements javafx.fxml.Initializable
     double x = event.getX();
     double y = event.getY();
 
-    System.out.println("myRegion: " + Main.gameController.getMyRegion());
+    System.out.println("myRegion: " + Main.getGameController().getMyRegion());
 
     makeAllInvisible();
 
@@ -2605,7 +2603,7 @@ public class GuiController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       myRegion = EnumRegion.SOUTHERN_PLAINS;
     }
-    Main.gameController.setSelectRegion(new RegionChoice(myRegion));
+    Main.getGameController().setSelectRegion(new RegionChoice(myRegion));
     showUsersRegion();
   }
 
@@ -2757,5 +2755,9 @@ public class GuiController implements javafx.fxml.Initializable
   }
 
 
+  public void timerUpdate(long timeLeft)
+  {
+    //find what scene we are on and do stuff accordingly
+  }
 }
 
