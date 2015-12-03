@@ -4,13 +4,9 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.WorldData;
 import starvationevasion.server.Server;
-import starvationevasion.sim.CardDeck;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
-import starvationevasion.teamrocket.models.ChatHistory;
-import starvationevasion.teamrocket.models.PolicyVote;
-import starvationevasion.teamrocket.models.Region;
-import starvationevasion.teamrocket.server.Stopwatch;
+import starvationevasion.teamrocket.server.GameClock;
 
 import java.io.Serializable;
 import java.util.IllegalFormatException;
@@ -45,34 +41,21 @@ public class ClientGameState implements Serializable
     this.gameState = gameState;
   }
 
-<<<<<<< HEAD:src/starvationevasion/teamrocket/models/ClientGameState.java
   public ClientGameState(EnumGameState gameState, EnumRegion region) {
     this.gameState = gameState;
     this.myRegion = region;
   }
 
-  public ClientGameState(EnumGameState gameState, Stopwatch stopwatch,
-                         int current_year, int current_turn, ChatHistory chatHistory)
-=======
   public ClientGameState(EnumGameState gameState, GameClock stopwatch,
-                         int current_year, int current_turn, Region[] regions,
-                         Map<EnumRegion, CardDeck> region_decks,
-                         ChatHistory chatHistory)
->>>>>>> Prepping various code for GameClock implementation.:src/starvationevasion/teamrocket/server/ClientGameState.java
+                         int current_year, int current_turn, ChatHistory chatHistory)
+
   {
     this(gameState, stopwatch, current_year, current_turn, chatHistory, null);
   }
 
-<<<<<<< HEAD:src/starvationevasion/teamrocket/models/ClientGameState.java
-  public ClientGameState(EnumGameState gameState, Stopwatch stopwatch, int currentYear, int currentTurn,
+  public ClientGameState(EnumGameState gameState, GameClock stopwatch, int currentYear, int currentTurn,
                          ChatHistory chatHistory, Map<EnumRegion, PolicyVote[]> policyVotes)
-=======
-  public ClientGameState(EnumGameState gameState, GameClock stopwatch,
-                         int currentYear, int currentTurn, Region[] regions,
-                         Map<EnumRegion, CardDeck> regionDecks,
-                         ChatHistory chatHistory,
-                         Map<EnumRegion, PolicyVote[]> policyVotes)
->>>>>>> Prepping various code for GameClock implementation.:src/starvationevasion/teamrocket/server/ClientGameState.java
+
   {
     this.gameState = gameState;
     this.stopwatch = stopwatch;
