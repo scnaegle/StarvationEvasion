@@ -12,11 +12,6 @@ public class GameClock
 {
 
   /**
-   * Time between updates in milliseconds 17 ms = 60 hz
-   */
-  private final long DELAY = 17;
-
-  /**
    * Time remaining milliseconds
    */
   private long timeLeft;
@@ -33,7 +28,7 @@ public class GameClock
       {
         updateInterval();
       }
-    }, DELAY, DELAY);
+    }, Main.GUI_REFRESH_RATE, Main.GUI_REFRESH_RATE);
   }
 
   public void setServer()
@@ -61,20 +56,20 @@ public class GameClock
     timer.cancel();
   }
 
+  public String getFormatted()
+  {
+    long minutes = timeLeft/60000;
+    long seconds = timeLeft%60000;
+    if(minutes == 0 && seconds < 10l)
+    {
+      return "" + (float)seconds/1000;
+    }
+    return minutes + ":" + (seconds/1000);
+  }
+
   private long updateInterval()
   {
-    //Make sure gameController was initialized
-    if(Main.getGameController() != null)
-    {
-      Main.getGameController().timerUpdate(timeLeft);
-    }
-    //Make sure guiController was initialized
-    if(Main.getGuiController() != null)
-    {
-      Main.getGuiController().timerUpdate(timeLeft);
-    }
-
-    timeLeft = timeLeft - DELAY;
+    timeLeft = timeLeft - Main.GUI_REFRESH_RATE;
     return timeLeft;
   }
 

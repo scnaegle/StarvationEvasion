@@ -1,6 +1,9 @@
 package starvationevasion.teamrocket.gui;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
 
@@ -22,6 +26,9 @@ import java.util.ResourceBundle;
 public class VotingController implements javafx.fxml.Initializable
 {
   /*      VOTING PHASE VARIABLES      */
+
+  @FXML
+  private Label time;
 
   @FXML
   private ImageView voteCard; //Large view of card being voted on
@@ -154,7 +161,24 @@ public class VotingController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-    //start timer
+    Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
+    {
+      @Override
+      public void handle(ActionEvent event)
+      {
+        time.setText(Main.GAME_CLOCK.getFormatted());
+
+        if(Main.GAME_CLOCK.getTimeLeft() <=0)
+        {
+          //Main.getGameController().finishedCardDraft();
+        }
+
+      }
+    }));
+
+    updater.setCycleCount(Timeline.INDEFINITE);
+    updater.play();
+
     highlightCards();
   }
 

@@ -1,5 +1,7 @@
 package starvationevasion.teamrocket.gui;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
@@ -136,6 +139,24 @@ public class DraftController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
+    Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
+    {
+      @Override
+      public void handle(ActionEvent event)
+      {
+        time.setText(Main.GAME_CLOCK.getFormatted());
+
+        if(Main.GAME_CLOCK.getTimeLeft() <=0)
+        {
+          //Main.getGameController().finishedCardDraft();
+        }
+
+      }
+    }));
+
+    updater.setCycleCount(Timeline.INDEFINITE);
+    updater.play();
+
     //start timer
     showMyRegion();
     displayEarth();

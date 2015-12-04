@@ -24,6 +24,10 @@ public class Main extends Application
 {
   private static GameController gameController;
   public static final GameClock GAME_CLOCK = new GameClock(300000l);
+  /**
+   * Refresh rate in milliseconds. 17 ms = 60hz
+   */
+  public static final short GUI_REFRESH_RATE = 17;
   private static MainGuiController guiController;
   private static boolean sceneChanged = true;
 
