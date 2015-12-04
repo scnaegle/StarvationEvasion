@@ -8,7 +8,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import starvationevasion.common.EnumFood;
-import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.models.RegionHistory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class CropChart
    * @param region the region that we are making the pie chart for.
    * @return Returns a pie chart to add to the gui.
    */
-  public static PieChart makeRegionFoodPieChart(Region region)
+  public static PieChart makeRegionFoodPieChart(RegionHistory region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
@@ -47,13 +47,14 @@ public class CropChart
     return chart;
   }
 
+
   /**
    * Makes a pie chart for the revenue of the region
    *
    * @param region the region that we want the pie chart for
    * @return a pie chart of the regions revenue
    */
-  public static PieChart makeOneRegionRevenuePieChart(Region region)
+  public static PieChart makeOneRegionRevenuePieChart(RegionHistory region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropRevenue();
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
@@ -73,13 +74,12 @@ public class CropChart
   }
 
   /**
-   * Makes a HDI chart for the graph that shows the amount of population malnouished
-   * compared to normal population
+   * Makes a pie chart for the revenue of the region
    *
-   * @param region The regions that the HDI is being made for
-   * @return a pie chart
+   * @param region the region that we want the pie chart for
+   * @return a pie chart of the regions revenue
    */
-  public static PieChart makeHDIPieChart(Region region)
+  public static PieChart makeHDIPieChart(RegionHistory region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
 
@@ -99,19 +99,19 @@ public class CropChart
   }
 
   /**
-   * Produces a Pie Chart that shows the revenue of all the regions
+   * Makes a pie chart for the revenue of the region
    *
-   * @param regions the regions that everyone is playing as
-   * @return a pie chart of all of the revenue
+   * @param region the region that we want the pie chart for
+   * @return a pie chart of the regions revenue
    */
-  public static PieChart makeTotalRevenueAllRegionPieChart(Region[] regions)
+  public static PieChart makeTotalRevenueAllRegionPieChart(RegionHistory[] region)
   {
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for (Region region : regions)
+    for(RegionHistory regions : region)
     {
-      dataList.add(new PieChart.Data(region.getEnumRegion().name(),
-          region.getLastTotalRevenue()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
+          regions.getLastTotalRevenue()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
@@ -123,6 +123,7 @@ public class CropChart
     return chart;
   }
 
+
   /**
    * makes a pie chart for all the regions showing how much of the population
    * is in each region.
@@ -130,13 +131,13 @@ public class CropChart
    * @param region All of the regions
    * @return a pie chart of the population
    */
-  public static PieChart makePopulationPieChart(Region[] region)
+  public static PieChart makePopulationPieChart(RegionHistory[] region)
   {
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
 
-    for (Region regions : region)
+    for(RegionHistory regions : region)
     {
       dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
           regions.getLastPopulation()));
@@ -161,7 +162,7 @@ public class CropChart
    * @param food   the type of food we are graphinf
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartRegionSpecificFood(Region region,
+  public static LineChart makeLineChartRegionSpecificFood(RegionHistory region,
                                                           EnumFood food)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
@@ -200,7 +201,7 @@ public class CropChart
    * @param food    the type of food we are graphinf
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartForSpecificFoodRevenue(Region[] regions,
+  public static LineChart makeLineChartForSpecificFoodRevenue(RegionHistory[] regions,
                                                               EnumFood food)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
@@ -217,7 +218,7 @@ public class CropChart
     }
 
     int totalRevenue = 0;
-    for (Region region : regions)
+    for (RegionHistory region : regions)
     {
       int i = 0;
       int tempVarible = 0;
@@ -256,7 +257,7 @@ public class CropChart
    * @param region the region that we want the population from
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartRegionPopulation(Region region)
+  public static LineChart makeLineChartRegionPopulation(RegionHistory region)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
@@ -292,7 +293,7 @@ public class CropChart
    * @param region the region that we want the population from
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartRegionRevenue(Region region)
+  public static LineChart makeLineChartRegionRevenue(RegionHistory region)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();

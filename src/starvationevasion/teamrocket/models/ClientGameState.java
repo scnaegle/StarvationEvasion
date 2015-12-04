@@ -33,6 +33,7 @@ public class ClientGameState implements Serializable
   public int currentTurn; // Current turn count in the game
   public EnumPolicy[] hand; // Current player's hand
   public WorldData worldData; // all the word data
+  public Map<EnumRegion, RegionHistory> regionHistories;
   public Map<EnumRegion, PolicyVote[]> policyVotes;
   // All players votes for each card
   public ChatHistory chatHistory; // Chat history
@@ -89,7 +90,7 @@ public class ClientGameState implements Serializable
     }
   }
 
-  public void setGameState(ServerState serverState) {
+  synchronized public void setGameState(ServerState serverState) {
     this.serverState = serverState;
     switch(serverState) {
       case LOGIN:
@@ -116,6 +117,10 @@ public class ClientGameState implements Serializable
         this.gameState = EnumGameState.END;
         break;
     }
+  }
+
+  synchronized public void setHand(EnumPolicy[] hand) {
+    this.hand = hand;
   }
 
   /**
@@ -220,6 +225,10 @@ public class ClientGameState implements Serializable
         // we will have to place a method to determine the winner
         // Server.determineWinner();
     }
+  }
+
+  synchronized public void updateWorldData(WorldData worldData) {
+    this.worldData = worldData;
   }
 
 }
