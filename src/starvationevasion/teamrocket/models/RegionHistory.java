@@ -11,10 +11,10 @@ import java.util.Stack;
 /**
  * Created by scnaegl on 11/14/15.
  */
-public class Region
+public class RegionHistory
 {
   /**
-   * Keeps track of the originally selected Region.
+   * Keeps track of the originally selected RegionHistory.
    */
   public final EnumRegion ENUM_REGION;
 
@@ -44,12 +44,12 @@ public class Region
   private HashMap<EnumFood, Stack<Integer>>  cropValues = new HashMap<>();
 
   /**
-   * Creates a new Region with defaults based upon an EnumRegion. This will
+   * Creates a new RegionHistory with defaults based upon an EnumRegion. This will
    * only be called at the start of the game.
    *
    * @param enumRegion Deterines starting totalRevenue and crops.
    */
-  public Region(EnumRegion enumRegion)
+  public RegionHistory(EnumRegion enumRegion)
   {
     this.ENUM_REGION = enumRegion;
     deck = new Deck(this);

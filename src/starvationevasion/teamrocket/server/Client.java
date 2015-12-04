@@ -190,30 +190,34 @@ public class Client
 
     private void read() {
 //        System.out.println("Client: listening to socket");
-      Object msg = MessageHandler.parse(reader);
+//      Object msg = MessageHandler.parse(reader);
+      Object msg = null;
+      try {
+        msg = reader.readObject();
 //        System.out.println("Client: got message: " + msg);
-      if (msg instanceof Response) {
-        handleResponse((Response) msg);
-      }
-      else if (msg instanceof LoginResponse) {
-        handleLoginResponse((LoginResponse) msg);
-      }
-      else if (msg instanceof AvailableRegions) {
-        handleAvailableRegionsResponse((AvailableRegions) msg);
-      }
-      else if (msg instanceof ReadyToBegin) {
-        handleReadyToBeginResponse((ReadyToBegin) msg);
-      }
-      else if (msg instanceof PhaseStart) {
-        handlePhaseStartResponse((PhaseStart) msg);
-      }
-      else if (msg instanceof GameState) {
-        handleGameStateResponse((GameState) msg);
-      }
-      else if (msg instanceof ServerChatMessage) {
-        handleChatMessageResponse((ServerChatMessage) msg);
-      } else {
-        System.out.println("Unrecognized message from Server = " + msg);
+        if (msg instanceof Response) {
+          handleResponse((Response) msg);
+        } else if (msg instanceof LoginResponse) {
+          handleLoginResponse((LoginResponse) msg);
+        } else if (msg instanceof AvailableRegions) {
+          handleAvailableRegionsResponse((AvailableRegions) msg);
+        } else if (msg instanceof ReadyToBegin) {
+          handleReadyToBeginResponse((ReadyToBegin) msg);
+        } else if (msg instanceof PhaseStart) {
+          handlePhaseStartResponse((PhaseStart) msg);
+        } else if (msg instanceof GameState) {
+          handleGameStateResponse((GameState) msg);
+        } else if (msg instanceof ServerChatMessage) {
+          handleChatMessageResponse((ServerChatMessage) msg);
+        } else if (msg instanceof ActionResponse) {
+          handleActionResponse((ActionResponse) msg);
+        } else {
+          System.out.println("Unrecognized message from Server = " + msg);
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
       }
 
     }
@@ -274,12 +278,34 @@ public class Client
     }
 
     private void handleGameStateResponse(GameState gameState) {
-
+      gameController.gameState.updateWorldData(gameState.worldData);
+      gameController.gameState.setHand(gameState.hand);
     }
 
     private void handleChatMessageResponse(ServerChatMessage message) {
 
     }
+
+    private void handleActionResponse(ActionResponse actionResponse) {
+      switch(actionResponse.responseType) {
+        case OK:
+          gameController.gameState.setHand(actionResponse.playerHand);
+          break;
+        case TOO_MANY_ACTIONS:
+          gameController.addErrorMessage("This has been sent too many times: " + actionResponse.responseMessage);
+          break;
+        case TOO_MANY_VOTING_CARDS:
+          gameController.addErrorMessage("You cannot submit more than 1 voting card: " + actionResponse.responseMessage);
+          break;
+        case NONEXISTENT_CARD:
+          gameController.addErrorMessage("You do not have that card: " + actionResponse.responseMessage);
+          break;
+        case INVALID:
+          gameController.addErrorMessage(actionResponse.responseMessage);
+          break;
+      }
+    }
+
 
   }
 }

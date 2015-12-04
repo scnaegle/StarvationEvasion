@@ -9,13 +9,11 @@ import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
-import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
-import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.models.RegionHistory;
 import starvationevasion.teamrocket.server.Client;
-import starvationevasion.teamrocket.server.GameClock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +27,7 @@ public class GameController
 {
   private Player player;
   private final Main MAIN;
-  private HashMap<EnumRegion, Region> regions = new HashMap<>();
+  private HashMap<EnumRegion, RegionHistory> regions = new HashMap<>();
   private boolean singlePlayer;
   private boolean newMultiPlayer;
   private boolean joinMultiPlayer;
@@ -52,7 +50,7 @@ public class GameController
     this.MAIN = main;
     for (EnumRegion enumRegion : EnumRegion.values())
     {
-      regions.put(enumRegion, new Region(enumRegion));
+      regions.put(enumRegion, new RegionHistory(enumRegion));
     }
   }
 
@@ -225,7 +223,7 @@ public class GameController
    * @param enumRegion the enum of a region
    * @return the region
    */
-  public Region getRegion(EnumRegion enumRegion)
+  public RegionHistory getRegion(EnumRegion enumRegion)
   {
     return regions.get(enumRegion);
   }
@@ -289,9 +287,9 @@ public class GameController
   /**
    * Store the new Regions
    *
-   * @param newRegions
+   * @param newRegionHistories
    */
-  public void setRegionStats(ArrayList<Region> newRegions)
+  public void setRegionStats(ArrayList<RegionHistory> newRegionHistories)
   {
 
   }

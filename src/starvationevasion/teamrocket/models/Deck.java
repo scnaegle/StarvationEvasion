@@ -18,12 +18,12 @@ public class Deck {
 
   private Player player;
 
-  private Region region;
+  private RegionHistory region;
   /**
    * Create a new deck with reference to the player it was created for.
    * @param region region this de+ck belongs to.
    */
-  public Deck(Region region) {
+  public Deck(RegionHistory region) {
     this.region = region;
   //  this.deck = createDeck(player.getPlayerRegionEnum());
     this.hand = new ArrayList<>();
