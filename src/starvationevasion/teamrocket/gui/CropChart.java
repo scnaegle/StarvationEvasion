@@ -87,14 +87,20 @@ public class CropChart
     return chart;
   }
 
-  public static PieChart makeTotalRevenueAllRegionPieChart(Region[] region)
+  /**
+   * Produces a Pie Chart that shows the revenue of all the regions
+   *
+   * @param regions the regions that everyone is playing as
+   * @return a pie chart of all of the revenue
+   */
+  public static PieChart makeTotalRevenueAllRegionPieChart(Region[] regions)
   {
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for (Region regions : region)
+    for (Region region : regions)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
-          regions.getLastTotalRevenue()));
+      dataList.add(new PieChart.Data(region.getEnumRegion().name(),
+          region.getLastTotalRevenue()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
