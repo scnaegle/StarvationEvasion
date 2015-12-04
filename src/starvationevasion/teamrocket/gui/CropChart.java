@@ -47,7 +47,12 @@ public class CropChart
     return chart;
   }
 
-
+  /**
+   * Makes a pie chart for the revenue of the region
+   *
+   * @param region the region that we want the pie chart for
+   * @return a pie chart of the regions revenue
+   */
   public static PieChart makeOneRegionRevenuePieChart(Region region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropRevenue();
@@ -67,7 +72,13 @@ public class CropChart
     return chart;
   }
 
-
+  /**
+   * Makes a HDI chart for the graph that shows the amount of population malnouished
+   * compared to normal population
+   *
+   * @param region The regions that the HDI is being made for
+   * @return a pie chart
+   */
   public static PieChart makeHDIPieChart(Region region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
