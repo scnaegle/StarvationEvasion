@@ -3,12 +3,15 @@ package starvationevasion.teamrocket.gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -126,22 +129,36 @@ public class DraftController implements javafx.fxml.Initializable
   private Label close, close2, close3, close4, close5, close6, close7, close8, close9, close10, close11, close12;
 
   private CustomLayout layout;
+  EarthViewer earthViewer = new EarthViewer(100,400,layout);
   /***************************************************************************************/
 
 
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
+    //start timer
+    showMyRegion();
+    displayEarth();
+    resetCards();
+  }
+
+  @FXML
+  public void displayEarth()
+  {
+    earthViewer.startRotate();
+    visPane.add(earthViewer.getMiniEarth(), 1, 1);
+    visPane.setVisible(true);
 
   }
 
   @FXML
-  private void displayEarth()
+  public void showBigEarth(KeyEvent event)
   {
-    EarthViewer earthViewer = new EarthViewer(100,400,layout);
-    earthViewer.startRotate();
-    visPane.add(earthViewer.getMiniEarth(), 1, 1);
-    //visPane.setVisible(true);
+    if(event.getCode() == KeyCode.TAB)
+    {
+      visPane.add(earthViewer.getLargeEarth(),1,1);
+      earthViewer.startRotate();
+    }
   }
 
 

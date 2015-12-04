@@ -39,6 +39,7 @@ public class GameroomController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
+    connectUsers();
 
   }
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="votingScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#highlightCards" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.VotingController">
+<AnchorPane id="AnchorPane" fx:id="votingScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.VotingController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccf9ff" height="760.0" layoutX="-1.0" layoutY="0.0" opacity="0.56" stroke="BLACK" strokeType="INSIDE" visible="true" width="1024.0" />
     <ImageView id="welcome" fitHeight="760.0" fitWidth="1026.0" layoutX="-1.0" layoutY="0.0" opacity="0.48" pickOnBounds="true">

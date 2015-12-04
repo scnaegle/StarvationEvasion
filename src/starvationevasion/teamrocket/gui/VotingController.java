@@ -154,7 +154,8 @@ public class VotingController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-
+    //start timer
+    highlightCards();
   }
 
   /**
