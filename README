@@ -1,6 +1,14 @@
 READ_ME
 Allyson Goodman, Sean Naegle, Tyler Shelton, James Holland, Zachariah Falgout
 
+
+================================================================================
+Starvation Evasion
+================================================================================
+
+================================================================================
+How it is played
+================================================================================
 We have created a game called Starvation Evasion. It is a card based game where
 the goal of the game is to keep the world from having a massive famine.
 How the player is supposed to keep the world from having a famine is they
@@ -47,3 +55,82 @@ The region with the most wealth will be the first pace winner, second most wealt
 will be second place, and so on. It is a good idea to work with other players in
 order to assure that everybody does not lose, but at the end of the game you will
 have wanted to be better than the other players as well.
+
+================================================================================
+Setup
+================================================================================
+Notes:
+  - Our group had used JavaFX and used scenes in order to keep track of the
+    different types of actions that players would be using during their turn.
+
+Main
+  - Contains Game Controller (gameController)
+  - Contains GUI Controller (guiController)
+  - Starts with mp4 file of a opening credits like most games have
+
+
+  - Contains Scene Switcher
+    - Scenes are matched up with integers in to keep track of which scene we want
+      - The Different scenes point to each other
+        - The welcome scene will point to the Login Scene if it is multiplayer,
+          game, or go straight to the Region Scene for a single player game
+        - The login Screen will point to the game room scene if it is a multiplayer
+          game
+        - The Game Room Scene will point to the Drafting Scene
+        - The Region Scene will be pointing to Drafting Scene if it is a single
+          player game
+        - The Drafting Scene will point to the Voting Scene
+        - The Voting Scene will point to the Drafting Scene
+          - The Voting Scene and Drafting Scene will become a cycle of scenes
+            until the game ends
+      - Scene:
+         1: Welcome Scene (welcomeScene)
+         2: Region Scene (regionScene)
+         3: Draft Scene (cardDraftScene)
+         4: Voting Scene (voting)
+         5: Login Scene (loginScene)
+         6: Game Room Scene (gameRoom)
+
+  - Welcome Scene
+    - Intial Scene that is accesed when the game starts
+    - Shows a small intro video to our game that just represents our game as a
+      whole, showing images of food, and a person, and goals of the game
+    - Displays a question boxes that will determine what type of game a player
+      wants to play
+        - New Single Player Game
+        - New Multiplayer Game
+        - Join Multiplayer Game
+
+  - Login Scene
+    - Is accesed if player picks Host, or Join Multiplayer game.
+    - Contains a text box where a player will enter his username
+    - Contains a text box where a player will enter his password
+    - Contains a text box that a player will input the IP address
+      - If the IP address is entered wrong a try catch method is used
+        message will appear saying that it was inputted wrong
+    - Contains a text box that a player will input the port number
+      - If the port number is entered wrong a try catch method is used
+        message will appear saying that it was inputted wrong
+
+  - Region Scene
+    - Is accesed if Single Player is chosen from the Welcome Scene
+    - Player picks the region that they want to use
+    - Regions will become highlighted depending on what region the player has
+      selected
+    - There are seven Regions to pick from
+      - California
+      - Pacific Northwest & Mountain States
+      - Northern Plains States
+      - Southern Plains & Delta States
+      - Heartland States
+      - Southeastern States,
+      - Northern Crescent States
+
+  - Game Room Scene
+    - Is accesed if Join Multiplayer Game, or New Multiplayer Game is picked from
+      the Login Scene
+    - A chat box is opened so players can communicate with each other
+    - The player picks a region to play as similar to the region scene
+
+
+Many Different scenes
