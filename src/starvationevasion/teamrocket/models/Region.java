@@ -6,7 +6,6 @@ import starvationevasion.common.EnumRegion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Stack;
 
 /**
  * Created by scnaegl on 11/14/15.
@@ -19,10 +18,10 @@ public class Region
   public final EnumRegion ENUM_REGION;
 
   private Deck deck;
+
   /**
    * we need to make the stats for this region.
    */
-
   public EnumRegion getEnumRegion()
   {
     return ENUM_REGION;
@@ -41,7 +40,7 @@ public class Region
   /**
    * A arraylist of the farm stats to keep track of them throughout the turns.
    */
-  private HashMap<EnumFood, Stack<Integer>>  cropValues = new HashMap<>();
+  private HashMap<EnumFood, ArrayList<Integer>> cropProduced = new HashMap<>();
 
   /**
    * Creates a new Region with defaults based upon an EnumRegion. This will
@@ -57,7 +56,7 @@ public class Region
     for(EnumFood food : EnumFood.values())
     {
       cropRevenue.put(food, new ArrayList<Integer>());
-      cropValues.put(food, new Stack<Integer>());
+      cropProduced.put(food, new ArrayList<Integer>());
     }
     // This is where a regions starting crops are determined.
     // This might be replaced with something from the simulator or possibly
@@ -67,9 +66,6 @@ public class Region
     switch (enumRegion)
     {
       case CALIFORNIA:
-
-        break;
-
       case HEARTLAND:
       case NORTHERN_PLAINS:
       case SOUTHEAST:
@@ -80,7 +76,7 @@ public class Region
         Random rand = new Random();
         for(EnumFood food : EnumFood.values())
         {
-          addCropValue(food, rand.nextInt(100));
+//          addCropProduced(food, rand.nextInt(100));
         }
     }
   }
@@ -148,20 +144,31 @@ public class Region
    * @param food The type of food of food we want produced
    * @param value The amount of food that we want produced
    */
-  public void addCropValue(EnumFood food, int value)
+  public void addCropProduced(EnumFood food, int value)
   {
-    cropValues.get(food).push(value);
+    cropProduced.get(food).add(value);
   }
 
   /**
-   * the amount of food a crop is producing
+   * the amount of food a crop is producing for the last turn
    *
    * @param food the type of food
    * @return the amount produced
    */
-  public int getCropProduced(EnumFood food)
+  public int getLastCropProduced(EnumFood food)
   {
-    return cropValues.get(food).peek();
+    return cropProduced.get(food).lastIndexOf(cropProduced.get(food));
+  }
+
+  /**
+   * the amount of food a crop is producing for the last turn
+   *
+   * @param food the type of food
+   * @return the amount produced
+   */
+  public ArrayList<Integer> getCropProduced(EnumFood food)
+  {
+    return cropProduced.get(food);
   }
 
   /**
@@ -175,7 +182,7 @@ public class Region
     HashMap<EnumFood, Integer> latestData = new HashMap<>();
     for(EnumFood food : EnumFood.values())
     {
-      latestData.put(food, cropValues.get(food).peek());
+      latestData.put(food, cropProduced.get(food).lastIndexOf(cropProduced.get(food)));
     }
     return latestData;
   }
@@ -214,23 +221,15 @@ public class Region
   }
 
   /**
-   * gets total revenue for last turn
+   * gets total revenue for last turn a region
    *
-   * @return
+   * @return the total revenue of a region
    */
   public int getLastTotalRevenue()
   {
     return totalRevenue.lastIndexOf(totalRevenue);
   }
 
-  /**
-   *
-   * @return
-   */
-  public HashMap<EnumFood, Stack<Integer>> getCropValues()
-  {
-    return new HashMap<>(cropValues);
-  }
 
   /**
    *
@@ -269,13 +268,13 @@ public class Region
   }
 
   /**
-   *
+   * This was supposed to add a HDI, but apperently that will be given to us.
+   * I don't want to delete it because it took a while to think up.
    */
   public void addHDI()
   {
     HDI.add(((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished())) /(double) getLastPopulation());
   }
-
   /**
    *
    * @return
@@ -314,8 +313,9 @@ public class Region
   }
 
   /**
+   * get an array list of the population.
    *
-   * @return
+   * @return the population array list
    */
   public ArrayList<Integer> getPopulation()
   {
@@ -323,8 +323,9 @@ public class Region
   }
 
   /**
+   * Get's the total revenue that a region produces.
    *
-   * @return
+   * @return the total revenue of a population
    */
   public ArrayList<Integer> getTotalRevenue()
   {

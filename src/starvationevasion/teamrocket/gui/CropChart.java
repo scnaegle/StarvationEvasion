@@ -21,7 +21,8 @@ import java.util.Stack;
 public class CropChart
 {
   /**
-   * Makes a pie chart to add to the GUI of a region and what it is producing for
+   * Makes a pie chart to add to the GUI of a region and what it is producing
+   * for
    * it's crops this turn.
    *
    * @param region the region that we are making the pie chart for.
@@ -32,7 +33,7 @@ public class CropChart
     HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for(EnumFood food : EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       dataList.add(new PieChart.Data(food.name(), data.get(food)));
     }
@@ -47,13 +48,12 @@ public class CropChart
   }
 
 
-
   public static PieChart makeOneRegionRevenuePieChart(Region region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropRevenue();
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for(EnumFood food : EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       dataList.add(new PieChart.Data(food.name(), data.get(food)));
     }
@@ -74,7 +74,7 @@ public class CropChart
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    dataList.add(new PieChart.Data("Malnurished", 1-region.getLastHDI()));
+    dataList.add(new PieChart.Data("Malnurished", 1 - region.getLastHDI()));
     dataList.add(new PieChart.Data("Nurished", region.getLastHDI()));
 
     ObservableList<PieChart.Data> pieChartData =
@@ -87,15 +87,14 @@ public class CropChart
     return chart;
   }
 
-
-
   public static PieChart makeTotalRevenueAllRegionPieChart(Region[] region)
   {
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for(Region regions : region)
+    for (Region regions : region)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastTotalRevenue()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
+          regions.getLastTotalRevenue()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
@@ -107,16 +106,23 @@ public class CropChart
     return chart;
   }
 
-
+  /**
+   * makes a pie chart for all the regions showing how much of the population
+   * is in each region.
+   *
+   * @param region All of the regions
+   * @return a pie chart of the population
+   */
   public static PieChart makePopulationPieChart(Region[] region)
   {
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
 
-    for(Region regions : region)
+    for (Region regions : region)
     {
-      dataList.add(new PieChart.Data(regions.getEnumRegion().name(), regions.getLastPopulation()));
+      dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
+          regions.getLastPopulation()));
     }
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);
@@ -130,36 +136,37 @@ public class CropChart
 
 
   /**
-   * Makes a line chart of the data from our crops and regions, which spans the entire
+   * Makes a line chart of the data from our crops and regions, which spans
+   * the entire
    * turns
    *
    * @param region the region of the food
-   * @param food the type of food we are graphinf
+   * @param food   the type of food we are graphinf
    * @return a line chart for being displayed.
    */
   public static LineChart makeLineChartRegionSpecificFood(Region region,
                                                           EnumFood food)
   {
-    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
+    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
-    LineChart<Number,Number> lineChart =
-        new LineChart<Number,Number>(xAxis,yAxis);
+    LineChart<Number, Number> lineChart =
+        new LineChart<Number, Number>(xAxis, yAxis);
 
-    HashMap<EnumFood, Stack<Integer>> data = region.getCropValues();
-
-    ArrayList<XYChart.Series> dataList = new ArrayList<>();
+    ArrayList<Integer> data = region.getCropProduced(food);
 
     XYChart.Series series = new XYChart.Series();
 
 
     int iterateTurnNumber = 0;
     int actualTurnNumber = 5;
-    for(double stackData : data.get(food))
+    for (int dataout : data)
     {
-        series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), stackData));
-        iterateTurnNumber++;
+      //System.out.println(data);
+      series.getData().add(
+          new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+      iterateTurnNumber++;
     }
 
     series.setName("My portfolio");
@@ -168,44 +175,41 @@ public class CropChart
   }
 
   /**
-   * Makes a line chart of the data from our crops and regions, which spans the entire
+   * Makes a line chart of the data from our crops and regions, which spans
+   * the entire
    * turns
    *
    * @param regions the region of the food
-   * @param food the type of food we are graphinf
+   * @param food    the type of food we are graphinf
    * @return a line chart for being displayed.
    */
   public static LineChart makeLineChartForSpecificFoodRevenue(Region[] regions,
-                                                          EnumFood food)
+                                                              EnumFood food)
   {
-    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
+    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
-    LineChart<Number,Number> lineChart =
-        new LineChart<Number,Number>(xAxis,yAxis);
+    LineChart<Number, Number> lineChart =
+        new LineChart<Number, Number>(xAxis, yAxis);
     ArrayList<Integer> tempArrayList = new ArrayList<>();
 
-    int totalRevenue = 0;
-
-    for(Region region: regions)
+    for (int i=0;i<26;i++)
     {
-      int i=0;
+        tempArrayList.add(0);
+    }
+
+    int totalRevenue = 0;
+    for (Region region : regions)
+    {
+      int i = 0;
       int tempVarible = 0;
       ArrayList<Integer> data = region.getCropRevenue(food);
-      for(int values: data)
+      for (int values : data)
       {
-        if(tempArrayList.get(i)==null)
-        {
-          tempArrayList.add(values);
-          i++;
-        }
-        else
-        {
           tempVarible = tempArrayList.get(i);
-          tempArrayList.add(i, values+tempVarible);
+          tempArrayList.set(i, values + tempVarible);
           i++;
-        }
       }
 
     }
@@ -216,9 +220,11 @@ public class CropChart
 
     int iterateTurnNumber = 0;
     int actualTurnNumber = 5;
-    for(int list : tempArrayList)
+    for (int list : tempArrayList)
     {
-      series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), list));
+      System.out.println(list);
+      series.getData()
+            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3), list));
       iterateTurnNumber++;
     }
 
@@ -235,12 +241,12 @@ public class CropChart
    */
   public static LineChart makeLineChartRegionPopulation(Region region)
   {
-    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
+    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
-    LineChart<Number,Number> lineChart =
-        new LineChart<Number,Number>(xAxis,yAxis);
+    LineChart<Number, Number> lineChart =
+        new LineChart<Number, Number>(xAxis, yAxis);
 
 
     ArrayList<Integer> population = region.getPopulation();
@@ -251,9 +257,10 @@ public class CropChart
 
 
     int iterateTurnNumber = 0;
-    for(Integer populations : population)
+    for (Integer populations : population)
     {
-      series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), populations));
+      series.getData()
+            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3), populations));
       iterateTurnNumber++;
     }
 
@@ -270,12 +277,12 @@ public class CropChart
    */
   public static LineChart makeLineChartRegionRevenue(Region region)
   {
-    final NumberAxis xAxis = new NumberAxis(1980,2052,3);
+    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
-    LineChart<Number,Number> lineChart =
-        new LineChart<Number,Number>(xAxis,yAxis);
+    LineChart<Number, Number> lineChart =
+        new LineChart<Number, Number>(xAxis, yAxis);
 
 
     ArrayList<Integer> revenue = region.getTotalRevenue();
@@ -283,9 +290,10 @@ public class CropChart
     XYChart.Series series = new XYChart.Series();
 
     int iterateTurnNumber = 0;
-    for(Integer revenues : revenue)
+    for (Integer revenues : revenue)
     {
-      series.getData().add(new XYChart.Data(1980+(iterateTurnNumber*3), revenues));
+      series.getData()
+            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3), revenues));
       iterateTurnNumber++;
     }
 
