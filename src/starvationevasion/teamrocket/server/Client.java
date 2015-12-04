@@ -106,10 +106,6 @@ public class Client
       if (cmd == null) continue;
       if (cmd.length() < 1) continue;
 
-      if (cmd.startsWith("inventory")) {
-        printStoreInfo();
-        continue;
-      }
       char c = cmd.charAt(0);
       if (c == 'q') break;
 
