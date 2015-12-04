@@ -21,7 +21,7 @@ public class GameClock
   {
     this.timeLeft = timeLeft;
 
-    timer = new Timer();
+    timer = new Timer(true);
     timer.scheduleAtFixedRate(new TimerTask()
     {
       public void run()
