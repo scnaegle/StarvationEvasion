@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.chart.*;
 import javafx.scene.Group;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.models.RegionHistory;
 
 public class TestMain extends Application {
 
@@ -16,7 +16,7 @@ public class TestMain extends Application {
     stage.setWidth(500);
     stage.setHeight(500);
    PieChart chart = CropChart.makeRegionFoodPieChart(
-       new Region(EnumRegion.HEARTLAND));
+       new RegionHistory(EnumRegion.HEARTLAND));
 
     ((Group) scene.getRoot()).getChildren().add(chart);
     stage.setScene(scene);

@@ -9,7 +9,7 @@ import javafx.scene.chart.LineChart;
 import javafx.stage.Stage;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.teamrocket.models.Region;
+import starvationevasion.teamrocket.models.RegionHistory;
 
 
 public class TestMainLineGraph extends Application {
@@ -17,10 +17,10 @@ public class TestMainLineGraph extends Application {
 
   @Override public void start(Stage stage) {
 
-    Region regions[] = new Region[2];
+    RegionHistory regions[] = new RegionHistory[2];
 
 
-    Region region = new Region(EnumRegion.HEARTLAND);
+    RegionHistory region = new RegionHistory(EnumRegion.HEARTLAND);
     region.addCropRevenue(EnumFood.CITRUS,22);
     region.addCropRevenue(EnumFood.CITRUS, 25);
     region.addCropRevenue(EnumFood.CITRUS, 23);
@@ -48,7 +48,7 @@ public class TestMainLineGraph extends Application {
     region.addPopulation(114);
     region.addPopulation(115);
 
-    Region region1 = new Region(EnumRegion.CALIFORNIA);
+    RegionHistory region1 = new RegionHistory(EnumRegion.CALIFORNIA);
     region.addCropRevenue(EnumFood.CITRUS, 22);
     region.addCropRevenue(EnumFood.CITRUS, 25);
     region.addCropRevenue(EnumFood.CITRUS, 23);
