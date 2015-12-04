@@ -15,32 +15,31 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import starvationevasion.teamrocket.gui.GuiController;
+import starvationevasion.teamrocket.gui.MainGuiController;
 import starvationevasion.teamrocket.server.GameClock;
+
+import java.io.IOException;
 
 public class Main extends Application
 {
   private static GameController gameController;
   public static final GameClock GAME_CLOCK = new GameClock(300000l);
-  private static GuiController guiController;
+  private static MainGuiController guiController;
   private static boolean sceneChanged = true;
 
   private Stage primaryStage;
-  private Parent welcome;
-  private Parent chooseRegion;
+  private Stage votingStage;
   private Parent cardDraft;
   private Parent voting;
-  private Parent login;
   private Parent gameRoom;
   private Parent chat;
 
   private Scene welcomeScene;
   private Scene regionScene;
-  private Scene cardDraftScene;
-  private Scene votingScene;
   private Scene loginScene;
-  private Scene gameRoomScene;
-  private Scene chatScene;
+  Scene cardDraftScene;
+
+  FXMLLoader loader;
 
   public static GameController getGameController()
   {
@@ -52,12 +51,12 @@ public class Main extends Application
     Main.gameController = gameController;
   }
 
-  public static GuiController getGuiController()
+  public static MainGuiController getGuiController()
   {
     return guiController;
   }
 
-  public static void setGuiController(GuiController guiController)
+  public static void setGuiController(MainGuiController guiController)
   {
     Main.guiController = guiController;
   }
@@ -73,22 +72,16 @@ public class Main extends Application
 
     this.primaryStage = primaryStage;
 
-    welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
-    login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
-    chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
+    Parent welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
+    Parent login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
+    Parent chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
 
-    voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
-    gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
-    chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
-    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
+//    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
 
     welcomeScene = new Scene(welcome);
     loginScene = new Scene(login);
     regionScene = new Scene(chooseRegion);
-    cardDraftScene = new Scene(cardDraft);
-    votingScene = new Scene(voting);
-    gameRoomScene = new Scene(gameRoom);
-    chatScene = new Scene(chat);
+
 
     Group root = new Group();
 
@@ -97,6 +90,7 @@ public class Main extends Application
     MediaView viewer = new MediaView(videoPlayer);
 
     primaryStage.setTitle("Starvation Evasion");
+
 
     root.getChildren().add(viewer);
     Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
@@ -136,10 +130,28 @@ public class Main extends Application
     }
     else if (scene == 3)
     {
+      try
+      {
+       cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
+      }
+      catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+      cardDraftScene = new Scene(cardDraft);
       primaryStage.setScene(cardDraftScene);
     }
     else if (scene == 4)
     {
+      try
+      {
+        voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
+      }
+      catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+      Scene votingScene = new Scene(voting);
       primaryStage.setScene(votingScene);
     }
     else if (scene == 5)
@@ -148,6 +160,15 @@ public class Main extends Application
     }
     else if (scene == 6)
     {
+      try
+      {
+        gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
+      }
+      catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+      Scene gameRoomScene = new Scene(gameRoom);
       primaryStage.setScene(gameRoomScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
     }
@@ -158,11 +179,20 @@ public class Main extends Application
    */
   public void openChat()
   {
-    Stage secondStage = new Stage();
-    secondStage.setTitle("Chat here!");
-    placeWindowonScreen(secondStage, 320, 1000);
-    secondStage.setScene(chatScene);
-    secondStage.show();
+    Stage chatStage = new Stage();
+    try
+    {
+      chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+    Scene chatScene = new Scene(chat);
+    chatStage.setTitle("Chat here!");
+    placeWindowonScreen(chatStage, 320, 1000);
+    chatStage.setScene(chatScene);
+    chatStage.show();
   }
 
   private void placeWindowonScreen(Stage stage, int x, int y)

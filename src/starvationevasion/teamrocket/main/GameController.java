@@ -9,13 +9,11 @@ import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
-import starvationevasion.teamrocket.gui.GuiController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.Region;
 import starvationevasion.teamrocket.server.Client;
-import starvationevasion.teamrocket.server.GameClock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,9 +84,7 @@ public class GameController
     {
       Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
       //Will need to spawn a bunch of AI Clients
-      Server server = new Server(
-          "file://C:/Users/Tyler/Desktop/School/CS351/StarvationEvasion/data" +
-              "/password_file.tmpl");
+      Server server = new Server("/password_file.tmpl");
 
     }
     else if (newMultiPlayer)
@@ -231,7 +227,7 @@ public class GameController
   }
 
   /**
-   * For GuiController use.
+   * For MainGuiController use.
    *
    * @return saved region.
    */

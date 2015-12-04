@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="gameRoom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#connectUsers" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<AnchorPane id="AnchorPane" fx:id="gameRoom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#connectUsers" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GameroomController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#66edff" height="760.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="589.0" layoutX="25.0" layoutY="143.0" stroke="WHITE" strokeType="INSIDE" width="473.049072265625" />

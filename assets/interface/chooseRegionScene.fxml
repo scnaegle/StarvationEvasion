@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="chooseRegion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GuiController">
+<AnchorPane id="AnchorPane" fx:id="chooseRegion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.MainGuiController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#baff99" height="760.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
     <Text fill="#7200cc" layoutX="445.0" layoutY="102.0" scaleX="5.947190978924539" scaleY="5.531445339673558" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.1" text="CHOOSE YOUR REGION">
