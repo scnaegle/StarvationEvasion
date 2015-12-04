@@ -135,9 +135,7 @@ public class DraftController implements javafx.fxml.Initializable
   EarthViewer earthViewer = new EarthViewer(100,400,layout);
   /***************************************************************************************/
 
-
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
+  public DraftController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
     {
@@ -150,14 +148,16 @@ public class DraftController implements javafx.fxml.Initializable
         {
           //Main.getGameController().finishedCardDraft();
         }
-
       }
     }));
 
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
+  }
 
-    //start timer
+  @Override
+  public void initialize(URL location, ResourceBundle resources)
+  {
     showMyRegion();
     displayEarth();
     resetCards();

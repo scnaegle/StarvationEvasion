@@ -1,13 +1,17 @@
 package starvationevasion.teamrocket.gui;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
@@ -35,12 +39,32 @@ public class GameroomController implements javafx.fxml.Initializable
   private EnumRegion myRegion;
 
   private Player player;
+
+  public GameroomController()
+  {
+    Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
+    {
+      @Override
+      public void handle(ActionEvent event)
+      {
+        countdown.setText(Main.GAME_CLOCK.getFormatted());
+
+        if(Main.GAME_CLOCK.getTimeLeft() <=0)
+        {
+          //Main.getGameController().finishedCardDraft();
+        }
+      }
+    }));
+
+    updater.setCycleCount(Timeline.INDEFINITE);
+    updater.play();
+  }
+
   /*************************************************************************/
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
     connectUsers();
-
   }
 
   public void connectUsers()

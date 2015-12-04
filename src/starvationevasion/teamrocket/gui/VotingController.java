@@ -158,8 +158,7 @@ public class VotingController implements javafx.fxml.Initializable
 
   /********************************************************************************/
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
+  public VotingController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
     {
@@ -178,7 +177,11 @@ public class VotingController implements javafx.fxml.Initializable
 
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
+  }
 
+  @Override
+  public void initialize(URL location, ResourceBundle resources)
+  {
     highlightCards();
   }
 
