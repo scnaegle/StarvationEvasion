@@ -23,6 +23,7 @@ public class Main extends Application
   private static GameController gameController;
   public static final GameClock GAME_CLOCK = new GameClock(300000l);
   private static GuiController guiController;
+  private static boolean sceneChanged = true;
 
   private Stage primaryStage;
   private Parent welcome;
@@ -75,10 +76,11 @@ public class Main extends Application
     welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
     login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
-    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
+
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
     gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
     chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
+    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
 
     welcomeScene = new Scene(welcome);
     loginScene = new Scene(login);
@@ -90,31 +92,31 @@ public class Main extends Application
 
     Group root = new Group();
 
-//    Media video = new Media(Main.class.getResource("/images/animation.mp4").toString());
-//    MediaPlayer videoPlayer = new MediaPlayer(video);
-//    MediaView viewer = new MediaView(videoPlayer);
-//
-//    primaryStage.setTitle("Starvation Evasion");
-//
-//    root.getChildren().add(viewer);
-//    Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
-//    primaryStage.setScene(startAnimation);
-//    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
-//    {
-//      @Override
-//      public void handle(KeyEvent key)
-//      {
-//        if(key.getCode() == KeyCode.SPACE)
-//        {
-//          switchScenes(1);
-//        }
-//      }
-//    });
-//    primaryStage.show();
-//    videoPlayer.play();
+    Media video = new Media(Main.class.getResource("/images/animation.mp4").toString());
+    MediaPlayer videoPlayer = new MediaPlayer(video);
+    MediaView viewer = new MediaView(videoPlayer);
 
-    primaryStage.setScene(regionScene);
+    primaryStage.setTitle("Starvation Evasion");
+
+    root.getChildren().add(viewer);
+    Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
+    primaryStage.setScene(startAnimation);
+    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
+    {
+      @Override
+      public void handle(KeyEvent key)
+      {
+        if(key.getCode() == KeyCode.SPACE)
+        {
+          switchScenes(1);
+        }
+      }
+    });
     primaryStage.show();
+    videoPlayer.play();
+
+   // primaryStage.setScene(cardDraftScene);
+   // primaryStage.show();
   }
 
   /**
@@ -178,5 +180,10 @@ public class Main extends Application
   public static void main(String[] args)
   {
     launch(args);
+  }
+
+  public static boolean justSwitchedScenes()
+  {
+    return sceneChanged;
   }
 }

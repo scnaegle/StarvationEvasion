@@ -264,12 +264,12 @@ public class Client
     }
 
     private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
-      Main.GAME_CLOCK.setTimeLeft(readyToBegin.gameStartServerTime);
+      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.gameStartServerTime)*1000);
       gameController.gameState.gameState = EnumGameState.BEGINNING;
     }
 
     private void handlePhaseStartResponse(PhaseStart phaseStart) {
-      Main.GAME_CLOCK.setTimeLeft(phaseStart.phaseEndTime);
+      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime)*1000);
       gameController.gameState.setGameState(phaseStart.currentGameState);
     }
 

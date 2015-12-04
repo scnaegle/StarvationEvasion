@@ -63,17 +63,19 @@ public class GameClock
 
   private long updateInterval()
   {
+    //Make sure gameController was initialized
     if(Main.getGameController() != null)
     {
       Main.getGameController().timerUpdate(timeLeft);
     }
+    //Make sure guiController was initialized
     if(Main.getGuiController() != null)
     {
       Main.getGuiController().timerUpdate(timeLeft);
     }
 
-
-    return --timeLeft;
+    timeLeft = timeLeft - DELAY;
+    return timeLeft;
   }
 
 }

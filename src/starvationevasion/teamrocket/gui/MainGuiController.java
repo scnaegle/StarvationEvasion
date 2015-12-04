@@ -21,21 +21,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import javafx.stage.WindowEvent;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.visuals.EarthViewer;
 
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class GuiController implements javafx.fxml.Initializable
+public class MainGuiController implements javafx.fxml.Initializable
 {
   /* PRODUCE AND DRAWING A CARD BUTTONS */
   @FXML
@@ -257,6 +254,14 @@ public class GuiController implements javafx.fxml.Initializable
   public GridPane visPane;
 
 
+  private void displayEarth(KeyEvent event)
+  {
+    EarthViewer earthViewer = new EarthViewer(200,800);
+    earthViewer.startRotate();
+    visPane.add(earthViewer.getMiniEarth(), 1, 1);
+    visPane.setVisible(true);
+  }
+
 
   private Player player;
 
@@ -315,16 +320,9 @@ public class GuiController implements javafx.fxml.Initializable
   {
     Main.setGuiController(this);
 
-
   }
 
-  @FXML
-  private void displayEarth()
-  {
-    EarthViewer earthViewer = new EarthViewer(100,400);
-    earthViewer.startRotate();
-    visPane.add(earthViewer.getMiniEarth(),1,1);
-  }
+
   @FXML
   public void startTimer()
   {}
@@ -2781,10 +2779,18 @@ public class GuiController implements javafx.fxml.Initializable
     System.out.println(x + "," + y + ",");
   }
 
-
+  /**
+   * Determines what needs to happen on a given scene.
+   * @param timeLeft
+   */
   public void timerUpdate(long timeLeft)
   {
-    //find what scene we are on and do stuff accordingly
+    if(time != null)
+    {
+      String stringTime = (timeLeft/60000) + ":" + (timeLeft%60000/1000);
+      //time.setText(stringTime);
+    }
+
   }
 }
 
