@@ -4,23 +4,22 @@ import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import starvationevasion.common.MapPoint;
 import starvationevasion.io.XMLparsers.GeographyXMLparser;
 import starvationevasion.sim.GeographicArea;
-import starvationevasion.vis.model.Coordinate;
+import starvationevasion.vis.ClientTest.CustomLayout;
+import starvationevasion.vis.controller.SimParser;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,7 +27,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-//import starvationevasion.simvis.visuals.smallevents.CropsTest;
 
 
 /**
@@ -55,6 +53,7 @@ public class EarthViewer {
   private double anchorAngleX = 0;
   private double anchorAngleY = 0;
 
+
   private static final String DIFFUSE_MAP = "visResources/DIFFUSE_MAP.jpg";//"vis_resources/DIFFUSE_MAP.jpg";
   //"http://www.daidegasforum.com/images/22/world-map-satellite-day-nasa-earth.jpg";
   private static final String NORMAL_MAP = "visResources/NORMAL_MAP.jpg";//"vis_resources/NORMAL_MAP.jpg";
@@ -66,15 +65,18 @@ public class EarthViewer {
 
   private static Group largeEarth;
   private static Group miniEarth;
+  private String regionTitle;
 
   private Sphere earth;
   private PhongMaterial earthMaterial;
+  private CustomLayout layoutPanel;
 
-  public EarthViewer(double smallEarthRadius, double largeEarthRadius) {
+  public EarthViewer(double smallEarthRadius, double largeEarthRadius, CustomLayout l) {
     MINI_EARTH_RADIUS = smallEarthRadius;
     LARGE_EARTH_RADIUS = largeEarthRadius;
-    largeEarth = buildScene(LARGE_EARTH_RADIUS);
     miniEarth = buildScene(MINI_EARTH_RADIUS);
+    largeEarth = buildScene(LARGE_EARTH_RADIUS);
+    layoutPanel = l;
   }
 
   public Group buildScene(double earthRadius)
@@ -82,13 +84,12 @@ public class EarthViewer {
     earth = new Sphere(earthRadius);
     earthMaterial = new PhongMaterial();
     /* Material */
-    PhongMaterial earthMaterial = new PhongMaterial();
     earthMaterial.setDiffuseMap
         (new Image(getClass().getClassLoader().getResourceAsStream(DIFFUSE_MAP), MAP_WIDTH, MAP_HEIGHT, true, true));
-    earthMaterial.setBumpMap
-        (new Image(getClass().getClassLoader().getResourceAsStream(NORMAL_MAP), MAP_WIDTH, MAP_HEIGHT, true, true));
-    earthMaterial.setSpecularMap
-            (new Image(getClass().getClassLoader().getResourceAsStream(SPECULAR_MAP), MAP_WIDTH, MAP_HEIGHT, true, true));
+//    earthMaterial.setBumpMap
+//        (new Image(getClass().getClassLoader().getResourceAsStream(NORMAL_MAP), MAP_WIDTH, MAP_HEIGHT, true, true));
+//    earthMaterial.setSpecularMap
+//            (new Image(getClass().getClassLoader().getResourceAsStream(SPECULAR_MAP), MAP_WIDTH, MAP_HEIGHT, true, true));
 //    earthMaterial.setSelfIlluminationMap
 //            (new Image(getClass().getClassLoader().getResourceAsStream(REGION_OVERLAY), MAP_WIDTH, MAP_HEIGHT, true, true));
 
@@ -124,8 +125,7 @@ public class EarthViewer {
   }
 
   public void startEarth() {
-
-    //request focus to listen to key presseseses
+    /*request focus to listen to key presseseses*/
     largeEarth.requestFocus();
 
     /* Init group */
@@ -152,34 +152,24 @@ public class EarthViewer {
       Point2D point = pickResult.getIntersectedTexCoord(); //in percentages
       double lat = (point.getY() - 0.5) * -180;
       double lon = (point.getX() - 0.5) * 360;
-
-      /* TODO: Clarify if visual will have access to MapPoint class */
-      MapPoint p = new MapPoint(lat, lon);
-      System.out.println(point + " -> " + p);
-//      System.out.println(point + " -> Location{"+ lat + ", "+lon+"}");//more accurate latlong for debug
-    });
-
-
-    largeEarth.setOnScroll(event ->
-    {
-      System.out.println("test)");
+      new SimParser(lat, lon, this);
+      layoutPanel.title.setFont(Font.font ("Times", 20));
+      layoutPanel.title.setText(getRegionTitle());
     });
 
     /**setTranslate can be used to zoom in and out on the world*/
-    largeEarth.setOnScroll(me ->
+    largeEarth.setOnScroll(event ->
     {
-      System.out.println("test)");
-      if (me.getDeltaY() < 0 && zoomPosition > -840)
+      if (event.getDeltaY() < 0 && zoomPosition > -840)
       {
         largeEarth.setTranslateZ(zoomPosition -= 10);
       }
-      else if (me.getDeltaY() > 0 && zoomPosition < 500)
+      else if (event.getDeltaY() > 0 && zoomPosition < 500)
       {
         largeEarth.setTranslateZ(zoomPosition += 10);
       }
-      //System.out.println(String.format("deltaX: %.3f deltaY: %.3f", me.getDeltaX(), me.getDeltaY()));
-      //System.out.println(zoomPosition);
     });
+
     largeEarth.setOnKeyPressed(event->
       {
         switch (event.getCode())
@@ -189,14 +179,14 @@ public class EarthViewer {
             break;
           case R:
             earthMaterial.setSelfIlluminationMap
-                    (new Image(getClass().getClassLoader().getResourceAsStream(REGION_OVERLAY), MAP_WIDTH, MAP_HEIGHT, true, true));
+              (new Image(getClass().getClassLoader().getResourceAsStream(REGION_OVERLAY), MAP_WIDTH, MAP_HEIGHT, true, true));
             earth.setMaterial(earthMaterial);
             break;
         }
-
       });
 
   }
+
 
   public void startRotate(Group group)
   {
@@ -244,7 +234,18 @@ public class EarthViewer {
     }
     System.out.println("Done!");
     g.dispose();
-
   }
+
+  public void setRegionTitle(String s)
+  {
+    regionTitle = s;
+  }
+
+  public String getRegionTitle()
+  {
+    return regionTitle;
+  }
+
+
 }
 
