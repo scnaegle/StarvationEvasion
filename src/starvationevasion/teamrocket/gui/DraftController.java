@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.vis.ClientTest.CustomLayout;
 import starvationevasion.vis.visuals.EarthViewer;
 
 import java.net.URL;
@@ -123,6 +124,8 @@ public class DraftController implements javafx.fxml.Initializable
       closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12;
   @FXML
   private Label close, close2, close3, close4, close5, close6, close7, close8, close9, close10, close11, close12;
+
+  private CustomLayout layout;
   /***************************************************************************************/
 
 
@@ -135,7 +138,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private void displayEarth()
   {
-    EarthViewer earthViewer = new EarthViewer(100,400);
+    EarthViewer earthViewer = new EarthViewer(100,400,layout);
     earthViewer.startRotate();
     visPane.add(earthViewer.getMiniEarth(), 1, 1);
     //visPane.setVisible(true);
