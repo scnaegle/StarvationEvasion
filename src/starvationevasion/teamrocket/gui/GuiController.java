@@ -2788,7 +2788,7 @@ public class GuiController implements javafx.fxml.Initializable
     if(time != null)
     {
       String stringTime = (timeLeft/60000) + ":" + (timeLeft%60000/1000);
-      time.setText(stringTime);
+      //time.setText(stringTime);
     }
 
   }
