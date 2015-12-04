@@ -458,4 +458,9 @@ public class GameController
 
 
   }
+
+  public int clickedCard(int i)
+  {
+    return 0;
+  }
 }

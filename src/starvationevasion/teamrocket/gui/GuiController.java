@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -17,16 +18,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.vis.visuals.EarthViewer;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -251,6 +250,19 @@ public class GuiController implements javafx.fxml.Initializable
   public GridPane cardPane;
 
 
+  @FXML
+  public GridPane visPane;
+
+
+  private void displayEarth(KeyEvent event)
+  {
+    EarthViewer earthViewer = new EarthViewer(200,800);
+    earthViewer.startRotate();
+    visPane.add(earthViewer.getMiniEarth(),1,1);
+    visPane.setVisible(true);
+  }
+
+
   private Player player;
 
 
@@ -277,6 +289,16 @@ public class GuiController implements javafx.fxml.Initializable
   private boolean heartCard1Selected = false;
   private boolean heartCard2Selected = false;
 
+  /* VARIABLES FOR USER INPUT NEEDED POPUP */
+  @FXML
+  private StackPane cardInputs;
+  @FXML
+  private Button addedInputs;
+  @FXML
+  private Pane inputPane;
+
+  /******************************************/
+
   private boolean votable = false;
   private int numCardsinHand = 7;
 
@@ -292,8 +314,6 @@ public class GuiController implements javafx.fxml.Initializable
   private boolean hasText = false;
   /**************************/
 
-  @FXML
-  private GridPane visPane;
 
   @Override
   public void initialize(URL location, ResourceBundle resources)
@@ -595,7 +615,6 @@ public class GuiController implements javafx.fxml.Initializable
     }
   }
 
-
   private void disableCards()
   {
     caliCard1.setDisable(true);
@@ -641,6 +660,9 @@ public class GuiController implements javafx.fxml.Initializable
     h1rect.setVisible(false);
 
   }
+
+
+
 
   private boolean isVotable(Button card)
   {
@@ -961,8 +983,10 @@ public class GuiController implements javafx.fxml.Initializable
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      String portNum = Main.getGameController().checkPort(port.getCharacters().toString());
-      String IPAddress = Main.getGameController().checkAddress(ipAddress.getCharacters().toString());
+      String portNum = Main.getGameController().checkPort(
+          port.getCharacters().toString());
+      String IPAddress = Main.getGameController().checkAddress(
+          ipAddress.getCharacters().toString());
       if (portNum.equals("bad"))
       {
         portError.setVisible(true);
@@ -1073,32 +1097,44 @@ public class GuiController implements javafx.fxml.Initializable
     {
       closeProduceWindows();
     }
+    else if(button == addedInputs)
+    {
+      cardInputs.setVisible(false);
+
+    }
     else if(button == card1)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card1, card1Image, discard1);
     }
     else if(button == card2)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card2, card2Image, discard2);
     }
     else if(button == card3)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card3, card3Image, discard3);
     }
     else if(button == card4)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card4, card4Image, discard4);
     }
     else if(button == card5)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card5, card5Image, discard5);
     }
     else if(button == card6)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card6, card6Image, discard6);
     }
     else if(button == card7)
     {
+      cardInputs.setVisible(true);
       tryDraftingCard(card7, card7Image, discard7);
     }
     else if(button == caliCard1)
@@ -2743,10 +2779,18 @@ public class GuiController implements javafx.fxml.Initializable
     System.out.println(x + "," + y + ",");
   }
 
-
+  /**
+   * Determines what needs to happen on a given scene.
+   * @param timeLeft
+   */
   public void timerUpdate(long timeLeft)
   {
-    //find what scene we are on and do stuff accordingly
+    if(time != null)
+    {
+      String stringTime = (timeLeft/60000) + ":" + (timeLeft%60000/1000);
+      //time.setText(stringTime);
+    }
+
   }
 }
 

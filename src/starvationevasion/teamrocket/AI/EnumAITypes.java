@@ -30,22 +30,29 @@ public enum EnumAITypes
       public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
       {
         int discardedCardCount = 0;
-        LinkedList<PolicyCard> modifiedHand = new LinkedList<>();
+        LinkedList<PolicyCard> discardedHand = new LinkedList<>();
 
         while(discardedCardCount < discardXNumCards)
         {
           for(PolicyCard card : hand)
           {
-            if(card.votesRequired() > 0)
+            if(!(discardedHand.contains(card)))
             {
-              discardedCardCount++;
+              if(card.votesRequired() > 0 && discardedCardCount < discardXNumCards)
+              {
+                discardedCardCount++;
+                discardedHand.add(card);
+              }
+              else if(generator.nextInt(3) == 0 && discardedCardCount < discardXNumCards)
+              {
+                discardedCardCount++;
+                discardedHand.add(card);
+              }
             }
-            else if(generator.nextInt(3) == 0) discardedCardCount++;
-            else modifiedHand.add(card);
           }
         }
 
-        return modifiedHand;
+        return discardedHand;
       }
 
       @Override
@@ -181,7 +188,7 @@ public enum EnumAITypes
    * @param discardXNumCards discard x number of cards
    * @param hand card hand of the ai
    * @param generator random generator to choose random options
-   * @return new modified card hand
+   * @return hand of discarded cards
    */
   public abstract LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator);
 

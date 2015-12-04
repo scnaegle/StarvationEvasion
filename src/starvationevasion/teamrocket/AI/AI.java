@@ -23,13 +23,10 @@ public class AI extends Player
    * @param controlledRegion The region the AI is supposed to control
    * @param aiLevel The difficulty level that the AI plays at
    * @param gameController The game controller that talks to the ai through
-   * @param handFromServer The hand that the server deals the AI
    */
-  public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController,
-            LinkedList<PolicyCard> handFromServer)
+  public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController)
   {
     super(controlledRegion,aiLevel, gameController);
-    setHand(handFromServer);
     generator = new Random();
 
     setup();
@@ -51,15 +48,33 @@ public class AI extends Player
   }
 
   /**
+   * Removes all cards that the AI has been selected for discard
+   * from the hand of the player
+   * @param discardedCards the list of cards being removed
+   */
+  private void removeDiscardedCards(LinkedList<PolicyCard> discardedCards)
+  {
+    if(discardedCards.size() != 0)
+    {
+      getHand().remove(discardedCards.removeFirst());
+      removeDiscardedCards(discardedCards);
+    }
+  }
+
+  /**
    * AI has a 1 in 5 chance to discard
    * AI picks random choice from 0 to 3 cards to discard
    * @return True if AI chooses to discard cards, False if it doesn't
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(5) == 0)
+    if(generator.nextInt(1) == 0)
     {
-      setHand(AI.discardCards(generator.nextInt(3)+1,getHand(),generator));
+      int numCards = generator.nextInt(4);
+      if(numCards == 0) numCards++;
+      LinkedList<PolicyCard> discardedCards = AI.discardCards(numCards,getHand(),generator);
+      removeDiscardedCards(discardedCards);
+      System.out.println("AI hand size: " + getHand().size());
       return true;
     }
     return false;

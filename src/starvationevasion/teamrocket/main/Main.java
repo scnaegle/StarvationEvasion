@@ -23,6 +23,7 @@ public class Main extends Application
   private static GameController gameController;
   public static final GameClock GAME_CLOCK = new GameClock(300000l);
   private static GuiController guiController;
+  private static boolean sceneChanged = true;
 
   private Stage primaryStage;
   private Parent welcome;
@@ -75,10 +76,11 @@ public class Main extends Application
     welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
     login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
     chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
-    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
+
     voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
     gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
     chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
+    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
 
     welcomeScene = new Scene(welcome);
     loginScene = new Scene(login);
@@ -113,7 +115,8 @@ public class Main extends Application
     primaryStage.show();
     videoPlayer.play();
 
-    primaryStage.show();
+   // primaryStage.setScene(cardDraftScene);
+   // primaryStage.show();
   }
 
   /**
@@ -177,5 +180,10 @@ public class Main extends Application
   public static void main(String[] args)
   {
     launch(args);
+  }
+
+  public static boolean justSwitchedScenes()
+  {
+    return sceneChanged;
   }
 }
