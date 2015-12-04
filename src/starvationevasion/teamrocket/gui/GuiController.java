@@ -2779,10 +2779,18 @@ public class GuiController implements javafx.fxml.Initializable
     System.out.println(x + "," + y + ",");
   }
 
-
+  /**
+   * Determines what needs to happen on a given scene.
+   * @param timeLeft
+   */
   public void timerUpdate(long timeLeft)
   {
-    //find what scene we are on and do stuff accordingly
+    if(time != null)
+    {
+      String stringTime = (timeLeft/60000) + ":" + (timeLeft%60000/1000);
+      time.setText(stringTime);
+    }
+
   }
 }
 
