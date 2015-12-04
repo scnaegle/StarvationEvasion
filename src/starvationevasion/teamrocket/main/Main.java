@@ -113,7 +113,7 @@ public class Main extends Application
 //    primaryStage.show();
 //    videoPlayer.play();
 
-    primaryStage.setScene(cardDraftScene);
+    primaryStage.setScene(regionScene);
     primaryStage.show();
   }
 

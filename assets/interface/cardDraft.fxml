@@ -75,7 +75,15 @@
         </Label>
         <Label fx:id="dairyLabel" layoutX="384.0" layoutY="636.0" text="Dairy" visible="false">
           <labelFor>
-            <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="7.0" layoutY="19.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="" visible="true" />
+            <Button id="grainsButton" fx:id="dairyButton" contentDisplay="CENTER" graphicTextGap="0.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" prefHeight="64.0" prefWidth="64.0" text="" visible="true">
+              <graphic>
+                <ImageView id="dairy" fitHeight="64.00009999999747" fitWidth="64.0" pickOnBounds="true" visible="true">
+                  <image>
+                    <Image url="@../images/farmProductIcons/dairy.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
           </labelFor>
         </Label>
         <Label fx:id="fishLabel" layoutX="468.0" layoutY="636.0" text="Fish" visible="false">
@@ -250,16 +258,7 @@
             </StackPane>
             <StackPane id="StackPane">
               <children>
-                <Pane prefHeight="109.0" prefWidth="77.0">
-                  <children>
-                    <fx:reference source="dairyButton" />
-                    <ImageView id="dairy" fitHeight="64.00009999999747" fitWidth="64.0" layoutX="7.0" layoutY="19.0" pickOnBounds="true" visible="true">
-                      <image>
-                        <Image url="@../images/farmProductIcons/dairy.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                  </children>
-                </Pane>
+                <fx:reference source="dairyButton" />
               </children>
             </StackPane>
             <StackPane id="StackPane">
@@ -851,10 +850,10 @@
             </Pane>
           </children>
         </StackPane>
-        <GridPane fx:id="visPane" layoutX="25.0" layoutY="19.0" prefHeight="229.310546875" prefWidth="251.0">
+        <GridPane fx:id="visPane" layoutX="12.0" layoutY="60.0" onMouseMoved="#displayEarth" prefHeight="102.0" prefWidth="121.0">
           <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="127.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="124.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="46.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />

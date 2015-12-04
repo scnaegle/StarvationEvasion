@@ -21,11 +21,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import javafx.stage.WindowEvent;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.visuals.EarthViewer;
+
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -253,12 +256,6 @@ public class GuiController implements javafx.fxml.Initializable
   @FXML
   public GridPane visPane;
 
-  private void displayEarth()
-  {
-    EarthViewer earthViewer = new EarthViewer(200,800);
-    earthViewer.startRotate();
-    visPane.add(earthViewer.getMiniEarth(),1,1);
-  }
 
 
   private Player player;
@@ -318,9 +315,16 @@ public class GuiController implements javafx.fxml.Initializable
   {
     Main.setGuiController(this);
 
+
   }
 
-
+  @FXML
+  private void displayEarth()
+  {
+    EarthViewer earthViewer = new EarthViewer(100,400);
+    earthViewer.startRotate();
+    visPane.add(earthViewer.getMiniEarth(),1,1);
+  }
   @FXML
   public void startTimer()
   {}
