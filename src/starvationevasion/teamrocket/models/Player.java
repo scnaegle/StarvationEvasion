@@ -6,7 +6,6 @@ import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 
-import java.util.LinkedList;
 
 public class Player implements PlayerInterface
 {
@@ -18,7 +17,7 @@ public class Player implements PlayerInterface
 
   /**
    * AI Level if AI is used
-   * If not using AI, this should be null
+   * If Player is a human, this should be null
    */
   public final EnumAITypes AI;
 
@@ -31,7 +30,7 @@ public class Player implements PlayerInterface
   /**
    * Card hand of the player
    */
-  private LinkedList<PolicyCard> hand;
+  private PolicyCard[] hand;
 
   private PolicyCard[] selectedCards;
 
@@ -62,13 +61,13 @@ public class Player implements PlayerInterface
    * Gets the hand of the player
    * @return player hand
    */
-  public LinkedList<PolicyCard> getHand(){return hand;}
+  public PolicyCard[] getHand(){return hand;}
 
   /**
    * Update the player's hand with the new hand
    * @param hand of new cards
    */
-  public void setHand(LinkedList<PolicyCard> hand){this.hand = hand;}
+  public void setHand(PolicyCard[] hand){this.hand = hand;}
 
   /**
    * Get the current income of the player
@@ -101,10 +100,36 @@ public class Player implements PlayerInterface
 
     if(selectionSize > 0)
     {
-      if(card1 < 0) selectedCards[0] = hand.get(card2);
-      else selectedCards[0] = hand.get(card1);
+      if(card1 < 0) selectedCards[0] = hand[card2];
+      else selectedCards[0] = hand[card1];
     }
-    if(selectionSize > 1) selectedCards[1] = hand.get(card2);
+    if(selectionSize > 1) selectedCards[1] = hand[card2];
+  }
+
+  /**
+   * count nulls in array
+   * @return num of nulls
+   */
+  private  int countNulls()
+  {
+    int nullCount = 0;
+
+    for(int i = 0; i < hand.length; i++)
+    {
+      if(hand[i] == null) nullCount++;
+    }
+    return nullCount;
+  }
+
+  /**
+   * Gets the size of the hand
+   * Needs to count number of nulls to see
+   * how many cards have still in hand
+   * @return number of cards left in hand
+   */
+  public int getHandSize()
+  {
+    return hand.length - countNulls();
   }
 
   /********Interface Methods ***********/
@@ -126,12 +151,19 @@ public class Player implements PlayerInterface
   @Override
   public void discardCard(int cardPosition)
   {
-    hand.remove(cardPosition);
+    hand[cardPosition] = null;
   }
 
   @Override
   public void addCard(PolicyCard card)
   {
-    hand.add(card);
+    for(int i = 0; i < hand.length; i++)
+    {
+      if(hand[i] == null)
+      {
+        hand[i] = card;
+        break;
+      }
+    }
   }
 }

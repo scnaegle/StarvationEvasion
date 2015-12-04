@@ -50,15 +50,16 @@ public class AI extends Player
   /**
    * Removes all cards that the AI has been selected for discard
    * from the hand of the player
-   * @param discardedCards the list of cards being removed
+   * @param discardCardsPosition the position of cards being discarded
    */
-  private void removeDiscardedCards(LinkedList<PolicyCard> discardedCards)
-  {
-    if(discardedCards.size() != 0)
+  private void removeDiscardedCards(int[] discardCardsPosition) {
+    PolicyCard[] hand = getHand();
+
+    for (int i : discardCardsPosition)
     {
-      getHand().remove(discardedCards.removeFirst());
-      removeDiscardedCards(discardedCards);
+      hand[i] = null;
     }
+    setHand(hand);
   }
 
   /**
@@ -72,9 +73,7 @@ public class AI extends Player
     {
       int numCards = generator.nextInt(4);
       if(numCards == 0) numCards++;
-      LinkedList<PolicyCard> discardedCards = AI.discardCards(numCards,getHand(),generator);
-      removeDiscardedCards(discardedCards);
-      System.out.println("AI hand size: " + getHand().size());
+      removeDiscardedCards(AI.discardCards(numCards,getHand(),generator));
       return true;
     }
     return false;
@@ -102,5 +101,4 @@ public class AI extends Player
   public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
     return AI.vote(records[cardPlayedRegion.ordinal()], generator);
   }
-
 }

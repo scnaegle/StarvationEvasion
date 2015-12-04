@@ -66,14 +66,12 @@ public class GameController
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region, null, this);
 
-    PolicyCard card;
-    LinkedList<PolicyCard> hand = new LinkedList<>();
+    PolicyCard[] hand = new PolicyCard[7];
 
     for(int i = 0; i < 7; i++)
     {
       EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
-      card = PolicyCard.create(player.ENUM_REGION,policy);
-      hand.add(card);
+      hand[i] = PolicyCard.create(player.ENUM_REGION,policy);
     }
     player.setHand(hand);
     MAIN.switchScenes(3);
@@ -165,7 +163,7 @@ public class GameController
    */
   public PolicyCard getCard(int cardPosition)
   {
-    return player.getHand().get(cardPosition);
+    return player.getHand()[cardPosition];
   }
 
   /**

@@ -24,39 +24,43 @@ public enum EnumAITypes
       public int vote(PlayerRecord record, Random generator)
       {
         return generator.nextInt(3) - 1;
-      }
+      } //Java Optionals
 
       @Override
-      public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
+      public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
       {
         int discardedCardCount = 0;
-        LinkedList<PolicyCard> discardedHand = new LinkedList<>();
+        int[] discardCardPosition = new int[discardXNumCards];
+        boolean[] cardDiscarded = new boolean[hand.length];
 
-        while(discardedCardCount < discardXNumCards)
+        for(int i = 0; i < discardCardPosition.length; i++)
         {
-          for(PolicyCard card : hand)
-          {
-            if(!(discardedHand.contains(card)))
-            {
-              if(card.votesRequired() > 0 && discardedCardCount < discardXNumCards)
-              {
-                discardedCardCount++;
-                discardedHand.add(card);
-              }
-              else if(generator.nextInt(3) == 0 && discardedCardCount < discardXNumCards)
-              {
-                discardedCardCount++;
-                discardedHand.add(card);
-              }
-            }
-          }
+          discardCardPosition[i] = -1;
         }
 
-        return discardedHand;
+       while(discardedCardCount < discardXNumCards)
+       {
+         int index = 0;
+
+         for(PolicyCard card : hand)
+         {
+           if(!(cardDiscarded[index]) && discardedCardCount < discardXNumCards)
+           {
+             if(card.votesRequired() > 0 || generator.nextInt(3) == 0)
+             {
+               discardCardPosition[discardedCardCount] = index;
+               cardDiscarded[index] = true;
+               discardedCardCount++;
+             }
+           }
+           index++;
+         }
+       }
+        return discardCardPosition;
       }
 
       @Override
-      public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
+      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator) {
         int cardsSelected = 0;
         int selectXNumCards = generator.nextInt(3);
         boolean votingCardPicked = false;
@@ -81,7 +85,6 @@ public enum EnumAITypes
           }
           if(votingCardPicked) cardsSelected = selectXNumCards;
         }
-
         return playedCards;
       }
 
@@ -100,7 +103,6 @@ public enum EnumAITypes
           }
           if(card.getValidTargetRegions() != null);
         }
-
         return null;
       }
     },
@@ -126,13 +128,13 @@ public enum EnumAITypes
       }
 
       @Override//TODO: build up average
-      public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
+      public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
       {
-        return hand;
+        return null;
       }
 
       @Override
-      public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
+      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator) {
         return new PolicyCard[0];
       }
 
@@ -158,13 +160,13 @@ public enum EnumAITypes
       }
 
       @Override//TODO: build up smart
-      public LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator)
+      public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
       {
-        return hand;
+        return null;
       }
 
       @Override
-      public PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator) {
+      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator) {
         return new PolicyCard[0];
       }
 
@@ -188,17 +190,17 @@ public enum EnumAITypes
    * @param discardXNumCards discard x number of cards
    * @param hand card hand of the ai
    * @param generator random generator to choose random options
-   * @return hand of discarded cards
+   * @return array containing positions of the cards being discarded
    */
-  public abstract LinkedList<PolicyCard> discardCards(int discardXNumCards, LinkedList<PolicyCard> hand, Random generator);
+  public abstract int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator);
 
   /**
    * AI selects up to 2 cards and returns them
    * @param hand PolicyCard hand
-   * @param generator random generator to choose ranomly
+   * @param generator random generator to choose randomly
    * @return card array of selected cards
    */
-  public abstract  PolicyCard[] selectCards(LinkedList<PolicyCard> hand, Random generator);
+  public abstract  PolicyCard[] selectCards(PolicyCard[] hand, Random generator);
 
   /**
    * If played cards need a target selected, AI will select
