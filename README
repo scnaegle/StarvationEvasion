@@ -1,3 +1,31 @@
-https://github.com/menacher/java-game-server/tree/master/jetserver/src/main/java/org/menacheri/jetserver/app
+READ_ME
+Allison Goodman, Sean Naegle, Tyler Shelton, James Holland, Zachariah Falgout
 
-http://code.runnable.com/UpvRGuS4e6UcAAED/how-to-deserialize-objects-in-java-for-deserialization
+We have created a game called Starvation Evasion. It is a card based game where
+the goal of the game is to keep the world from having a massive famine.
+How the player is supposed to keep the world from having a famine is they
+initiate policies as a *politition*, which affect other players and the rest of the world.
+
+The game is designed to be played with 7 players. Each player will be in control
+of a region. The 7 regions are California, Pacific Northwest & Mountain States,
+Northern Plains States, Southern Plains & Delta States, Heartland States,
+Southeastern States, and The Northern Crescent States.
+
+How the game is played is a player choose if he wants to play single player,
+host a mutiplayer game, or join a multiplayer game. From there, he must choose
+a region to be a senator for in the United States. The game will then begin
+after all the players have chosen the region that they want to control. A player
+is then handed 7 "policy cards" where he will be able to draft 2 them to be voted
+on by all of the players, discard 3 of them, or do nothing. The player can also
+do combinations of these types of plays with the cards.
+
+Depending on what cards are played will determine how farmers will will plant
+their crops in the players regions. Each region will *distrubute* food throughout
+their region, other regions in the United States, and the rest of the world.
+
+If the players are able to make it to 2050 without their being a mass famine
+anywhere in the world, they will then compare which region has the most wealth.
+The region with the most wealth will be the first pace winner, second most wealth
+will be second place, and so on. It is a good idea to work with other players in
+order to assure that everybody does not lose, but at the end of the game you will
+have wanted to better than the other players as well.

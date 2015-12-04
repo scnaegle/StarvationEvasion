@@ -47,6 +47,13 @@ public class CropChart
     return chart;
   }
 
+
+  /**
+   * Makes a pie chart for the revenue of the region
+   *
+   * @param region the region that we want the pie chart for
+   * @return a pie chart of the regions revenue
+   */
   public static PieChart makeOneRegionRevenuePieChart(RegionHistory region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropRevenue();
@@ -66,7 +73,12 @@ public class CropChart
     return chart;
   }
 
-
+  /**
+   * Makes a pie chart for the revenue of the region
+   *
+   * @param region the region that we want the pie chart for
+   * @return a pie chart of the regions revenue
+   */
   public static PieChart makeHDIPieChart(RegionHistory region)
   {
     HashMap<EnumFood, Integer> data = region.getLastCropProducedData();
@@ -86,7 +98,12 @@ public class CropChart
     return chart;
   }
 
-
+  /**
+   * Makes a pie chart for the revenue of the region
+   *
+   * @param region the region that we want the pie chart for
+   * @return a pie chart of the regions revenue
+   */
   public static PieChart makeTotalRevenueAllRegionPieChart(RegionHistory[] region)
   {
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
