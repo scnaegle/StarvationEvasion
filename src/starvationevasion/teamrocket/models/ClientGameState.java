@@ -1,10 +1,9 @@
 package starvationevasion.teamrocket.models;
 
-import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.WorldData;
+import starvationevasion.common.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerState;
+import starvationevasion.sim.Region;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.server.GameClock;
@@ -229,6 +228,20 @@ public class ClientGameState implements Serializable
 
   synchronized public void updateWorldData(WorldData worldData) {
     this.worldData = worldData;
+    for(EnumRegion enumRegion : EnumRegion.values()) {
+      RegionHistory regionHistory = regionHistories.get(enumRegion);
+      RegionData regionData = worldData.regionData[enumRegion.ordinal()];
+      regionHistory.addTotalRevenue(regionData.revenueBalance);
+      regionHistory.addPopulation(regionData.population);
+      regionHistory.addUndernourished(regionData.undernourished);
+      regionHistory.addHDI(regionData.humanDevelopmentIndex);
+      for (EnumFood food : EnumFood.values()) {
+        regionHistory.addCropProduced(food, regionData.foodProduced[food.ordinal()]);
+        regionHistory.addCropRevenue(food, regionData.foodIncome[food.ordinal()]);
+        regionHistory.addFoodExported(food, regionData.foodExported[food.ordinal()]);
+        regionHistory.addFarmArea(food, regionData.farmArea[food.ordinal()]);
+      }
+    }
   }
 
 }

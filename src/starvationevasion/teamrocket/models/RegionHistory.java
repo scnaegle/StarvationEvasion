@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket.models;
 
+import com.google.common.collect.Iterables;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 
@@ -17,7 +18,7 @@ public class RegionHistory
    */
   public final EnumRegion ENUM_REGION;
 
-  private Deck deck;
+//  private Deck deck;
 
   /**
    * we need to make the stats for this region.
@@ -29,8 +30,8 @@ public class RegionHistory
 
   private Player player;
 
-  private ArrayList<Integer> proteinEnergyMalnourished = new ArrayList<>();
-  private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
+  private ArrayList<Double> undernourished = new ArrayList<>();
+//  private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
   private ArrayList<Double>  HDI = new ArrayList<>();
   private ArrayList<Integer> totalRevenue = new ArrayList<>(); //totalRevenue of the player and there country (a way of measuring score)
   private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
@@ -42,6 +43,10 @@ public class RegionHistory
    */
   private HashMap<EnumFood, ArrayList<Integer>> cropProduced = new HashMap<>();
 
+  private HashMap<EnumFood, ArrayList<Integer>> foodExported = new HashMap<>();
+
+  private HashMap<EnumFood, ArrayList<Integer>> farmArea = new HashMap<>();
+
   /**
    * Creates a new RegionHistory with defaults based upon an EnumRegion. This will
    * only be called at the start of the game.
@@ -51,7 +56,7 @@ public class RegionHistory
   public RegionHistory(EnumRegion enumRegion)
   {
     this.ENUM_REGION = enumRegion;
-    deck = new Deck(this);
+//    deck = new Deck(this);
 
     for(EnumFood food : EnumFood.values())
     {
@@ -187,6 +192,15 @@ public class RegionHistory
     return latestData;
   }
 
+  public void addFoodExported(EnumFood food, int value)
+  {
+    cropProduced.get(food).add(value);
+  }
+
+  public void addFarmArea(EnumFood food, int value) {
+    farmArea.get(food).add(value);
+  }
+
   /**
    * adds a measure of the popualtion for a turn.
    * @param nextPopulation
@@ -209,15 +223,16 @@ public class RegionHistory
   /**
    * adds to the total revenue by taking from all of the induvigual revenues
    */
-  public void addTotalRevenue()
+  public void addTotalRevenue(int revenueBalance)
   {
-    HashMap<EnumFood, Integer> temp = getLastCropRevenue();
-    int total=0;
-    for(EnumFood food : EnumFood.values())
-    {
-      total =+ temp.get(food);
-    }
-    totalRevenue.add(total);
+//    HashMap<EnumFood, Integer> temp = getLastCropRevenue();
+//    int total=0;
+//    for(EnumFood food : EnumFood.values())
+//    {
+//      total =+ temp.get(food);
+//    }
+//    totalRevenue.add(total);
+    totalRevenue.add(revenueBalance);
   }
 
   /**
@@ -235,45 +250,46 @@ public class RegionHistory
    *
    * @param nextMalNut
    */
-  public void addProteinEnergyMalnourished(int nextMalNut)
+  public void addUndernourished(double nextMalNut)
   {
-    proteinEnergyMalnourished.add(nextMalNut);
+    undernourished.add(nextMalNut);
   }
 
-  /**
-   *
-   * @param nextMalNut 
-   */
-  public void addMicronutrientMalnourished(int nextMalNut)
-  {
-    micronutrientMalnourished.add(nextMalNut);
-  }
-
-  /**
-   *
-   * @return
-   */
-  public ArrayList<Integer> getProteinEnergyMalnourished()
-  {
-    return proteinEnergyMalnourished;
-  }
+//  /**
+//   *
+//   * @param nextMalNut
+//   */
+//  public void addMicronutrientMalnourished(int nextMalNut)
+//  {
+//    micronutrientMalnourished.add(nextMalNut);
+//  }
 
   /**
    *
    * @return
    */
-  public ArrayList<Integer> getMicronutrientMalnourished()
+  public ArrayList<Double> getUndernourished()
   {
-    return micronutrientMalnourished;
+    return undernourished;
   }
+
+//  /**
+//   *
+//   * @return
+//   */
+//  public ArrayList<Integer> getMicronutrientMalnourished()
+//  {
+//    return micronutrientMalnourished;
+//  }
 
   /**
    * This was supposed to add a HDI, but apperently that will be given to us.
    * I don't want to delete it because it took a while to think up.
    */
-  public void addHDI()
+  public void addHDI(double humanDevelopmentIndex)
   {
-    HDI.add(((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished())) /(double) getLastPopulation());
+//    HDI.add(((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished())) /(double) getLastPopulation());
+    HDI.add(humanDevelopmentIndex);
   }
   /**
    *
@@ -281,8 +297,9 @@ public class RegionHistory
    */
   public Double getLastHDI()
   {
-    return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
-        /(double) getLastPopulation();
+//    return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
+//        /(double) getLastPopulation();
+    return Iterables.getLast(HDI);
   }
 
   /**
@@ -300,17 +317,17 @@ public class RegionHistory
    */
   public int getLastProteinEnergyMalnourished()
   {
-    return proteinEnergyMalnourished.lastIndexOf(proteinEnergyMalnourished);
+    return undernourished.lastIndexOf(undernourished);
   }
 
-  /**
-   *
-   * @return
-   */
-  public int getLastMicronutrientMalnourished()
-  {
-    return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);
-  }
+//  /**
+//   *
+//   * @return
+//   */
+//  public int getLastMicronutrientMalnourished()
+//  {
+//    return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);
+//  }
 
   /**
    * get an array list of the population.
