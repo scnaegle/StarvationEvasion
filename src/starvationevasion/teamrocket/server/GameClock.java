@@ -60,9 +60,9 @@ public class GameClock
   {
     long minutes = timeLeft/60000;
     long seconds = timeLeft%60000;
-    if(minutes == 0 && seconds < 10l)
+    if(minutes == 0 && seconds < 10000l)
     {
-      return "" + (float)seconds/1000;
+      return String.format("%.2f", (float)seconds/1000);
     }
     return minutes + ":" + (seconds/1000);
   }
