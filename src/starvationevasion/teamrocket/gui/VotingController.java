@@ -158,6 +158,9 @@ public class VotingController implements javafx.fxml.Initializable
 
   /********************************************************************************/
 
+  /**
+   * Constructor that starts the game timer for the specific scene.
+   */
   public VotingController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
@@ -179,6 +182,13 @@ public class VotingController implements javafx.fxml.Initializable
     updater.play();
   }
 
+
+  /**
+   * When controller is initialized, this method gets called and defaults whatever method is called from inside it.
+   * Parameters are not necessary to use.
+   * @param location default location of controller.
+   * @param resources resources.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
@@ -390,6 +400,10 @@ public class VotingController implements javafx.fxml.Initializable
     }
   }
 
+  /**
+   * Initially disables all cards and hides highlighting.
+   * Once the game finds out if the card is votable it highlights the necessary cards.
+   */
   private void disableCards()
   {
     caliCard1.setDisable(true);
@@ -437,7 +451,11 @@ public class VotingController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * For testing purposes currently
+   * @param card
+   * @return
+   */
 
   private boolean isVotable(Button card)
   {
@@ -459,6 +477,12 @@ public class VotingController implements javafx.fxml.Initializable
     else return false;
   }
 
+
+  /**
+   * Checks for all button pressed action events.
+   * Asks which button is pressed and does the appropriate related action.
+   * @param event Action event.
+   */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
@@ -726,6 +750,12 @@ public class VotingController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * Keeps track of the user's vote: Approve, Obstain, or Oppose.
+   * Updates labels and integers as necessary.
+   * @param event Action event.
+   */
   @FXML
   private void vote(ActionEvent event)
   {
@@ -1078,6 +1108,13 @@ public class VotingController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Resets integers and labels after each vote (click).
+   * @param reset1 Integer to reset.
+   * @param reset2 Other integer to reset.
+   * @param text1 Label to reset.
+   * @param text2 Other label to reset.
+   */
   private void resetVotesAndLabels(int reset1, int reset2, Label text1, Label text2)
   {
     reset1 = 0;
@@ -1088,6 +1125,10 @@ public class VotingController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * On mouseover, a label shows for the user's convenience.
+   * @param event MouseEvent.
+   */
   @FXML
   public void mouseOverVote(javafx.scene.input.MouseEvent event)
   {
@@ -1105,6 +1146,9 @@ public class VotingController implements javafx.fxml.Initializable
     }
   }
 
+  /**
+   * Turns off labels when mouse leaves object.
+   */
   @FXML
   public void mouseExitVote()
   {
@@ -1120,6 +1164,9 @@ public class VotingController implements javafx.fxml.Initializable
     abstainLabel.setVisible(false);
   }
 
+  /**
+   * Deselects cards each time the user is done voting on one.
+   */
   private void deselectCards()
   {
     caliCard1Selected = false;
@@ -1138,6 +1185,9 @@ public class VotingController implements javafx.fxml.Initializable
     heartCard2Selected = false;
   }
 
+  /**
+   * Hides labels in voting scene that account for everyone's votes.
+   */
   private void hideAllVoteLabels()
   {
     c1Votes.setVisible(false);
@@ -1156,8 +1206,15 @@ public class VotingController implements javafx.fxml.Initializable
     h2Votes.setVisible(false);
   }
 
+  /**
+   * Updates main scene labels with whatever the user voted.
+   * @param supportVotes Support votes.
+   * @param opposeVotes Oppose votes.
+   * @param abstainVotes Abstain votes.
+   */
   private void updateLabels(int supportVotes, int opposeVotes, int abstainVotes)
   {
+    //Get other user's votes if needed
     sVotes.setText("" + supportVotes);
     oVotes.setText("" + opposeVotes);
     aVotes.setText("" + abstainVotes);

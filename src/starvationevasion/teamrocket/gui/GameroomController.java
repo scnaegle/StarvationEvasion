@@ -40,6 +40,14 @@ public class GameroomController implements javafx.fxml.Initializable
 
   private Player player;
 
+
+  /*************************************************************************/
+  @Override
+  public void initialize(URL location, ResourceBundle resources)
+  {
+    connectUsers();
+  }
+
   public GameroomController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
@@ -59,14 +67,6 @@ public class GameroomController implements javafx.fxml.Initializable
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
   }
-
-  /*************************************************************************/
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
-  {
-    connectUsers();
-  }
-
   public void connectUsers()
   {
     //if(user1 has logged in)
