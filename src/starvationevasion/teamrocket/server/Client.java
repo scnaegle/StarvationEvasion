@@ -174,8 +174,12 @@ public class Client
     MessageHandler.send(write, message);
   }
 
-
-  public void printStoreInfo() {
+  public void send(Serializable payload) {
+    try {
+      write.writeObject(payload);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
 
@@ -268,7 +272,7 @@ public class Client
     }
 
     private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
-      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.gameStartServerTime)*1000);
+      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime)*1000);
       gameController.gameState.gameState = EnumGameState.BEGINNING;
     }
 
