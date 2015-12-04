@@ -132,5 +132,56 @@ Main
     - A chat box is opened so players can communicate with each other
     - The player picks a region to play as similar to the region scene
 
+  -Drafting Scene
+    - World Visulization (Top Left)
+      - A rotating world that displays different events, such as natural disaters,
+        famines, wars, and other random events throughout the world
+    - Map of the United States (Top Right)
+      - Displays different regions
+      - Clicking on the map will highlight regions
+      - Highlighted region will display a pie chart (Middle Right) of that regions
+        revenue from the crops it produces
+    - Timer (Middle Middle)
+      - Amount of time left in drafting phase
+    - Drafting Cards (Middle Middle)
+      - The Two policy cards that player can choose to draft when ready
+    - Hand
+      - All of the policy cards that a player can choose from
+      - It has 7 cards
+      - It has a discard pile of cards
+      - It has the deck of cards
+      - Policy Cards
+        - When mouse is over a card it scales the card, so the player will be able
+          to read the policy that the card contains
+        - When a card is chosen a text box appears so the player can give values
+          of what they want to use with the policy being drafted
+    - Crop Display (Bottom Bottom)
+      - Has all the different and pictures of crops that a region can produce
+      - When mouse is held over a picture it says what the crop is
+      - When a crop is selected accesses a panel
+        - Panel will contain
+          - A scaled picture of the crop
+          - Fun facts about the crops allowing for the player to see what
+            crops to encourage farmers to grow for his region
+          - It will have a line chart that displays the entire revenue for crop
+            from every region
 
-Many Different scenes
+  - Voting Scene
+    - Timer (Top Left)
+      - Amount of time left in the voting phase
+    - Graphs (Top Middle)
+      - A pie chart that displays the players HDI for the Nurished vs.
+        malnumished people this turn (Left)
+      - A line graph showing a regions total revenue (Middle)
+      - A line graph showing the HDI for a players region over the entire game (Right)
+    - Region Display (Middle Middle)
+      - Displays the region
+    - Cards below the regions
+      - The trasparent cards are cards that a player cannot  vote on
+      - The higlighted cards are one that a player can vote on
+        - When a player clicks a card a new window is displayed showng the policy card
+        - The player has 3 options to vote with the card
+          - Abstain (not vote)
+            - If a player does not vote the card is *automaticaly* abstained
+          - Push (vote for)
+          - Vote against
