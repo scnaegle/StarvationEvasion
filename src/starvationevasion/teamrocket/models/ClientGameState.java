@@ -1,10 +1,9 @@
 package starvationevasion.teamrocket.models;
 
-import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.WorldData;
+import starvationevasion.common.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerState;
+import starvationevasion.sim.Region;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.server.GameClock;
@@ -33,6 +32,7 @@ public class ClientGameState implements Serializable
   public int currentTurn; // Current turn count in the game
   public EnumPolicy[] hand; // Current player's hand
   public WorldData worldData; // all the word data
+  public Map<EnumRegion, RegionHistory> regionHistories;
   public Map<EnumRegion, PolicyVote[]> policyVotes;
   // All players votes for each card
   public ChatHistory chatHistory; // Chat history
@@ -89,7 +89,7 @@ public class ClientGameState implements Serializable
     }
   }
 
-  public void setGameState(ServerState serverState) {
+  synchronized public void setGameState(ServerState serverState) {
     this.serverState = serverState;
     switch(serverState) {
       case LOGIN:
@@ -116,6 +116,10 @@ public class ClientGameState implements Serializable
         this.gameState = EnumGameState.END;
         break;
     }
+  }
+
+  synchronized public void setHand(EnumPolicy[] hand) {
+    this.hand = hand;
   }
 
   /**
@@ -219,6 +223,24 @@ public class ClientGameState implements Serializable
       case END:
         // we will have to place a method to determine the winner
         // Server.determineWinner();
+    }
+  }
+
+  synchronized public void updateWorldData(WorldData worldData) {
+    this.worldData = worldData;
+    for(EnumRegion enumRegion : EnumRegion.values()) {
+      RegionHistory regionHistory = regionHistories.get(enumRegion);
+      RegionData regionData = worldData.regionData[enumRegion.ordinal()];
+      regionHistory.addTotalRevenue(regionData.revenueBalance);
+      regionHistory.addPopulation(regionData.population);
+      regionHistory.addUndernourished(regionData.undernourished);
+      regionHistory.addHDI(regionData.humanDevelopmentIndex);
+      for (EnumFood food : EnumFood.values()) {
+        regionHistory.addCropProduced(food, regionData.foodProduced[food.ordinal()]);
+        regionHistory.addCropRevenue(food, regionData.foodIncome[food.ordinal()]);
+        regionHistory.addFoodExported(food, regionData.foodExported[food.ordinal()]);
+        regionHistory.addFarmArea(food, regionData.farmArea[food.ordinal()]);
+      }
     }
   }
 
