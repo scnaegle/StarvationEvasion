@@ -192,18 +192,18 @@
         <Pane layoutX="257.0" layoutY="268.0" prefHeight="88.999755859375" prefWidth="274.0">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x7" height="101.999755859375" layoutX="-6.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="283.0" />
-            <Button fx:id="draft1" cancelButton="false" layoutX="48.0" layoutY="6.0" minHeight="77.31053161621094" minWidth="66.92537689208984" mnemonicParsing="false" prefHeight="77.31053161621094" prefWidth="66.92537689208984" rotate="0.0" text="" visible="false">
+            <Button fx:id="draft2" cancelButton="false" layoutX="157.0" layoutY="4.0" minHeight="80.31055450439453" minWidth="63.99998474121094" mnemonicParsing="false" prefHeight="80.31055450439453" prefWidth="63.99998474121094" rotate="0.0" text="" visible="false">
               <graphic>
-                <ImageView id="insideCard" fx:id="draft1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true" visible="true">
+                <ImageView id="insideCard" fx:id="draft2Image" fitHeight="80.31041161620486" fitWidth="66.92533792724862" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="draft2" cancelButton="false" layoutX="157.0" layoutY="4.0" minHeight="80.31055450439453" minWidth="63.99998474121094" mnemonicParsing="false" prefHeight="80.31055450439453" prefWidth="63.99998474121094" rotate="0.0" text="" visible="false">
+            <Button fx:id="draft1" cancelButton="false" layoutX="48.0" layoutY="6.0" minHeight="77.31053161621094" minWidth="66.92537689208984" mnemonicParsing="false" prefHeight="77.31053161621094" prefWidth="66.92537689208984" rotate="0.0" text="" visible="false">
               <graphic>
-                <ImageView id="insideCard" fx:id="draft2Image" fitHeight="80.31041161620486" fitWidth="66.92533792724862" pickOnBounds="true" preserveRatio="true">
+                <ImageView id="insideCard" fx:id="draft1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true" visible="true">
                   <image>
                     <Image url="@../images/insideCard.png" preserveRatio="true" smooth="true" />
                   </image>
@@ -445,6 +445,17 @@
             <Font name="Avenir Next Demi Bold Italic" size="32.0" />
           </font>
         </Label>
+        <GridPane fx:id="visPane" layoutX="25.0" layoutY="50.0" onKeyPressed="#showBigEarth" prefHeight="102.0" prefWidth="121.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="46.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
         <Pane id="playerCards" fx:id="playerCardPane" layoutX="151.0" layoutY="432.0" prefHeight="175.0" prefWidth="464.0">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff29" height="214.99996948242188" layoutX="-137.0" layoutY="-21.0" stroke="BLACK" strokeType="INSIDE" width="627.0" />
@@ -850,17 +861,6 @@
             </Pane>
           </children>
         </StackPane>
-        <GridPane fx:id="visPane" layoutX="12.0" layoutY="60.0" onKeyPressed="#showBigEarth" prefHeight="102.0" prefWidth="121.0">
-          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="46.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
       </children>
     </Pane>
   </children>
