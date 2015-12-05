@@ -70,6 +70,7 @@ public class GameController
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region, null, this);
 
+    //BEGIN placeholder hand code should be removed once hand is retrieved from the server
    PolicyCard[] hand = new PolicyCard[7];
 
     for (int i = 0; i < 7; i++)
@@ -78,6 +79,8 @@ public class GameController
       hand[i] = PolicyCard.create(player.ENUM_REGION, policy);
     }
     player.setHand(hand);
+    //END placeholder code.
+
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
@@ -101,7 +104,15 @@ public class GameController
 
     client.send(new Login(playerUsername, salt, playerPassword));
     client.send(new RegionChoice(player.ENUM_REGION));
+
     //Will need to spawn a bunch of AI Clients
+    //Need to detect what zones are left and fill with AI
+
+
+    //Need to send ready to start message to server
+
+
+    //
 
     return this.player;
   }
