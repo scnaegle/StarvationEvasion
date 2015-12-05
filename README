@@ -170,15 +170,15 @@ Main
     - Timer (Top Left)
       - Amount of time left in the voting phase
     - Graphs (Top Middle)
-      - A pie chart that displays the players HDI for the Nurished vs.
-        malnumished people this turn (Left)
+      - A pie chart that displays the players HDI for the nurished vs.
+        malnurished people this turn (Left)
       - A line graph showing a regions total revenue (Middle)
       - A line graph showing the HDI for a players region over the entire game (Right)
     - Region Display (Middle Middle)
       - Displays the region
     - Cards below the regions
-      - The trasparent cards are cards that a player cannot  vote on
-      - The higlighted cards are one that a player can vote on
+      - The transparent cards are cards that a player cannot  vote on
+      - The highlighted cards are one that a player can vote on
         - When a player clicks a card a new window is displayed showng the policy card
         - The player has 3 options to vote with the card
           - Abstain (not vote)

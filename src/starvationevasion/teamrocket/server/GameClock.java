@@ -41,6 +41,16 @@ public class GameClock
     return timeLeft;
   }
 
+  public long getMinutes()
+  {
+    return timeLeft/60000;
+  }
+
+  public long getSeconds()
+  {
+    return timeLeft%60000;
+  }
+
   /**
    * Sets the remaining milliseconds to be displayed.
    *
@@ -64,8 +74,11 @@ public class GameClock
     {
       return String.format("%.2f", (float)seconds/1000);
     }
-    return minutes + ":" + (seconds/1000);
+    return String.format("%d:%02d", minutes, (seconds/1000));
+
   }
+
+
 
   private long updateInterval()
   {

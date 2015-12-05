@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
@@ -15,10 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
@@ -39,32 +37,38 @@ public class DraftController implements javafx.fxml.Initializable
 
   /* HIGHLIGHTED IMAGES OF THE REGIONS */
   @FXML
-  private ImageView cali, heartland, mountSt, northSt, nPlains, sPlains, southEast;
+  private ImageView cali, heartland, mountSt, northSt, nPlains, sPlains,
+      southEast;
 
   /* PRODUCE AND DRAWING A CARD BUTTONS */
   @FXML
   private Button drawCardButton, discardPile;
   @FXML
-  private Button appleButton, grainsButton, citrusButton, feedButton, dairyButton,
-      fishButton, meatButton, nutButton, oilButton, poultryButton, veggieButton, specialButton;
+  private Button appleButton, grainsButton, citrusButton, feedButton,
+      dairyButton,
+      fishButton, meatButton, nutButton, oilButton, poultryButton, veggieButton,
+      specialButton;
 
   @FXML
   private Button doneWithCards;
 
   /* CARDS AND THEIR IMAGES IN THE DRAFTING PHASE */
   @FXML
-  private ImageView card1Image, card2Image, card3Image, card4Image, card5Image, card6Image, card7Image, lastDiscardImage,
+  private ImageView card1Image, card2Image, card3Image, card4Image, card5Image,
+      card6Image, card7Image, lastDiscardImage,
       draft1Image, draft2Image;
 
   @FXML
-  private Button card1, card2, card3, card4, card5, card6, card7, draft1, draft2;
+  private Button card1, card2, card3, card4, card5, card6, card7, draft1,
+      draft2;
 
   private int cardsDrafted = 0;
 
   @FXML
-  private Label discardedNum,discard1,discard2,discard3,discard4,discard5,discard6,discard7,discardDraft1,discardDraft2;
+  private Label discardedNum, discard1, discard2, discard3, discard4, discard5,
+      discard6, discard7, discardDraft1, discardDraft2;
 
-  private int disNum=0;
+  private int disNum = 0;
 
 
   @FXML
@@ -74,14 +78,16 @@ public class DraftController implements javafx.fxml.Initializable
 
   /* REGION LABELS */
   @FXML
-  private Label caliLabel, seLabel, neLabel, mountLabel, heartLabel, sPlainLabel, nPlainLabel;
+  private Label caliLabel, seLabel, neLabel, mountLabel, heartLabel,
+      sPlainLabel, nPlainLabel;
 
   @FXML
   private Label currentRegion;
 
   /* CROP LABELS */
   @FXML
-  private Label appleLabel, grainLabel, citrusLabel, feedLabel, dairyLabel, fishLabel, meatLabel, nutLabel,
+  private Label appleLabel, grainLabel, citrusLabel, feedLabel, dairyLabel,
+      fishLabel, meatLabel, nutLabel,
       oilLabel, poultryLabel, veggieLabel, specialLabel;
 
 
@@ -123,33 +129,57 @@ public class DraftController implements javafx.fxml.Initializable
 
   /* PRODUCE INFORMATION WINDOWS */
   @FXML
-  private Pane appleWindow, grainWindow, citrusWindow, feedWindow, meatWindow, dairyWindow, nutWindow, oilWindow,
+  private Pane appleWindow, grainWindow, citrusWindow, feedWindow, meatWindow,
+      dairyWindow, nutWindow, oilWindow,
       poultryWindow, veggieWindow, specialWindow, fishWindow;
   @FXML
-  private Button closeWindow, closeWindow2, closeWindow3, closeWindow4, closeWindow5, closeWindow6, closeWindow7,
+  private Button closeWindow, closeWindow2, closeWindow3, closeWindow4,
+      closeWindow5, closeWindow6, closeWindow7,
       closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12;
   @FXML
-  private Label close, close2, close3, close4, close5, close6, close7, close8, close9, close10, close11, close12;
+  private Label close, close2, close3, close4, close5, close6, close7, close8,
+      close9, close10, close11, close12;
 
   private CustomLayout layout;
-  EarthViewer earthViewer = new EarthViewer(100,400,layout);
+  EarthViewer earthViewer = new EarthViewer(100, 400, layout);
+
   /***************************************************************************************/
 
   public DraftController()
   {
-    Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
-    {
-      @Override
-      public void handle(ActionEvent event)
-      {
-        time.setText(Main.GAME_CLOCK.getFormatted());
-
-        if(Main.GAME_CLOCK.getTimeLeft() <=0)
-        {
-          //Main.getGameController().finishedCardDraft();
-        }
-      }
-    }));
+    Timeline updater = new Timeline(
+        new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE),
+            new EventHandler<ActionEvent>()
+            {
+              @Override
+              public void handle(ActionEvent event)
+              {
+                time.setText(Main.GAME_CLOCK.getFormatted());
+                Main.GAME_CLOCK.getTimeLeft();
+                //System.out.println(Main.GAME_CLOCK.getSeconds());
+                time.setTextFill(Color.FORESTGREEN );
+                if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
+                {
+                  time.setTextFill(Color.DARKRED);
+                }
+                else if (Main.GAME_CLOCK.getMinutes() < 1)
+                {
+                  time.setTextFill(Color.RED);
+                }
+                else if(Main.GAME_CLOCK.getMinutes()<2)
+                {
+                  time.setTextFill(Color.ORANGE);
+                }
+                else if(Main.GAME_CLOCK.getMinutes()<3)
+                {
+                  time.setTextFill(Color.YELLOW);
+                }
+                if (Main.GAME_CLOCK.getTimeLeft() <= 0)
+                {
+                  //Main.getGameController().finishedCardDraft();
+                }
+              }
+            }));
 
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
@@ -175,9 +205,9 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void showBigEarth(KeyEvent event)
   {
-    if(event.getCode() == KeyCode.TAB)
+    if (event.getCode() == KeyCode.TAB)
     {
-      visPane.add(earthViewer.getLargeEarth(),1,1);
+      visPane.add(earthViewer.getLargeEarth(), 1, 1);
       earthViewer.startRotate();
     }
   }
@@ -186,165 +216,166 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void buttonPressed(ActionEvent event)
   {
-    Button button = (Button)event.getSource();
-    if(button == doneWithCards)
+    Button button = (Button) event.getSource();
+    if (button == doneWithCards)
     {
-    //make sure card has been played, show error label if not
-    saveDraftedCards();
-    try
-    {
-      Main.getGameController().finishedCardDraft();
+      //make sure card has been played, show error label if not
+      saveDraftedCards();
+      try
+      {
+        Main.getGameController().finishedCardDraft();
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
     }
-    catch (Exception e)
+    else if (button == closeWindow || button == closeWindow2 ||
+        button == closeWindow3 ||
+        button == closeWindow4 ||
+        button == closeWindow5 ||
+        button == closeWindow6 ||
+        button == closeWindow7 ||
+        button == closeWindow8 ||
+        button == closeWindow9 ||
+        button == closeWindow10 ||
+        button == closeWindow11 ||
+        button == closeWindow12)
     {
-      e.printStackTrace();
+      closeProduceWindows();
     }
-  }
-  else if(button == closeWindow || button == closeWindow2 || button == closeWindow3 ||
-      button == closeWindow4 ||
-      button == closeWindow5 ||
-      button == closeWindow6 ||
-      button == closeWindow7 ||
-      button == closeWindow8 ||
-      button == closeWindow9 ||
-      button == closeWindow10 ||
-      button == closeWindow11 ||
-      button == closeWindow12 )
-  {
-    closeProduceWindows();
-  }
-  else if(button == addedInputs)
-  {
-    cardInputs.setVisible(false);
+    else if (button == addedInputs)
+    {
+      cardInputs.setVisible(false);
 
-  }
-  else if(button == card1)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card1, card1Image, discard1);
-  }
-  else if(button == card2)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card2, card2Image, discard2);
-  }
-  else if(button == card3)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card3, card3Image, discard3);
-  }
-  else if(button == card4)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card4, card4Image, discard4);
-  }
-  else if(button == card5)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card5, card5Image, discard5);
-  }
-  else if(button == card6)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card6, card6Image, discard6);
-  }
-  else if(button == card7)
-  {
-    cardInputs.setVisible(true);
-    tryDraftingCard(card7, card7Image, discard7);
-  }
+    }
+    else if (button == card1)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card1, card1Image, discard1);
+    }
+    else if (button == card2)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card2, card2Image, discard2);
+    }
+    else if (button == card3)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card3, card3Image, discard3);
+    }
+    else if (button == card4)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card4, card4Image, discard4);
+    }
+    else if (button == card5)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card5, card5Image, discard5);
+    }
+    else if (button == card6)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card6, card6Image, discard6);
+    }
+    else if (button == card7)
+    {
+      cardInputs.setVisible(true);
+      tryDraftingCard(card7, card7Image, discard7);
+    }
 
-  else if (button == drawCardButton)
-  {
-    //draw card from deck.
-    drawNewCard();
-  }
-  else if (event.getSource() == appleButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    System.out.println("pressed apple button");
-    appleWindow.setVisible(true);
+    else if (button == drawCardButton)
+    {
+      //draw card from deck.
+      drawNewCard();
+    }
+    else if (event.getSource() == appleButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      System.out.println("pressed apple button");
+      appleWindow.setVisible(true);
 
-  }
-  else if (button == grainsButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    grainWindow.setVisible(true);
-  }
-  else if(button == citrusButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    citrusWindow.setVisible(true);
-  }
-  else if(button == feedButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    feedWindow.setVisible(true);
-  }
-  else if(button == dairyButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    dairyWindow.setVisible(true);
-  }
-  else if(button == meatButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    meatWindow.setVisible(true);
-  }
-  else if(button == poultryButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    poultryWindow.setVisible(true);
-  }
-  else if(button == oilButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    oilWindow.setVisible(true);
-  }
-  else if(button == specialButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    specialWindow.setVisible(true);
-  }
-  else if(button == veggieButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    veggieWindow.setVisible(true);
-  }
-  else if(button == nutButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    nutWindow.setVisible(true);
-  }
-  else if(button == fishButton)
-  {
-    //see whether it's for a policy card or for viewing
-    //if policy card, use product for card
-    //else display facts
-    fishWindow.setVisible(true);
-  }
+    }
+    else if (button == grainsButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      grainWindow.setVisible(true);
+    }
+    else if (button == citrusButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      citrusWindow.setVisible(true);
+    }
+    else if (button == feedButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      feedWindow.setVisible(true);
+    }
+    else if (button == dairyButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      dairyWindow.setVisible(true);
+    }
+    else if (button == meatButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      meatWindow.setVisible(true);
+    }
+    else if (button == poultryButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      poultryWindow.setVisible(true);
+    }
+    else if (button == oilButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      oilWindow.setVisible(true);
+    }
+    else if (button == specialButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      specialWindow.setVisible(true);
+    }
+    else if (button == veggieButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      veggieWindow.setVisible(true);
+    }
+    else if (button == nutButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      nutWindow.setVisible(true);
+    }
+    else if (button == fishButton)
+    {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
+      fishWindow.setVisible(true);
+    }
   }
 
   @FXML
@@ -424,7 +455,7 @@ public class DraftController implements javafx.fxml.Initializable
 
       card5.toFront();
     }
-    else if(event.getSource() == card6)
+    else if (event.getSource() == card6)
     {
       double width = card6Image.getFitWidth();
       double height = card6Image.getFitHeight();
@@ -456,7 +487,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void returnToNormal(MouseEvent event)
   {
-    if(event.getSource() == card1)
+    if (event.getSource() == card1)
     {
       double width = card1Image.getFitWidth();
       double height = card1Image.getFitHeight();
@@ -467,7 +498,7 @@ public class DraftController implements javafx.fxml.Initializable
       card1Image.setFitHeight(height / 4);
 
     }
-    else if(event.getSource() == card2)
+    else if (event.getSource() == card2)
     {
 
       double width = card2Image.getFitWidth();
@@ -480,7 +511,7 @@ public class DraftController implements javafx.fxml.Initializable
       card2Image.setFitHeight(height / 4);
 
     }
-    else if(event.getSource() == card3)
+    else if (event.getSource() == card3)
     {
 
       double width = card3Image.getFitWidth();
@@ -494,7 +525,7 @@ public class DraftController implements javafx.fxml.Initializable
 
 
     }
-    else if(event.getSource() == card4)
+    else if (event.getSource() == card4)
     {
 
       double width = card4Image.getFitWidth();
@@ -507,7 +538,7 @@ public class DraftController implements javafx.fxml.Initializable
       card4Image.setFitHeight(height / 4);
 
     }
-    else if(event.getSource() == card5)
+    else if (event.getSource() == card5)
     {
 
       double width = card5Image.getFitWidth();
@@ -520,7 +551,7 @@ public class DraftController implements javafx.fxml.Initializable
       card5Image.setFitHeight(height / 4);
 
     }
-    else if(event.getSource() == card6)
+    else if (event.getSource() == card6)
     {
 
       double width = card6Image.getFitWidth();
@@ -533,7 +564,7 @@ public class DraftController implements javafx.fxml.Initializable
       card6Image.setFitHeight(height / 4);
 
     }
-    else if(event.getSource() == card7)
+    else if (event.getSource() == card7)
     {
 
       double width = card7Image.getFitWidth();
@@ -552,7 +583,8 @@ public class DraftController implements javafx.fxml.Initializable
   /**
    * Called after card in hand is clicked on.
    * Will draft card as long as there's not already 2 cards drafted.
-   * @param card Card clicked
+   *
+   * @param card    Card clicked
    * @param discard Discard option 'X'
    */
   private void tryDraftingCard(Button card, ImageView cardImage, Label discard)
@@ -615,51 +647,51 @@ public class DraftController implements javafx.fxml.Initializable
     discard7.setVisible(true);
 
     disNum = 0;
-    discardedNum.setText(""+disNum);
+    discardedNum.setText("" + disNum);
     numCardsinHand = 7;
   }
 
   private void drawNewCard()
   {
-    if(numCardsinHand < 7)
+    if (numCardsinHand < 7)
     {
-      if(!card1.isVisible())
+      if (!card1.isVisible())
       {
         card1.setVisible(true);
         discard1.setVisible(true);
         numCardsinHand++;
       }
-      else if(!card2.isVisible())
+      else if (!card2.isVisible())
       {
         card2.setVisible(true);
         discard2.setVisible(true);
         numCardsinHand++;
       }
-      else if(!card3.isVisible())
+      else if (!card3.isVisible())
       {
         card3.setVisible(true);
         discard3.setVisible(true);
         numCardsinHand++;
       }
-      else if(!card4.isVisible())
+      else if (!card4.isVisible())
       {
         card4.setVisible(true);
         discard4.setVisible(true);
         numCardsinHand++;
       }
-      else if(!card5.isVisible())
+      else if (!card5.isVisible())
       {
         card5.setVisible(true);
         discard5.setVisible(true);
         numCardsinHand++;
       }
-      else if(!card6.isVisible())
+      else if (!card6.isVisible())
       {
         card6.setVisible(true);
         discard6.setVisible(true);
         numCardsinHand++;
       }
-      else if(!card7.isVisible())
+      else if (!card7.isVisible())
       {
         card7.setVisible(true);
         discard7.setVisible(true);
@@ -677,128 +709,177 @@ public class DraftController implements javafx.fxml.Initializable
   {
     int[] draftedCards = new int[2];
 
-    if(draft1Image.getImage()==card1Image.getImage()){ draftedCards[0] = 1;}
-    else if(draft1Image.getImage()==card2Image.getImage()){ draftedCards[0] = 2;}
-    else if(draft1Image.getImage()==card3Image.getImage()){ draftedCards[0] = 3;}
-    else if(draft1Image.getImage()==card4Image.getImage()){ draftedCards[0] = 4;}
-    else if(draft1Image.getImage()==card5Image.getImage()){ draftedCards[0] = 5;}
-    else if(draft1Image.getImage()==card6Image.getImage()){ draftedCards[0] = 6;}
-    else if(draft1Image.getImage()==card7Image.getImage()){ draftedCards[0] = 7;}
+    if (draft1Image.getImage() == card1Image.getImage())
+    {
+      draftedCards[0] = 1;
+    }
+    else if (draft1Image.getImage() == card2Image.getImage())
+    {
+      draftedCards[0] = 2;
+    }
+    else if (draft1Image.getImage() == card3Image.getImage())
+    {
+      draftedCards[0] = 3;
+    }
+    else if (draft1Image.getImage() == card4Image.getImage())
+    {
+      draftedCards[0] = 4;
+    }
+    else if (draft1Image.getImage() == card5Image.getImage())
+    {
+      draftedCards[0] = 5;
+    }
+    else if (draft1Image.getImage() == card6Image.getImage())
+    {
+      draftedCards[0] = 6;
+    }
+    else if (draft1Image.getImage() == card7Image.getImage())
+    {
+      draftedCards[0] = 7;
+    }
 
-    if(draft2Image.getImage()==card1Image.getImage()){ draftedCards[1] = 1;}
-    else if(draft2Image.getImage()==card2Image.getImage()){ draftedCards[1] = 2;}
-    else if(draft2Image.getImage()==card3Image.getImage()){ draftedCards[1] = 3;}
-    else if(draft2Image.getImage()==card4Image.getImage()){ draftedCards[1] = 4;}
-    else if(draft2Image.getImage()==card5Image.getImage()){ draftedCards[1] = 5;}
-    else if(draft2Image.getImage()==card6Image.getImage()){ draftedCards[1] = 6;}
-    else if(draft2Image.getImage()==card7Image.getImage()){ draftedCards[1] = 7;}
+    if (draft2Image.getImage() == card1Image.getImage())
+    {
+      draftedCards[1] = 1;
+    }
+    else if (draft2Image.getImage() == card2Image.getImage())
+    {
+      draftedCards[1] = 2;
+    }
+    else if (draft2Image.getImage() == card3Image.getImage())
+    {
+      draftedCards[1] = 3;
+    }
+    else if (draft2Image.getImage() == card4Image.getImage())
+    {
+      draftedCards[1] = 4;
+    }
+    else if (draft2Image.getImage() == card5Image.getImage())
+    {
+      draftedCards[1] = 5;
+    }
+    else if (draft2Image.getImage() == card6Image.getImage())
+    {
+      draftedCards[1] = 6;
+    }
+    else if (draft2Image.getImage() == card7Image.getImage())
+    {
+      draftedCards[1] = 7;
+    }
 
 
-    Main.getGameController().playerAction(draftedCards,true);
+    Main.getGameController().playerAction(draftedCards, true);
   }
 
 
   @FXML
   public void discard(MouseEvent event)
   {
-    Label discard = (Label)event.getSource();
-    if(discard == discard1)
+    Label discard = (Label) event.getSource();
+    if (discard == discard1)
     {
       numCardsinHand--;
       card1.setVisible(false);
       discard1.setVisible(false);
       lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discard2)
+    else if (discard == discard2)
     {
       numCardsinHand--;
       card2.setVisible(false);
       discard2.setVisible(false);
       lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discard3)
+    else if (discard == discard3)
     {
       numCardsinHand--;
       card3.setVisible(false);
       discard3.setVisible(false);
       lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discard4)
+    else if (discard == discard4)
     {
       numCardsinHand--;
       card4.setVisible(false);
       discard4.setVisible(false);
       lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discard5)
+    else if (discard == discard5)
     {
       numCardsinHand--;
       card5.setVisible(false);
       discard5.setVisible(false);
       lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discard6)
+    else if (discard == discard6)
     {
       numCardsinHand--;
       card6.setVisible(false);
       discard6.setVisible(false);
       lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discard7)
+    else if (discard == discard7)
     {
       numCardsinHand--;
       card7.setVisible(false);
       discard7.setVisible(false);
       lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
-      discardedNum.setText(""+disNum);
+      discardedNum.setText("" + disNum);
     }
-    else if(discard == discardDraft1)
+    else if (discard == discardDraft1)
     {
       cardsDrafted--;
-      if(draft1Image.getImage() == card1Image.getImage()) {
+      if (draft1Image.getImage() == card1Image.getImage())
+      {
         card1.setDisable(false);
         discard1.setDisable(false);
         card1Image.setDisable(false);
       }
-      else if(draft1Image.getImage() == card2Image.getImage()) {
+      else if (draft1Image.getImage() == card2Image.getImage())
+      {
         card2.setDisable(false);
         discard2.setDisable(false);
         card2Image.setDisable(false);
       }
-      else if(draft1Image.getImage() == card3Image.getImage()) {
+      else if (draft1Image.getImage() == card3Image.getImage())
+      {
         card3.setDisable(false);
         discard3.setDisable(false);
         card3Image.setDisable(false);
       }
-      else if(draft1Image.getImage() == card4Image.getImage()) {
+      else if (draft1Image.getImage() == card4Image.getImage())
+      {
         card4.setDisable(false);
         discard4.setDisable(false);
         card4Image.setDisable(false);
       }
-      else if(draft1Image.getImage() == card5Image.getImage()) {
+      else if (draft1Image.getImage() == card5Image.getImage())
+      {
         card5.setDisable(false);
         discard5.setDisable(false);
         card5Image.setDisable(false);
       }
-      else if(draft1Image.getImage() == card6Image.getImage()){
+      else if (draft1Image.getImage() == card6Image.getImage())
+      {
         card6.setDisable(false);
         discard6.setDisable(false);
         card6Image.setDisable(false);
       }
-      else if(draft1Image.getImage() == card7Image.getImage()) {
+      else if (draft1Image.getImage() == card7Image.getImage())
+      {
         card7.setDisable(false);
         discard7.setDisable(false);
         card7Image.setDisable(false);
@@ -808,40 +889,47 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft1.setVisible(false);
 
     }
-    else if(discard == discardDraft2)
+    else if (discard == discardDraft2)
     {
       cardsDrafted--;
-      if(draft2Image.getImage() == card1Image.getImage()) {
+      if (draft2Image.getImage() == card1Image.getImage())
+      {
         card1.setDisable(false);
         discard1.setDisable(false);
         card1Image.setDisable(false);
       }
-      else if(draft2Image.getImage() == card2Image.getImage()) {
+      else if (draft2Image.getImage() == card2Image.getImage())
+      {
         card2.setDisable(false);
         discard2.setDisable(false);
         card2Image.setDisable(false);
       }
-      else if(draft2Image.getImage() == card3Image.getImage()) {
+      else if (draft2Image.getImage() == card3Image.getImage())
+      {
         card3.setDisable(false);
         discard3.setDisable(false);
         card3Image.setDisable(false);
       }
-      else if(draft2Image.getImage() == card4Image.getImage()) {
+      else if (draft2Image.getImage() == card4Image.getImage())
+      {
         card4.setDisable(false);
         discard4.setDisable(false);
         card4Image.setDisable(false);
       }
-      else if(draft2Image.getImage() == card5Image.getImage()) {
+      else if (draft2Image.getImage() == card5Image.getImage())
+      {
         card5.setDisable(false);
         discard5.setDisable(false);
         card5Image.setDisable(false);
       }
-      else if(draft2Image.getImage() == card6Image.getImage()){
+      else if (draft2Image.getImage() == card6Image.getImage())
+      {
         card6.setDisable(false);
         discard6.setDisable(false);
         card6Image.setDisable(false);
       }
-      else if(draft2Image.getImage() == card7Image.getImage()) {
+      else if (draft2Image.getImage() == card7Image.getImage())
+      {
         card7.setDisable(false);
         card7Image.setDisable(false);
         discard7.setDisable(false);
@@ -874,7 +962,8 @@ public class DraftController implements javafx.fxml.Initializable
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
 
-      // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.CALIFORNIA)));
+      // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.CALIFORNIA)));
       statisticsPane.setCenter(testPieChart());
 
       System.out.println("Selected cali");
@@ -884,7 +973,8 @@ public class DraftController implements javafx.fxml.Initializable
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.HEARTLAND)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
     }
@@ -893,7 +983,8 @@ public class DraftController implements javafx.fxml.Initializable
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.MOUNTAIN)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
     }
@@ -902,7 +993,8 @@ public class DraftController implements javafx.fxml.Initializable
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
     }
@@ -911,7 +1003,8 @@ public class DraftController implements javafx.fxml.Initializable
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
     }
@@ -921,7 +1014,8 @@ public class DraftController implements javafx.fxml.Initializable
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.SOUTHEAST)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
 
@@ -931,7 +1025,8 @@ public class DraftController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main.gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      // .gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
     }
@@ -945,37 +1040,46 @@ public class DraftController implements javafx.fxml.Initializable
   public void showMyRegion()
   {
     highlightMyRegion(Main.getGameController().getMyRegion());
-    playerRegion.setText("My Region: " + Main.getGameController().getMyRegion());
-    currentRegion.setText("Current Region: " + Main.getGameController().getMyRegion());
+    playerRegion
+        .setText("My Region: " + Main.getGameController().getMyRegion());
+    currentRegion
+        .setText("Current Region: " + Main.getGameController().getMyRegion());
   }
 
   public void highlightMyRegion(EnumRegion myRegion)
   {
-    if(myRegion == EnumRegion.CALIFORNIA){
+    if (myRegion == EnumRegion.CALIFORNIA)
+    {
       cali.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
-    else if(myRegion == EnumRegion.MOUNTAIN){
+    else if (myRegion == EnumRegion.MOUNTAIN)
+    {
       mountSt.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
-    else if(myRegion == EnumRegion.NORTHERN_CRESCENT) {
+    else if (myRegion == EnumRegion.NORTHERN_CRESCENT)
+    {
       northSt.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
-    else if(myRegion == EnumRegion.NORTHERN_PLAINS){
+    else if (myRegion == EnumRegion.NORTHERN_PLAINS)
+    {
       nPlains.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
-    else if(myRegion == EnumRegion.SOUTHEAST){
+    else if (myRegion == EnumRegion.SOUTHEAST)
+    {
       southEast.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
-    else if(myRegion == EnumRegion.SOUTHERN_PLAINS){
+    else if (myRegion == EnumRegion.SOUTHERN_PLAINS)
+    {
       sPlains.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
-    else if(myRegion == EnumRegion.HEARTLAND){
+    else if (myRegion == EnumRegion.HEARTLAND)
+    {
       heartland.setVisible(true);
       statisticsPane.setCenter(testPieChart());
     }
@@ -986,55 +1090,56 @@ public class DraftController implements javafx.fxml.Initializable
   {
     hideCropLabels();
 
-    if(event.getSource() == appleButton)
+    if (event.getSource() == appleButton)
     {
       appleLabel.setVisible(true);
     }
-    else if(event.getSource() == grainsButton)
+    else if (event.getSource() == grainsButton)
     {
       grainLabel.setVisible(true);
     }
-    else if(event.getSource() == citrusButton)
+    else if (event.getSource() == citrusButton)
     {
       citrusLabel.setVisible(true);
     }
-    else if(event.getSource() == feedButton)
+    else if (event.getSource() == feedButton)
     {
       feedLabel.setVisible(true);
     }
-    else if(event.getSource() == dairyButton)
+    else if (event.getSource() == dairyButton)
     {
       dairyLabel.setVisible(true);
     }
-    else if(event.getSource() == fishButton)
+    else if (event.getSource() == fishButton)
     {
       fishLabel.setVisible(true);
     }
-    else if(event.getSource() == meatButton)
+    else if (event.getSource() == meatButton)
     {
       meatLabel.setVisible(true);
     }
-    else if(event.getSource() == nutButton)
+    else if (event.getSource() == nutButton)
     {
       nutLabel.setVisible(true);
     }
-    else if(event.getSource() == oilButton)
+    else if (event.getSource() == oilButton)
     {
       oilLabel.setVisible(true);
     }
-    else if(event.getSource() == poultryButton)
+    else if (event.getSource() == poultryButton)
     {
       poultryLabel.setVisible(true);
     }
-    else if(event.getSource() == veggieButton)
+    else if (event.getSource() == veggieButton)
     {
       veggieLabel.setVisible(true);
     }
-    else if(event.getSource() == specialButton)
+    else if (event.getSource() == specialButton)
     {
       specialLabel.setVisible(true);
     }
-    else if(event.getSource() == closeWindow || event.getSource() == closeWindow2 ||
+    else if (event.getSource() == closeWindow ||
+        event.getSource() == closeWindow2 ||
         event.getSource() == closeWindow3 ||
         event.getSource() == closeWindow4 ||
         event.getSource() == closeWindow5 ||
@@ -1044,7 +1149,7 @@ public class DraftController implements javafx.fxml.Initializable
         event.getSource() == closeWindow9 ||
         event.getSource() == closeWindow10 ||
         event.getSource() == closeWindow11 ||
-        event.getSource() == closeWindow12 )
+        event.getSource() == closeWindow12)
     {
       changeTextColor(Color.BLUE);
 
@@ -1091,9 +1196,9 @@ public class DraftController implements javafx.fxml.Initializable
     //PieChart p = new PieChart();
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for(int i=0; i<5;i++)
+    for (int i = 0; i < 5; i++)
     {
-      dataList.add(new PieChart.Data(i+"", i*5));
+      dataList.add(new PieChart.Data(i + "", i * 5));
     }
 
     ObservableList<PieChart.Data> pieChartData =
