@@ -15,14 +15,14 @@ import java.util.LinkedList;
 /**
  * Created by Sean Naegle
  */
-public class ServerMaster extends ServerEvents
+public class ServerMasterSean extends ServerEvents
 {
   private ServerSocket serverSocket;
-  private LinkedList<ServerWorker> allConnections = new LinkedList<ServerWorker>();
+  private LinkedList<ServerWorkerSean> allConnections = new LinkedList<ServerWorkerSean>();
   public EnumGameState game_state = EnumGameState.LOGIN;
   private ChatHistory chatHistory = new ChatHistory();
 
-  public ServerMaster(int portNumber)
+  public ServerMasterSean(int portNumber)
   {
     game_state = EnumGameState.LOGIN;
     try
@@ -52,15 +52,15 @@ public class ServerMaster extends ServerEvents
     }
     while (true)
     {
-      System.out.println("ServerMaster("+host+"): waiting for Connection on port: "+port);
+      System.out.println("ServerMasterSean("+host+"): waiting for Connection on port: "+port);
       try
       {
         Socket client = serverSocket.accept();
-        ServerWorker worker = new ServerWorker(client, this);
+        ServerWorkerSean worker = new ServerWorkerSean(client, this);
         worker.start();
-        System.out.println("ServerMaster: *********** new Connection");
+        System.out.println("ServerMasterSean: *********** new Connection");
         allConnections.add(worker);
-//        worker.send("ServerMaster says hello!");
+//        worker.send("ServerMasterSean says hello!");
 //        worker.send(worker.storeInfoMessage());
       }
       catch (IOException e)
@@ -74,7 +74,7 @@ public class ServerMaster extends ServerEvents
 
   public void cleanConnectionList()
   {
-    for (ServerWorker worker : allConnections) {
+    for (ServerWorkerSean worker : allConnections) {
       if (!worker.isAlive()) {
         allConnections.remove(worker);
       }
@@ -83,14 +83,14 @@ public class ServerMaster extends ServerEvents
 
   public void broadcast(Message message)
   {
-    for (ServerWorker worker : allConnections)
+    for (ServerWorkerSean worker : allConnections)
     {
       worker.send(message);
     }
   }
 
   public boolean allReady() {
-    for(ServerWorker worker : allConnections) {
+    for(ServerWorkerSean worker : allConnections) {
       if (!worker.ready) {
         return false;
       }
@@ -98,11 +98,11 @@ public class ServerMaster extends ServerEvents
     return true;
   }
 
-  public void closeConnection(ServerWorker worker) {
+  public void closeConnection(ServerWorkerSean worker) {
     allConnections.remove(worker);
     cleanConnectionList();
   }
-  
+
   public static void main(String args[])
   {
     //Valid port numbers are Port numbers are 1024 through 65535.
@@ -116,10 +116,10 @@ public class ServerMaster extends ServerEvents
     }
     catch (Exception e)
     {
-      System.out.println("Usage: ServerMaster portNumber");
+      System.out.println("Usage: ServerMasterSean portNumber");
       System.exit(0);
     }
-    
-    new ServerMaster(port);
+
+    new ServerMasterSean(port);
   }
 }
