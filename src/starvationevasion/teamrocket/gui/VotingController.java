@@ -173,7 +173,7 @@ public class VotingController implements javafx.fxml.Initializable
 
           time.setText(Main.GAME_CLOCK.getFormatted());
 
-          if(Main.justSwitchedScenes())
+          if (Main.getGameController().initGUI())
           {
             highlightCards();
           }
