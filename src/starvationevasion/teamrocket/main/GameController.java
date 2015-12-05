@@ -65,7 +65,7 @@ public class GameController
    * @param region player's starting region
    * @return a copy of the new player for convenience.
    */
-  public Player startNewGame(EnumRegion region)
+  public Player startSinglePlayerGame(EnumRegion region)
   {
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region, null, this);

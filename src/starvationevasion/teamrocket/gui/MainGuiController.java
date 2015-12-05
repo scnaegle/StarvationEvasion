@@ -232,7 +232,7 @@ public class MainGuiController implements javafx.fxml.Initializable
       //Go to next scene
       try
       {
-        this.player = Main.getGameController().startNewGame(this.myRegion);
+        this.player = Main.getGameController().startSinglePlayerGame(this.myRegion);
 
       }
       catch (Exception e)

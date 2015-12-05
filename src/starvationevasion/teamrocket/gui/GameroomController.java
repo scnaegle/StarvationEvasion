@@ -106,7 +106,7 @@ public class GameroomController implements javafx.fxml.Initializable
     if(event.getSource() == doneGameRoom)
   {
     try{
-      this.player = Main.getGameController().startNewGame(myRegion);
+      this.player = Main.getGameController().startSinglePlayerGame(myRegion);
     }
     catch (Exception e)
     {
