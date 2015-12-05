@@ -109,6 +109,7 @@ public abstract class PolicyCard  implements Serializable
     }
 
     PolicyCard myCard = null;
+    myCard.type = type;
     switch (type) {
       case Clean_River_Incentive:
         myCard = new CleanRiverIncentivePolicy();
