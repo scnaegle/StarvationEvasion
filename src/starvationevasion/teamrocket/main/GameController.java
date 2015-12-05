@@ -1,7 +1,9 @@
 package starvationevasion.teamrocket.main;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.Util;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
@@ -68,7 +70,7 @@ public class GameController
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region, null, this);
 
-/*    PolicyCard[] hand = new PolicyCard[7];
+   PolicyCard[] hand = new PolicyCard[7];
 
     for (int i = 0; i < 7; i++)
     {
@@ -76,7 +78,7 @@ public class GameController
       hand[i] = PolicyCard.create(player.ENUM_REGION, policy);
     }
     player.setHand(hand);
-    needToInitialize = true;*/
+    needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
