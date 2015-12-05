@@ -54,7 +54,7 @@ import java.util.logging.Logger;
  * grain to very low income populations reduces the supply of that grain while not
  * affecting the world demand. This is because anyone who's income is below being able
  * to afford a product, in economic terms, has no demand for that product.</li>
- * <li>Farm Product Demand and Price: Product foodPrice on the world market and demand are
+ * <li>Farm Product Demand and price: Product foodPrice on the world market and demand are
  * highly interdependent and therefore calculated together.
  * <li>Food Distribution: In the global market, food distribution is effected by many
  * economic, political, and transportation factors. The Food Trade Penalty Function
@@ -82,12 +82,14 @@ public class Model
 
   private final int startYear;
   private int year;
+
+  private World world;
   private Region[] regionList = new Region[EnumRegion.SIZE];
 
 
   private SeaLevel seaLevel;
   private CropData cropData;
-
+  private CropCSVLoader cropLoader = null;
 
 
 
@@ -114,10 +116,17 @@ public class Model
       regionList[i] = new Region(EnumRegion.values()[i]);
     }
 
-    //cropData = new CropData();
 
-    try{CropCSVLoader cropLoader = new CropCSVLoader();} catch (Throwable t){ System.out.println("CROP_LOADER "+t);}
+    try{cropLoader = new CropCSVLoader();} catch (Throwable t){ System.out.println("CROP_LOADER "+t);}
+    //ArrayList<CropZoneData> categoryData = cropLoader.getCategoryData();
+/*
+    for (CropZoneData czd : categoryData)
+    {
+      System.out.println(czd.toString());
+    }
+*/
     WorldLoader loader = new WorldLoader(regionList);
+    world = loader.getWorld();
 
     float[] avgConversionFactors = new float[EnumFood.SIZE];
 
@@ -160,11 +169,14 @@ public class Model
 
   protected void appendWorldData(WorldData threeYearData)
   {
+    ArrayList<CropZoneData> categoryData = cropLoader.getCategoryData();
+
     threeYearData.year = year;
     threeYearData.seaLevel = seaLevel.getSeaLevel(year);
     for (int i=0; i< EnumFood.SIZE; i++)
     {
-      threeYearData.foodPrice[i] = (int)cropData.foodPrice[i];
+      CropZoneData currentZone   = categoryData.get(i);
+      threeYearData.foodPrice[i] = currentZone.pricePerMetricTon;
     }
 
 
@@ -219,7 +231,11 @@ public class Model
     }
   }
 
-  private void updateClimate(){}
+  private void updateClimate()
+  {
+    world.getTileManager().setClimate(year);
+  }
+
   private void generateSpecialEvents(){}
 
   private void updateFarmProductYield()
@@ -237,9 +253,6 @@ public class Model
   private void updateFoodDistribution(){}
   private void updatePlayerRegionRevenue(){}
   private void updateHumanDevelopmentIndex(){}
-
-
-
 
 
   public static void printRegion(Region region, int year)
