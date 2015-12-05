@@ -182,8 +182,10 @@ public class Client
           handleChatMessageResponse((ServerChatMessage) msg);
         } else if (msg instanceof ActionResponse) {
           handleActionResponse((ActionResponse) msg);
-        }else if (msg instanceof Hello) {
+        } else if (msg instanceof Hello) {
           handleHelloResponse((Hello) msg);
+        } else if (msg instanceof VoteStatus) {
+          handleVoteStatusResponse((VoteStatus) msg);
         } else {
           System.out.println("Unrecognized message from Server = " + msg);
         }
@@ -201,10 +203,13 @@ public class Client
     private void handleResponse(Response response) {
       switch(response) {
         case BAD_MESSAGE:
+          gameController.addErrorMessage(("Server received a bad message."));
           break;
         case INAPPROPRIATE:
+          gameController.addErrorMessage("Server received an inappropriate message.");
           break;
         case OTHER_ERROR:
+          gameController.addErrorMessage("Server got an error");
           break;
         case OK:
           break;
@@ -245,12 +250,12 @@ public class Client
     }
 
     private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
-      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime)*1000);
+      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
       gameController.gameState.gameState = EnumGameState.BEGINNING;
     }
 
     private void handlePhaseStartResponse(PhaseStart phaseStart) {
-      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime)*1000);
+      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
       gameController.gameState.setGameState(phaseStart.currentGameState);
     }
 
@@ -281,6 +286,10 @@ public class Client
           gameController.addErrorMessage(actionResponse.responseMessage);
           break;
       }
+    }
+
+    private void handleVoteStatusResponse(VoteStatus voteStatus) {
+
     }
   }
 }
