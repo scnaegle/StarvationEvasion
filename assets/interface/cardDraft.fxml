@@ -541,7 +541,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card3Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/coverintel.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/covertintel.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>

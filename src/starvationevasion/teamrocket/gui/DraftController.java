@@ -20,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.ClientTest.CustomLayout;
@@ -177,6 +178,7 @@ public class DraftController implements javafx.fxml.Initializable
           {
             showMyRegion();
             resetCards();
+            //displayHand();
           }
 
 
@@ -201,8 +203,16 @@ public class DraftController implements javafx.fxml.Initializable
   public void initialize(URL location, ResourceBundle resources)
   {
     displayEarth();
-    resetCards();
+
   }
+
+
+  public void displayHand()
+  {
+    System.out.println(Main.getGameController().getCard(1));
+    card1Image.setImage(CardImage.getCardImage(Main.getGameController().getCard(1).getCardType()));
+  }
+
 
   /**
    * Displays small earth on a gridpane.
