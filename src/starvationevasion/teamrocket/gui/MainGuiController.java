@@ -77,7 +77,7 @@ public class MainGuiController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-    Main.setGuiController(this);
+
 
   }
 
