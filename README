@@ -170,7 +170,7 @@ Main
     - Timer (Top Left)
       - Amount of time left in the voting phase
     - Graphs (Top Middle)
-      - A pie chart that displays the players HDI for the Nurished vs.
+      - A pie chart that displays the players HDI for the Nourished vs.
         malnourished people this turn (Left)
       - A line graph showing a regions total revenue (Middle)
       - A line graph showing the HDI for a players region over the entire game (Right)
