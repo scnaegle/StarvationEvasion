@@ -223,7 +223,7 @@ public class MainGuiController implements javafx.fxml.Initializable
     else if(button == pickedRegion)
     {
       myRegion = saveRegion();
-      System.out.println("my region is now: " + myRegion);
+
       if(myRegion == null)
       {
         return;
@@ -315,7 +315,6 @@ public class MainGuiController implements javafx.fxml.Initializable
       nothingSelected.setVisible(true);
       //don't go to next stage until they select something
     }
-    //currentRegion.setText("Current Region: "+playerRegion);
     System.out.println("I have chosen " + playerRegion);
 
 

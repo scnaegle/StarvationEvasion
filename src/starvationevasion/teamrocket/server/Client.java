@@ -133,7 +133,9 @@ public class Client
       System.out.println("Usage: Client hostname portNumber");
       System.exit(0);
     }
-    new Client(host, port, null);
+    Client client = new Client(host, port, null);
+
+    //client.send(new Login());
   }
 
   public void send(ServerEvent event, Serializable object) {
@@ -179,6 +181,8 @@ public class Client
           handleChatMessageResponse((ServerChatMessage) msg);
         } else if (msg instanceof ActionResponse) {
           handleActionResponse((ActionResponse) msg);
+        }else if (msg instanceof Hello) {
+          handleHelloResponse((Hello) msg);
         } else {
           System.out.println("Unrecognized message from Server = " + msg);
         }
@@ -186,6 +190,11 @@ public class Client
         e.printStackTrace();
       }
 
+    }
+
+    private void handleHelloResponse(Hello response)
+    {
+      gameController.setSalt(response.loginNonce);
     }
 
     private void handleResponse(Response response) {
@@ -222,6 +231,7 @@ public class Client
           closeAll();
           break;
         case CHOOSE_REGION:
+          System.out.println("Choose regions");
           gameController.setSuccessfulLogin(true);
           break;
       }
@@ -229,6 +239,7 @@ public class Client
 
     private void handleAvailableRegionsResponse(AvailableRegions availableRegions) {
       // TODO Send error message if the region has already been taken.
+      System.out.println("Available regions");
       gameController.setAvailableRegions(availableRegions);
     }
 

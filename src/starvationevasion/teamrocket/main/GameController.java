@@ -1,10 +1,9 @@
 package starvationevasion.teamrocket.main;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.common.Util;
 import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
@@ -31,10 +30,13 @@ public class GameController
   private boolean singlePlayer;
   private boolean newMultiPlayer;
   private boolean joinMultiPlayer;
-  private String playerUsername;
-  private String playerPassword;
+  private String playerUsername = "player";
+  private String playerPassword = "pass";
   private String playerIP;
   private String playerPort;
+  private String salt;
+  private boolean gotSalt = false;
+
 
   private PolicyCard draft1, draft2;
 
@@ -68,7 +70,7 @@ public class GameController
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region, null, this);
 
-    PolicyCard[] hand = new PolicyCard[7];
+/*    PolicyCard[] hand = new PolicyCard[7];
 
     for (int i = 0; i < 7; i++)
     {
@@ -76,25 +78,30 @@ public class GameController
       hand[i] = PolicyCard.create(player.ENUM_REGION, policy);
     }
     player.setHand(hand);
-    needToInitialize = true;
+    needToInitialize = true;*/
     changeScene(EnumScene.DRAFT_PHASE);
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
-    if (singlePlayer)
-    {
-      Client client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
-      //Will need to spawn a bunch of AI Clients
-      Server server = new Server("/password_file.tmpl");
+    Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath());
+    server.setDaemon(true);
+    server.start(); //start() needs to be public to start our own copy.
+    client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
 
-    }
-    else if (newMultiPlayer)
-    {
+      try
+      {
+        while(!gotSalt)
+        {
+          Thread.sleep(17l);
+        }
+      }
+      catch (InterruptedException e)
+      {
+        e.printStackTrace();
+      }
 
-    }
-    else if (joinMultiPlayer)
-    {
-      Client client = new Client(playerIP, Integer.parseInt(playerPort), this);
-    }
+    client.send(new Login(playerUsername, salt, playerPassword));
+    client.send(new RegionChoice(player.ENUM_REGION));
+    //Will need to spawn a bunch of AI Clients
 
     return this.player;
   }
@@ -516,5 +523,11 @@ public class GameController
     boolean status = needToInitialize;
     needToInitialize = false;
     return status;
+  }
+
+  public void setSalt(String salt)
+  {
+    this.salt = salt;
+    this.gotSalt = true;
   }
 }
