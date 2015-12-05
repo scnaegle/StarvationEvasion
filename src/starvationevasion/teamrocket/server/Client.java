@@ -6,7 +6,6 @@ import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.messages.Message;
 import starvationevasion.teamrocket.messages.ServerEvent;
-import starvationevasion.teamrocket.models.ClientGameState;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,12 +17,10 @@ import java.util.Scanner;
  */
 public class Client
 {
-  static final String BROADCAST_REGEX = "^\\d+\\.\\d{3}+:\\s*?inventory=(\\d+)\\s*?:\\s*?treasury=(\\d+\\.\\d+)";
 
   private Socket clientSocket;
-  private ObjectOutputStream write;
-  private ObjectInputStream reader;
-  private Scanner keyboard;
+  private ObjectOutputStream outputStream;
+  private ObjectInputStream inputStream;
   private ClientListener listener;
   private GameController gameController;
 
@@ -34,8 +31,6 @@ public class Client
     this.gameController = gameController;
     running = true;
 
-    keyboard = new Scanner(System.in);
-
     while (!openConnection(host, portNumber))
     {
     }
@@ -43,12 +38,6 @@ public class Client
     listener = new ClientListener();
     System.out.println("Client(): Starting listener = : " + listener);
     listener.start();
-
-    listenToUserRequests();
-
-    System.out.println("Closing everything...");
-    closeAll();
-
   }
 
 
@@ -75,7 +64,7 @@ public class Client
 
     try
     {
-      write = new ObjectOutputStream(clientSocket.getOutputStream());
+      outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
     }
     catch (IOException e)
     {
@@ -85,7 +74,7 @@ public class Client
     }
     try
     {
-      reader = new ObjectInputStream(clientSocket.getInputStream());
+      inputStream = new ObjectInputStream(clientSocket.getInputStream());
     }
     catch (IOException e)
     {
@@ -94,23 +83,6 @@ public class Client
       return false;
     }
     return true;
-
-  }
-
-  private void listenToUserRequests()
-  {
-    while (true)
-    {
-      System.out.println("Enter Command (Buy: # # | Sell: # #):");
-      String cmd = keyboard.nextLine();
-      if (cmd == null) continue;
-      if (cmd.length() < 1) continue;
-
-      char c = cmd.charAt(0);
-      if (c == 'q') break;
-
-//      write.println(cmd);
-    }
   }
 
   public void closeAll()
@@ -118,20 +90,20 @@ public class Client
     System.out.println("Client.closeAll()");
 
     running = false;
-    if (write != null) {
+    if (outputStream != null) {
       send(ServerEvent.QUIT, "quit");
       try {
-        write.close();
+        outputStream.close();
       } catch (IOException e) {
         System.err.println("Client Error: Could not close");
         e.printStackTrace();
       }
     }
-    if (reader != null)
+    if (inputStream != null)
     {
       try
       {
-        reader.close();
+        inputStream.close();
         clientSocket.close();
       }
       catch (IOException e)
@@ -152,8 +124,8 @@ public class Client
 
     try
     {
-      host = args[0];
-      port = Integer.parseInt(args[1]);
+      host = "127.0.0.1";
+      port = 27015;
       if (port < 1) throw new Exception();
     }
     catch (Exception e)
@@ -161,18 +133,17 @@ public class Client
       System.out.println("Usage: Client hostname portNumber");
       System.exit(0);
     }
-//    new Client(host, port);
-
+    new Client(host, port, null);
   }
 
   public void send(ServerEvent event, Serializable object) {
     Message message = new Message(event, object);
-    MessageHandler.send(write, message);
+    MessageHandler.send(outputStream, message);
   }
 
   public void send(Serializable payload) {
     try {
-      write.writeObject(payload);
+      outputStream.writeObject(payload);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -189,12 +160,9 @@ public class Client
     }
 
     private void read() {
-//        System.out.println("Client: listening to socket");
-//      Object msg = MessageHandler.parse(reader);
-      Object msg = null;
+      Object msg;
       try {
-        msg = reader.readObject();
-//        System.out.println("Client: got message: " + msg);
+        msg = inputStream.readObject();
         if (msg instanceof Response) {
           handleResponse((Response) msg);
         } else if (msg instanceof LoginResponse) {
@@ -214,9 +182,7 @@ public class Client
         } else {
           System.out.println("Unrecognized message from Server = " + msg);
         }
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (ClassNotFoundException e) {
+      } catch (IOException | ClassNotFoundException e) {
         e.printStackTrace();
       }
 
@@ -238,7 +204,6 @@ public class Client
     private void handleLoginResponse(LoginResponse loginResponse) {
       switch (loginResponse.responseType) {
         case ACCESS_DENIED:
-          // TODO let game controller know that
           gameController.setSuccessfulLogin(false);
           gameController.addErrorMessage("Access was denied for this server.");
           closeAll();
@@ -305,7 +270,5 @@ public class Client
           break;
       }
     }
-
-
   }
 }
