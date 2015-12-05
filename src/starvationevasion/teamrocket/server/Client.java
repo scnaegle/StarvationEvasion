@@ -36,6 +36,7 @@ public class Client
     }
 
     listener = new ClientListener();
+    listener.setDaemon(true);
     System.out.println("Client(): Starting listener = : " + listener);
     listener.start();
   }
