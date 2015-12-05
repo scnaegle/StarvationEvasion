@@ -151,6 +151,12 @@ public class DraftController implements javafx.fxml.Initializable
         new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE),
             new EventHandler<ActionEvent>()
             {
+              /**
+               * This will listen to the clock and change it's color, as well
+               * as declare when a voting phase is over
+               *
+               * @param event the clock timer being listened to
+               */
               @Override
               public void handle(ActionEvent event)
               {
@@ -160,11 +166,11 @@ public class DraftController implements javafx.fxml.Initializable
                 time.setTextFill(Color.FORESTGREEN );
                 if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
                 {
-                  time.setTextFill(Color.DARKRED);
+                  time.setTextFill(Color.RED);
                 }
                 else if (Main.GAME_CLOCK.getMinutes() < 1)
                 {
-                  time.setTextFill(Color.RED);
+                  time.setTextFill(Color.DARKORANGE);
                 }
                 else if(Main.GAME_CLOCK.getMinutes()<2)
                 {
@@ -176,6 +182,7 @@ public class DraftController implements javafx.fxml.Initializable
                 }
                 if (Main.GAME_CLOCK.getTimeLeft() <= 0)
                 {
+//                  Main.GAME_CLOCK.setTimeLeft(180000);
                   //Main.getGameController().finishedCardDraft();
                 }
               }
@@ -185,6 +192,13 @@ public class DraftController implements javafx.fxml.Initializable
     updater.play();
   }
 
+  /**
+   * Initalizes the region, and sets all of the differnet parts of the program
+   * up to be displayed
+   *
+   * @param location serializable ID of the player
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {

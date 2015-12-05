@@ -169,10 +169,32 @@ public class VotingController implements javafx.fxml.Initializable
       public void handle(ActionEvent event)
       {
         time.setText(Main.GAME_CLOCK.getFormatted());
+        time.setText(Main.GAME_CLOCK.getFormatted());
+        Main.GAME_CLOCK.getTimeLeft();
+        //System.out.println(Main.GAME_CLOCK.getSeconds());
+        time.setTextFill(Color.FORESTGREEN);
+        if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
+        {
+          time.setTextFill(Color.RED);
+        }
+        else if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 30000)
+        {
+          time.setTextFill(Color.DARKORANGE);
+        }
+        else if(Main.GAME_CLOCK.getMinutes()<1)
+        {
+          time.setTextFill(Color.ORANGE);
+        }
+        else if(Main.GAME_CLOCK.getMinutes()<2)
+        {
+          time.setTextFill(Color.YELLOW);
+        }
+
 
         if(Main.GAME_CLOCK.getTimeLeft() <=0)
         {
-          //Main.getGameController().finishedCardDraft();
+          Main.GAME_CLOCK.setTimeLeft(300000);
+          //Main.getGameController().finishedVoting();
         }
 
       }

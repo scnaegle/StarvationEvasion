@@ -179,9 +179,6 @@ Main
     - Cards below the regions
       - The transparent cards are cards that a player cannot  vote on
       - The highlighted cards are one that a player can vote on
-        - When a player clicks a card a new window is displayed showng the policy card
-      - The transparent cards are cards that a player cannot  vote on
-      - The highlighted cards are one that a player can vote on
         - When a player clicks a card a new window is displayed showing the policy card
         - The player has 3 options to vote with the card
           - Abstain (not vote)

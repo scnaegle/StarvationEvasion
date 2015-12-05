@@ -103,7 +103,13 @@ public class MainGuiController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * chooses the type of game that the player is going to play
+   *  New Single Player
+   *  New MultiPlayer
+   *  Join Multiplayer
+   * @param event The type of game that you are going to play
+   */
   @FXML
   public void chooseGamePlay(ActionEvent event)
   {
@@ -143,7 +149,12 @@ public class MainGuiController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * After choosing the game type the initilizer telling the game to
+   * change scenes
+   *
+   * @param event The button being pressed
+   */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
