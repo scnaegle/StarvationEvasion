@@ -192,12 +192,21 @@ public class DraftController implements javafx.fxml.Initializable
     updater.play();
   }
 
+  /**
+   * When scene first opens, visualizer is loaded and displayed.
+   * @param location Location of controller.
+   * @param resources resources.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
     displayEarth();
+    resetCards();
   }
 
+  /**
+   * Displays small earth on a gridpane.
+   */
   @FXML
   public void displayEarth()
   {
@@ -207,6 +216,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Makes smaller earth bigger when Tab is pressed.
+   * @param event Key event.
+   */
   @FXML
   public void showBigEarth(KeyEvent event)
   {
@@ -218,6 +231,10 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Listens for button presses and acts appropriately.
+   * @param event Action event.
+   */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
@@ -383,6 +400,11 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * Makes cards bigger when mouse hovers over them.
+   * @param event Mouse event.
+   */
   @FXML
   public void makeBigger(MouseEvent event)
   {
@@ -489,6 +511,11 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * When mouse leaves card, it returns it back to it's normal size.
+   * @param event Mouse event.
+   */
   @FXML
   public void returnToNormal(MouseEvent event)
   {
@@ -629,6 +656,9 @@ public class DraftController implements javafx.fxml.Initializable
 //
   }
 
+  /**
+   * Resets cards every time this scene is shown.
+   */
   private void resetCards()
   {
     draft1.setVisible(false);
@@ -656,6 +686,11 @@ public class DraftController implements javafx.fxml.Initializable
     numCardsinHand = 7;
   }
 
+
+  /**
+   * When draw pile is clicked, this method is called and replaces an empty spot in the player's
+   * hand with another random card.
+   */
   private void drawNewCard()
   {
     if (numCardsinHand < 7)
@@ -710,6 +745,10 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * When user is ready to vote, this method is called and saves the cards that the user drafted.
+   */
   private void saveDraftedCards()
   {
     int[] draftedCards = new int[2];
@@ -742,6 +781,10 @@ public class DraftController implements javafx.fxml.Initializable
     {
       draftedCards[0] = 7;
     }
+    else
+    {
+      draftedCards[0]=0; //No cards were drafted.
+    }
 
     if (draft2Image.getImage() == card1Image.getImage())
     {
@@ -771,12 +814,22 @@ public class DraftController implements javafx.fxml.Initializable
     {
       draftedCards[1] = 7;
     }
+    else
+    {
+      draftedCards[1] = 0; //No cards were drafted.
+    }
 
 
     Main.getGameController().playerAction(draftedCards, true);
   }
 
 
+  /**
+   * Called whenever the user clicks on a black X.
+   * Related card is found and removed from hand.
+   * Card is sent to the top of the discard pile.
+   * @param event Mouse event.
+   */
   @FXML
   public void discard(MouseEvent event)
   {
@@ -789,6 +842,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(1);
     }
     else if (discard == discard2)
     {
@@ -798,6 +852,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(2);
     }
     else if (discard == discard3)
     {
@@ -807,6 +862,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(3);
     }
     else if (discard == discard4)
     {
@@ -816,6 +872,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(4);
     }
     else if (discard == discard5)
     {
@@ -825,6 +882,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(5);
     }
     else if (discard == discard6)
     {
@@ -834,6 +892,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(6);
     }
     else if (discard == discard7)
     {
@@ -843,6 +902,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      player.discardCard(7);
     }
     else if (discard == discardDraft1)
     {
@@ -1051,6 +1111,11 @@ public class DraftController implements javafx.fxml.Initializable
         .setText("Current Region: " + Main.getGameController().getMyRegion());
   }
 
+  /**
+   * Checks to see what player's current region is and highlights it.
+   * Also shows graph info on each region when highlighted.
+   * @param myRegion Player's EnumRegion.
+   */
   public void highlightMyRegion(EnumRegion myRegion)
   {
     if (myRegion == EnumRegion.CALIFORNIA)
@@ -1090,6 +1155,10 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+  /**
+   * When mouse is over product button, show a label with it's name.
+   * @param event Mouse event.
+   */
   @FXML
   public void mouseOverProduce(MouseEvent event)
   {
@@ -1163,6 +1232,11 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Shows region labels when mouse is over a specific region.
+   * @param x X-coordinate on map.
+   * @param y Y-coordinate on map.
+   */
   private void showLabel(double x, double y)
   {
     if (ImageRegion.CALIFORNIA.contains(x, y))
@@ -1218,6 +1292,10 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Checks for mouse movements on scene.
+   * @param event Mouse event.
+   */
   @FXML
   public void mouseMoved(MouseEvent event)
   {
@@ -1229,6 +1307,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+
+  /**
+   * Hides certain labels when mouse is no longer on them.
+   */
   @FXML
   public void mouseExit()
   {
@@ -1236,6 +1318,9 @@ public class DraftController implements javafx.fxml.Initializable
     changeTextColor(Color.BLACK);
   }
 
+  /**
+   * Closes produce windows by default.
+   */
   private void closeProduceWindows()
   {
     appleWindow.setVisible(false);
@@ -1253,6 +1338,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Changes text color for produce close[x]
+   * @param color Specific color.
+   */
   private void changeTextColor(Color color)
   {
     close.setTextFill(color);
@@ -1270,6 +1359,9 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Hides regions unless one is clicked on.
+   */
   private void makeAllInvisible()
   {
     cali.setVisible(false);
@@ -1281,6 +1373,9 @@ public class DraftController implements javafx.fxml.Initializable
     northSt.setVisible(false);
   }
 
+  /**
+   * Hides region labels until mouse over.
+   */
   private void hideRegionLabels()
   {
     caliLabel.setVisible(false);
@@ -1292,6 +1387,9 @@ public class DraftController implements javafx.fxml.Initializable
     seLabel.setVisible(false);
   }
 
+  /**
+   * Hides crop labels until mouse over.
+   */
   private void hideCropLabels()
   {
     appleLabel.setVisible(false);
