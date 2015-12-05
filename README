@@ -127,13 +127,13 @@ Main
       - Northern Crescent States
 
   - Game Room Scene
-    - Is accesed if Join Multiplayer Game, or New Multiplayer Game is picked from
+    - Is accessed if Join Multiplayer Game, or New Multiplayer Game is picked from
       the Login Scene
     - A chat box is opened so players can communicate with each other
     - The player picks a region to play as similar to the region scene
 
   -Drafting Scene
-    - World Visulization (Top Left)
+    - World Visualization (Top Left)
       - A rotating world that displays different events, such as natural disaters,
         famines, wars, and other random events throughout the world
     - Map of the United States (Top Right)
@@ -171,17 +171,17 @@ Main
       - Amount of time left in the voting phase
     - Graphs (Top Middle)
       - A pie chart that displays the players HDI for the Nurished vs.
-        malnumished people this turn (Left)
+        malnourished people this turn (Left)
       - A line graph showing a regions total revenue (Middle)
       - A line graph showing the HDI for a players region over the entire game (Right)
     - Region Display (Middle Middle)
       - Displays the region
     - Cards below the regions
-      - The trasparent cards are cards that a player cannot  vote on
-      - The higlighted cards are one that a player can vote on
-        - When a player clicks a card a new window is displayed showng the policy card
+      - The transparent cards are cards that a player cannot  vote on
+      - The highlighted cards are one that a player can vote on
+        - When a player clicks a card a new window is displayed showing the policy card
         - The player has 3 options to vote with the card
           - Abstain (not vote)
-            - If a player does not vote the card is *automaticaly* abstained
+            - If a player does not vote the card is *automatically* abstained
           - Push (vote for)
           - Vote against
