@@ -109,7 +109,6 @@ public abstract class PolicyCard  implements Serializable
     }
 
     PolicyCard myCard = null;
-    myCard.type = type;
     switch (type) {
       case Clean_River_Incentive:
         myCard = new CleanRiverIncentivePolicy();
@@ -150,6 +149,7 @@ public abstract class PolicyCard  implements Serializable
     {
       myCard.owner = owner;
       myCard.approvedRegionBits = owner.getBit(); //The owner auto votes yes.
+      myCard.type = type;
     }
 
     return myCard;
