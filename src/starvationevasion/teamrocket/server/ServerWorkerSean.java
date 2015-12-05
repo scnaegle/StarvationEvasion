@@ -10,19 +10,19 @@ import java.net.Socket;
 /**
  * Created by Sean Naegle
  */
-public class ServerWorker extends Thread
+public class ServerWorkerSean extends Thread
 {
   private Socket client;
   private ObjectOutputStream clientWriter;
   private ObjectInputStream clientReader;
-  private ServerMaster server_master;
+  private ServerMasterSean server_master;
   private Player player;
   private long startNanoSec = 0;
   public boolean ready = false;
 
   private boolean running = true;
 
-  public ServerWorker(Socket client, ServerMaster server_master)
+  public ServerWorkerSean(Socket client, ServerMasterSean server_master)
   {
     this.client = client;
     this.server_master = server_master;
@@ -41,7 +41,7 @@ public class ServerWorker extends Thread
     try
     {
       clientReader = new ObjectInputStream(client.getInputStream());
-      
+
     }
     catch (IOException e)
     {
@@ -50,10 +50,10 @@ public class ServerWorker extends Thread
     }
   }
 
-  //Called by ServerMaster
+  //Called by ServerMasterSean
   public void send(Message message)
   {
-//    System.out.println("ServerWorker.send(" + msg + ")");
+//    System.out.println("ServerWorkerSean.send(" + msg + ")");
 //    clientWriter.println(msg);
     MessageHandler.send(clientWriter, message);
   }

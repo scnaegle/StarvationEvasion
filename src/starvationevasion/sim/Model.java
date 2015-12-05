@@ -2,6 +2,7 @@ package starvationevasion.sim;
 
 import starvationevasion.common.*;
 import starvationevasion.io.WorldLoader;
+import starvationevasion.io.CropCSVLoader;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -92,9 +93,11 @@ public class Model
 
   public Model(int startYear)
   {
+
     this.startYear = startYear;
     year = startYear;
     seaLevel = new SeaLevel();
+    //System.out.println("MODEL INIT");
   }
 
 
@@ -111,9 +114,9 @@ public class Model
       regionList[i] = new Region(EnumRegion.values()[i]);
     }
 
-    cropData = new CropData();
+    //cropData = new CropData();
 
-
+    try{CropCSVLoader cropLoader = new CropCSVLoader();} catch (Throwable t){ System.out.println("CROP_LOADER "+t);}
     WorldLoader loader = new WorldLoader(regionList);
 
     float[] avgConversionFactors = new float[EnumFood.SIZE];

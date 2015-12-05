@@ -28,11 +28,9 @@ public class Main extends Application
    * Refresh rate in milliseconds. 17 ms = 60hz
    */
   public static final short GUI_REFRESH_RATE = 17;
-  private static MainGuiController guiController;
   private static boolean sceneChanged = true;
 
   private Stage primaryStage;
-  private Stage votingStage;
   private Parent cardDraft;
   private Parent voting;
   private Parent gameRoom;
@@ -43,8 +41,6 @@ public class Main extends Application
   private Scene loginScene;
   Scene cardDraftScene;
 
-  FXMLLoader loader;
-
   public static GameController getGameController()
   {
     return gameController;
@@ -54,17 +50,6 @@ public class Main extends Application
   {
     Main.gameController = gameController;
   }
-
-  public static MainGuiController getGuiController()
-  {
-    return guiController;
-  }
-
-  public static void setGuiController(MainGuiController guiController)
-  {
-    Main.guiController = guiController;
-  }
-
 
   @Override
   public void start(Stage primaryStage) throws Exception
