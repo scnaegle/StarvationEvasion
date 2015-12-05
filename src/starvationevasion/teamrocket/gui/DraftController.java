@@ -147,39 +147,46 @@ public class DraftController implements javafx.fxml.Initializable
 
   public DraftController()
   {
-    Timeline updater = new Timeline(
-        new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE),
-            new EventHandler<ActionEvent>()
-            {
-              @Override
-              public void handle(ActionEvent event)
-              {
-                time.setText(Main.GAME_CLOCK.getFormatted());
-                Main.GAME_CLOCK.getTimeLeft();
-                //System.out.println(Main.GAME_CLOCK.getSeconds());
-                time.setTextFill(Color.FORESTGREEN );
-                if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
-                {
-                  time.setTextFill(Color.DARKRED);
-                }
-                else if (Main.GAME_CLOCK.getMinutes() < 1)
-                {
-                  time.setTextFill(Color.RED);
-                }
-                else if(Main.GAME_CLOCK.getMinutes()<2)
-                {
-                  time.setTextFill(Color.ORANGE);
-                }
-                else if(Main.GAME_CLOCK.getMinutes()<3)
-                {
-                  time.setTextFill(Color.YELLOW);
-                }
-                if (Main.GAME_CLOCK.getTimeLeft() <= 0)
-                {
-                  //Main.getGameController().finishedCardDraft();
-                }
-              }
-            }));
+    Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
+    {
+      @Override
+      public void handle(ActionEvent event)
+      {
+        if (Main.getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
+        {
+          time.setText(Main.GAME_CLOCK.getFormatted());
+          time.setTextFill(Color.FORESTGREEN );
+          if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
+          {
+            time.setTextFill(Color.DARKRED);
+          }
+          else if (Main.GAME_CLOCK.getMinutes() < 1)
+          {
+            time.setTextFill(Color.RED);
+          }
+          else if(Main.GAME_CLOCK.getMinutes()<2)
+          {
+            time.setTextFill(Color.ORANGE);
+          }
+          else if(Main.GAME_CLOCK.getMinutes()<3)
+          {
+            time.setTextFill(Color.YELLOW);
+          }
+
+          if (Main.justSwitchedScenes())
+          {
+            showMyRegion();
+            resetCards();
+          }
+
+
+          if (Main.GAME_CLOCK.getTimeLeft() <= 0)
+          {
+            //Main.getGameController().finishedCardDraft();
+          }
+        }
+      }
+    }));
 
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
@@ -188,9 +195,7 @@ public class DraftController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-    showMyRegion();
     displayEarth();
-    resetCards();
   }
 
   @FXML

@@ -168,11 +168,21 @@ public class VotingController implements javafx.fxml.Initializable
       @Override
       public void handle(ActionEvent event)
       {
-        time.setText(Main.GAME_CLOCK.getFormatted());
-
-        if(Main.GAME_CLOCK.getTimeLeft() <=0)
+        if(Main.getGameController().getCurrentScene() == EnumScene.VOTE_PHASE)
         {
-          //Main.getGameController().finishedCardDraft();
+
+          time.setText(Main.GAME_CLOCK.getFormatted());
+
+          if(Main.justSwitchedScenes())
+          {
+            highlightCards();
+          }
+
+          if (Main.GAME_CLOCK.getTimeLeft() <= 0)
+          {
+            //Main.getGameController().finishedCardDraft();
+          }
+
         }
 
       }
@@ -192,7 +202,7 @@ public class VotingController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-    highlightCards();
+
   }
 
   /**

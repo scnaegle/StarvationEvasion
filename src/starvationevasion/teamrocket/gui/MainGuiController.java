@@ -20,8 +20,6 @@ import java.util.ResourceBundle;
  */
 public class MainGuiController implements javafx.fxml.Initializable
 {
-
-
   /* BEGINNING SCENES AND THEIR BUTTONS */
   @FXML
   private Button pickedRegion;
@@ -29,7 +27,6 @@ public class MainGuiController implements javafx.fxml.Initializable
   private Button ready;
   @FXML
   private Label time;
-
 
   @FXML
   private RadioButton singlePlayer, multiPlayer, joinMultiPlayer;
@@ -55,14 +52,11 @@ public class MainGuiController implements javafx.fxml.Initializable
   @FXML
   private ImageView cali, heartland, mountSt, northSt, nPlains, sPlains, southEast;
 
-
   private EnumRegion myRegion;
   @FXML
   private Label nothingSelected;
 
-
   private Player player;
-
 
   private boolean caliSelected;
   private boolean heartlandSelected;
@@ -72,22 +66,10 @@ public class MainGuiController implements javafx.fxml.Initializable
   private boolean southeastSelected;
   private boolean sPlainSelected;
 
-
-
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-
-
   }
-
-
-
-  @FXML
-  public void startTimer()
-  {}
-
-
 
   /**
    * Passes login information to GameController.
@@ -101,7 +83,6 @@ public class MainGuiController implements javafx.fxml.Initializable
 
     return Main.getGameController().tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
   }
-
 
   /**
    * Called by welcome scene. Asks user what kind of game they want to play.
@@ -135,7 +116,6 @@ public class MainGuiController implements javafx.fxml.Initializable
       Main.getGameController().setNewMultiPlayerMode(true);
       singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
-
     }
     else if(gamePlay == joinMultiPlayer)
     {
@@ -145,7 +125,6 @@ public class MainGuiController implements javafx.fxml.Initializable
       multiPlayer.setSelected(false);
     }
   }
-
 
   /**
    * Checks for any buttons pressed.
@@ -181,13 +160,11 @@ public class MainGuiController implements javafx.fxml.Initializable
         //go to gameSetting scene, then gameRoom scene, then game
         try{
           Main.getGameController().switchToLoginScene();
-
         }
         catch (Exception e)
         {
           e.printStackTrace();
         }
-
       }
       else if(joinMultiPlayerMode)
       {
@@ -200,7 +177,6 @@ public class MainGuiController implements javafx.fxml.Initializable
           e.printStackTrace();
         }
       }
-
     }
     else if(button == login)
     {
@@ -242,8 +218,6 @@ public class MainGuiController implements javafx.fxml.Initializable
         //Set general server error.
         addressError.setVisible(true);
       }
-
-
     }
 
     else if(button == pickedRegion)
