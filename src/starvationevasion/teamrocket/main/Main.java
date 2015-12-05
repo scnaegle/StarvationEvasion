@@ -15,7 +15,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import starvationevasion.teamrocket.gui.MainGuiController;
+import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.server.GameClock;
 
 import java.io.IOException;
@@ -31,15 +31,6 @@ public class Main extends Application
   private static boolean sceneChanged = true;
 
   private Stage primaryStage;
-  private Parent cardDraft;
-  private Parent voting;
-  private Parent gameRoom;
-  private Parent chat;
-
-  private Scene welcomeScene;
-  private Scene regionScene;
-  private Scene loginScene;
-  Scene cardDraftScene;
 
   public static GameController getGameController()
   {
@@ -60,18 +51,6 @@ public class Main extends Application
     }
 
     this.primaryStage = primaryStage;
-
-    Parent welcome = FXMLLoader.load(Main.class.getResource("/interface/welcomeScene.fxml"));
-    Parent login = FXMLLoader.load(Main.class.getResource("/interface/loginScene.fxml"));
-    Parent chooseRegion = FXMLLoader.load(Main.class.getResource("/interface/chooseRegionScene.fxml"));
-
-//    cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
-
-    welcomeScene = new Scene(welcome);
-    loginScene = new Scene(login);
-    regionScene = new Scene(chooseRegion);
-
-
     Group root = new Group();
 
     Media video = new Media(Main.class.getResource("/images/animation.mp4").toString());
@@ -91,7 +70,7 @@ public class Main extends Application
       {
         if(key.getCode() == KeyCode.SPACE)
         {
-          switchScenes(1);
+          gameController.changeScene(EnumScene.WELCOME);
         }
       }
     });
@@ -103,84 +82,29 @@ public class Main extends Application
   }
 
   /**
-   * switches between scenes.
+   * Sets the current scene.
    *
-   * @param scene the number that the scene is on
+   * @param nextScene the enum that the scene is bound to
    */
-  public void switchScenes(int scene)
+  public void setScene(EnumScene nextScene)
   {
-    if(scene == 1)
+    sceneChanged = true;
+    if (nextScene == EnumScene.GAME_ROOM)
     {
-      primaryStage.setScene(welcomeScene);
-    }
-    else if (scene == 2)
-    {
-      primaryStage.setScene(regionScene);
-    }
-    else if (scene == 3)
-    {
-      try
-      {
-       cardDraft = FXMLLoader.load(Main.class.getResource("/interface/cardDraft.fxml"));
-      }
-      catch (IOException e)
-      {
-        e.printStackTrace();
-      }
-      cardDraftScene = new Scene(cardDraft);
-      primaryStage.setScene(cardDraftScene);
-    }
-    else if (scene == 4)
-    {
-      try
-      {
-        voting = FXMLLoader.load(Main.class.getResource("/interface/voting.fxml"));
-      }
-      catch (IOException e)
-      {
-        e.printStackTrace();
-      }
-      Scene votingScene = new Scene(voting);
-      primaryStage.setScene(votingScene);
-    }
-    else if (scene == 5)
-    {
-      primaryStage.setScene(loginScene);
-    }
-    else if (scene == 6)
-    {
-      try
-      {
-        gameRoom = FXMLLoader.load(Main.class.getResource("/interface/gameRoom.fxml"));
-      }
-      catch (IOException e)
-      {
-        e.printStackTrace();
-      }
-      Scene gameRoomScene = new Scene(gameRoom);
-      primaryStage.setScene(gameRoomScene);
       placeWindowonScreen(primaryStage, 1350, 1000);
     }
+    primaryStage.setScene(nextScene.getScene());
   }
 
   /**
-   * opens the chat bar for players to use
+   * Opens the chat bar for players to use
    */
   public void openChat()
   {
     Stage chatStage = new Stage();
-    try
-    {
-      chat = FXMLLoader.load(Main.class.getResource("/interface/chat.fxml"));
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-    Scene chatScene = new Scene(chat);
     chatStage.setTitle("Chat here!");
     placeWindowonScreen(chatStage, 320, 1000);
-    chatStage.setScene(chatScene);
+    chatStage.setScene(EnumScene.CHAT.getScene());
     chatStage.show();
   }
 
@@ -189,11 +113,6 @@ public class Main extends Application
     Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - x);
     stage.setY(primaryScreenBounds.getMinY());
-  }
-
-  public Stage getCurrentStage()
-  {
-    return primaryStage;
   }
 
   public static void main(String[] args)

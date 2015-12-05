@@ -45,7 +45,6 @@ public class GameroomController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-    connectUsers();
   }
 
   public GameroomController()
@@ -55,11 +54,18 @@ public class GameroomController implements javafx.fxml.Initializable
       @Override
       public void handle(ActionEvent event)
       {
-        countdown.setText(Main.GAME_CLOCK.getFormatted());
-
-        if(Main.GAME_CLOCK.getTimeLeft() <=0)
+        if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
-          //Main.getGameController().finishedCardDraft();
+          countdown.setText(Main.GAME_CLOCK.getFormatted());
+
+          if(Main.justSwitchedScenes())
+          {
+            connectUsers();
+          }
+          if (Main.GAME_CLOCK.getTimeLeft() <= 0)
+          {
+            //Main.getGameController().finishedCardDraft();
+          }
         }
       }
     }));

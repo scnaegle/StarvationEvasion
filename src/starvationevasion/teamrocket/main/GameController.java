@@ -9,6 +9,7 @@ import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
@@ -17,7 +18,6 @@ import starvationevasion.teamrocket.server.Client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -44,6 +44,8 @@ public class GameController
 
   public ClientGameState gameState;
   private AvailableRegions availableRegions;
+  private EnumScene currentScene;
+  private boolean needToInitialize;
 
   GameController(Main main)
   {
@@ -68,14 +70,14 @@ public class GameController
 
     PolicyCard[] hand = new PolicyCard[7];
 
-    for(int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++)
     {
       EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
-      hand[i] = PolicyCard.create(player.ENUM_REGION,policy);
+      hand[i] = PolicyCard.create(player.ENUM_REGION, policy);
     }
     player.setHand(hand);
-    MAIN.switchScenes(3);
-
+    needToInitialize = true;
+    changeScene(EnumScene.DRAFT_PHASE);
     this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
     if (singlePlayer)
@@ -102,12 +104,17 @@ public class GameController
   {
   }
 
-  public void switchToScene(ServerState serverState) {
-    switch(serverState) {
+  public void switchToScene(ServerState serverState)
+  {
+    switch (serverState)
+    {
       case LOGIN:
-        if (player.ENUM_REGION == null) {
+        if (player.ENUM_REGION == null)
+        {
           switchToSelectRegion();
-        } else {
+        }
+        else
+        {
           switchToGameScene();
         }
         break;
@@ -134,7 +141,7 @@ public class GameController
    */
   public void switchToSelectRegion()
   {
-    MAIN.switchScenes(2);
+    changeScene(EnumScene.REGION_CHOICE);
   }
 
   /**
@@ -142,12 +149,20 @@ public class GameController
    */
   public void switchToLoginScene()
   {
-    MAIN.switchScenes(5);
+    changeScene(EnumScene.LOGIN);
   }
 
   public void switchToGameScene()
   {
-    MAIN.switchScenes(6);
+    needToInitialize = true;
+    changeScene(EnumScene.GAME_ROOM);
+  }
+
+  void changeScene(EnumScene nextScene)
+  {
+    currentScene = nextScene;
+    MAIN.setScene(currentScene);
+
   }
 
   public void openChat()
@@ -158,6 +173,7 @@ public class GameController
   /**
    * Get the card text of the card in the given position
    * of the player's hand
+   *
    * @param cardPosition position of card in hand
    * @return text of card
    */
@@ -169,22 +185,34 @@ public class GameController
   /**
    * Handles the actions the player can do, play or discard cards, from
    * the GUI and update the Player class with this information
+   *
    * @param cardPositions array of card positions that is related to the action being down
-   * @param playedCard True is the cards are being played, False if cards are being discarded
+   * @param playedCard    True is the cards are being played, False if cards are being discarded
    */
   public void playerAction(int[] cardPositions, boolean playedCard)
   {
-    if(!playedCard)
-      for(int i = 0; i < cardPositions.length; i++)
+    if (!playedCard)
+    {
+      for (int i = 0; i < cardPositions.length; i++)
       {
         player.discardCard(cardPositions[i]);
       }
+    }
 
     else
     {
-      if(cardPositions.length == 1) player.selectedCards(cardPositions[0], -1);
-      else if(cardPositions.length == 2) player.selectedCards(cardPositions[0], cardPositions[1]);
-      else player.selectedCards(-1,-1);
+      if (cardPositions.length == 1)
+      {
+        player.selectedCards(cardPositions[0], -1);
+      }
+      else if (cardPositions.length == 2)
+      {
+        player.selectedCards(cardPositions[0], cardPositions[1]);
+      }
+      else
+      {
+        player.selectedCards(-1, -1);
+      }
     }
   }
 
@@ -202,7 +230,8 @@ public class GameController
    */
   public void finishedCardDraft()
   {
-    MAIN.switchScenes(4);
+    needToInitialize = true;
+    changeScene(EnumScene.VOTE_PHASE);
   }
 
   /**
@@ -210,7 +239,8 @@ public class GameController
    */
   public void finishedVoting()
   {
-    MAIN.switchScenes(3);
+    needToInitialize = true;
+    changeScene(EnumScene.DRAFT_PHASE);
   }
 
   /**
@@ -234,16 +264,19 @@ public class GameController
     return player.ENUM_REGION;
   }
 
-  public void setAvailableRegions(AvailableRegions availableRegions) {
+  public void setAvailableRegions(AvailableRegions availableRegions)
+  {
     this.availableRegions = availableRegions;
   }
 
-  public AvailableRegions getAvailableRegions() {
+  public AvailableRegions getAvailableRegions()
+  {
     return availableRegions;
   }
 
   /**
    * Tries to login into the designated server.
+   *
    * @param username
    * @param password
    * @param ipAddress
@@ -361,7 +394,10 @@ public class GameController
     {
       mode = "newMultiPlayer";
     }
-    else if (joinMultiPlayer) mode = "joinMultiPlayer";
+    else if (joinMultiPlayer)
+    {
+      mode = "joinMultiPlayer";
+    }
     return mode;
   }
 
@@ -384,9 +420,12 @@ public class GameController
   {
     final String regex = "^\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+$";
 
-    if (address.matches(regex)) {
+    if (address.matches(regex))
+    {
       return "good";
-    } else {
+    }
+    else
+    {
       return "bad";
     }
   }
@@ -400,9 +439,12 @@ public class GameController
   {
     final String regex = "^\\d{2,4}+$";
 
-    if (port.matches(regex)) {
+    if (port.matches(regex))
+    {
       return "good";
-    } else {
+    }
+    else
+    {
       return "bad";
     }
   }
@@ -417,19 +459,23 @@ public class GameController
     return playerPort;
   }
 
-  public void addErrorMessage(String error_message) {
+  public void addErrorMessage(String error_message)
+  {
     error_messages.push(error_message);
   }
 
-  public String getErrorMessage() {
+  public String getErrorMessage()
+  {
     return error_messages.pop();
   }
 
-  public void setSuccessfulLogin(boolean successfulLogin) {
+  public void setSuccessfulLogin(boolean successfulLogin)
+  {
     this.successfulLogin = successfulLogin;
   }
 
-  public boolean getSuccessfulLogin() {
+  public boolean getSuccessfulLogin()
+  {
     return successfulLogin;
   }
 
@@ -458,5 +504,10 @@ public class GameController
   public int clickedCard(int i)
   {
     return 0;
+  }
+
+  public EnumScene getCurrentScene()
+  {
+    return currentScene;
   }
 }

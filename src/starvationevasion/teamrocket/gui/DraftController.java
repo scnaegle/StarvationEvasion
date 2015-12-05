@@ -147,64 +147,55 @@ public class DraftController implements javafx.fxml.Initializable
 
   public DraftController()
   {
-    Timeline updater = new Timeline(
-        new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE),
-            new EventHandler<ActionEvent>()
-            {
-              /**
-               * This will listen to the clock and change it's color, as well
-               * as declare when a voting phase is over
-               *
-               * @param event the clock timer being listened to
-               */
-              @Override
-              public void handle(ActionEvent event)
-              {
-                time.setText(Main.GAME_CLOCK.getFormatted());
-                Main.GAME_CLOCK.getTimeLeft();
-                //System.out.println(Main.GAME_CLOCK.getSeconds());
-                time.setTextFill(Color.FORESTGREEN );
-                if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
-                {
-                  time.setTextFill(Color.RED);
-                }
-                else if (Main.GAME_CLOCK.getMinutes() < 1)
-                {
-                  time.setTextFill(Color.DARKORANGE);
-                }
-                else if(Main.GAME_CLOCK.getMinutes()<2)
-                {
-                  time.setTextFill(Color.ORANGE);
-                }
-                else if(Main.GAME_CLOCK.getMinutes()<3)
-                {
-                  time.setTextFill(Color.YELLOW);
-                }
-                if (Main.GAME_CLOCK.getTimeLeft() <= 0)
-                {
-//                  Main.GAME_CLOCK.setTimeLeft(180000);
-                  //Main.getGameController().finishedCardDraft();
-                }
-              }
-            }));
+    Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
+    {
+      @Override
+      public void handle(ActionEvent event)
+      {
+        if (Main.getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
+        {
+          time.setText(Main.GAME_CLOCK.getFormatted());
+          time.setTextFill(Color.FORESTGREEN );
+          if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
+          {
+            time.setTextFill(Color.DARKRED);
+          }
+          else if (Main.GAME_CLOCK.getMinutes() < 1)
+          {
+            time.setTextFill(Color.RED);
+          }
+          else if(Main.GAME_CLOCK.getMinutes()<2)
+          {
+            time.setTextFill(Color.ORANGE);
+          }
+          else if(Main.GAME_CLOCK.getMinutes()<3)
+          {
+            time.setTextFill(Color.YELLOW);
+          }
+
+          if (Main.justSwitchedScenes())
+          {
+            showMyRegion();
+            resetCards();
+          }
+
+
+          if (Main.GAME_CLOCK.getTimeLeft() <= 0)
+          {
+            //Main.getGameController().finishedCardDraft();
+          }
+        }
+      }
+    }));
 
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
   }
 
-  /**
-   * Initalizes the region, and sets all of the differnet parts of the program
-   * up to be displayed
-   *
-   * @param location serializable ID of the player
-   * @param resources
-   */
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
-    showMyRegion();
     displayEarth();
-    resetCards();
   }
 
   @FXML
