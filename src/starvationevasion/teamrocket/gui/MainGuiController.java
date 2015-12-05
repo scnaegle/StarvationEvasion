@@ -103,7 +103,11 @@ public class MainGuiController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * Called by welcome scene. Asks user what kind of game they want to play.
+   * Sends user input to GameController.
+   * @param event Action event.
+   */
   @FXML
   public void chooseGamePlay(ActionEvent event)
   {
@@ -143,7 +147,11 @@ public class MainGuiController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * Checks for any buttons pressed.
+   * Does appropriate actions depending on button.
+   * @param event Action event.
+   */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
