@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Entry point for Server
  */
-public class Server
+public class Server extends Thread
 {
   private final Object stateSynchronizationObject = new Object();
   private volatile ServerState currentState = ServerState.LOGIN;
@@ -55,9 +55,11 @@ public class Server
     new Server(args[0]).start();
   }
 
-  private void start()
+  public void run()
   {
-    new Thread(this::processMessages).start();
+    Thread thread = new Thread(this::processMessages);
+    thread.setDaemon(true);
+    thread.start();
     waitForConnections();
   }
 
