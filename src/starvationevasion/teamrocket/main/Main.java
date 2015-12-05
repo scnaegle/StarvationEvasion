@@ -23,7 +23,7 @@ import java.io.IOException;
 public class Main extends Application
 {
   private static GameController gameController;
-  public static final GameClock GAME_CLOCK = new GameClock(300000l);
+  public static final GameClock GAME_CLOCK = new GameClock(30000);
   /**
    * Refresh rate in milliseconds. 17 ms = 60hz
    */
@@ -63,6 +63,7 @@ public class Main extends Application
     root.getChildren().add(viewer);
     Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
     primaryStage.setScene(startAnimation);
+    EnumScene.WELCOME.getScene();
     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
     {
       @Override

@@ -58,7 +58,7 @@ public class GameroomController implements javafx.fxml.Initializable
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
 
-          if(Main.justSwitchedScenes())
+          if (Main.getGameController().initGUI())
           {
             connectUsers();
           }

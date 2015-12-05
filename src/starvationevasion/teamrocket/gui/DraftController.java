@@ -173,7 +173,7 @@ public class DraftController implements javafx.fxml.Initializable
             time.setTextFill(Color.YELLOW);
           }
 
-          if (Main.justSwitchedScenes())
+          if (Main.getGameController().initGUI())
           {
             showMyRegion();
             resetCards();

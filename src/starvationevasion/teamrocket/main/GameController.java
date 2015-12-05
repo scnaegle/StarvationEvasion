@@ -510,4 +510,11 @@ public class GameController
   {
     return currentScene;
   }
+
+  public boolean initGUI()
+  {
+    boolean status = needToInitialize;
+    needToInitialize = false;
+    return status;
+  }
 }
