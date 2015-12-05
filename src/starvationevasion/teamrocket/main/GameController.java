@@ -15,9 +15,7 @@ import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.RegionHistory;
 import starvationevasion.teamrocket.server.Client;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -274,6 +272,17 @@ public class GameController
   public void setAvailableRegions(AvailableRegions availableRegions)
   {
     this.availableRegions = availableRegions;
+
+    for (Map.Entry<EnumRegion, String> entry : availableRegions.takenRegions.entrySet())
+    {
+      if(Objects.equals(entry.getValue(), playerUsername))
+      {
+        if(entry.getKey() != getMyRegion())
+        {
+          //TODO set our region if assigned by server.
+        }
+      }
+    }
   }
 
   public AvailableRegions getAvailableRegions()
