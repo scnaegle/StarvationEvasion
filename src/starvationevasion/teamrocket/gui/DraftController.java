@@ -631,8 +631,6 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
-
-
     }
     else if (cardsDrafted == 2)
     {
@@ -667,23 +665,38 @@ public class DraftController implements javafx.fxml.Initializable
     discardDraft2.setVisible(false);
 
     card1.setVisible(true);
+    card1.setDisable(false);
     discard1.setVisible(true);
+    discard1.setDisable(false);
     card2.setVisible(true);
+    card2.setDisable(false);
     discard2.setVisible(true);
+    discard2.setDisable(false);
     card3.setVisible(true);
+    card3.setDisable(false);
     discard3.setVisible(true);
+    discard3.setDisable(false);
     card4.setVisible(true);
+    card4.setDisable(false);
     discard4.setVisible(true);
+    discard4.setDisable(false);
     card5.setVisible(true);
+    card5.setDisable(false);
     discard5.setVisible(true);
+    discard5.setDisable(false);
     card6.setVisible(true);
+    card6.setDisable(false);
     discard6.setVisible(true);
+    discard6.setDisable(false);
     card7.setVisible(true);
+    card7.setDisable(false);
     discard7.setVisible(true);
+    discard7.setDisable(false);
 
     disNum = 0;
     discardedNum.setText("" + disNum);
     numCardsinHand = 7;
+    cardsDrafted = 0;
   }
 
 
