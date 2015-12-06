@@ -3,7 +3,6 @@ package starvationevasion.io;
 import starvationevasion.sim.Territory;
 import starvationevasion.sim.Region;
 import starvationevasion.sim.World;
-import starvationevasion.sim.CropZoneDataIO;
 import starvationevasion.io.XMLparsers.GeographyXMLparser;
 import starvationevasion.sim.GeographicArea;
 import starvationevasion.sim.LandTile;
@@ -49,8 +48,10 @@ public class WorldLoader
 
     // add data from csv to agricultureUnits
     CountryCSVLoader csvLoader;
+    ProductionCSVLoader csvProduction;
     try {
       csvLoader = new CountryCSVLoader(territories, regionList);
+      csvProduction = new ProductionCSVLoader(regionList);
     } catch (FileNotFoundException e) {
       throw new IllegalStateException("The world model can not be populated.");
     }

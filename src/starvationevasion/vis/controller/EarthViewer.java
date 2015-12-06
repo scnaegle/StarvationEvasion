@@ -2,12 +2,11 @@ package starvationevasion.vis.controller;
 
 
 import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
 import starvationevasion.vis.visuals.Earth;
 import starvationevasion.vis.visuals.ResourceLoader;
+import starvationevasion.vis.visuals.SpecialEffect;
 import starvationevasion.vis.visuals.VisualizerLayout;
 
 import java.util.Queue;
@@ -26,35 +25,43 @@ public class EarthViewer
   public static Queue<Event> SIM_EVENTS;
   private  VisualizerLayout visLayout;
   public static final ResourceLoader RESOURCE_LOADER = new ResourceLoader();
-  public static Earth earth;
-  private final Scale SET_SIZE;
+  public Earth earth;
   private Group userView;
+  private SpecialEffect specialEffect;
+  private int LARGE_EARTH_RADIUS;
+
   public EarthViewer(int smallEarthRadius, int largeEarthRadius)
   {
-    earth = new Earth(smallEarthRadius, largeEarthRadius, RESOURCE_LOADER);
-    SET_SIZE = new Scale();
-
+    earth = new Earth(smallEarthRadius, largeEarthRadius);
+//    specialEffect = new SpecialEffect(earth);
+//    specialEffect.buildClouds();
+//    specialEffect.buildPinPoint(-20,40);
+    this.LARGE_EARTH_RADIUS=largeEarthRadius;
   }
 
   public VisualizerLayout updateFull()
   {
-    visLayout = new VisualizerLayout();
-    return visLayout;
+    return new VisualizerLayout(this,LARGE_EARTH_RADIUS);
   }
-
   public Group updateMini()
   {
-    userView = earth.getUniverse();
-    userView.setScaleZ(0.3);
-    userView.setScaleY(0.3);
-    userView.setScaleX(0.3);
-    userView.setDisable(true);
-    //userView.setAutoSizeChildren(true);
+    userView = earth.getSmallEarth();
     return userView;
   }
 
   public void updateEvents(String[] eventData)
   {}
+
+  public void addVisStyleSheet(Scene scene)
+  {
+    scene.setCamera(new PerspectiveCamera());
+    scene.getStylesheets().add(RESOURCE_LOADER.STYLE_SHEET);
+
+  }
+  public Earth getEarth()
+  {
+    return earth;
+  }
 
 }
 
