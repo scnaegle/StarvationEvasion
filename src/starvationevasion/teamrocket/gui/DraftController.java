@@ -7,15 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,11 +25,11 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.ClientTest.CustomLayout;
-import starvationevasion.vis.controller.SimParser;
 import starvationevasion.vis.visuals.EarthViewer;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import static starvationevasion.teamrocket.main.Main.getGameController;
@@ -212,6 +211,35 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  private void setupAddBox(int cardIndex)
+  {
+    //Clear old buttons
+    ObservableList<Node> children = inputPane.getChildren();
+    children.removeAll(FXCollections.observableArrayList(inputPane.getChildren()));
+
+    PolicyCard card = getGameController().player.getCard(cardIndex);
+    if(card.getValidTargetFoods() != null)
+    {
+      ComboBox<EnumFood> food = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
+      Label label = new Label("Target Food", food);
+      children.add(label);
+      children.add(food);
+      label.setVisible(true);
+      food.setVisible(true);
+    }
+    if(card.getValidTargetRegions() != null)
+    {
+      ComboBox<EnumRegion> region = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
+      Label label = new Label("Target Region", region);
+      children.add(label);
+      children.add(region);
+      label.setVisible(true);
+      region.setVisible(true);
+    }
+
+    cardInputs.setVisible(true);
+  }
+
 
   public void displayHand()
   {
@@ -310,37 +338,37 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else if (button == card1)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(0);
       tryDraftingCard(card1, card1Image, discard1);
     }
     else if (button == card2)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(1);
       tryDraftingCard(card2, card2Image, discard2);
     }
     else if (button == card3)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(2);
       tryDraftingCard(card3, card3Image, discard3);
     }
     else if (button == card4)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(3);
       tryDraftingCard(card4, card4Image, discard4);
     }
     else if (button == card5)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(4);
       tryDraftingCard(card5, card5Image, discard5);
     }
     else if (button == card6)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(5);
       tryDraftingCard(card6, card6Image, discard6);
     }
     else if (button == card7)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(6);
       tryDraftingCard(card7, card7Image, discard7);
     }
 
