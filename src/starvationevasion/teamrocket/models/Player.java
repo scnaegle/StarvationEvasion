@@ -71,6 +71,13 @@ public class Player implements PlayerInterface
     income = 10000000;
   }
 
+  public EnumRegion getEnumRegion() {
+    return ENUM_REGION;
+  }
+
+  public EnumAITypes getAIType() {
+    return AI;
+  }
   /**
    * Gets the hand of the player
    * @return player hand
@@ -84,6 +91,7 @@ public class Player implements PlayerInterface
   public PolicyCard getCard(int card_index) {
     return PolicyCard.create(ENUM_REGION, hand[card_index]);
   }
+
 
   /**
    * Update the player's hand with the new hand
@@ -250,6 +258,7 @@ public class Player implements PlayerInterface
       }
     }
   }
+
 
   synchronized public void setGameState(EnumGameState gameState) {
     this.gameState = gameState;

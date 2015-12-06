@@ -10,6 +10,7 @@ import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ClientGameState;
@@ -24,7 +25,7 @@ import java.util.*;
  */
 public class GameController
 {
-  public Player player;
+  public PlayerInterface player;
   private final Main MAIN;
   private HashMap<EnumRegion, RegionHistory> regions = new HashMap<>();
   private boolean singlePlayer;
@@ -73,7 +74,7 @@ public class GameController
    * @param region player's starting region
    * @return a copy of the new player for convenience.
    */
-  public Player startSinglePlayerGame(EnumRegion region)
+  public PlayerInterface startSinglePlayerGame(EnumRegion region)
   {
     destroyGame(); //Destroy old game if exists.
     this.player = new Player(region, null, this);
@@ -110,7 +111,7 @@ public class GameController
       }
 
     client.send(new Login(playerUsername, salt, playerPassword));
-    client.send(new RegionChoice(player.ENUM_REGION));
+    client.send(new RegionChoice(player.getEnumRegion()));
 
     //Server will need to spawn a bunch of AI Clients
     //Need to detect what zones are left and fill with AI
@@ -134,7 +135,7 @@ public class GameController
     switch (serverState)
     {
       case LOGIN:
-        if (player.ENUM_REGION == null)
+        if (player.getEnumRegion() == null)
         {
           switchToSelectRegion();
         }
@@ -286,7 +287,7 @@ public class GameController
    */
   public EnumRegion getMyRegion()
   {
-    return player.ENUM_REGION;
+    return player.getEnumRegion();
   }
 
   public void setAvailableRegions(AvailableRegions availableRegions)

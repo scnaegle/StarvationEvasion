@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.RegionChoice;
+import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 
@@ -38,7 +39,7 @@ public class GameroomController implements javafx.fxml.Initializable
 
   private EnumRegion myRegion;
 
-  private Player player;
+  private PlayerInterface player;
 
 
   /*************************************************************************/
