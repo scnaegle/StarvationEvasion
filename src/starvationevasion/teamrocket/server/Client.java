@@ -139,12 +139,12 @@ public class Client
     //client.send(new Login());
   }
 
-  public void send(ServerEvent event, Serializable object) {
+  public synchronized void send(ServerEvent event, Serializable object) {
     Message message = new Message(event, object);
     MessageHandler.send(outputStream, message);
   }
 
-  public void send(Serializable payload) {
+  public synchronized void send(Serializable payload) {
     try {
       outputStream.writeObject(payload);
     } catch (IOException e) {
