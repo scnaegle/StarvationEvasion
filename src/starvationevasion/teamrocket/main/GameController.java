@@ -24,7 +24,7 @@ import java.util.*;
  */
 public class GameController
 {
-  private Player player;
+  public Player player;
   private final Main MAIN;
   private HashMap<EnumRegion, RegionHistory> regions = new HashMap<>();
   private boolean singlePlayer;
@@ -44,18 +44,26 @@ public class GameController
   private boolean successfulLogin = false;
   private Client client;
 
-  public ClientGameState gameState;
   private AvailableRegions availableRegions;
   private EnumScene currentScene;
   private boolean needToInitialize;
 
-  GameController(Main main)
+  private boolean AI;
+
+  public int currentYear;
+  public int currentTurn;
+
+  GameController(Main main, boolean AI)
   {
     this.MAIN = main;
     for (EnumRegion enumRegion : EnumRegion.values())
     {
       regions.put(enumRegion, new RegionHistory(enumRegion));
     }
+  }
+
+  GameController(Main main) {
+    this(main, false);
   }
 
 
@@ -71,19 +79,18 @@ public class GameController
     this.player = new Player(region, null, this);
 
     //BEGIN placeholder hand code should be removed once hand is retrieved from the server
-   PolicyCard[] hand = new PolicyCard[7];
+   EnumPolicy[] hand = new EnumPolicy[7];
 
     for (int i = 0; i < 7; i++)
     {
       EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
-      hand[i] = PolicyCard.create(player.ENUM_REGION, policy);
+      hand[i] = policy; //PolicyCard.create(player.ENUM_REGION, policy);
     }
     player.setHand(hand);
     //END placeholder code.
 
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
-    this.gameState = new ClientGameState(EnumGameState.GAME_ROOM, player.ENUM_REGION);
 
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath());
     server.setDaemon(true);
@@ -105,7 +112,7 @@ public class GameController
     client.send(new Login(playerUsername, salt, playerPassword));
     client.send(new RegionChoice(player.ENUM_REGION));
 
-    //Will need to spawn a bunch of AI Clients
+    //Server will need to spawn a bunch of AI Clients
     //Need to detect what zones are left and fill with AI
 
 
@@ -197,7 +204,7 @@ public class GameController
    */
   public PolicyCard getCard(int cardPosition)
   {
-    return player.getHand()[cardPosition];
+    return player.getCard(cardPosition);
   }
 
   /**

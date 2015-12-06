@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumFood;
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 
 import java.util.LinkedList;
@@ -200,7 +201,7 @@ public enum EnumAITypes
    * @param generator random generator to choose randomly
    * @return card array of selected cards
    */
-  public abstract  PolicyCard[] selectCards(PolicyCard[] hand, Random generator);
+  public abstract PolicyCard[] selectCards(PolicyCard[] hand, Random generator);
 
   /**
    * If played cards need a target selected, AI will select

@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.GameController;
@@ -7,6 +8,8 @@ import starvationevasion.teamrocket.models.Player;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.stream.Stream;
+
 //TODO: AI CHAT!!!!! ASAP
 //TODO: needs to know the crops, and select crops for cards
 //TODO: need to select target region for cards
@@ -53,7 +56,7 @@ public class AI extends Player
    * @param discardCardsPosition the position of cards being discarded
    */
   private void removeDiscardedCards(int[] discardCardsPosition) {
-    PolicyCard[] hand = getHand();
+    EnumPolicy[] hand = getHand();
 
     for (int i : discardCardsPosition)
     {
@@ -73,7 +76,7 @@ public class AI extends Player
     {
       int numCards = generator.nextInt(4);
       if(numCards == 0) numCards++;
-      removeDiscardedCards(AI.discardCards(numCards,getHand(),generator));
+      removeDiscardedCards(AI.discardCards(numCards,getHandCards(),generator));
       return true;
     }
     return false;
@@ -90,15 +93,15 @@ public class AI extends Player
   }
 
   @Override
-  public PolicyCard[] getDraftedCards()
+  public EnumPolicy[] getDraftedCards()
   {
-    PolicyCard[] cards = AI.selectCards(getHand(),generator);
+    PolicyCard[] cards = AI.selectCards(getHandCards(),generator);
     setCardTargets(cards);
-    return cards;
+    return (EnumPolicy[]) Stream.of(cards).map(c -> c.getCardType()).toArray();
   }
 
   @Override
-  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
     return AI.vote(records[cardPlayedRegion.ordinal()], generator);
   }
 }

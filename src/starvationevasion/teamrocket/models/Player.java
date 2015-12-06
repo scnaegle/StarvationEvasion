@@ -1,14 +1,28 @@
 package starvationevasion.teamrocket.models;
 
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import starvationevasion.common.*;
+import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
+import starvationevasion.teamrocket.messages.EnumGameState;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Stream;
 
 
 public class Player implements PlayerInterface
 {
+  private ServerState serverState;
+  private EnumGameState gameState;
+  private WorldData worldData;
+  private Map<EnumRegion, RegionHistory> regionHistories;
+  private Map<EnumRegion, PolicyVote[]> policyVotes;
+  private ChatHistory chatHistory;
+
 
   /**
    * Player's selected region.
@@ -30,9 +44,9 @@ public class Player implements PlayerInterface
   /**
    * Card hand of the player
    */
-  private PolicyCard[] hand;
+  private EnumPolicy[] hand;
 
-  private PolicyCard[] selectedCards;
+  private EnumPolicy[] selectedCards;
 
   /**
    * Log in info for player
@@ -61,13 +75,21 @@ public class Player implements PlayerInterface
    * Gets the hand of the player
    * @return player hand
    */
-  public PolicyCard[] getHand(){return hand;}
+  public EnumPolicy[] getHand(){return hand;}
+
+  public PolicyCard[] getHandCards() {
+    return (PolicyCard[])Stream.of(hand).map(c -> PolicyCard.create(ENUM_REGION, c)).toArray();
+  }
+
+  public PolicyCard getCard(int card_index) {
+    return PolicyCard.create(ENUM_REGION, hand[card_index]);
+  }
 
   /**
    * Update the player's hand with the new hand
    * @param hand of new cards
    */
-  public void setHand(PolicyCard[] hand){this.hand = hand;}
+  public synchronized void setHand(EnumPolicy[] hand){this.hand = hand;}
 
   /**
    * Get the current income of the player
@@ -96,7 +118,7 @@ public class Player implements PlayerInterface
     if(card1 < 0 || card2 < 0) selectionSize = 1;
     else if(card1 < 0 && card2 < 0) selectionSize = 0;
 
-    selectedCards = new PolicyCard[selectionSize];
+    selectedCards = new EnumPolicy[selectionSize];
 
     if(selectionSize > 0)
     {
@@ -104,6 +126,10 @@ public class Player implements PlayerInterface
       else selectedCards[0] = hand[card1];
     }
     if(selectionSize > 1) selectedCards[1] = hand[card2];
+  }
+
+  public EnumPolicy[] getSelectedCards() {
+    return selectedCards;
   }
 
   /**
@@ -139,12 +165,12 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public PolicyCard[] getDraftedCards() {
+  public EnumPolicy[] getDraftedCards() {
     return selectedCards;
   }
 
   @Override
-  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
     return 0;
   }
 
@@ -155,7 +181,7 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public void addCard(PolicyCard card)
+  public void addCard(EnumPolicy card)
   {
     for(int i = 0; i < hand.length; i++)
     {
@@ -165,5 +191,67 @@ public class Player implements PlayerInterface
         break;
       }
     }
+  }
+
+
+  synchronized public void setGameState(ServerState serverState) {
+    this.serverState = serverState;
+    switch(serverState) {
+      case LOGIN:
+        this.gameState = EnumGameState.GAME_ROOM;
+        break;
+      case BEGINNING:
+        this.gameState = EnumGameState.BEGINNING;
+        break;
+      case DRAWING:
+        break;
+      case DRAFTING:
+        this.gameState = EnumGameState.DRAFTING;
+        break;
+      case VOTING:
+        this.gameState = EnumGameState.VOTING;
+        break;
+      case WIN:
+        this.gameState = EnumGameState.END;
+        break;
+      case LOSE:
+        this.gameState = EnumGameState.END;
+        break;
+      case END:
+        this.gameState = EnumGameState.END;
+        break;
+    }
+  }
+
+  /**
+   * returns the games state, or phase of the game.
+   *
+   * @return the phase of the state
+   */
+  public EnumGameState getGameState()
+  {
+    return gameState;
+  }
+
+  synchronized public void updateWorldData(WorldData worldData) {
+    this.worldData = worldData;
+    for(EnumRegion enumRegion : EnumRegion.values()) {
+      RegionHistory regionHistory = regionHistories.get(enumRegion);
+      RegionData regionData = worldData.regionData[enumRegion.ordinal()];
+      regionHistory.addTotalRevenue(regionData.revenueBalance);
+      regionHistory.addPopulation(regionData.population);
+      regionHistory.addUndernourished(regionData.undernourished);
+      regionHistory.addHDI(regionData.humanDevelopmentIndex);
+      for (EnumFood food : EnumFood.values()) {
+        regionHistory.addCropProduced(food, regionData.foodProduced[food.ordinal()]);
+        regionHistory.addCropRevenue(food, regionData.foodIncome[food.ordinal()]);
+        regionHistory.addFoodExported(food, regionData.foodExported[food.ordinal()]);
+        regionHistory.addFarmArea(food, regionData.farmArea[food.ordinal()]);
+      }
+    }
+  }
+
+  synchronized public void setGameState(EnumGameState gameState) {
+    this.gameState = gameState;
   }
 }
