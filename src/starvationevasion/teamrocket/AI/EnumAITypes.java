@@ -3,7 +3,6 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.teamrocket.CardTarget;
 
 import java.util.Random;
 
@@ -89,9 +88,8 @@ public enum EnumAITypes
       }
 
       @Override
-      public CardTarget setCardTargets(Random generator, PolicyCard card)
+      public void setCardTargets(Random generator, PolicyCard card)
       {
-        CardTarget target = new CardTarget();
         EnumFood[] targetFoods = card.getValidTargetFoods();
         EnumRegion targetRegion = card.getTargetRegion();
         PolicyCard.EnumVariableUnit X = card.getRequiredVariables(PolicyCard.EnumVariable.X);
@@ -99,36 +97,34 @@ public enum EnumAITypes
         PolicyCard.EnumVariableUnit Z = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
 
         if(targetFoods != null)
-          target.setFood(targetFoods[generator.nextInt(targetFoods.length)]);
+          card.setTargetFood(targetFoods[generator.nextInt(targetFoods.length)]);
 
-        if(targetRegion != null) target.setRegion(targetRegion);
+        if(targetRegion != null) card.setTargetRegion(targetRegion);
 
         if(X != null)
         {
           if(X.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
                   || X.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
-            target.setX(generator.nextInt(10) + 1);
+            card.setX(generator.nextInt(10) + 1);
 
-          else target.setX(2);
+          else card.setX(2);
         }
         if(Y != null)
         {
           if(Y.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
                   || Y.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
-            target.setY(generator.nextInt(10) + 1);
+            card.setY(generator.nextInt(10) + 1);
 
-          else target.setY(2);
+          else card.setY(2);
         }
         if(Z != null)
         {
           if(Z.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
                   || Z.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
-            target.setZ(generator.nextInt(10) + 1);
+            card.setZ(generator.nextInt(10) + 1);
 
-          else target.setZ(2);
+          else card.setZ(2);
         }
-
-        return target;
       }
     };
 
@@ -163,7 +159,6 @@ public enum EnumAITypes
    * If played cards need a target selected, AI will select
    * what the targets are
    * @param card that needs targets
-   * @return CardTarget array that contains the targets related to each playing card
    */
-  public abstract CardTarget setCardTargets(Random generator, PolicyCard card);
+  public abstract void setCardTargets(Random generator, PolicyCard card);
 }

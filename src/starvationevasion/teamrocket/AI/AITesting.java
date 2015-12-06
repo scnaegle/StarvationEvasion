@@ -2,7 +2,7 @@ package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.teamrocket.CardTarget;
+import starvationevasion.common.PolicyCard;
 
 import java.util.Arrays;
 
@@ -98,17 +98,16 @@ public class AITesting {
   private static void playCardTest()
   {
     System.out.println("Playing Cards *********");
-    ai.getDraftedCards();
+    PolicyCard[] targets = ai.getDraftedCards();
     System.out.println("Card Targets*********");
-    CardTarget[] targets = ai.pullCardTargets();
 
-    for(CardTarget target : targets)
+    for(PolicyCard target : targets)
     {
       System.out.println(target.getX());
       System.out.println(target.getY());
       System.out.println(target.getZ());
-      System.out.println(target.getFood());
-      System.out.println(target.getRegion());
+      System.out.println(target.getTargetFood());
+      System.out.println(target.getTargetRegion());
       System.out.println();
     }
   }

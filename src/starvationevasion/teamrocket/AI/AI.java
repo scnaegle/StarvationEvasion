@@ -3,16 +3,13 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.teamrocket.CardTarget;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.Random;
-import java.util.stream.Stream;
 
 //TODO: AI CHAT!!!!! ASAP
 //TODO: Need to update Player Records
-//TODO: needs to know the crops, and select crops for cards
 public class AI extends Player
 {
   /*Game info*/
@@ -20,7 +17,6 @@ public class AI extends Player
   private PlayerRecord[] records;
   private Random generator;
   private int actionsPerformed = 2; //decrease when actions are done during drafting phase
-  private PolicyCard[] discardedCards;
 
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
@@ -92,14 +88,10 @@ public class AI extends Player
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    CardTarget[] cardTargets = new CardTarget[cards.length];
-    int index = 0;
     for(PolicyCard card : cards)
     {
-      cardTargets[index] = AI.setCardTargets(generator, card);
-      index++;
+      AI.setCardTargets(generator, card);
     }
-    updateCardTargets(cardTargets);
   }
 
   @Override

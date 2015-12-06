@@ -1,17 +1,13 @@
 package starvationevasion.teamrocket.models;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
 import starvationevasion.common.*;
 import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
-import starvationevasion.teamrocket.CardTarget;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -24,7 +20,6 @@ public class Player implements PlayerInterface
   private Map<EnumRegion, RegionHistory> regionHistories;
   private Map<EnumRegion, PolicyVote[]> policyVotes;
   private ChatHistory chatHistory;
-  private CardTarget[] targets;
 
   /**
    * Player's selected region.
@@ -151,22 +146,6 @@ public class Player implements PlayerInterface
     } catch (IndexOutOfBoundsException e) {
       // do nothing
     }
-  }
-
-  /**
-   * Updates the array of card targets
-   * Mainly used for AI to update the array
-   * with the targets it picked
-   * @param cardTargets array of CardTargets
-   */
-  public void updateCardTargets(CardTarget[] cardTargets)
-  {
-    targets = cardTargets;
-  }
-
-  public CardTarget[] pullCardTargets()
-  {
-    return targets;
   }
 
   /**
