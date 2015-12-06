@@ -12,6 +12,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
@@ -138,6 +140,10 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Label close, close2, close3, close4, close5, close6, close7, close8,
       close9, close10, close11, close12, closeEarthLabel;
+
+  @FXML
+  private TextArea nonCitrusText, grainsText, citrusText, feedText, oilText, meatText, dairyText, poultryText,
+  nutText, specialText, fishText, veggieText;
 
   private CustomLayout layout;
   EarthViewer earthViewer = new EarthViewer(100, 200);//, layout);
@@ -348,7 +354,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
-      System.out.println("pressed apple button");
+      nonCitrusText.setText("Products: \n"+EnumFood.FRUIT.toLongString()+"\n\n" + "Fun fact: \n");
       appleWindow.setVisible(true);
 
     }
@@ -357,6 +363,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      grainsText.setText("Products: \n"+EnumFood.GRAIN.toLongString()+"\n\n" + "Fun fact: \n");
       grainWindow.setVisible(true);
     }
     else if (button == citrusButton)
@@ -364,6 +371,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      citrusText.setText("Products: \n"+EnumFood.CITRUS.toLongString()+"\n\n" + "Fun fact: \n");
       citrusWindow.setVisible(true);
     }
     else if (button == feedButton)
@@ -371,6 +379,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      feedText.setText("Products: \n"+EnumFood.FEED.toLongString()+"\n\n" + "Fun fact: \n");
       feedWindow.setVisible(true);
     }
     else if (button == dairyButton)
@@ -378,6 +387,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      dairyText.setText("Products: \n"+EnumFood.DAIRY.toLongString()+"\n\n" + "Fun fact: \n");
       dairyWindow.setVisible(true);
     }
     else if (button == meatButton)
@@ -385,6 +395,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      meatText.setText("Products: \n"+EnumFood.MEAT.toLongString()+"\n\n" + "Fun fact: \n");
       meatWindow.setVisible(true);
     }
     else if (button == poultryButton)
@@ -392,6 +403,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      poultryText.setText("Products: \n"+EnumFood.POULTRY.toLongString()+"\n\n" + "Fun fact: \n");
       poultryWindow.setVisible(true);
     }
     else if (button == oilButton)
@@ -399,6 +411,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      oilText.setText("Products: \n"+EnumFood.OIL.toLongString()+"\n\n" + "Fun fact: \n");
       oilWindow.setVisible(true);
     }
     else if (button == specialButton)
@@ -406,6 +419,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      specialText.setText("Products: \n"+EnumFood.SPECIAL.toLongString()+"\n\n" + "Fun fact: \n");
       specialWindow.setVisible(true);
     }
     else if (button == veggieButton)
@@ -413,6 +427,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      veggieText.setText("Products: \n"+EnumFood.VEGGIES.toLongString()+"\n\n" + "Fun fact: \n");
       veggieWindow.setVisible(true);
     }
     else if (button == nutButton)
@@ -420,6 +435,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      nutText.setText("Products: \n"+EnumFood.NUT.toLongString()+"\n\n" + "Fun fact: \n");
       nutWindow.setVisible(true);
     }
     else if (button == fishButton)
@@ -427,6 +443,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      fishText.setText("Products: \n"+EnumFood.FISH.toLongString()+ "\n\n" + "Fun fact: \n");
       fishWindow.setVisible(true);
     }
     else if(button == closeEarth)
@@ -891,7 +908,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(0);
+      getGameController().player.discardCard(0);
     }
     else if (discard == discard2)
     {
@@ -901,7 +918,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(1);
+      getGameController().player.discardCard(1);
     }
     else if (discard == discard3)
     {
@@ -911,7 +928,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //getGameController().discardCard(2);
+      getGameController().player.discardCard(2);
     }
     else if (discard == discard4)
     {
@@ -921,7 +938,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(3);
+      getGameController().player.discardCard(3);
     }
     else if (discard == discard5)
     {
@@ -931,7 +948,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(4);
+      getGameController().player.discardCard(4);
     }
     else if (discard == discard6)
     {
@@ -941,7 +958,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(5);
+      getGameController().player.discardCard(5);
     }
     else if (discard == discard7)
     {
@@ -951,7 +968,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(6);
+      getGameController().player.discardCard(6);
     }
     else if (discard == discardDraft1)
     {
@@ -1075,10 +1092,9 @@ public class DraftController implements javafx.fxml.Initializable
       cali.setVisible(true);
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
-
-      // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.CALIFORNIA)));
-      statisticsPane.setCenter(testPieChart());
+       statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.CALIFORNIA)));
+      //statisticsPane.setCenter(testPieChart());
 
       System.out.println("Selected cali");
     }
@@ -1087,8 +1103,8 @@ public class DraftController implements javafx.fxml.Initializable
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.HEARTLAND)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
     }
@@ -1097,8 +1113,8 @@ public class DraftController implements javafx.fxml.Initializable
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.MOUNTAIN)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
     }
@@ -1107,8 +1123,8 @@ public class DraftController implements javafx.fxml.Initializable
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
     }
@@ -1117,8 +1133,8 @@ public class DraftController implements javafx.fxml.Initializable
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
     }
@@ -1128,8 +1144,8 @@ public class DraftController implements javafx.fxml.Initializable
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.SOUTHEAST)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
 
@@ -1139,8 +1155,8 @@ public class DraftController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
     }
