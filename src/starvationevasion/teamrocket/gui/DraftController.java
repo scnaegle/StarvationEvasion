@@ -30,6 +30,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static starvationevasion.teamrocket.main.Main.getGameController;
+
 /**
  * Handles card drafting scene.
  */
@@ -101,6 +103,10 @@ public class DraftController implements javafx.fxml.Initializable
   private BorderPane statisticsPane;
   @FXML
   public GridPane visPane;
+  @FXML
+  private GridPane largeEarthPane;
+  @FXML
+  private Pane worldPane;
 
 
   private boolean caliSelected;
@@ -136,13 +142,13 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Button closeWindow, closeWindow2, closeWindow3, closeWindow4,
       closeWindow5, closeWindow6, closeWindow7,
-      closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12;
+      closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12,closeEarth;
   @FXML
   private Label close, close2, close3, close4, close5, close6, close7, close8,
-      close9, close10, close11, close12;
+      close9, close10, close11, close12, closeEarthLabel;
 
   private CustomLayout layout;
-  EarthViewer earthViewer = new EarthViewer(100, 400, layout);
+  EarthViewer earthViewer = new EarthViewer(100, 200);//, layout);
 
   /***************************************************************************************/
 
@@ -153,7 +159,7 @@ public class DraftController implements javafx.fxml.Initializable
       @Override
       public void handle(ActionEvent event)
       {
-        if (Main.getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
+        if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
           time.setText(Main.GAME_CLOCK.getFormatted());
           time.setTextFill(Color.FORESTGREEN );
@@ -174,11 +180,11 @@ public class DraftController implements javafx.fxml.Initializable
             time.setTextFill(Color.YELLOW);
           }
 
-          if (Main.getGameController().initGUI())
+          if (getGameController().initGUI())
           {
             showMyRegion();
             resetCards();
-            //displayHand();
+            displayHand();
           }
 
 
@@ -209,8 +215,14 @@ public class DraftController implements javafx.fxml.Initializable
 
   public void displayHand()
   {
-    System.out.println(Main.getGameController().getCard(1));
-    card1Image.setImage(CardImage.getCardImage(Main.getGameController().getCard(1).getCardType()));
+    //System.out.println(Main.getGameController().getCard(1));
+    card1Image.setImage(CardImage.getCardImage(getGameController().getCard(0).getCardType()));
+    card2Image.setImage(CardImage.getCardImage(getGameController().getCard(1).getCardType()));
+    card3Image.setImage(CardImage.getCardImage(getGameController().getCard(2).getCardType()));
+    card4Image.setImage(CardImage.getCardImage(getGameController().getCard(3).getCardType()));
+    card5Image.setImage(CardImage.getCardImage(getGameController().getCard(4).getCardType()));
+    card6Image.setImage(CardImage.getCardImage(getGameController().getCard(5).getCardType()));
+    card7Image.setImage(CardImage.getCardImage(getGameController().getCard(6).getCardType()));
   }
 
 
@@ -227,17 +239,19 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
   /**
-   * Makes smaller earth bigger when Tab is pressed.
-   * @param event Key event.
+   * Makes smaller earth bigger when clicked.
+   * @param event Mouse event.
    */
   @FXML
-  public void showBigEarth(KeyEvent event)
+  public void showBigEarth(MouseEvent event)
   {
-    if (event.getCode() == KeyCode.TAB)
+    if(event.getSource() == visPane)
     {
-      visPane.add(earthViewer.getLargeEarth(), 1, 1);
-      earthViewer.startRotate();
+      worldPane.setVisible(true);
+      largeEarthPane.add(earthViewer.getLargeEarth(), 1, 1);
+      earthViewer.startEarth();
     }
+
   }
 
 
@@ -255,7 +269,7 @@ public class DraftController implements javafx.fxml.Initializable
       saveDraftedCards();
       try
       {
-        Main.getGameController().finishedCardDraft();
+        getGameController().finishedCardDraft();
       }
       catch (Exception e)
       {
@@ -407,6 +421,11 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       fishWindow.setVisible(true);
+    }
+    else if(button == closeEarth)
+    {
+      worldPane.setVisible(false);
+      largeEarthPane.getChildren().remove(earthViewer.getLargeEarth());
     }
   }
 
@@ -843,7 +862,7 @@ public class DraftController implements javafx.fxml.Initializable
     }
 
 
-    Main.getGameController().playerAction(draftedCards, true);
+    getGameController().playerAction(draftedCards, true);
   }
 
 
@@ -865,7 +884,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(1);
+      //player.discardCard(0);
     }
     else if (discard == discard2)
     {
@@ -875,7 +894,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(2);
+      //player.discardCard(1);
     }
     else if (discard == discard3)
     {
@@ -885,7 +904,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(3);
+      //getGameController().discardCard(2);
     }
     else if (discard == discard4)
     {
@@ -895,7 +914,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(4);
+      //player.discardCard(3);
     }
     else if (discard == discard5)
     {
@@ -905,7 +924,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(5);
+      //player.discardCard(4);
     }
     else if (discard == discard6)
     {
@@ -915,7 +934,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(6);
+      //player.discardCard(5);
     }
     else if (discard == discard7)
     {
@@ -925,7 +944,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      player.discardCard(7);
+      //player.discardCard(6);
     }
     else if (discard == discardDraft1)
     {
@@ -1040,7 +1059,7 @@ public class DraftController implements javafx.fxml.Initializable
     double x = event.getX();
     double y = event.getY();
 
-    System.out.println("myRegion: " + Main.getGameController().getMyRegion());
+    System.out.println("myRegion: " + getGameController().getMyRegion());
 
     makeAllInvisible();
 
@@ -1127,11 +1146,11 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void showMyRegion()
   {
-    highlightMyRegion(Main.getGameController().getMyRegion());
+    highlightMyRegion(getGameController().getMyRegion());
     playerRegion
-        .setText("My Region: " + Main.getGameController().getMyRegion());
+        .setText("My Region: " + getGameController().getMyRegion());
     currentRegion
-        .setText("Current Region: " + Main.getGameController().getMyRegion());
+        .setText("Current Region: " + getGameController().getMyRegion());
   }
 
   /**

@@ -74,12 +74,12 @@ public class EarthViewer {
   private PhongMaterial earthMaterial;
   private CustomLayout layoutPanel;
 
-  public EarthViewer(double smallEarthRadius, double largeEarthRadius, CustomLayout l) {
+  public EarthViewer(double smallEarthRadius, double largeEarthRadius){//, CustomLayout l) {
     MINI_EARTH_RADIUS = smallEarthRadius;
     LARGE_EARTH_RADIUS = largeEarthRadius;
     miniEarth = buildScene(MINI_EARTH_RADIUS);
     largeEarth = buildScene(LARGE_EARTH_RADIUS);
-    layoutPanel = l;
+    //layoutPanel = l;
   }
 
   public Group buildScene(double earthRadius)
@@ -175,8 +175,8 @@ public class EarthViewer {
       double lat = (point.getY() - 0.5) * -180;
       double lon = (point.getX() - 0.5) * 360;
       new SimParser(lat, lon, this);
-      layoutPanel.title.setFont(Font.font ("Times", 20));
-      layoutPanel.title.setText(getRegionTitle());
+//      layoutPanel.title.setFont(Font.font ("Times", 20));
+//      layoutPanel.title.setText(getRegionTitle());
     });
 
     /**setTranslate can be used to zoom in and out on the world*/
