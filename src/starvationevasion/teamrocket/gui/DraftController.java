@@ -114,7 +114,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private StackPane cardInputs;
   @FXML
-  private Button addedInputs;
+  private Button addedInputs, cancelInputs;
   @FXML
   private Pane inputPane;
   @FXML
@@ -335,6 +335,10 @@ public class DraftController implements javafx.fxml.Initializable
     {
       cardInputs.setVisible(false);
 
+    }
+    else if(button == cancelInputs)
+    {
+      //don't draft card
     }
     else if (button == card1)
     {
