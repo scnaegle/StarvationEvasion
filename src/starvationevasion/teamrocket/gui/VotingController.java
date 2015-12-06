@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 
 import javax.smartcardio.Card;
@@ -213,7 +214,7 @@ public class VotingController implements javafx.fxml.Initializable
    */
   public void setDraftedCard(Button card)
   {
-    EnumPolicy[] myDrafts = Main.getGameController().player.getDraftedCards();
+    PolicyCard[] myDrafts = Main.getGameController().player.getDraftedCards();
 
 
     EnumRegion myRegion = Main.getGameController().getMyRegion();
@@ -222,77 +223,77 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if(card == caliCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == caliCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
     else if(myRegion == EnumRegion.MOUNTAIN)
     {
       if(card == mountCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == mountCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
     else if(myRegion == EnumRegion.HEARTLAND)
     {
       if(card == heartCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == heartCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
     else if(myRegion == EnumRegion.NORTHERN_CRESCENT)
     {
       if(card == neCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == neCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
     else if(myRegion == EnumRegion.NORTHERN_PLAINS)
     {
       if(card == nPlainCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == nPlainCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
     else if(myRegion == EnumRegion.SOUTHEAST)
     {
       if(card == seCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == seCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
     else if(myRegion == EnumRegion.SOUTHERN_PLAINS)
     {
       if(card == sPlainCard1)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
       }
       else if(card == sPlainCard2)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1]));
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
       }
     }
 
