@@ -207,6 +207,10 @@ public class VotingController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Displays drafted cards under user's region for voting.
+   * @param card Button selected.
+   */
   public void setDraftedCard(Button card)
   {
     EnumPolicy[] myDrafts = Main.getGameController().player.getDraftedCards();

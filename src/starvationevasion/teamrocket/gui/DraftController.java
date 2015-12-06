@@ -908,7 +908,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(0);
+      getGameController().player.discardCard(0);
     }
     else if (discard == discard2)
     {
@@ -918,7 +918,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(1);
+      getGameController().player.discardCard(1);
     }
     else if (discard == discard3)
     {
@@ -928,7 +928,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //getGameController().discardCard(2);
+      getGameController().player.discardCard(2);
     }
     else if (discard == discard4)
     {
@@ -938,7 +938,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(3);
+      getGameController().player.discardCard(3);
     }
     else if (discard == discard5)
     {
@@ -948,7 +948,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(4);
+      getGameController().player.discardCard(4);
     }
     else if (discard == discard6)
     {
@@ -958,7 +958,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(5);
+      getGameController().player.discardCard(5);
     }
     else if (discard == discard7)
     {
@@ -968,7 +968,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
-      //player.discardCard(6);
+      getGameController().player.discardCard(6);
     }
     else if (discard == discardDraft1)
     {
@@ -1092,10 +1092,9 @@ public class DraftController implements javafx.fxml.Initializable
       cali.setVisible(true);
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
-
-      // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.CALIFORNIA)));
-      statisticsPane.setCenter(testPieChart());
+       statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.CALIFORNIA)));
+      //statisticsPane.setCenter(testPieChart());
 
       System.out.println("Selected cali");
     }
@@ -1104,8 +1103,8 @@ public class DraftController implements javafx.fxml.Initializable
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.HEARTLAND)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
     }
@@ -1114,8 +1113,8 @@ public class DraftController implements javafx.fxml.Initializable
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.MOUNTAIN)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
     }
@@ -1124,8 +1123,8 @@ public class DraftController implements javafx.fxml.Initializable
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
     }
@@ -1134,8 +1133,8 @@ public class DraftController implements javafx.fxml.Initializable
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
     }
@@ -1145,8 +1144,8 @@ public class DraftController implements javafx.fxml.Initializable
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.SOUTHEAST)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
 
@@ -1156,8 +1155,8 @@ public class DraftController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
     }
