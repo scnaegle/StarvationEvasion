@@ -339,6 +339,7 @@ public class DraftController implements javafx.fxml.Initializable
     else if(button == cancelInputs)
     {
       //don't draft card
+      cancelDraft();
     }
     else if (button == card1)
     {
@@ -483,6 +484,12 @@ public class DraftController implements javafx.fxml.Initializable
       worldPane.setVisible(false);
       largeEarthPane.getChildren().remove(earthViewer.getLargeEarth());
     }
+  }
+
+  private void cancelDraft()
+  {
+    cardInputs.setVisible(false);
+    //remove drafted card and un-disable card clicked.
   }
 
 
