@@ -155,6 +155,7 @@ public class DraftController implements javafx.fxml.Initializable
       {
         if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
+          displayHand();
           time.setText(Main.GAME_CLOCK.getFormatted());
           time.setTextFill(Color.FORESTGREEN );
           if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
@@ -178,7 +179,6 @@ public class DraftController implements javafx.fxml.Initializable
           {
             showMyRegion();
             resetCards();
-            displayHand();
           }
 
 
