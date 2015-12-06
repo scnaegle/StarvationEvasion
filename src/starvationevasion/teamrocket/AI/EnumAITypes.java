@@ -3,7 +3,6 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.PolicyCard;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -60,31 +59,31 @@ public enum EnumAITypes
       }
 
       @Override
-      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator) {
+      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay) {
         int cardsSelected = 0;
-        int selectXNumCards = generator.nextInt(3);
         boolean votingCardPicked = false;
-        PolicyCard[] playedCards = new PolicyCard[selectXNumCards];
+        PolicyCard[] playedCards = new PolicyCard[numberCardsToPlay];
 
-        while(cardsSelected < selectXNumCards)
+        while(cardsSelected < numberCardsToPlay)
         {
           for(PolicyCard card : hand)
           {
-            if(!(card.votesRequired() > 0) && cardsSelected < selectXNumCards)
+            if(cardsSelected < numberCardsToPlay)
             {
-              playedCards[cardsSelected] = card;
-              System.out.println(cardsSelected);
-              cardsSelected++;
-            }
-            else if(generator.nextInt(5) == 0 && selectXNumCards > 0 && cardsSelected < selectXNumCards)
-            {
-              playedCards[cardsSelected] = card;
-              cardsSelected++;
-              votingCardPicked = true;
+              if(card.votesRequired() < 1 || (generator.nextInt(5) == 0 && !votingCardPicked))
+              {
+                playedCards[cardsSelected] = card;
+                cardsSelected++;
+                System.out.println(card.getPolicyName());
+
+                if(card.votesRequired() > 0) votingCardPicked = true;
+              }
             }
           }
-          if(votingCardPicked) cardsSelected = selectXNumCards;
+
+          if(votingCardPicked) cardsSelected = numberCardsToPlay;
         }
+
         return playedCards;
       }
 
@@ -134,7 +133,7 @@ public enum EnumAITypes
       }
 
       @Override
-      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator) {
+      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay) {
         return new PolicyCard[0];
       }
 
@@ -166,7 +165,7 @@ public enum EnumAITypes
       }
 
       @Override
-      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator) {
+      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay) {
         return new PolicyCard[0];
       }
 
@@ -198,9 +197,10 @@ public enum EnumAITypes
    * AI selects up to 2 cards and returns them
    * @param hand PolicyCard hand
    * @param generator random generator to choose randomly
+   * @param numberCardsToPlay how many cards to select
    * @return card array of selected cards
    */
-  public abstract  PolicyCard[] selectCards(PolicyCard[] hand, Random generator);
+  public abstract  PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay);
 
   /**
    * If played cards need a target selected, AI will select

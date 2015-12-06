@@ -4,8 +4,6 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
-import java.util.LinkedList;
-
 /**
  * Created by zfalgout on 12/2/15.
  */
@@ -93,6 +91,15 @@ public class AITesting {
     System.out.println(vote);
   }
 
+  /**
+   * Test playing cards
+   */
+  private static void playCardTest()
+  {
+    System.out.println("Playing Cards *********");
+    ai.getDraftedCards();
+  }
+
   public static void main(String[] args)
   {
     makeHand();
@@ -100,5 +107,6 @@ public class AITesting {
     addTest();
     makeHand();
     voteTest();
+    playCardTest();
   }
 }
