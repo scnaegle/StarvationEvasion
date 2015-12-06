@@ -6,11 +6,11 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.stream.Stream;
 
 //TODO: AI CHAT!!!!! ASAP
+//TODO: Need to update Player Records
 //TODO: needs to know the crops, and select crops for cards
 //TODO: need to select target region for cards
 public class AI extends Player
@@ -19,6 +19,8 @@ public class AI extends Player
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
   private Random generator;
+  private int actionsPerformed = 2; //decrease when actions are done during drafting phase
+  private PolicyCard[] discardedCards;
 
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
@@ -29,7 +31,7 @@ public class AI extends Player
    */
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController)
   {
-    super(controlledRegion,aiLevel, gameController);
+    super(controlledRegion, aiLevel, gameController);
     generator = new Random();
 
     setup();
@@ -57,12 +59,12 @@ public class AI extends Player
    */
   private void removeDiscardedCards(int[] discardCardsPosition) {
     EnumPolicy[] hand = getHand();
-
     for (int i : discardCardsPosition)
     {
       hand[i] = null;
     }
     setHand(hand);
+
   }
 
   /**
@@ -72,8 +74,9 @@ public class AI extends Player
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(1) == 0)
+    if(generator.nextInt(1) == 0 && actionsPerformed > 0)
     {
+      actionsPerformed--;
       int numCards = generator.nextInt(4);
       if(numCards == 0) numCards++;
       removeDiscardedCards(AI.discardCards(numCards,getHandCards(),generator));
@@ -95,9 +98,14 @@ public class AI extends Player
   @Override
   public EnumPolicy[] getDraftedCards()
   {
-    PolicyCard[] cards = AI.selectCards(getHandCards(),generator);
-    setCardTargets(cards);
-    return (EnumPolicy[]) Stream.of(cards).map(c -> c.getCardType()).toArray();
+    if(actionsPerformed > 0)
+    {
+      PolicyCard[] cards = AI.selectCards(getHandCards(),generator);
+      setCardTargets(cards);
+      actionsPerformed = 2;
+      return (EnumPolicy[]) Stream.of(cards).map(c -> c.getCardType()).toArray();
+    }
+    return null;
   }
 
   @Override

@@ -93,6 +93,15 @@ public class AITesting {
     System.out.println(vote);
   }
 
+  /**
+   * Test playing cards
+   */
+  private static void playCardTest()
+  {
+    System.out.println("Playing Cards *********");
+    ai.getDraftedCards();
+  }
+
   public static void main(String[] args)
   {
     makeHand();
@@ -100,5 +109,6 @@ public class AITesting {
     addTest();
     makeHand();
     voteTest();
+    playCardTest();
   }
 }
