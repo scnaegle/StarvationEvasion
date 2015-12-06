@@ -205,6 +205,11 @@ public class VotingController implements javafx.fxml.Initializable
 
   }
 
+  public void setDraftedCards()
+  {
+    //Main.getGameController().
+  }
+
   /**
    * Highlights cards in the color of user's region if they are votable.
    */

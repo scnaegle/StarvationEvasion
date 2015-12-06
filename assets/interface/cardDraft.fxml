@@ -846,11 +846,7 @@
         </Pane>
         <StackPane fx:id="cardInputs" layoutX="283.0" layoutY="199.0" prefHeight="308.0" prefWidth="494.97216796875" visible="false">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfdfdf" height="281.0" strokeType="INSIDE" width="463.9999694824219">
-              <stroke>
-                <Color blue="0.376" green="0.376" red="0.376" fx:id="x6" />
-              </stroke>
-            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfdfdf" height="281.0" stroke="$x8" strokeType="INSIDE" width="463.9999694824219" />
             <Pane prefHeight="200.0" prefWidth="200.0">
               <children>
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="169.0" layoutX="41.0" layoutY="73.0" stroke="WHITE" strokeType="INSIDE" width="413.0" />
@@ -869,7 +865,7 @@
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLACK" height="787.0" layoutX="-2.0" layoutY="0.0" opacity="0.34" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99f3ff" height="530.0" layoutX="185.0" layoutY="115.0" stroke="#4333ff" strokeType="INSIDE" width="651.0" />
-            <GridPane fx:id="largeEarthPane" layoutX="243.0" layoutY="334.0" prefHeight="105.689697265625" prefWidth="116.0">
+            <GridPane fx:id="largeEarthPane" layoutX="243.0" layoutY="334.0" onMouseClicked="#showRegionClicked" prefHeight="105.689697265625" prefWidth="116.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -880,9 +876,18 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Label id="close12" fx:id="closeEarthLabel" disable="false" layoutX="208.0" layoutY="130.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x6" />
+            <Label id="close12" fx:id="closeEarthLabel" disable="false" layoutX="208.0" layoutY="130.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x8" />
             <Button id="closeWindow" fx:id="closeEarth" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="185.0" layoutY="115.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
-            <Label fx:id="worldTitle" layoutX="617.0" layoutY="138.0" text="Label" />
+            <Label fx:id="worldTitle" layoutX="681.0" layoutY="136.0" text="Label" visible="false">
+              <font>
+                <Font name="System Italic" size="14.0" />
+              </font>
+            </Label>
+            <Text layoutX="538.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have chosen:">
+              <font>
+                <Font name="System Bold Italic" size="15.0" />
+              </font>
+            </Text>
           </children>
         </Pane>
       </children>

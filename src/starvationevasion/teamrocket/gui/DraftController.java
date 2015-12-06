@@ -24,6 +24,7 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.ClientTest.CustomLayout;
+import starvationevasion.vis.controller.SimParser;
 import starvationevasion.vis.visuals.EarthViewer;
 
 import java.net.URL;
@@ -149,6 +150,8 @@ public class DraftController implements javafx.fxml.Initializable
 
   private CustomLayout layout;
   EarthViewer earthViewer = new EarthViewer(100, 200);//, layout);
+  @FXML
+  private Label worldTitle;
 
   /***************************************************************************************/
 
@@ -245,13 +248,26 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void showBigEarth(MouseEvent event)
   {
+    worldTitle.setVisible(false);
     if(event.getSource() == visPane)
     {
       worldPane.setVisible(true);
       largeEarthPane.add(earthViewer.getLargeEarth(), 1, 1);
       earthViewer.startEarth();
+
     }
 
+  }
+
+  /**
+   * Updates label when large earth is clicked.
+   * @param event Mouse event.
+   */
+  @FXML
+  public void showRegionClicked(MouseEvent event)
+  {
+    worldTitle.setVisible(true);
+    worldTitle.setText(earthViewer.getRegionTitle());
   }
 
 
