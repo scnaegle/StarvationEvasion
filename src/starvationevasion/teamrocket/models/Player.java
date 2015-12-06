@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import starvationevasion.common.*;
 import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
+import starvationevasion.teamrocket.CardTarget;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
@@ -23,7 +24,7 @@ public class Player implements PlayerInterface
   private Map<EnumRegion, RegionHistory> regionHistories;
   private Map<EnumRegion, PolicyVote[]> policyVotes;
   private ChatHistory chatHistory;
-
+  private CardTarget[] targets;
 
   /**
    * Player's selected region.
@@ -57,7 +58,7 @@ public class Player implements PlayerInterface
   /**
    * Income of the player
    */
-  private long income;
+  private int income;
 
   /**
    * Creates a new player based on selected region.
@@ -104,13 +105,13 @@ public class Player implements PlayerInterface
    * Get the current income of the player
    * @return player's income
    */
-  public long getIncome(){return income;}
+  public int getIncome(){return income;}
 
   /**
    * Updates the player's income to the new income
    * @param income new income of player
    */
-  public void updateIncome(long income){this.income = income;}
+  public void updateIncome(int income){this.income = income;}
 
   /**
    * Set the selected cards from the GUI so the player knows
@@ -152,6 +153,21 @@ public class Player implements PlayerInterface
     }
   }
 
+  /**
+   * Updates the array of card targets
+   * Mainly used for AI to update the array
+   * with the targets it picked
+   * @param cardTargets array of CardTargets
+   */
+  public void updateCardTargets(CardTarget[] cardTargets)
+  {
+    targets = cardTargets;
+  }
+
+  public CardTarget[] pullCardTargets()
+  {
+    return targets;
+  }
 
   /**
    * count nulls in array

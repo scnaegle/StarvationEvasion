@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.teamrocket.CardTarget;
 
 import java.util.Random;
 
@@ -13,12 +14,12 @@ import java.util.Random;
 public enum EnumAITypes
 {
   /**
-   * DUMB level of AI
+   * BASIC level of AI
    * Randomly chooses a vote
    * Discard will favor voting cards, 1/3 chance of discarding non vote card
    * Will try to avoid playing voting cards if possible, 1/5 chance of playing a voting card
    */
-  DUMB
+  BASIC
     {
       @Override
       public int vote(PlayerRecord record, Random generator)
@@ -75,7 +76,6 @@ public enum EnumAITypes
               {
                 playedCards[cardsSelected] = card;
                 cardsSelected++;
-                System.out.println(card.getPolicyName());
 
                 if(card.votesRequired() > 0) votingCardPicked = true;
               }
@@ -89,9 +89,9 @@ public enum EnumAITypes
       }
 
       @Override
-      public String[] setCardTargets(Random generator, PolicyCard card)
+      public CardTarget setCardTargets(Random generator, PolicyCard card)
       {
-        String[] targets = new String[5];
+        CardTarget target = new CardTarget();
         EnumFood[] targetFoods = card.getValidTargetFoods();
         EnumRegion targetRegion = card.getTargetRegion();
         PolicyCard.EnumVariableUnit X = card.getRequiredVariables(PolicyCard.EnumVariable.X);
@@ -99,86 +99,36 @@ public enum EnumAITypes
         PolicyCard.EnumVariableUnit Z = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
 
         if(targetFoods != null)
-          targets[0] = targetFoods[generator.nextInt(targetFoods.length)].toString();
+          target.setFood(targetFoods[generator.nextInt(targetFoods.length)]);
 
-        if(targetRegion != null) targets[1] = targetRegion.toString();
+        if(targetRegion != null) target.setRegion(targetRegion);
 
-        if(X != null) targets[2] = X.toString();
-
-        if(Y != null) targets[3] = Y.toString();
-
-        if(Z != null) targets[4] = Z.toString();
-
-        return targets;
-      }
-    },
-
-  /**
-   * Average level of AI
-   * If player is cooperative, then 2/3 chance of AI to cooperate
-   * or 1/3 chance of AI to abstain, otherwise it will not cooperate
-   * Equal chance of playing voting or non voting cards
-   * Equal chance of discarding voting or non voting cards
-   */
-  AVERAGE
-    {
-      @Override
-      public int vote(PlayerRecord record, Random generator)
-      {
-        if(record.isPlayerCooperative())
+        if(X != null)
         {
-          if(generator.nextInt(3) != 2) return 1;
-          else return 0;
+          if(X.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
+                  || X.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
+            target.setX(generator.nextInt(10) + 1);
+
+          else target.setX(2);
         }
-        return -1;
-      }
+        if(Y != null)
+        {
+          if(Y.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
+                  || Y.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
+            target.setY(generator.nextInt(10) + 1);
 
-      @Override//TODO: build up average
-      public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
-      {
-        return null;
-      }
+          else target.setY(2);
+        }
+        if(Z != null)
+        {
+          if(Z.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
+                  || Z.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
+            target.setZ(generator.nextInt(10) + 1);
 
-      @Override
-      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay) {
-        return new PolicyCard[0];
-      }
+          else target.setZ(2);
+        }
 
-      @Override
-      public String[] setCardTargets(Random generator, PolicyCard card) {
-        return new String[0];
-      }
-    },
-
-  /**
-   * Smart level of AI
-   * If player is cooperative, and pending vote card benefits AI's region
-   * then AI will cooperate, else if pending vote card doesn't benefit region
-   * then AI has 2/3 chance of cooperating, other wise AI will not cooperate
-   * with player that isn't cooperative
-   */
-  SMART
-    {
-      @Override
-      public int vote(PlayerRecord record, Random generator)
-      {
-        return -1;
-      }
-
-      @Override//TODO: build up smart
-      public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
-      {
-        return null;
-      }
-
-      @Override
-      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay) {
-        return new PolicyCard[0];
-      }
-
-      @Override
-      public String[] setCardTargets(Random generator, PolicyCard card) {
-        return new String[0];
+        return target;
       }
     };
 
@@ -212,7 +162,8 @@ public enum EnumAITypes
   /**
    * If played cards need a target selected, AI will select
    * what the targets are
-   * @param card
+   * @param card that needs targets
+   * @return CardTarget array that contains the targets related to each playing card
    */
-  public abstract String[] setCardTargets(Random generator, PolicyCard card);
+  public abstract CardTarget setCardTargets(Random generator, PolicyCard card);
 }
