@@ -9,6 +9,7 @@ import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -46,7 +47,7 @@ public class Player implements PlayerInterface
    */
   private EnumPolicy[] hand;
 
-  private EnumPolicy[] selectedCards;
+  private ArrayList<EnumPolicy> selectedCards = new ArrayList<>();
 
   /**
    * Log in info for player
@@ -121,24 +122,35 @@ public class Player implements PlayerInterface
    */
   public void selectedCards(int card1, int card2)
   {
-    int selectionSize = 2;
+    selectedCards.clear();
+    selectCard(card1);
+    selectCard(card2);
+//    int selectionSize = 2;
 
-    if(card1 < 0 || card2 < 0) selectionSize = 1;
-    else if(card1 < 0 && card2 < 0) selectionSize = 0;
+//    if(card1 < 0 || card2 < 0) selectionSize = 1;
+//    else if(card1 < 0 && card2 < 0) selectionSize = 0;
 
-    selectedCards = new EnumPolicy[selectionSize];
+//    selectedCards = new EnumPolicy[selectionSize];
 
-    if(selectionSize > 0)
-    {
-      if(card1 < 0) selectedCards[0] = hand[card2];
-      else selectedCards[0] = hand[card1];
+//    if(selectionSize > 0)
+//    {
+//      if(card1 < 0) selectedCards[0] = hand[card2];
+//      else selectedCards[0] = hand[card1];
+//    }
+//    if(selectionSize > 1) selectedCards[1] = hand[card2];
+
+  }
+
+  private void selectCard(int card) {
+    try {
+      if (!selectedCards.contains(hand[card])) {
+        selectedCards.add(hand[card]);
+      }
+    } catch (IndexOutOfBoundsException e) {
+      // do nothing
     }
-    if(selectionSize > 1) selectedCards[1] = hand[card2];
   }
 
-  public EnumPolicy[] getSelectedCards() {
-    return selectedCards;
-  }
 
   /**
    * count nulls in array
@@ -174,7 +186,7 @@ public class Player implements PlayerInterface
 
   @Override
   public EnumPolicy[] getDraftedCards() {
-    return selectedCards;
+    return selectedCards.toArray(new EnumPolicy[selectedCards.size()]);
   }
 
   @Override
