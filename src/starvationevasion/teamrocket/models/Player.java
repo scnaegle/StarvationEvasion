@@ -78,7 +78,7 @@ public class Player implements PlayerInterface
   public EnumPolicy[] getHand(){return hand;}
 
   public PolicyCard[] getHandCards() {
-    return (PolicyCard[])Stream.of(hand).map(c -> PolicyCard.create(ENUM_REGION, c)).toArray();
+    return Stream.of(hand).map(c -> PolicyCard.create(ENUM_REGION, c)).toArray(size -> new PolicyCard[size]);
   }
 
   public PolicyCard getCard(int card_index) {
