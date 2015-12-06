@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.models;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import starvationevasion.common.*;
+import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
@@ -23,6 +24,7 @@ public class Player implements PlayerInterface
   private Map<EnumRegion, RegionHistory> regionHistories;
   private Map<EnumRegion, PolicyVote[]> policyVotes;
   private ChatHistory chatHistory;
+  private VoteStatus voteStatus;
 
 
   /**
@@ -275,5 +277,9 @@ public class Player implements PlayerInterface
 
   synchronized public void setGameState(EnumGameState gameState) {
     this.gameState = gameState;
+  }
+
+  synchronized public void updateVoteStatus(VoteStatus voteStatus) {
+    this.voteStatus = voteStatus;
   }
 }

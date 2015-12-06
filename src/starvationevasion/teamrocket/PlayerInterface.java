@@ -4,6 +4,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.WorldData;
+import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.messages.EnumGameState;
@@ -80,5 +81,7 @@ public interface PlayerInterface
   public void setGameState(EnumGameState gameState);
 
   public void updateWorldData(WorldData worldData);
+
+  public void updateVoteStatus(VoteStatus voteStatus);
 
 }

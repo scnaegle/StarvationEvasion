@@ -145,6 +145,7 @@ public class Client
   }
 
   public synchronized void send(Serializable payload) {
+    System.out.println("Sending to server: " + payload);
     try {
       outputStream.writeObject(payload);
     } catch (IOException e) {
@@ -289,7 +290,7 @@ public class Client
     }
 
     private void handleVoteStatusResponse(VoteStatus voteStatus) {
-
+      gameController.player.updateVoteStatus(voteStatus);
     }
   }
 }
