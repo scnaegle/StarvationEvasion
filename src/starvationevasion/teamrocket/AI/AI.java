@@ -103,7 +103,7 @@ public class AI extends Player
       PolicyCard[] cards = AI.selectCards(getHandCards(),generator, actionsPerformed);
       setCardTargets(cards);
       actionsPerformed = 2;
-      return (EnumPolicy[]) Stream.of(cards).map(c -> c.getCardType()).toArray();
+      return Stream.of(cards).map(c -> c.getCardType()).toArray(size -> new EnumPolicy[size]);
     }
     return null;
   }
