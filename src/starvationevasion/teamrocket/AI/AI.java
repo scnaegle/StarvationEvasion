@@ -92,7 +92,15 @@ public class AI extends Player
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    AI.setCardTargets(cards, generator);
+    String[] targets;
+    for(PolicyCard card : cards)
+    {
+      targets = AI.setCardTargets(generator, card);
+      for(String s : targets)
+      {
+        System.out.println(s);
+      }
+    }
   }
 
   @Override
