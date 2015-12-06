@@ -251,17 +251,17 @@ public class Client
 
     private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
       Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
-      gameController.gameState.gameState = EnumGameState.BEGINNING;
+      gameController.player.setGameState(EnumGameState.BEGINNING);
     }
 
     private void handlePhaseStartResponse(PhaseStart phaseStart) {
       Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
-      gameController.gameState.setGameState(phaseStart.currentGameState);
+      gameController.player.setGameState(phaseStart.currentGameState);
     }
 
     private void handleGameStateResponse(GameState gameState) {
-      gameController.gameState.updateWorldData(gameState.worldData);
-      gameController.gameState.setHand(gameState.hand);
+      gameController.player.updateWorldData(gameState.worldData);
+      gameController.player.setHand(gameState.hand);
     }
 
     private void handleChatMessageResponse(ServerChatMessage message) {
@@ -271,7 +271,7 @@ public class Client
     private void handleActionResponse(ActionResponse actionResponse) {
       switch(actionResponse.responseType) {
         case OK:
-          gameController.gameState.setHand(actionResponse.playerHand);
+          gameController.player.setHand(actionResponse.playerHand);
           break;
         case TOO_MANY_ACTIONS:
           gameController.addErrorMessage("This has been sent too many times: " + actionResponse.responseMessage);

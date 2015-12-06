@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
@@ -21,7 +22,7 @@ public interface PlayerInterface
    * are being played.
    * @return array of Cards that are selected to play
    */
-  public PolicyCard[] getDraftedCards();
+  public EnumPolicy[] getDraftedCards();
 
 
   /**
@@ -31,7 +32,7 @@ public interface PlayerInterface
    * @param cardPlayedRegion region that the card was played from
    * @return 1 for vote for, -1 for vote against, 0 for abstain
    */
-  public int vote(PolicyCard card, EnumRegion cardPlayedRegion);
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion);
 
   /**
    * Player discards the card associated with
@@ -43,6 +44,6 @@ public interface PlayerInterface
   /**
    * Adds a single card to the player's hand
    */
-  public void addCard(PolicyCard card);
+  public void addCard(EnumPolicy card);
 
 }

@@ -1,11 +1,13 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.Random;
+import java.util.stream.Stream;
 
 //TODO: AI CHAT!!!!! ASAP
 //TODO: Need to update Player Records
@@ -56,7 +58,7 @@ public class AI extends Player
    * @param discardCardsPosition the position of cards being discarded
    */
   private void removeDiscardedCards(int[] discardCardsPosition) {
-    PolicyCard[] hand = getHand();
+    EnumPolicy[] hand = getHand();
     for (int i : discardCardsPosition)
     {
       hand[i] = null;
@@ -77,7 +79,7 @@ public class AI extends Player
       actionsPerformed--;
       int numCards = generator.nextInt(4);
       if(numCards == 0) numCards++;
-      removeDiscardedCards(AI.discardCards(numCards,getHand(),generator));
+      removeDiscardedCards(AI.discardCards(numCards,getHandCards(),generator));
       return true;
     }
     return false;
@@ -90,24 +92,32 @@ public class AI extends Player
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    AI.setCardTargets(cards, generator);
+    String[] targets;
+    for(PolicyCard card : cards)
+    {
+      targets = AI.setCardTargets(generator, card);
+      for(String s : targets)
+      {
+        System.out.println(s);
+      }
+    }
   }
 
   @Override
-  public PolicyCard[] getDraftedCards()
+  public EnumPolicy[] getDraftedCards()
   {
     if(actionsPerformed > 0)
     {
-      PolicyCard[] cards = AI.selectCards(getHand(),generator, actionsPerformed);
+      PolicyCard[] cards = AI.selectCards(getHandCards(),generator, actionsPerformed);
       setCardTargets(cards);
       actionsPerformed = 2;
-      return cards;
+      return Stream.of(cards).map(c -> c.getCardType()).toArray(size -> new EnumPolicy[size]);
     }
     return null;
   }
 
   @Override
-  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
     return AI.vote(records[cardPlayedRegion.ordinal()], generator);
   }
 }

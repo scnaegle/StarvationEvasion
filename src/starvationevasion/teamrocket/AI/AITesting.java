@@ -4,12 +4,15 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+
 /**
  * Created by zfalgout on 12/2/15.
  */
 public class AITesting {
   static AI ai = new AI(EnumRegion.CALIFORNIA, EnumAITypes.DUMB, null);
-  static PolicyCard[] hand = new PolicyCard[7];
+  static EnumPolicy[] hand = new EnumPolicy[7];
 
   /**
    * print error message, exit 1
@@ -26,13 +29,13 @@ public class AITesting {
    */
   private static void makeHand()
   {
-    hand[0]= PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Clean_River_Incentive);
-    hand[1] = PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Loan);
-    hand[2] = PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Efficient_Irrigation_Incentive);
-    hand[3] = PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Covert_Intelligence);
-    hand[4] = PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Ethanol_Tax_Credit_Change);
-    hand[5]= PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Fertilizer_Subsidy);
-    hand[6] = PolicyCard.create(ai.ENUM_REGION, EnumPolicy.Foreign_Aid_for_Farm_Infrastructure);
+    hand = Arrays.asList(EnumPolicy.Clean_River_Incentive,
+            EnumPolicy.Loan,
+            EnumPolicy.Efficient_Irrigation_Incentive,
+            EnumPolicy.Covert_Intelligence,
+            EnumPolicy.Ethanol_Tax_Credit_Change,
+            EnumPolicy.Fertilizer_Subsidy,
+            EnumPolicy.Foreign_Aid_for_Farm_Infrastructure).toArray(hand);
 
     ai.setHand(hand);
   }
@@ -71,8 +74,7 @@ public class AITesting {
     System.out.println("Adding cards ********");
     for(int i = ai.getHandSize(); i < 7; i++)
     {
-      PolicyCard card = PolicyCard.create(ai.ENUM_REGION, EnumPolicy.GMO_Seed_Insect_Resistance_Research);
-      ai.addCard(card);
+      ai.addCard(EnumPolicy.GMO_Seed_Insect_Resistance_Research);
     }
 
     System.out.println("Hand size: " + ai.getHandSize());

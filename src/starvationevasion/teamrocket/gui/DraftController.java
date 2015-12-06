@@ -111,15 +111,6 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Pane worldPane;
 
-
-  private boolean caliSelected;
-  private boolean heartlandSelected;
-  private boolean mountainSelected;
-  private boolean nPlainSelected;
-  private boolean northeastSelected;
-  private boolean southeastSelected;
-  private boolean sPlainSelected;
-
   /* VARIABLES FOR USER INPUT NEEDED POPUP */
   @FXML
   private StackPane cardInputs;
@@ -170,6 +161,7 @@ public class DraftController implements javafx.fxml.Initializable
       {
         if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
+          displayHand();
           time.setText(Main.GAME_CLOCK.getFormatted());
           time.setTextFill(Color.FORESTGREEN );
           if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
@@ -193,7 +185,6 @@ public class DraftController implements javafx.fxml.Initializable
           {
             showMyRegion();
             resetCards();
-            displayHand();
           }
 
 
@@ -1479,17 +1470,6 @@ public class DraftController implements javafx.fxml.Initializable
     poultryLabel.setVisible(false);
     veggieLabel.setVisible(false);
     specialLabel.setVisible(false);
-  }
-
-  private void deselectAllRegions()
-  {
-    caliSelected = false;
-    mountainSelected = false;
-    nPlainSelected = false;
-    sPlainSelected = false;
-    heartlandSelected = false;
-    northeastSelected = false;
-    southeastSelected = false;
   }
 
 }

@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumFood;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
 import java.util.Random;
@@ -88,21 +89,27 @@ public enum EnumAITypes
       }
 
       @Override
-      public String[] setCardTargets(PolicyCard[] cards, Random generator)
+      public String[] setCardTargets(Random generator, PolicyCard card)
       {
         String[] targets = new String[5];
+        EnumFood[] targetFoods = card.getValidTargetFoods();
+        EnumRegion targetRegion = card.getTargetRegion();
+        PolicyCard.EnumVariableUnit X = card.getRequiredVariables(PolicyCard.EnumVariable.X);
+        PolicyCard.EnumVariableUnit Y = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
+        PolicyCard.EnumVariableUnit Z = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
 
-        for(PolicyCard card : cards)
-        {
-          if(card.getValidTargetFoods() != null)
-          {
-            EnumFood[] targetFoods = card.getValidTargetFoods();
-            targets[0] = targetFoods[generator.nextInt(targetFoods.length)].toString();
-            System.out.println(targets[0]);
-          }
-          if(card.getValidTargetRegions() != null);
-        }
-        return null;
+        if(targetFoods != null)
+          targets[0] = targetFoods[generator.nextInt(targetFoods.length)].toString();
+
+        if(targetRegion != null) targets[1] = targetRegion.toString();
+
+        if(X != null) targets[2] = X.toString();
+
+        if(Y != null) targets[3] = Y.toString();
+
+        if(Z != null) targets[4] = Z.toString();
+
+        return targets;
       }
     },
 
@@ -138,7 +145,7 @@ public enum EnumAITypes
       }
 
       @Override
-      public String[] setCardTargets(PolicyCard[] cards, Random generator) {
+      public String[] setCardTargets(Random generator, PolicyCard card) {
         return new String[0];
       }
     },
@@ -170,7 +177,7 @@ public enum EnumAITypes
       }
 
       @Override
-      public String[] setCardTargets(PolicyCard[] cards, Random generator) {
+      public String[] setCardTargets(Random generator, PolicyCard card) {
         return new String[0];
       }
     };
@@ -205,7 +212,7 @@ public enum EnumAITypes
   /**
    * If played cards need a target selected, AI will select
    * what the targets are
-   * @param cards array of cards that are being played
+   * @param card
    */
-  public abstract String[] setCardTargets(PolicyCard[] cards, Random generator);
+  public abstract String[] setCardTargets(Random generator, PolicyCard card);
 }
