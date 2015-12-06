@@ -109,15 +109,6 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Pane worldPane;
 
-
-  private boolean caliSelected;
-  private boolean heartlandSelected;
-  private boolean mountainSelected;
-  private boolean nPlainSelected;
-  private boolean northeastSelected;
-  private boolean southeastSelected;
-  private boolean sPlainSelected;
-
   /* VARIABLES FOR USER INPUT NEEDED POPUP */
   @FXML
   private StackPane cardInputs;
@@ -1462,17 +1453,6 @@ public class DraftController implements javafx.fxml.Initializable
     poultryLabel.setVisible(false);
     veggieLabel.setVisible(false);
     specialLabel.setVisible(false);
-  }
-
-  private void deselectAllRegions()
-  {
-    caliSelected = false;
-    mountainSelected = false;
-    nPlainSelected = false;
-    sPlainSelected = false;
-    heartlandSelected = false;
-    northeastSelected = false;
-    southeastSelected = false;
   }
 
 }
