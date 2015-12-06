@@ -25,7 +25,7 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.ClientTest.CustomLayout;
-import starvationevasion.vis.visuals.EarthViewer;
+import starvationevasion.vis.visuals.Earth;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -145,7 +145,7 @@ public class DraftController implements javafx.fxml.Initializable
   nutText, specialText, fishText, veggieText;
 
   private CustomLayout layout;
-  EarthViewer earthViewer = new EarthViewer(100, 200);//, layout);
+  Earth earthViewer = new Earth(100, 200);//, layout);
   @FXML
   private Label worldTitle;
 
@@ -261,7 +261,7 @@ public class DraftController implements javafx.fxml.Initializable
   public void displayEarth()
   {
     earthViewer.startRotate();
-    visPane.add(earthViewer.getMiniEarth(), 1, 1);
+    visPane.add(earthViewer.getEarth(), 1, 1);
     visPane.setVisible(true);
 
   }
@@ -277,8 +277,8 @@ public class DraftController implements javafx.fxml.Initializable
     if(event.getSource() == visPane)
     {
       worldPane.setVisible(true);
-      largeEarthPane.add(earthViewer.getLargeEarth(), 1, 1);
-      earthViewer.startEarth();
+      largeEarthPane.add(earthViewer.getEarthOverlay(), 1, 1);
+      earthViewer.startRotate();
 
     }
 
@@ -291,8 +291,8 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void showRegionClicked(MouseEvent event)
   {
-    worldTitle.setVisible(true);
-    worldTitle.setText(earthViewer.getRegionTitle());
+//    worldTitle.setVisible(true);
+//    worldTitle.setText(earthViewer.getRegionTitle());
   }
 
 
@@ -482,7 +482,7 @@ public class DraftController implements javafx.fxml.Initializable
     else if(button == closeEarth)
     {
       worldPane.setVisible(false);
-      largeEarthPane.getChildren().remove(earthViewer.getLargeEarth());
+      largeEarthPane.getChildren().remove(earthViewer.getEarthOverlay());
     }
   }
 
