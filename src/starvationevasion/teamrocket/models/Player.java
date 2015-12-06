@@ -47,7 +47,7 @@ public class Player implements PlayerInterface
    */
   private EnumPolicy[] hand;
 
-  private ArrayList<EnumPolicy> selectedCards = new ArrayList<>();
+  private ArrayList<PolicyCard> selectedCards = new ArrayList<>();
 
   /**
    * Log in info for player
@@ -141,10 +141,11 @@ public class Player implements PlayerInterface
 
   }
 
-  private void selectCard(int card) {
+  private void selectCard(int card_index) {
     try {
-      if (!selectedCards.contains(hand[card])) {
-        selectedCards.add(hand[card]);
+      if (!selectedCards.contains(hand[card_index])) {
+        PolicyCard card = PolicyCard.create(ENUM_REGION, hand[card_index]);
+        selectedCards.add(card);
       }
     } catch (IndexOutOfBoundsException e) {
       // do nothing
@@ -185,8 +186,8 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public EnumPolicy[] getDraftedCards() {
-    return selectedCards.toArray(new EnumPolicy[selectedCards.size()]);
+  public PolicyCard[] getDraftedCards() {
+    return selectedCards.toArray(new PolicyCard[selectedCards.size()]);
   }
 
   @Override

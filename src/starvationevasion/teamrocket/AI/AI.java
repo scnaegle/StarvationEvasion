@@ -104,14 +104,14 @@ public class AI extends Player
   }
 
   @Override
-  public EnumPolicy[] getDraftedCards()
+  public PolicyCard[] getDraftedCards()
   {
     if(actionsPerformed > 0)
     {
       PolicyCard[] cards = AI.selectCards(getHandCards(),generator, actionsPerformed);
       setCardTargets(cards);
       actionsPerformed = 2;
-      return Stream.of(cards).map(c -> c.getCardType()).toArray(size -> new EnumPolicy[size]);
+      return cards;
     }
     return null;
   }

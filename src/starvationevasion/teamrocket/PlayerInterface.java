@@ -36,7 +36,7 @@ public interface PlayerInterface
    * are being played.
    * @return array of Cards that are selected to play
    */
-  public EnumPolicy[] getDraftedCards();
+  public PolicyCard[] getDraftedCards();
 
 
   /**
