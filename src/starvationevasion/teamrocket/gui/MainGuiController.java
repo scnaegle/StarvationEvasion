@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import java.net.URL;
@@ -56,7 +57,7 @@ public class MainGuiController implements javafx.fxml.Initializable
   @FXML
   private Label nothingSelected;
 
-  private Player player;
+  private PlayerInterface player;
 
   private boolean caliSelected;
   private boolean heartlandSelected;

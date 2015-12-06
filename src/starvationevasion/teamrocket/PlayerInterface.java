@@ -3,12 +3,26 @@ package starvationevasion.teamrocket;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.WorldData;
+import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.AI.EnumAITypes;
+import starvationevasion.teamrocket.messages.EnumGameState;
 
 /**
  * Created by zfalgout on 11/14/15.
  */
 public interface PlayerInterface
 {
+  /**
+   * Player's selected region.
+   */
+  public EnumRegion getEnumRegion();
+
+  /**
+   * AI Level if AI is used
+   * If Player is a human, this should be null
+   */
+  public EnumAITypes getAIType();
 
   /**
    * Needs to get the log in information
@@ -45,5 +59,26 @@ public interface PlayerInterface
    * Adds a single card to the player's hand
    */
   public void addCard(EnumPolicy card);
+
+  public void setHand(EnumPolicy[] hand);
+
+  public PolicyCard getCard(int card_index);
+
+  /**
+   * Set the selected cards from the GUI so the player knows
+   * which cards were selected
+   * If there is no card position, then -1 should be passed for
+   * that card position
+   * @param card1 position in hand of first card
+   * @param card2 position in hand of second card
+   */
+  public void selectedCards(int card1, int card2);
+
+
+  public void setGameState(ServerState serverState);
+
+  public void setGameState(EnumGameState gameState);
+
+  public void updateWorldData(WorldData worldData);
 
 }
