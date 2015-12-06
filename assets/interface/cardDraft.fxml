@@ -855,8 +855,9 @@
                     <Font name="Avenir Next Demi Bold" size="17.0" />
                   </font>
                 </Text>
-                <Button fx:id="addedInputs" layoutX="210.0" layoutY="254.0" mnemonicParsing="false" onAction="#buttonPressed" text="Finished" />
+                <Button fx:id="addedInputs" layoutX="185.0" layoutY="254.0" minHeight="16.9613037109375" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="23.222006933596276" prefWidth="57.0" text="OK" />
                 <Pane fx:id="inputPane" layoutX="41.0" layoutY="73.0" prefHeight="169.0" prefWidth="412.9999694824219" />
+                <Button fx:id="cancelInputs" layoutX="254.0" layoutY="254.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="23.22198486328125" text="Cancel" />
               </children>
             </Pane>
           </children>

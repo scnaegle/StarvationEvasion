@@ -114,7 +114,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private StackPane cardInputs;
   @FXML
-  private Button addedInputs;
+  private Button addedInputs, cancelInputs;
   @FXML
   private Pane inputPane;
   @FXML
@@ -336,6 +336,11 @@ public class DraftController implements javafx.fxml.Initializable
       cardInputs.setVisible(false);
 
     }
+    else if(button == cancelInputs)
+    {
+      //don't draft card
+      cancelDraft();
+    }
     else if (button == card1)
     {
       setupAddBox(0);
@@ -479,6 +484,12 @@ public class DraftController implements javafx.fxml.Initializable
       worldPane.setVisible(false);
       largeEarthPane.getChildren().remove(earthViewer.getLargeEarth());
     }
+  }
+
+  private void cancelDraft()
+  {
+    cardInputs.setVisible(false);
+    //remove drafted card and un-disable card clicked.
   }
 
 
