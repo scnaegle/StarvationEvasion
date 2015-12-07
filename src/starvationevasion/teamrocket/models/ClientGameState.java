@@ -76,7 +76,7 @@ public class ClientGameState implements Serializable
       //Will need to spawn a bunch of AI Clients
       Server server = new Server(
           "file://C:/Users/Tyler/Desktop/School/CS351/StarvationEvasion/data" +
-              "/password_file.tmpl");
+              "/password_file.tmpl", null);
 
     }
     if (gameType.equals("newMultiPlayer"))
