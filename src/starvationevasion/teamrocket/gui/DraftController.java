@@ -159,6 +159,9 @@ public class DraftController implements javafx.fxml.Initializable
   private ComboBox<EnumFood> draftTargetFood;
   private ComboBox<EnumRegion> draftTargetRegion;
 
+  private PolicyCard draft1Card;
+  private PolicyCard draft2Card;
+
   /***************************************************************************************/
 
   public DraftController()
@@ -898,6 +901,7 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
+      draft1Card = card;
     }
     else if (cardsDrafted == 2)
     {
@@ -906,6 +910,7 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft2.setVisible(true);
       draft2Image.setImage(cardImage.getImage());
       draft2.setVisible(true);
+      draft2Card = card;
     }
     else
     {
@@ -964,6 +969,9 @@ public class DraftController implements javafx.fxml.Initializable
     discardedNum.setText("" + disNum);
     numCardsinHand = 7;
     cardsDrafted = 0;
+
+    draft1Card = null;
+    draft2Card = null;
   }
 
 
@@ -1031,76 +1039,7 @@ public class DraftController implements javafx.fxml.Initializable
    */
   private void saveDraftedCards()
   {
-    int[] draftedCards = new int[2];
-
-    if (draft1Image.getImage() == card1Image.getImage())
-    {
-      draftedCards[0] = 0;
-    }
-    else if (draft1Image.getImage() == card2Image.getImage())
-    {
-      draftedCards[0] = 1;
-    }
-    else if (draft1Image.getImage() == card3Image.getImage())
-    {
-      draftedCards[0] = 2;
-    }
-    else if (draft1Image.getImage() == card4Image.getImage())
-    {
-      draftedCards[0] = 3;
-    }
-    else if (draft1Image.getImage() == card5Image.getImage())
-    {
-      draftedCards[0] = 4;
-    }
-    else if (draft1Image.getImage() == card6Image.getImage())
-    {
-      draftedCards[0] = 5;
-    }
-    else if (draft1Image.getImage() == card7Image.getImage())
-    {
-      draftedCards[0] = 6;
-    }
-    else
-    {
-      draftedCards[0]=-1; //No cards were drafted.
-    }
-
-    if (draft2Image.getImage() == card1Image.getImage())
-    {
-      draftedCards[1] = 0;
-    }
-    else if (draft2Image.getImage() == card2Image.getImage())
-    {
-      draftedCards[1] = 1;
-    }
-    else if (draft2Image.getImage() == card3Image.getImage())
-    {
-      draftedCards[1] = 2;
-    }
-    else if (draft2Image.getImage() == card4Image.getImage())
-    {
-      draftedCards[1] = 3;
-    }
-    else if (draft2Image.getImage() == card5Image.getImage())
-    {
-      draftedCards[1] = 4;
-    }
-    else if (draft2Image.getImage() == card6Image.getImage())
-    {
-      draftedCards[1] = 5;
-    }
-    else if (draft2Image.getImage() == card7Image.getImage())
-    {
-      draftedCards[1] = 6;
-    }
-    else
-    {
-      draftedCards[1] = -1; //No cards were drafted.
-    }
-
-
-    getGameController().playerAction(draftedCards, true);
+    getGameController().playDrafts(draft1Card, draft2Card);
   }
 
 
@@ -1190,20 +1129,26 @@ public class DraftController implements javafx.fxml.Initializable
       //This keeps things consistent.
       if(cardsDrafted == 2)
       {
+
         Image temp = draft1Image.getImage();
         draft1Image.setImage(draft2Image.getImage());
         draft2Image.setImage(temp);
+
+        draft1Card = draft2Card;
+        draft2Card = null;
 
         unDraft(draft2Image, discardDraft2, draft2);
       }
       else
       {
+        draft1Card = null;
         unDraft(draft1Image, discardDraft1, draft1);
       }
 
     }
     else if (discard == discardDraft2)
     {
+      draft2Card = null;
       unDraft(draft2Image, discardDraft2, draft2);
     }
   }

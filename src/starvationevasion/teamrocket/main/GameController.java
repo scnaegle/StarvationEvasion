@@ -557,4 +557,10 @@ public class GameController
     this.salt = salt;
     this.gotSalt = true;
   }
+
+  public void playDrafts(PolicyCard draft1, PolicyCard draft2)
+  {
+    //TODO send to client. No need to update player since turn is over. Player shouldn't need this information.
+
+  }
 }
