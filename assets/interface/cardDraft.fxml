@@ -789,30 +789,9 @@
             </ImageView>
             <Label fx:id="close12" disable="false" layoutX="219.0" layoutY="181.0" mouseTransparent="false" text="CLOSE [ X ]" textFill="$x8" />
             <Button id="closeWindow" fx:id="closeWindow12" cancelButton="false" defaultButton="false" focusTraversable="false" layoutX="196.0" layoutY="166.0" mnemonicParsing="false" onAction="#buttonPressed" onMouseEntered="#mouseOverProduce" onMouseExited="#mouseExit" opacity="0.0" prefHeight="46.0" prefWidth="125.0" text="" />
+            <BorderPane fx:id="PPT" layoutX="219.0" layoutY="462.0" prefHeight="153.99996948242188" prefWidth="256.0" visible="false" />
           </children>
         </Pane>
-        <TabPane fx:id="produceGraphs" layoutX="219.0" layoutY="455.0" prefHeight="167.6507568359375" prefWidth="256.0" tabClosingPolicy="UNAVAILABLE" visible="false">
-          <tabs>
-            <Tab text="Price per Ton">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <BorderPane fx:id="PPT" layoutX="0.0" layoutY="0.0" prefHeight="132.0" prefWidth="256.0" />
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Total Revenue">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <BorderPane fx:id="totalRev" layoutX="0.0" layoutY="0.0" prefHeight="132.0" prefWidth="256.0" />
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-          </tabs>
-        </TabPane>
         <StackPane fx:id="cardInputs" layoutX="283.0" layoutY="199.0" prefHeight="308.0" prefWidth="494.97216796875" visible="false">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfdfdf" height="281.0" stroke="$x8" strokeType="INSIDE" width="463.9999694824219" />

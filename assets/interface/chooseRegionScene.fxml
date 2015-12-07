@@ -63,7 +63,7 @@
         <Font size="20.0" />
       </font>
     </Button>
-    <Label fx:id="nothingSelected" layoutX="325.0" layoutY="167.0" text="You must choose a region to start playing" textFill="RED" visible="false">
+    <Label fx:id="nothingSelected" layoutX="349.0" layoutY="147.0" text="You must choose a region to start playing" textFill="RED" visible="true">
       <font>
         <Font size="16.0" />
       </font>
