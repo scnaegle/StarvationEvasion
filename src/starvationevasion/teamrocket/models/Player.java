@@ -21,7 +21,7 @@ public class Player implements PlayerInterface
   private WorldData worldData;
   private Map<EnumRegion, RegionHistory> regionHistories;
   private Map<EnumRegion, PolicyVote[]> policyVotes;
-  private ChatHistory chatHistory;
+  private ChatHistory chatHistory = new ChatHistory();
   private VoteStatus voteStatus;
 
   /**
@@ -282,5 +282,11 @@ public class Player implements PlayerInterface
   synchronized public void receiveChatMessage(ServerChatMessage message) {
     chatHistory.addMessage(message);
     //TODO AI needs to handle and figure out how to respond.
+  }
+
+  @Override
+  public ChatHistory getChatHistory()
+  {
+    return chatHistory;
   }
 }

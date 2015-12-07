@@ -4,6 +4,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.ServerChatMessage;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Stack;
 
@@ -31,6 +32,11 @@ public class ChatHistory {
   public void addMessage(ServerChatMessage message) {
     messages.add(new ChatMessage(message));
     messages.trimToSize();
+  }
+
+  public Stack<ChatMessage> getMessages()
+  {
+    return messages;
   }
 
   public class ChatMessage {

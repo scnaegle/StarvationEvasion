@@ -9,6 +9,7 @@ import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.messages.EnumGameState;
+import starvationevasion.teamrocket.models.ChatHistory;
 
 /**
  * Created by zfalgout on 11/14/15.
@@ -88,4 +89,5 @@ public interface PlayerInterface
 
   public void receiveChatMessage(ServerChatMessage message);
 
+  ChatHistory getChatHistory();
 }
