@@ -14,10 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -104,8 +101,16 @@ public class DraftController implements javafx.fxml.Initializable
 
   private EnumRegion myRegion;
 
+
+  /*          GRAPHS FOR EACH REGION           */
   @FXML
   private BorderPane statisticsPane;
+  @FXML
+  private BorderPane hdiGraph, popGraph, revGraph, cropGraph;
+  /**************************************************************/
+
+
+
   @FXML
   public GridPane visPane;
   @FXML
@@ -333,7 +338,7 @@ public class DraftController implements javafx.fxml.Initializable
   public void displayEarth()
   {
     earthViewer.startRotate();
-    visPane.add(earthViewer.getSmallEarth(),1,1);
+    visPane.add(earthViewer.getSmallEarth(), 1, 1);
     //visPane.add(earthViewer.getEarth(), 1, 1);
     visPane.setVisible(true);
 
@@ -1216,9 +1221,9 @@ public class DraftController implements javafx.fxml.Initializable
       cali.setVisible(true);
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
-       statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.CALIFORNIA)));
-      //statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.CALIFORNIA)));
+
 
       System.out.println("Selected cali");
     }
@@ -1227,7 +1232,7 @@ public class DraftController implements javafx.fxml.Initializable
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
        .getGameController().getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
@@ -1237,7 +1242,7 @@ public class DraftController implements javafx.fxml.Initializable
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
        .getGameController().getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
@@ -1247,7 +1252,7 @@ public class DraftController implements javafx.fxml.Initializable
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
        .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
@@ -1257,7 +1262,7 @@ public class DraftController implements javafx.fxml.Initializable
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
        .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
@@ -1268,7 +1273,7 @@ public class DraftController implements javafx.fxml.Initializable
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
        .getGameController().getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
@@ -1279,7 +1284,7 @@ public class DraftController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
        .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
@@ -1310,37 +1315,44 @@ public class DraftController implements javafx.fxml.Initializable
     if (myRegion == EnumRegion.CALIFORNIA)
     {
       cali.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.CALIFORNIA)));
     }
     else if (myRegion == EnumRegion.MOUNTAIN)
     {
       mountSt.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.MOUNTAIN)));
     }
     else if (myRegion == EnumRegion.NORTHERN_CRESCENT)
     {
       northSt.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
     }
     else if (myRegion == EnumRegion.NORTHERN_PLAINS)
     {
       nPlains.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
     }
     else if (myRegion == EnumRegion.SOUTHEAST)
     {
       southEast.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.SOUTHEAST)));
     }
     else if (myRegion == EnumRegion.SOUTHERN_PLAINS)
     {
       sPlains.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
     }
     else if (myRegion == EnumRegion.HEARTLAND)
     {
       heartland.setVisible(true);
-      statisticsPane.setCenter(testPieChart());
+      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+          .getGameController().getRegion(EnumRegion.HEARTLAND)));
     }
   }
 
