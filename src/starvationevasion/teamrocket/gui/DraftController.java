@@ -7,27 +7,32 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.vis.ClientTest.CustomLayout;
-import starvationevasion.vis.visuals.EarthViewer;
+import starvationevasion.vis.visuals.Earth;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+
+import static starvationevasion.teamrocket.main.Main.getGameController;
 
 /**
  * Handles card drafting scene.
@@ -100,21 +105,16 @@ public class DraftController implements javafx.fxml.Initializable
   private BorderPane statisticsPane;
   @FXML
   public GridPane visPane;
-
-
-  private boolean caliSelected;
-  private boolean heartlandSelected;
-  private boolean mountainSelected;
-  private boolean nPlainSelected;
-  private boolean northeastSelected;
-  private boolean southeastSelected;
-  private boolean sPlainSelected;
+  @FXML
+  private GridPane largeEarthPane;
+  @FXML
+  private Pane worldPane;
 
   /* VARIABLES FOR USER INPUT NEEDED POPUP */
   @FXML
   private StackPane cardInputs;
   @FXML
-  private Button addedInputs;
+  private Button addedInputs, cancelInputs;
   @FXML
   private Pane inputPane;
   @FXML
@@ -135,13 +135,19 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Button closeWindow, closeWindow2, closeWindow3, closeWindow4,
       closeWindow5, closeWindow6, closeWindow7,
-      closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12;
+      closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12,closeEarth;
   @FXML
   private Label close, close2, close3, close4, close5, close6, close7, close8,
-      close9, close10, close11, close12;
+      close9, close10, close11, close12, closeEarthLabel;
+
+  @FXML
+  private TextArea nonCitrusText, grainsText, citrusText, feedText, oilText, meatText, dairyText, poultryText,
+  nutText, specialText, fishText, veggieText;
 
   private CustomLayout layout;
-  EarthViewer earthViewer = new EarthViewer(100, 400, layout);
+  Earth earthViewer = new Earth(100, 200);//, layout);
+  @FXML
+  private Label worldTitle;
 
   /***************************************************************************************/
 
@@ -152,8 +158,9 @@ public class DraftController implements javafx.fxml.Initializable
       @Override
       public void handle(ActionEvent event)
       {
-        if (Main.getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
+        if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
+          displayHand();
           time.setText(Main.GAME_CLOCK.getFormatted());
           time.setTextFill(Color.FORESTGREEN );
           if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
@@ -173,7 +180,7 @@ public class DraftController implements javafx.fxml.Initializable
             time.setTextFill(Color.YELLOW);
           }
 
-          if (Main.getGameController().initGUI())
+          if (getGameController().initGUI())
           {
             showMyRegion();
             resetCards();
@@ -192,32 +199,107 @@ public class DraftController implements javafx.fxml.Initializable
     updater.play();
   }
 
+  /**
+   * When scene first opens, visualizer is loaded and displayed.
+   * @param location Location of controller.
+   * @param resources resources.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
     displayEarth();
+
   }
 
+  private void setupAddBox(int cardIndex)
+  {
+    //Clear old buttons
+    /*ObservableList<Node> children = inputPane.getChildren();
+    children.removeAll(FXCollections.observableArrayList(inputPane.getChildren()));
+
+    PolicyCard card = getGameController().player.getCard(cardIndex);
+    if(card.getValidTargetFoods() != null)
+    {
+      ComboBox<EnumFood> food = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
+      Label label = new Label("Target Food", food);
+      children.add(label);
+      children.add(food);
+      label.setVisible(true);
+      food.setVisible(true);
+    }
+    if(card.getValidTargetRegions() != null)
+    {
+      //ComboBox<EnumRegion> region = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
+      //Label label = new Label("Target Region", region);
+      //children.add(label);
+      //children.add(region);
+      //label.setVisible(true);
+      //region.setVisible(true);
+    }*/
+
+    cardInputs.setVisible(true);
+  }
+
+
+  public void displayHand()
+  {
+    //System.out.println(Main.getGameController().getCard(1));
+    card1Image.setImage(CardImage.getCardImage(getGameController().getCard(0).getCardType()));
+    card2Image.setImage(CardImage.getCardImage(getGameController().getCard(1).getCardType()));
+    card3Image.setImage(CardImage.getCardImage(getGameController().getCard(2).getCardType()));
+    card4Image.setImage(CardImage.getCardImage(getGameController().getCard(3).getCardType()));
+    card5Image.setImage(CardImage.getCardImage(getGameController().getCard(4).getCardType()));
+    card6Image.setImage(CardImage.getCardImage(getGameController().getCard(5).getCardType()));
+    card7Image.setImage(CardImage.getCardImage(getGameController().getCard(6).getCardType()));
+  }
+
+
+  /**
+   * Displays small earth on a gridpane.
+   */
   @FXML
   public void displayEarth()
   {
     earthViewer.startRotate();
-    visPane.add(earthViewer.getMiniEarth(), 1, 1);
+    visPane.add(earthViewer.getEarth(), 1, 1);
     visPane.setVisible(true);
 
   }
 
+  /**
+   * Makes smaller earth bigger when clicked.
+   * @param event Mouse event.
+   */
   @FXML
-  public void showBigEarth(KeyEvent event)
+  public void showBigEarth(MouseEvent event)
   {
-    if (event.getCode() == KeyCode.TAB)
+    worldTitle.setVisible(false);
+    if(event.getSource() == visPane)
     {
-      visPane.add(earthViewer.getLargeEarth(), 1, 1);
+      worldPane.setVisible(true);
+      largeEarthPane.add(earthViewer.getEarthOverlay(), 1, 1);
       earthViewer.startRotate();
+
     }
+
+  }
+
+  /**
+   * Updates label when large earth is clicked.
+   * @param event Mouse event.
+   */
+  @FXML
+  public void showRegionClicked(MouseEvent event)
+  {
+//    worldTitle.setVisible(true);
+//    worldTitle.setText(earthViewer.getRegionTitle());
   }
 
 
+  /**
+   * Listens for button presses and acts appropriately.
+   * @param event Action event.
+   */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
@@ -228,7 +310,7 @@ public class DraftController implements javafx.fxml.Initializable
       saveDraftedCards();
       try
       {
-        Main.getGameController().finishedCardDraft();
+        getGameController().finishedCardDraft();
       }
       catch (Exception e)
       {
@@ -254,39 +336,44 @@ public class DraftController implements javafx.fxml.Initializable
       cardInputs.setVisible(false);
 
     }
+    else if(button == cancelInputs)
+    {
+      //don't draft card
+      cancelDraft();
+    }
     else if (button == card1)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(0);
       tryDraftingCard(card1, card1Image, discard1);
     }
     else if (button == card2)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(1);
       tryDraftingCard(card2, card2Image, discard2);
     }
     else if (button == card3)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(2);
       tryDraftingCard(card3, card3Image, discard3);
     }
     else if (button == card4)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(3);
       tryDraftingCard(card4, card4Image, discard4);
     }
     else if (button == card5)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(4);
       tryDraftingCard(card5, card5Image, discard5);
     }
     else if (button == card6)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(5);
       tryDraftingCard(card6, card6Image, discard6);
     }
     else if (button == card7)
     {
-      cardInputs.setVisible(true);
+      setupAddBox(6);
       tryDraftingCard(card7, card7Image, discard7);
     }
 
@@ -300,7 +387,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
-      System.out.println("pressed apple button");
+      nonCitrusText.setText("Products: \n"+EnumFood.FRUIT.toLongString()+"\n\n" + "Fun fact: \n");
       appleWindow.setVisible(true);
 
     }
@@ -309,6 +396,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      grainsText.setText("Products: \n"+EnumFood.GRAIN.toLongString()+"\n\n" + "Fun fact: \n");
       grainWindow.setVisible(true);
     }
     else if (button == citrusButton)
@@ -316,6 +404,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      citrusText.setText("Products: \n"+EnumFood.CITRUS.toLongString()+"\n\n" + "Fun fact: \n");
       citrusWindow.setVisible(true);
     }
     else if (button == feedButton)
@@ -323,6 +412,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      feedText.setText("Products: \n"+EnumFood.FEED.toLongString()+"\n\n" + "Fun fact: \n");
       feedWindow.setVisible(true);
     }
     else if (button == dairyButton)
@@ -330,6 +420,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      dairyText.setText("Products: \n"+EnumFood.DAIRY.toLongString()+"\n\n" + "Fun fact: \n");
       dairyWindow.setVisible(true);
     }
     else if (button == meatButton)
@@ -337,6 +428,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      meatText.setText("Products: \n"+EnumFood.MEAT.toLongString()+"\n\n" + "Fun fact: \n");
       meatWindow.setVisible(true);
     }
     else if (button == poultryButton)
@@ -344,6 +436,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      poultryText.setText("Products: \n"+EnumFood.POULTRY.toLongString()+"\n\n" + "Fun fact: \n");
       poultryWindow.setVisible(true);
     }
     else if (button == oilButton)
@@ -351,6 +444,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      oilText.setText("Products: \n"+EnumFood.OIL.toLongString()+"\n\n" + "Fun fact: \n");
       oilWindow.setVisible(true);
     }
     else if (button == specialButton)
@@ -358,6 +452,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      specialText.setText("Products: \n"+EnumFood.SPECIAL.toLongString()+"\n\n" + "Fun fact: \n");
       specialWindow.setVisible(true);
     }
     else if (button == veggieButton)
@@ -365,6 +460,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      veggieText.setText("Products: \n"+EnumFood.VEGGIES.toLongString()+"\n\n" + "Fun fact: \n");
       veggieWindow.setVisible(true);
     }
     else if (button == nutButton)
@@ -372,6 +468,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      nutText.setText("Products: \n"+EnumFood.NUT.toLongString()+"\n\n" + "Fun fact: \n");
       nutWindow.setVisible(true);
     }
     else if (button == fishButton)
@@ -379,10 +476,27 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      fishText.setText("Products: \n"+EnumFood.FISH.toLongString()+ "\n\n" + "Fun fact: \n");
       fishWindow.setVisible(true);
+    }
+    else if(button == closeEarth)
+    {
+      worldPane.setVisible(false);
+      largeEarthPane.getChildren().remove(earthViewer.getEarthOverlay());
     }
   }
 
+  private void cancelDraft()
+  {
+    cardInputs.setVisible(false);
+    //remove drafted card and un-disable card clicked.
+  }
+
+
+  /**
+   * Makes cards bigger when mouse hovers over them.
+   * @param event Mouse event.
+   */
   @FXML
   public void makeBigger(MouseEvent event)
   {
@@ -489,6 +603,11 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * When mouse leaves card, it returns it back to it's normal size.
+   * @param event Mouse event.
+   */
   @FXML
   public void returnToNormal(MouseEvent event)
   {
@@ -604,8 +723,6 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
-
-
     }
     else if (cardsDrafted == 2)
     {
@@ -629,6 +746,9 @@ public class DraftController implements javafx.fxml.Initializable
 //
   }
 
+  /**
+   * Resets cards every time this scene is shown.
+   */
   private void resetCards()
   {
     draft1.setVisible(false);
@@ -637,25 +757,45 @@ public class DraftController implements javafx.fxml.Initializable
     discardDraft2.setVisible(false);
 
     card1.setVisible(true);
+    card1.setDisable(false);
     discard1.setVisible(true);
+    discard1.setDisable(false);
     card2.setVisible(true);
+    card2.setDisable(false);
     discard2.setVisible(true);
+    discard2.setDisable(false);
     card3.setVisible(true);
+    card3.setDisable(false);
     discard3.setVisible(true);
+    discard3.setDisable(false);
     card4.setVisible(true);
+    card4.setDisable(false);
     discard4.setVisible(true);
+    discard4.setDisable(false);
     card5.setVisible(true);
+    card5.setDisable(false);
     discard5.setVisible(true);
+    discard5.setDisable(false);
     card6.setVisible(true);
+    card6.setDisable(false);
     discard6.setVisible(true);
+    discard6.setDisable(false);
     card7.setVisible(true);
+    card7.setDisable(false);
     discard7.setVisible(true);
+    discard7.setDisable(false);
 
     disNum = 0;
     discardedNum.setText("" + disNum);
     numCardsinHand = 7;
+    cardsDrafted = 0;
   }
 
+
+  /**
+   * When draw pile is clicked, this method is called and replaces an empty spot in the player's
+   * hand with another random card.
+   */
   private void drawNewCard()
   {
     if (numCardsinHand < 7)
@@ -710,6 +850,10 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * When user is ready to vote, this method is called and saves the cards that the user drafted.
+   */
   private void saveDraftedCards()
   {
     int[] draftedCards = new int[2];
@@ -742,6 +886,10 @@ public class DraftController implements javafx.fxml.Initializable
     {
       draftedCards[0] = 7;
     }
+    else
+    {
+      draftedCards[0]=0; //No cards were drafted.
+    }
 
     if (draft2Image.getImage() == card1Image.getImage())
     {
@@ -771,12 +919,22 @@ public class DraftController implements javafx.fxml.Initializable
     {
       draftedCards[1] = 7;
     }
+    else
+    {
+      draftedCards[1] = 0; //No cards were drafted.
+    }
 
 
-    Main.getGameController().playerAction(draftedCards, true);
+    getGameController().playerAction(draftedCards, true);
   }
 
 
+  /**
+   * Called whenever the user clicks on a black X.
+   * Related card is found and removed from hand.
+   * Card is sent to the top of the discard pile.
+   * @param event Mouse event.
+   */
   @FXML
   public void discard(MouseEvent event)
   {
@@ -789,6 +947,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card1Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(0);
     }
     else if (discard == discard2)
     {
@@ -798,6 +957,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card2Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(1);
     }
     else if (discard == discard3)
     {
@@ -807,6 +967,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card3Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(2);
     }
     else if (discard == discard4)
     {
@@ -816,6 +977,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card4Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(3);
     }
     else if (discard == discard5)
     {
@@ -825,6 +987,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card5Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(4);
     }
     else if (discard == discard6)
     {
@@ -834,6 +997,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card6Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(5);
     }
     else if (discard == discard7)
     {
@@ -843,6 +1007,7 @@ public class DraftController implements javafx.fxml.Initializable
       lastDiscardImage.setImage(card7Image.getImage());
       disNum++;
       discardedNum.setText("" + disNum);
+      getGameController().player.discardCard(6);
     }
     else if (discard == discardDraft1)
     {
@@ -957,7 +1122,7 @@ public class DraftController implements javafx.fxml.Initializable
     double x = event.getX();
     double y = event.getY();
 
-    System.out.println("myRegion: " + Main.getGameController().getMyRegion());
+    System.out.println("myRegion: " + getGameController().getMyRegion());
 
     makeAllInvisible();
 
@@ -966,10 +1131,9 @@ public class DraftController implements javafx.fxml.Initializable
       cali.setVisible(true);
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
-
-      // statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.CALIFORNIA)));
-      statisticsPane.setCenter(testPieChart());
+       statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.CALIFORNIA)));
+      //statisticsPane.setCenter(testPieChart());
 
       System.out.println("Selected cali");
     }
@@ -978,8 +1142,8 @@ public class DraftController implements javafx.fxml.Initializable
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.HEARTLAND)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.HEARTLAND)));
 
       System.out.println("Selected heartland");
     }
@@ -988,8 +1152,8 @@ public class DraftController implements javafx.fxml.Initializable
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.MOUNTAIN)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.MOUNTAIN)));
 
       System.out.println("Selected Mountain States");
     }
@@ -998,8 +1162,8 @@ public class DraftController implements javafx.fxml.Initializable
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.NORTHERN_PLAINS)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
 
       System.out.println("Selected North Plains");
     }
@@ -1008,8 +1172,8 @@ public class DraftController implements javafx.fxml.Initializable
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
 
       System.out.println("Selected Northeast");
     }
@@ -1019,8 +1183,8 @@ public class DraftController implements javafx.fxml.Initializable
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.SOUTHEAST)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.SOUTHEAST)));
 
       System.out.println("Selected Southeast");
 
@@ -1030,8 +1194,8 @@ public class DraftController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      //statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
-      // .gameController.getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      statisticsPane.setCenter(CropChart.makeRegionFoodPieChart(Main
+       .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
 
       System.out.println("Selected South Plains");
     }
@@ -1044,13 +1208,18 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void showMyRegion()
   {
-    highlightMyRegion(Main.getGameController().getMyRegion());
+    highlightMyRegion(getGameController().getMyRegion());
     playerRegion
-        .setText("My Region: " + Main.getGameController().getMyRegion());
+        .setText("My Region: " + getGameController().getMyRegion());
     currentRegion
-        .setText("Current Region: " + Main.getGameController().getMyRegion());
+        .setText("Current Region: " + getGameController().getMyRegion());
   }
 
+  /**
+   * Checks to see what player's current region is and highlights it.
+   * Also shows graph info on each region when highlighted.
+   * @param myRegion Player's EnumRegion.
+   */
   public void highlightMyRegion(EnumRegion myRegion)
   {
     if (myRegion == EnumRegion.CALIFORNIA)
@@ -1090,6 +1259,10 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+  /**
+   * When mouse is over product button, show a label with it's name.
+   * @param event Mouse event.
+   */
   @FXML
   public void mouseOverProduce(MouseEvent event)
   {
@@ -1163,6 +1336,11 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Shows region labels when mouse is over a specific region.
+   * @param x X-coordinate on map.
+   * @param y Y-coordinate on map.
+   */
   private void showLabel(double x, double y)
   {
     if (ImageRegion.CALIFORNIA.contains(x, y))
@@ -1218,6 +1396,10 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Checks for mouse movements on scene.
+   * @param event Mouse event.
+   */
   @FXML
   public void mouseMoved(MouseEvent event)
   {
@@ -1229,6 +1411,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+
+  /**
+   * Hides certain labels when mouse is no longer on them.
+   */
   @FXML
   public void mouseExit()
   {
@@ -1236,6 +1422,9 @@ public class DraftController implements javafx.fxml.Initializable
     changeTextColor(Color.BLACK);
   }
 
+  /**
+   * Closes produce windows by default.
+   */
   private void closeProduceWindows()
   {
     appleWindow.setVisible(false);
@@ -1253,6 +1442,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Changes text color for produce close[x]
+   * @param color Specific color.
+   */
   private void changeTextColor(Color color)
   {
     close.setTextFill(color);
@@ -1270,6 +1463,9 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Hides regions unless one is clicked on.
+   */
   private void makeAllInvisible()
   {
     cali.setVisible(false);
@@ -1281,6 +1477,9 @@ public class DraftController implements javafx.fxml.Initializable
     northSt.setVisible(false);
   }
 
+  /**
+   * Hides region labels until mouse over.
+   */
   private void hideRegionLabels()
   {
     caliLabel.setVisible(false);
@@ -1292,6 +1491,9 @@ public class DraftController implements javafx.fxml.Initializable
     seLabel.setVisible(false);
   }
 
+  /**
+   * Hides crop labels until mouse over.
+   */
   private void hideCropLabels()
   {
     appleLabel.setVisible(false);
@@ -1306,17 +1508,6 @@ public class DraftController implements javafx.fxml.Initializable
     poultryLabel.setVisible(false);
     veggieLabel.setVisible(false);
     specialLabel.setVisible(false);
-  }
-
-  private void deselectAllRegions()
-  {
-    caliSelected = false;
-    mountainSelected = false;
-    nPlainSelected = false;
-    sPlainSelected = false;
-    heartlandSelected = false;
-    northeastSelected = false;
-    southeastSelected = false;
   }
 
 }

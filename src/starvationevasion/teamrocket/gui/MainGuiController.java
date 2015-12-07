@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import java.net.URL;
@@ -56,7 +57,7 @@ public class MainGuiController implements javafx.fxml.Initializable
   @FXML
   private Label nothingSelected;
 
-  private Player player;
+  private PlayerInterface player;
 
   private boolean caliSelected;
   private boolean heartlandSelected;
@@ -184,23 +185,21 @@ public class MainGuiController implements javafx.fxml.Initializable
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      String portNum = Main.getGameController().checkPort(
-          port.getCharacters().toString());
-      String IPAddress = Main.getGameController().checkAddress(
-          ipAddress.getCharacters().toString());
-      if (portNum.equals("bad"))
+      boolean validPort = Main.getGameController().validPort(port.getCharacters().toString());
+      boolean validAddress = Main.getGameController().validAddress(ipAddress.getCharacters().toString());
+      if(!validPort)
       {
         portError.setVisible(true);
       }
-      if(IPAddress.equals("bad") )
+      if(!validAddress)
       {
         addressError.setVisible(true);
       }
-      if(!input || portNum.equals("bad") || IPAddress.equals("bad"))
+      if(!input || !validAddress || !validAddress)
       {
         return;
       }
-      if( setLoginInformation())
+      if(setLoginInformation())
       {
         //go to gameRoom
         try
@@ -223,7 +222,7 @@ public class MainGuiController implements javafx.fxml.Initializable
     else if(button == pickedRegion)
     {
       myRegion = saveRegion();
-      System.out.println("my region is now: " + myRegion);
+
       if(myRegion == null)
       {
         return;
@@ -232,7 +231,7 @@ public class MainGuiController implements javafx.fxml.Initializable
       //Go to next scene
       try
       {
-        this.player = Main.getGameController().startNewGame(this.myRegion);
+        this.player = Main.getGameController().startSinglePlayerGame(this.myRegion);
 
       }
       catch (Exception e)
@@ -315,7 +314,6 @@ public class MainGuiController implements javafx.fxml.Initializable
       nothingSelected.setVisible(true);
       //don't go to next stage until they select something
     }
-    //currentRegion.setText("Current Region: "+playerRegion);
     System.out.println("I have chosen " + playerRegion);
 
 

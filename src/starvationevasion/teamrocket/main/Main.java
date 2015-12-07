@@ -63,7 +63,12 @@ public class Main extends Application
     root.getChildren().add(viewer);
     Scene startAnimation = new Scene(root, 1280, 720, Color.BLACK);
     primaryStage.setScene(startAnimation);
-    EnumScene.WELCOME.getScene();
+
+    //Init all the scenes once to prevent loading issues.
+    for(EnumScene enumScene : EnumScene.values())
+    {
+      enumScene.getScene();
+    }
     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
     {
       @Override

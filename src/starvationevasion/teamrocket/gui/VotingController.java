@@ -13,9 +13,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 
+import javax.smartcardio.Card;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -202,6 +205,98 @@ public class VotingController implements javafx.fxml.Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources)
   {
+
+  }
+
+  /**
+   * Displays drafted cards under user's region for voting.
+   * @param card Button selected.
+   */
+  public void setDraftedCard(Button card)
+  {
+    PolicyCard[] myDrafts = Main.getGameController().player.getDraftedCards();
+
+
+    EnumRegion myRegion = Main.getGameController().getMyRegion();
+
+    if(myRegion == EnumRegion.CALIFORNIA)
+    {
+      if(card == caliCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == caliCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+    else if(myRegion == EnumRegion.MOUNTAIN)
+    {
+      if(card == mountCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == mountCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+    else if(myRegion == EnumRegion.HEARTLAND)
+    {
+      if(card == heartCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == heartCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+    else if(myRegion == EnumRegion.NORTHERN_CRESCENT)
+    {
+      if(card == neCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == neCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+    else if(myRegion == EnumRegion.NORTHERN_PLAINS)
+    {
+      if(card == nPlainCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == nPlainCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+    else if(myRegion == EnumRegion.SOUTHEAST)
+    {
+      if(card == seCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == seCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+    else if(myRegion == EnumRegion.SOUTHERN_PLAINS)
+    {
+      if(card == sPlainCard1)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else if(card == sPlainCard2)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+    }
+
 
   }
 
@@ -470,19 +565,19 @@ public class VotingController implements javafx.fxml.Initializable
   private boolean isVotable(Button card)
   {
     if(card == caliCard1 ) return true;
-    if(card == caliCard2) return false;
-    if(card == mountCard1) return false;
+    if(card == caliCard2) return true;
+    if(card == mountCard1) return true;
     if(card == mountCard2) return true;
-    if(card == nPlainCard1) return false;
-    if(card == nPlainCard2) return false;
+    if(card == nPlainCard1) return true;
+    if(card == nPlainCard2) return true;
     if(card == neCard1) return true;
-    if(card == neCard2) return false;
+    if(card == neCard2) return true;
     if(card == sPlainCard1) return true;
-    if(card == sPlainCard2) return false;
-    if(card == seCard1) return false;
+    if(card == sPlainCard2) return true;
+    if(card == seCard1) return true;
     if(card == seCard2) return true;
     if(card == heartCard1) return true;
-    if(card == heartCard2) return false;
+    if(card == heartCard2) return true;
 
     else return false;
   }
@@ -514,6 +609,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == caliCard1)
     {
+      setDraftedCard(caliCard1);
       caliCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes1, caliOpposeVotes1, caliAbstainVotes1);
@@ -521,6 +617,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == caliCard2)
     {
+      setDraftedCard(caliCard2);
       caliCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes2, caliOpposeVotes2, caliAbstainVotes2);
@@ -528,6 +625,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == mountCard1)
     {
+      setDraftedCard(mountCard1);
       mountCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes1, mountOpposeVotes1, mountAbstainVotes1);
@@ -535,6 +633,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == mountCard2)
     {
+      setDraftedCard(mountCard2);
       mountCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes2, mountOpposeVotes2, mountAbstainVotes2);
@@ -542,6 +641,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == nPlainCard1)
     {
+      setDraftedCard(nPlainCard1);
       nPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes1, nPlainOpposeVotes1, nPlainAbstainVotes1);
@@ -549,6 +649,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == nPlainCard2)
     {
+      setDraftedCard(nPlainCard2);
       nPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes2, nPlainOpposeVotes2, nPlainAbstainVotes2);
@@ -556,6 +657,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == sPlainCard1)
     {
+      setDraftedCard(sPlainCard1);
       sPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sPlainAbstainVotes1);
@@ -563,6 +665,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == sPlainCard2)
     {
+      setDraftedCard(sPlainCard2);
       sPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sPlainAbstainVotes2);
@@ -570,6 +673,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == neCard1)
     {
+      setDraftedCard(neCard1);
       neCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes1, neOpposeVotes1, neAbstainVotes1);
@@ -584,6 +688,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == seCard1)
     {
+      setDraftedCard(seCard1);
       seCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes1, seOpposeVotes1, seAbstainVotes1);
@@ -591,6 +696,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == seCard2)
     {
+      setDraftedCard(seCard2);
       seCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes2, seOpposeVotes2, seAbstainVotes2);
@@ -598,6 +704,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == heartCard1)
     {
+      setDraftedCard(heartCard1);
       heartCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes1, heartOpposeVotes1, heartAbstainVotes1);
@@ -605,6 +712,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == heartCard2)
     {
+      setDraftedCard(heartCard2);
       heartCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes2, heartOpposeVotes2, heartAbstainVotes2);

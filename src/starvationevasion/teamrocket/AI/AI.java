@@ -1,22 +1,25 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.ServerChatMessage;
+import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
-import java.util.LinkedList;
 import java.util.Random;
+
 //TODO: AI CHAT!!!!! ASAP
-//TODO: needs to know the crops, and select crops for cards
-//TODO: need to select target region for cards
 public class AI extends Player
 {
+  private AIChatResponse chat;
   /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
   private Random generator;
-
+  private int actionsPerformed = 2; //decrease when actions are done during drafting phase
+  private EnumPolicy[] discardedCards; //get the policies that were discarded
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
    *
@@ -26,7 +29,7 @@ public class AI extends Player
    */
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController)
   {
-    super(controlledRegion,aiLevel, gameController);
+    super(controlledRegion, aiLevel, gameController);
     generator = new Random();
 
     setup();
@@ -42,9 +45,11 @@ public class AI extends Player
 
     for(int i = 0; i < NUM_US_REGIONS; i++)
     {
-      PlayerRecord record = new PlayerRecord(EnumRegion.US_REGIONS[i]);
+      PlayerRecord record = new PlayerRecord();
       records[i] = record;
     }
+
+    chat = new AIChatResponse(records);
   }
 
   /**
@@ -53,13 +58,17 @@ public class AI extends Player
    * @param discardCardsPosition the position of cards being discarded
    */
   private void removeDiscardedCards(int[] discardCardsPosition) {
-    PolicyCard[] hand = getHand();
-
+    EnumPolicy[] hand = getHand();
+    discardedCards = new EnumPolicy[discardCardsPosition.length];
+    int index = 0;
     for (int i : discardCardsPosition)
     {
+      discardedCards[index] = hand[i];
+      index++;
       hand[i] = null;
     }
     setHand(hand);
+
   }
 
   /**
@@ -69,11 +78,12 @@ public class AI extends Player
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(1) == 0)
+    if(generator.nextInt(1) == 0 && actionsPerformed > 0)
     {
+      actionsPerformed--;
       int numCards = generator.nextInt(4);
       if(numCards == 0) numCards++;
-      removeDiscardedCards(AI.discardCards(numCards,getHand(),generator));
+      removeDiscardedCards(AI.discardCards(numCards,getHandCards(),generator));
       return true;
     }
     return false;
@@ -86,19 +96,49 @@ public class AI extends Player
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    AI.setCardTargets(cards, generator);
+    for(PolicyCard card : cards)
+    {
+      AI.setCardTargets(generator, card);
+    }
   }
 
+  /***** Override player voting updating and chat receiving ******/
+  @Override
+  public synchronized void updateVoteStatus(VoteStatus voteStatus)
+  {
+    for(PolicyCard card : voteStatus.currentCards)
+    {
+      EnumRegion owner = card.getOwner();
+
+      if(card.didVoteYes(owner))records[owner.ordinal()].setPlayerCoop(true);
+      else records[owner.ordinal()].setPlayerCoop(false);
+    }
+  }
+
+  @Override
+  public synchronized void receiveChatMessage(ServerChatMessage message)
+  {
+    super.receiveChatMessage(message);
+    chat.getMessage(message);
+  }
+
+  /********** Interface Methods *********/
   @Override
   public PolicyCard[] getDraftedCards()
   {
-    PolicyCard[] cards = AI.selectCards(getHand(),generator);
-    setCardTargets(cards);
-    return cards;
+    if(actionsPerformed > 0)
+    {
+      PolicyCard[] cards = AI.selectCards(getHandCards(),generator, actionsPerformed);
+      setCardTargets(cards);
+      actionsPerformed = 2;
+      return cards;
+    }
+    return null;
   }
 
   @Override
-  public int vote(PolicyCard card, EnumRegion cardPlayedRegion) {
-    return AI.vote(records[cardPlayedRegion.ordinal()], generator);
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
+    records[cardPlayedRegion.ordinal()].setPendingVoteCard(PolicyCard.create(cardPlayedRegion,card));
+    return AI.vote(records[cardPlayedRegion.ordinal()], generator, ENUM_REGION);
   }
 }

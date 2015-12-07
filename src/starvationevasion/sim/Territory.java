@@ -8,8 +8,7 @@ import starvationevasion.sim.util.MapConverter;
 import starvationevasion.common.MapPoint;
 
 import java.awt.geom.Area;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Territory is the former Country class, and extends AbstractAgriculturalUnit.
@@ -33,6 +32,10 @@ public class Territory extends AbstractTerritory
   /* The region to which this country belongs.
    */
   private EnumRegion region;
+
+  private double[] land1981 = new double[EnumFood.SIZE];
+  private double[] yield1981 = new double[EnumFood.SIZE];
+  private long[] cropBudget = new long[EnumFood.SIZE];
 
   /**
    * Territory constructor
@@ -73,7 +76,7 @@ public class Territory extends AbstractTerritory
   /**
    * Estimates the initial land used per food type, and the yield.
    */
-  public void estimateInitialYield()
+  public void updateYield()
   {
     int income = 0;
     int production = 0;
@@ -85,53 +88,134 @@ public class Territory extends AbstractTerritory
       income += cropIncome[crop.ordinal()];
     }
 
-    // If the total land is > 0 then this function has already been called.
-    //
-    //if (land == 0.)
-    //{
-      //if (income == 0. && production == 0.)
-      //{ Logger.getGlobal().log(Level.INFO,
-      //        "Territory {0} has no production or income. Faking it.", getName());
-
-        // Assume they're getting $100 per acre.  Terrible guess, but it's just a
-        // default for empty rows.
+    if (production == 0.)
+    {
+      for (EnumFood crop : EnumFood.values()) {
+        // The current version of the CSV file doesn't have any production values.
+        // Use the income values (if available) to estimate land per crop.
         //
-      //  income = landTotal / 10; // $100 per acre / 1000.;
 
-      //  for (int i = 0 ; i < EnumFood.SIZE ; i += 1) cropIncome[i] = income * EnumFood.SIZE;
-      //}
-
-      if (production == 0.)
-      {
-        for (EnumFood crop : EnumFood.values()) {
-          // The current version of the CSV file doesn't have any production values.
-          // Use the income values (if available) to estimate land per crop.
-          //
-
-          // Estimate production from the yield.
-          //TODO: read data
-          //cropProduction[crop.ordinal()] = (cropIncome[crop.ordinal()] / income) * landTotal;
-          production += cropProduction[crop.ordinal()];
-        }
-      }
-
-      for (EnumFood crop : EnumFood.values())
-      {
+        // Estimate production from the yield.
         //TODO: read data
-        //cropYield[crop.ordinal()] = cropProduction[crop.ordinal()] / landTotal;
-
-        // Use the crop production to estimate land per crop.
-        //
-        //double p = cropProduction[crop.ordinal()] / production;
-
-        // This is an initial naive estimate.  Per Joel there will eventually be a multiplier
-        // applied that gives a more realistic estimate.
-        //
-        //landCrop[crop.ordinal()] =(int)( landTotal * p );// multiplier[food]
-
-        land += landCrop[crop.ordinal()];
+        //cropProduction[crop.ordinal()] = (cropIncome[crop.ordinal()] / income) * landTotal;
+        production += cropProduction[crop.ordinal()];
       }
-    //}
+    }
+
+    for (EnumFood crop : EnumFood.values())
+    {
+      //TODO: read data
+      //cropYield[crop.ordinal()] = cropProduction[crop.ordinal()] / landTotal;
+
+      // Use the crop production to estimate land per crop.
+      //
+      //double p = cropProduction[crop.ordinal()] / production;
+
+      // This is an initial naive estimate.  Per Joel there will eventually be a multiplier
+      // applied that gives a more realistic estimate.
+      //
+      //landCrop[crop.ordinal()] =(int)( landTotal * p );// multiplier[food]
+
+      land += landCrop[crop.ordinal()];
+
+      if (landCrop[crop.ordinal()] != 0)
+      { cropYield[crop.ordinal()] = cropProduction[crop.ordinal()] / landCrop[crop.ordinal()];
+      }
+      else cropYield[crop.ordinal()] = 0;
+    }
+  }
+
+  public void setCropBudget(EnumFood food, long budget)
+  {
+    cropBudget[food.ordinal()] = budget;
+  }
+
+  /**
+   * Get the budget for the type of food
+   *
+   * @param food EnumFood
+   * @return current budget of the food
+   */
+  public long getCropBudget(EnumFood food)
+  {
+    return cropBudget[food.ordinal()];
+  }
+
+  /**
+   * Get the total budget for all crops
+   *
+   * @return total budget of all crops for the territory
+   */
+  public long getCropBudget()
+  {
+    long budget = 0;
+    for (int i = 0; i < cropBudget.length; i++)
+    {
+      budget += cropBudget[i];
+    }
+    return budget;
+  }
+
+  public void setLand1981(EnumFood food, double land)
+  {
+    land1981[food.ordinal()] = land;
+  }
+
+  /**
+   * Get the land area for the type of food
+   *
+   * @param food EnumFood
+   * @return current land area of the food
+   */
+  public double getLand1981(EnumFood food)
+  {
+    return land1981[food.ordinal()];
+  }
+
+  /**
+   * Get the total land area for all crops
+   *
+   * @return total land area of all crops for the territory
+   */
+  public double getLand1981()
+  {
+    double land = 0;
+    for (int i = 0; i < land1981.length; i++)
+    {
+      land += land1981[i];
+    }
+    return land;
+  }
+
+  public void setYield1981(EnumFood food, double yield)
+  {
+    yield1981[food.ordinal()] = yield;
+  }
+
+  /**
+   * Get the yield for the type of food
+   *
+   * @param food EnumFood
+   * @return current yield of the food
+   */
+  public double getYield1981(EnumFood food)
+  {
+    return yield1981[food.ordinal()];
+  }
+
+  /**
+   * Get the total yield for all crops
+   *
+   * @return total yield of all crops for the territory
+   */
+  public double getYield1981()
+  {
+    double yield = 0;
+    for (int i = 0; i < yield1981.length; i++)
+    {
+      yield += yield1981[i];
+    }
+    return yield;
   }
 
   /**
@@ -185,7 +269,50 @@ public class Territory extends AbstractTerritory
     }
   }
 
+  public void updatePopulation(int year)
+  {
+    int index = year - Constant.FIRST_YEAR;
 
+    // Population data is stored in a fixed array.
+    //
+    int netChange = 0;
+    if (index > 0) netChange = population[index] - population[index - 1];
+
+    // TODO: We need a way to take the net change in population and back that
+    // number out to birth rate, mortality rate, and undernourishment. This is
+    // the Spring code to update undernourishment, based on the Spring 2015
+    // spec. :
+    //
+    double numUndernourished;
+    double population = getPopulation(year);
+    double[] netCropsAvail = new double[EnumFood.SIZE];
+    int numCropsAvail = 0;
+    for (EnumFood crop : EnumFood.values())
+    {
+      double netAvail = getNetCropAvailable(crop);
+      netCropsAvail[crop.ordinal()] = netAvail;
+      if (netAvail >= 0) numCropsAvail++;
+    }
+
+    if (numCropsAvail == EnumFood.SIZE)
+    {
+      numUndernourished = 0;
+    }
+    else
+    {
+      double maxResult = 0;
+      for (EnumFood crop : EnumFood.values())
+      {
+        double need = getCropNeedPerCapita(crop);
+        double result = (netCropsAvail[crop.ordinal()]) / (0.5 * need * population);
+        if (result > maxResult) maxResult = result;
+      }
+
+      numUndernourished = Math.min(population, maxResult);
+    }
+
+    setUndernourished((int) numUndernourished);
+  }
 
 
   /**
@@ -241,11 +368,52 @@ public class Territory extends AbstractTerritory
     return regions;
   }
 
-
-
-
   public String toString()
   {
     return getClass().getSimpleName() + " " + name;
+  }
+
+  public int compareTo(String territoryName)
+  {
+    return territoryName.compareTo(name);
+  }
+
+  /**
+   * Parses the geographic data and generates a unified set of Territory objects from the
+   * list of cartagraphic regions.
+   * @return collection of countries created form the given regions.
+   */
+  public static Territory[] parseTerritories(List<GeographicArea> geography)
+  {
+    Collections.sort(geography, new Comparator<GeographicArea>() {
+      @Override
+      public int compare(GeographicArea a1, GeographicArea a2) {
+        return a1.getName().compareTo(a2.getName());
+      }
+    });
+
+    ArrayList<Territory> territoryList = new ArrayList<>(geography.size());
+    Territory territory = null;
+    for (GeographicArea region : geography)
+    {
+      if (territory != null && territory.getName().equals(region.getName()))
+      {
+        region.setTerritory(territory);
+        territory.addRegion(region);
+      }
+      else {
+        territory = new Territory(region.getName());
+        territory.addRegion(region);
+        territoryList.add(territory);
+      }
+    }
+
+    // We may not have a territory for the United States.
+    //
+    Territory us = new Territory("United States");
+    Collections.sort(territoryList);
+    if (Collections.binarySearch(territoryList, us) < 0) territoryList.add(us);
+
+    return territoryList.toArray(new Territory[territoryList.size()]);
   }
 }

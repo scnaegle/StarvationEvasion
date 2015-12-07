@@ -1,13 +1,30 @@
 package starvationevasion.teamrocket;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.WorldData;
+import starvationevasion.common.messages.ServerChatMessage;
+import starvationevasion.common.messages.VoteStatus;
+import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.AI.EnumAITypes;
+import starvationevasion.teamrocket.messages.EnumGameState;
 
 /**
  * Created by zfalgout on 11/14/15.
  */
 public interface PlayerInterface
 {
+  /**
+   * Player's selected region.
+   */
+  public EnumRegion getEnumRegion();
+
+  /**
+   * AI Level if AI is used
+   * If Player is a human, this should be null
+   */
+  public EnumAITypes getAIType();
 
   /**
    * Needs to get the log in information
@@ -31,7 +48,7 @@ public interface PlayerInterface
    * @param cardPlayedRegion region that the card was played from
    * @return 1 for vote for, -1 for vote against, 0 for abstain
    */
-  public int vote(PolicyCard card, EnumRegion cardPlayedRegion);
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion);
 
   /**
    * Player discards the card associated with
@@ -43,6 +60,32 @@ public interface PlayerInterface
   /**
    * Adds a single card to the player's hand
    */
-  public void addCard(PolicyCard card);
+  public void addCard(EnumPolicy card);
+
+  public void setHand(EnumPolicy[] hand);
+
+  public PolicyCard getCard(int card_index);
+
+  /**
+   * Set the selected cards from the GUI so the player knows
+   * which cards were selected
+   * If there is no card position, then -1 should be passed for
+   * that card position
+   * @param card1 position in hand of first card
+   * @param card2 position in hand of second card
+   */
+  public void selectedCards(int card1, int card2);
+
+
+  public void setGameState(ServerState serverState);
+
+  public void setGameState(EnumGameState gameState);
+
+  public void updateWorldData(WorldData worldData);
+
+  public void updateVoteStatus(VoteStatus voteStatus);
+
+
+  public void receiveChatMessage(ServerChatMessage message);
 
 }

@@ -36,6 +36,7 @@ public class Client
     }
 
     listener = new ClientListener();
+    listener.setDaemon(true);
     System.out.println("Client(): Starting listener = : " + listener);
     listener.start();
   }
@@ -133,15 +134,18 @@ public class Client
       System.out.println("Usage: Client hostname portNumber");
       System.exit(0);
     }
-    new Client(host, port, null);
+    Client client = new Client(host, port, null);
+
+    //client.send(new Login());
   }
 
-  public void send(ServerEvent event, Serializable object) {
+  public synchronized void send(ServerEvent event, Serializable object) {
     Message message = new Message(event, object);
     MessageHandler.send(outputStream, message);
   }
 
-  public void send(Serializable payload) {
+  public synchronized void send(Serializable payload) {
+    System.out.println("Sending to server: " + payload);
     try {
       outputStream.writeObject(payload);
     } catch (IOException e) {
@@ -163,22 +167,28 @@ public class Client
       Object msg;
       try {
         msg = inputStream.readObject();
+        System.out.println("received from server: " + msg);
         if (msg instanceof Response) {
           handleResponse((Response) msg);
         } else if (msg instanceof LoginResponse) {
           handleLoginResponse((LoginResponse) msg);
         } else if (msg instanceof AvailableRegions) {
-          handleAvailableRegionsResponse((AvailableRegions) msg);
+          gameController.setAvailableRegions((AvailableRegions)msg);
         } else if (msg instanceof ReadyToBegin) {
-          handleReadyToBeginResponse((ReadyToBegin) msg);
+          gameController.setStartGame((ReadyToBegin) msg);
         } else if (msg instanceof PhaseStart) {
-          handlePhaseStartResponse((PhaseStart) msg);
+          gameController.updateTimer((PhaseStart) msg);
         } else if (msg instanceof GameState) {
-          handleGameStateResponse((GameState) msg);
+          gameController.updateWorldData(((GameState) msg).worldData);
+          gameController.setHand(((GameState) msg).hand);
         } else if (msg instanceof ServerChatMessage) {
-          handleChatMessageResponse((ServerChatMessage) msg);
+          gameController.setChat((ServerChatMessage) msg);
         } else if (msg instanceof ActionResponse) {
           handleActionResponse((ActionResponse) msg);
+        } else if (msg instanceof Hello) {
+          gameController.setSalt(((Hello) msg).loginNonce);
+        } else if (msg instanceof VoteStatus) {
+          gameController.setVoteStatus((VoteStatus) msg);
         } else {
           System.out.println("Unrecognized message from Server = " + msg);
         }
@@ -191,10 +201,13 @@ public class Client
     private void handleResponse(Response response) {
       switch(response) {
         case BAD_MESSAGE:
+          gameController.addErrorMessage(("Server received a bad message."));
           break;
         case INAPPROPRIATE:
+          gameController.addErrorMessage("Server received an inappropriate message.");
           break;
         case OTHER_ERROR:
+          gameController.addErrorMessage("Server got an error");
           break;
         case OK:
           break;
@@ -222,39 +235,16 @@ public class Client
           closeAll();
           break;
         case CHOOSE_REGION:
+          System.out.println("Choose regions");
           gameController.setSuccessfulLogin(true);
           break;
       }
     }
 
-    private void handleAvailableRegionsResponse(AvailableRegions availableRegions) {
-      // TODO Send error message if the region has already been taken.
-      gameController.setAvailableRegions(availableRegions);
-    }
-
-    private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
-      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime)*1000);
-      gameController.gameState.gameState = EnumGameState.BEGINNING;
-    }
-
-    private void handlePhaseStartResponse(PhaseStart phaseStart) {
-      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime)*1000);
-      gameController.gameState.setGameState(phaseStart.currentGameState);
-    }
-
-    private void handleGameStateResponse(GameState gameState) {
-      gameController.gameState.updateWorldData(gameState.worldData);
-      gameController.gameState.setHand(gameState.hand);
-    }
-
-    private void handleChatMessageResponse(ServerChatMessage message) {
-
-    }
-
     private void handleActionResponse(ActionResponse actionResponse) {
       switch(actionResponse.responseType) {
         case OK:
-          gameController.gameState.setHand(actionResponse.playerHand);
+          gameController.player.setHand(actionResponse.playerHand);
           break;
         case TOO_MANY_ACTIONS:
           gameController.addErrorMessage("This has been sent too many times: " + actionResponse.responseMessage);

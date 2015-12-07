@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="endGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.EndSceneController">
+  <children>
+    <ImageView id="welcome" fitHeight="760.0" fitWidth="1038.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
+      <image>
+        <Image url="@../images/welcome.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <Label fx:id="winLabel" layoutX="224.0" layoutY="201.0" text="YOU WON! GREAT JOB!" textFill="#4333ff" underline="false" visible="false">
+      <font>
+        <Font name="Avenir Next Demi Bold" size="50.0" />
+      </font>
+    </Label>
+    <GridPane layoutX="352.0" layoutY="302.0" prefHeight="302.0" prefWidth="334.0">
+      <children>
+        <Label text="1st" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font size="17.0" fx:id="x1" />
+          </font>
+        </Label>
+        <Label font="$x1" text="2nd" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label font="$x1" text="3rd" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label font="$x1" text="4th" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label font="$x1" text="5th" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label font="$x1" text="6th" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label font="$x1" text="7th" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label fx:id="first" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label fx:id="second" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="third" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label fx:id="fourth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label fx:id="fifth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label fx:id="sixth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label fx:id="seventh" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label fx:id="hdi1" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <Label fx:id="hdi2" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Label fx:id="hdi3" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label fx:id="hdi4" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Label fx:id="hdi5" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label fx:id="hdi6" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Label fx:id="hdi7" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="10.0" prefWidth="95.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="134.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="105.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Label fx:id="lose1Label" layoutX="184.0" layoutY="194.0" text="YOUR ENTIRE REGION DIED OF STARVATION." visible="false">
+      <font>
+        <Font name="Avenir Next Demi Bold" size="30.0" fx:id="x2" />
+      </font>
+      <textFill>
+        <Color blue="0.200" green="0.200" red="1.000" fx:id="x3" />
+      </textFill>
+    </Label>
+    <Label fx:id="lose2Label" font="$x2" layoutX="294.0" layoutY="235.0" text=" BETTER LUCK NEXT TIME." textFill="$x3" visible="false" />
+  </children>
+</AnchorPane>
