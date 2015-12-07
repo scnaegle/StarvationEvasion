@@ -14,15 +14,18 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
-import starvationevasion.teamrocket.server.GameClock;
 import starvationevasion.vis.ClientTest.CustomLayout;
 import starvationevasion.vis.visuals.Earth;
 
@@ -220,31 +223,93 @@ public class DraftController implements javafx.fxml.Initializable
 
   private void setupAddBox(int cardIndex)
   {
+    cardInputs.setVisible(true);
+    PolicyCard card = getGameController().player.getCard(cardIndex);
     //Clear old buttons
     ObservableList<Node> children = inputPane.getChildren();
     children.clear();
 
-    PolicyCard card = getGameController().player.getCard(cardIndex);
+    GridPane textGrid = new GridPane();
+    textGrid.setMaxWidth(inputPane.getWidth());
+    textGrid.setMaxHeight(inputPane.getHeight());
+    children.add(textGrid);
+    int row = 0; //Track what row in the grid we are at.
+
+    Text text = new Text(card.getGameText());
+    text.setWrappingWidth(400);
+
+    textGrid.add(text, 0, row++);
+
+    PolicyCard.EnumVariableUnit type = card.getRequiredVariables(PolicyCard.EnumVariable.X);
+    if(type != null)
+    {
+      Control control = getControlForVariable(type);
+      Label label = new Label("X value", control);
+      textGrid.add(control, 1, row);
+      textGrid.add(label, 0, row++);
+      label.setVisible(true);
+      control.setVisible(true);
+    }
+    type = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
+    if(type != null)
+    {
+      Control control = getControlForVariable(type);
+      Label label = new Label("Y value", control);
+      textGrid.add(control, 1, row);
+      textGrid.add(label, 0, row++);
+      label.setVisible(true);
+      control.setVisible(true);
+    }
+    type = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
+    if(type != null)
+    {
+      Control control = getControlForVariable(type);
+      Label label = new Label("Z value", control);
+      textGrid.add(control, 1, row);
+      textGrid.add(label, 0, row++);
+      label.setVisible(true);
+      control.setVisible(true);
+    }
+
     if(card.getValidTargetFoods() != null)
     {
-      ComboBox<EnumFood> food = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
-      Label label = new Label("Target Food", food);
-      children.add(food);
-      children.add(label);
+      ComboBox<EnumFood> comboBox = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
+      Label label = new Label("Target Food", comboBox);
+      textGrid.add(comboBox, 1, row);
+      textGrid.add(label, 0, row++);
       label.setVisible(true);
-      food.setVisible(true);
+      comboBox.setVisible(true);
     }
     if(card.getValidTargetRegions() != null)
     {
-      ComboBox<EnumRegion> region = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
-      Label label = new Label("Target Region", region);
-      children.add(region);
-      children.add(label);
+      ComboBox<EnumRegion> comboBox = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
+      Label label = new Label("Target Region", comboBox);
+      textGrid.add(comboBox, 1, row);
+      textGrid.add(label, 0, row++);
       label.setVisible(true);
-      region.setVisible(true);
+      comboBox.setVisible(true);
     }
 
-    cardInputs.setVisible(true);
+
+  }
+
+  private Control getControlForVariable(PolicyCard.EnumVariableUnit type)
+  {
+    Control control = null;
+    switch(type)
+    {
+      case MILLION_DOLLAR:
+        control = new Spinner<>(0, Integer.MAX_VALUE, 10, 1);
+        break;
+      case PERCENT:
+        control = new Spinner<>(0.0,100.0, 50.0, 1.0);
+        break;
+      case UNIT:
+        control = new Spinner<Integer>(0, 10, 7);
+        ((Spinner)control).setEditable(false);
+        break;
+    }
+    return control;
   }
 
 
