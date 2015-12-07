@@ -235,7 +235,46 @@ public class CropChart
       iterateTurnNumber++;
     }
 
-    series.setName("My portfolio");
+    series.setName(food.name());
+    lineChart.getData().add(series);
+    return lineChart;
+  }
+
+  /**
+   * Makes a line chart of the data from our crops and regions, which spans
+   * the entire
+   * turns
+   *
+   * @param region the region of the food
+   * @param food   the type of food we are graphinf
+   * @return a line chart for being displayed.
+   */
+  public static LineChart makeLineChartPricePerMetricTonFood(RegionHistory region,
+                                                          EnumFood food)
+  {
+    final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
+    final NumberAxis yAxis = new NumberAxis();
+    xAxis.setLabel("Year");
+    //creating the chart
+    LineChart<Number, Number> lineChart =
+        new LineChart<Number, Number>(xAxis, yAxis);
+
+    ArrayList<Integer> data = region.getPricePerTon(food);
+
+    XYChart.Series series = new XYChart.Series();
+
+
+    int iterateTurnNumber = 0;
+    int actualTurnNumber = 5;
+    for (int dataout : data)
+    {
+      //System.out.println(data);
+      series.getData().add(
+          new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
+      iterateTurnNumber++;
+    }
+
+    series.setName(food.name());
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -285,7 +324,7 @@ public class CropChart
       }
     }
 
-    if (foods[1] == true)
+    if (foods[1])
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.GRAIN);
       if (data.lastIndexOf(data) != 0)
@@ -303,7 +342,7 @@ public class CropChart
         lineChart.getData().add(series);
       }
     }
-    if (foods[2] == true)
+    if (foods[2])
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.CITRUS);
       if (data.lastIndexOf(data) != 0)
@@ -322,7 +361,7 @@ public class CropChart
       }
     }
 
-    if (foods[3] == true)
+    if (foods[3])
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.FEED);
       if (data.lastIndexOf(data) != 0)
@@ -341,7 +380,7 @@ public class CropChart
       }
     }
 
-    if (foods[4] == true)
+    if (foods[4])
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.DAIRY);
       if (data.lastIndexOf(data) != 0)
@@ -360,7 +399,7 @@ public class CropChart
       }
     }
 
-    if (foods[5] == true)
+    if (foods[5])
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.FISH);
       if (data.lastIndexOf(data) != 0)
@@ -380,7 +419,7 @@ public class CropChart
       }
     }
 
-    if (foods[6] == true)
+    if (foods[6])
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.MEAT);
       if (data.lastIndexOf(data) != 0)
@@ -400,7 +439,7 @@ public class CropChart
       }
     }
 
-    if (foods[7] == true)
+    if (foods[7])
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.NUT);
@@ -421,7 +460,7 @@ public class CropChart
       }
     }
 
-    if (foods[8] == true)
+    if (foods[8])
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.OIL);
@@ -442,7 +481,7 @@ public class CropChart
       }
     }
 
-    if (foods[9] == true)
+    if (foods[9])
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.POULTRY);
@@ -463,7 +502,7 @@ public class CropChart
       }
     }
 
-    if (foods[10] == true)
+    if (foods[10])
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.VEGGIES);
@@ -484,7 +523,7 @@ public class CropChart
       }
     }
 
-    if (foods[11] == true)
+    if (foods[11])
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.SPECIAL);

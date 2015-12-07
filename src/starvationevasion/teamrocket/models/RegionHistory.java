@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class RegionHistory
 {
-  /**
+   /**
    * Keeps track of the originally selected RegionHistory.
    */
   public final EnumRegion ENUM_REGION;
@@ -35,6 +35,8 @@ public class RegionHistory
   private ArrayList<Double>  HDI = new ArrayList<>();
   private ArrayList<Integer> totalRevenue = new ArrayList<>(); //totalRevenue of the player and there country (a way of measuring score)
   private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
+
+  private HashMap<EnumFood, ArrayList<Integer>> pricePerTon = new HashMap<>();
 
   private HashMap<EnumFood, ArrayList<Integer>> cropRevenue = new HashMap<>();
 
@@ -114,6 +116,7 @@ public class RegionHistory
   {
     cropRevenue.get(food).add(value);
   }
+
 
 
   /**
@@ -347,5 +350,11 @@ public class RegionHistory
   public ArrayList<Integer> getTotalRevenue()
   {
     return totalRevenue;
+  }
+
+
+  public ArrayList<Integer> getPricePerTon(EnumFood food)
+  {
+    return pricePerTon.get(food);
   }
 }

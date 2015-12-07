@@ -404,6 +404,7 @@ public class GameController
    */
   public void updateWorldData(WorldData worldData)
   {
+
     player.updateWorldData(worldData);
     // TODO update GUI with the new world data - probably graphs and such
   }
