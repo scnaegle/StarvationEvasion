@@ -7,12 +7,9 @@ import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.Random;
-import java.util.stream.Stream;
 
 //TODO: AI CHAT!!!!! ASAP
 //TODO: Need to update Player Records
-//TODO: needs to know the crops, and select crops for cards
-//TODO: need to select target region for cards
 public class AI extends Player
 {
   /*Game info*/
@@ -20,7 +17,6 @@ public class AI extends Player
   private PlayerRecord[] records;
   private Random generator;
   private int actionsPerformed = 2; //decrease when actions are done during drafting phase
-  private PolicyCard[] discardedCards;
 
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
@@ -74,7 +70,7 @@ public class AI extends Player
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(1) == 0 && actionsPerformed > 0)
+    if(generator.nextInt(5) == 0 && actionsPerformed > 0)
     {
       actionsPerformed--;
       int numCards = generator.nextInt(4);
@@ -92,14 +88,9 @@ public class AI extends Player
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    String[] targets;
     for(PolicyCard card : cards)
     {
-      targets = AI.setCardTargets(generator, card);
-      for(String s : targets)
-      {
-        System.out.println(s);
-      }
+      AI.setCardTargets(generator, card);
     }
   }
 

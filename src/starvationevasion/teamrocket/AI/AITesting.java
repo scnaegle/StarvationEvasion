@@ -5,13 +5,12 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 /**
  * Created by zfalgout on 12/2/15.
  */
 public class AITesting {
-  static AI ai = new AI(EnumRegion.CALIFORNIA, EnumAITypes.DUMB, null);
+  static AI ai = new AI(EnumRegion.CALIFORNIA, EnumAITypes.BASIC, null);
   static EnumPolicy[] hand = new EnumPolicy[7];
 
   /**
@@ -99,7 +98,18 @@ public class AITesting {
   private static void playCardTest()
   {
     System.out.println("Playing Cards *********");
-    ai.getDraftedCards();
+    PolicyCard[] targets = ai.getDraftedCards();
+    System.out.println("Card Targets*********");
+
+    for(PolicyCard target : targets)
+    {
+      System.out.println(target.getX());
+      System.out.println(target.getY());
+      System.out.println(target.getZ());
+      System.out.println(target.getTargetFood());
+      System.out.println(target.getTargetRegion());
+      System.out.println();
+    }
   }
 
   public static void main(String[] args)
