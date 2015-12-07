@@ -431,6 +431,19 @@ public class GameController
   }
 
   /**
+   * Parse the BeginGame object from the server and start the game for player
+   * @param beginGame
+   */
+  public void beginGame(BeginGame beginGame) {
+    for(Map.Entry<EnumRegion, String> entry : beginGame.finalRegionChoices.entrySet()) {
+      if (playerUsername == entry.getValue()) {
+        player.setEnumRegion(entry.getKey());
+        break;
+      }
+    }
+  }
+
+  /**
    * Store the hands of all players
    */
   public void setHand(EnumPolicy[] hand) {

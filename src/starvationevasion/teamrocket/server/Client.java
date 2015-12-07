@@ -188,6 +188,8 @@ public class Client
           gameController.setAvailableRegions((AvailableRegions)msg);
         } else if (msg instanceof ReadyToBegin) {
           gameController.setStartGame((ReadyToBegin) msg);
+        } else if (msg instanceof BeginGame) {
+          gameController.beginGame((BeginGame) msg);
         } else if (msg instanceof PhaseStart) {
           gameController.updateTimer((PhaseStart) msg);
         } else if (msg instanceof GameState) {
