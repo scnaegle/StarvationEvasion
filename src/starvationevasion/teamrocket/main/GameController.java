@@ -404,6 +404,7 @@ public class GameController
    */
   public void updateWorldData(WorldData worldData)
   {
+
     player.updateWorldData(worldData);
     // TODO update GUI with the new world data - probably graphs and such
   }
@@ -583,7 +584,24 @@ public class GameController
 
   public void playDrafts(PolicyCard draft1, PolicyCard draft2)
   {
+    if(draft1 != null)
+    {
+      this.draft1 = draft1;
+    }
+
+    if(draft2 != null)
+    {
+      this.draft2 = draft2;
+    }
     //TODO send to client. No need to update player since turn is over. Player shouldn't need this information.
 
+  }
+
+  public PolicyCard[] getDraftedCards()
+  {
+    PolicyCard[] drafts = new PolicyCard[2];
+    drafts[0] = draft1;
+    drafts[1] = draft2;
+    return drafts;
   }
 }

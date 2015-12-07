@@ -194,7 +194,7 @@ public class VotingController implements javafx.fxml.Initializable
           {
             highlightCards();
             Main.GAME_CLOCK.setTimeLeft(180000);
-            myDrafts = Main.getGameController().player.getDraftedCards();
+            myDrafts = Main.getGameController().getDraftedCards();
             if(myDrafts.length >= 1) System.out.println("card 1: " + myDrafts[0].getCardType());
             if(myDrafts.length >= 2) System.out.println("card 2: "+ myDrafts[1].getCardType());
             myRegion = Main.getGameController().getMyRegion();
@@ -495,22 +495,51 @@ public class VotingController implements javafx.fxml.Initializable
 
   private boolean isVotable(Button card)
   {
-    if(card == caliCard1 ) return true;
-    if(card == caliCard2) return true;
-    if(card == mountCard1) return true;
-    if(card == mountCard2) return true;
-    if(card == nPlainCard1) return true;
-    if(card == nPlainCard2) return true;
-    if(card == neCard1) return true;
-    if(card == neCard2) return true;
-    if(card == sPlainCard1) return true;
-    if(card == sPlainCard2) return true;
-    if(card == seCard1) return true;
-    if(card == seCard2) return true;
-    if(card == heartCard1) return true;
-    if(card == heartCard2) return true;
 
-    else return false;
+    if(card == caliCard1){
+      if( myRegion == EnumRegion.CALIFORNIA && myDrafts[0].votesRequired() != 0) return true;
+    }
+    if(card == caliCard2){
+      if( myRegion == EnumRegion.CALIFORNIA && myDrafts[1].votesRequired() != 0) return true;
+    }
+    if(card == mountCard1){
+      if( myRegion == EnumRegion.MOUNTAIN && myDrafts[0].votesRequired() != 0)return true;
+    }
+    if(card == mountCard2){
+      if( myRegion == EnumRegion.MOUNTAIN && myDrafts[1].votesRequired() != 0)return true;
+    }
+    if(card == nPlainCard1){
+      if( myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[0].votesRequired() != 0)return true;
+    }
+    if(card == nPlainCard2){
+      if( myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[1].votesRequired() != 0)return true;
+    }
+    if(card == neCard1){
+      if( myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[0].votesRequired() != 0)return true;
+    }
+    if(card == neCard2) {
+      if( myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[1].votesRequired() != 0)return true;
+    }
+    if(card == sPlainCard1){
+      if( myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[0].votesRequired() != 0)return true;
+    }
+    if(card == sPlainCard2){
+      if( myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[1].votesRequired() != 0)return true;
+    }
+    if(card == seCard1){
+      if( myRegion == EnumRegion.SOUTHEAST && myDrafts[0].votesRequired() != 0)return true;
+    }
+    if(card == seCard2){
+      if( myRegion == EnumRegion.SOUTHEAST && myDrafts[1].votesRequired() != 0)return true;
+    }
+    if(card == heartCard1){
+      if( myRegion == EnumRegion.HEARTLAND && myDrafts[0].votesRequired() != 0)return true;
+    }
+    if(card == heartCard2) {
+      if( myRegion == EnumRegion.HEARTLAND && myDrafts[1].votesRequired() != 0)return true;
+    }
+
+    return false;
   }
 
 
@@ -541,6 +570,7 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == caliCard1)
     {
+
       if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
       else{ /*set other cards to other player's cards*/}
       caliCard1Selected = true;

@@ -184,7 +184,7 @@
         </Label>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2ef6ff" height="148.0000991821289" layoutX="235.0" layoutY="255.0" stroke="WHITE" strokeType="INSIDE" width="314.0" />
         <Button fx:id="doneWithCards" layoutX="319.0" layoutY="371.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="24.0" prefWidth="151.00002207031503" text="READY TO VOTE" />
-        <ImageView id="map2" fitHeight="294.5687670989154" fitWidth="494.9721374511719" layoutX="546.0" layoutY="61.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="map2" fitHeight="294.5687670989154" fitWidth="494.9721374511719" layoutX="532.0" layoutY="61.0" opacity="0.6" pickOnBounds="true" preserveRatio="true" visible="true">
           <image>
             <Image url="@../images/map2.png" preserveRatio="true" smooth="true" />
           </image>
@@ -218,8 +218,51 @@
             <Label fx:id="discardDraft2" font="$x4" layoutX="230.0" layoutY="6.0" onMouseClicked="#discard" text="X" visible="false" />
           </children>
         </Pane>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a80079" height="268.0" layoutX="681.0" layoutY="373.0" opacity="0.29" stroke="WHITE" strokeType="INSIDE" width="291.0" />
-        <BorderPane fx:id="statisticsPane" layoutX="693.0" layoutY="388.0" prefHeight="238.0" prefWidth="265.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a80079" height="268.0" layoutX="667.0" layoutY="373.0" opacity="0.29" stroke="WHITE" strokeType="INSIDE" width="328.0" />
+        <BorderPane fx:id="statisticsPane" layoutX="674.0" layoutY="388.0" prefHeight="238.0" prefWidth="314.0">
+          <center>
+            <TabPane opacity="0.89" prefHeight="238.0" prefWidth="314.0" rotateGraphic="false" side="TOP" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="HDI">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <BorderPane fx:id="hdiGraph" layoutX="0.0" layoutY="2.0" prefHeight="200.0" prefWidth="314.0" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Population">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="202.0" prefWidth="314.0">
+                      <children>
+                        <BorderPane fx:id="popGraph" layoutX="0.0" layoutY="2.0" prefHeight="200.0" prefWidth="314.0" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Revenue">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <BorderPane fx:id="revGraph" layoutX="0.0" layoutY="2.0" prefHeight="200.0" prefWidth="314.0" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Crop data">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="202.0" prefWidth="328.0">
+                      <children>
+                        <BorderPane fx:id="cropGraph" layoutX="0.0" layoutY="2.0" prefHeight="200.0" prefWidth="314.0" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+          </center>
+        </BorderPane>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ccff" height="80.310546875" layoutX="25.0" layoutY="659.0" stroke="WHITE" strokeType="INSIDE" width="972.049072265625" />
         <Label fx:id="feedLabel" layoutX="285.0" layoutY="636.0" text="Feed crops" visible="false">
           <labelFor>
@@ -310,42 +353,42 @@
             </StackPane>
           </children>
         </HBox>
-        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="548.0" layoutY="64.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
+        <ImageView id="mapImage" fx:id="fullmap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="534.0" layoutY="64.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
           <image>
             <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="215.0" fitWidth="176.55109979155094" focusTraversable="false" layoutX="568.0" layoutY="63.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="215.0" fitWidth="176.55109979155094" focusTraversable="false" layoutX="554.0" layoutY="63.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="812.0" layoutY="80.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="798.0" layoutY="80.0" onMouseClicked="#clickedRegion" onMouseMoved="#mouseMoved" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="139.7412567138672" fitWidth="115.17579249533182" focusTraversable="false" layoutX="722.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="139.7412567138672" fitWidth="115.17579249533182" focusTraversable="false" layoutX="708.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="821.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.83542121848416" fitWidth="155.8978271484375" focusTraversable="false" layoutX="807.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="689.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="675.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="777.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="763.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="557.0" layoutY="129.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="543.0" layoutY="129.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
           </image>
