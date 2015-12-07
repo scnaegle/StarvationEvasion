@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.VoteStatus;
 
 import java.util.Arrays;
 
@@ -90,6 +91,10 @@ public class AITesting {
     int vote = ai.vote(hand[6], EnumRegion.HEARTLAND);
 
     System.out.println(vote);
+
+    //need to update votes on cards for test, not sure how yet
+    ai.updateVoteStatus(new VoteStatus(ai.getHandCards()));
+
   }
 
   /**

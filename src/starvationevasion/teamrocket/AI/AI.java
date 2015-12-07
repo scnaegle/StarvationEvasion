@@ -3,15 +3,17 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.ServerChatMessage;
+import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.Random;
 
 //TODO: AI CHAT!!!!! ASAP
-//TODO: Need to update Player Records, need to take in Array of Policy cards and check if regions voted yes
 public class AI extends Player
 {
+  private AIChatResponse chat;
   /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
@@ -46,6 +48,8 @@ public class AI extends Player
       PlayerRecord record = new PlayerRecord();
       records[i] = record;
     }
+
+    chat = new AIChatResponse(records);
   }
 
   /**
@@ -94,6 +98,27 @@ public class AI extends Player
     }
   }
 
+  /***** Override player voting updating and chat receiving ******/
+  @Override
+  public synchronized void updateVoteStatus(VoteStatus voteStatus)
+  {
+    for(PolicyCard card : voteStatus.currentCards)
+    {
+      EnumRegion owner = card.getOwner();
+
+      if(card.didVoteYes(owner))records[owner.ordinal()].setPlayerCoop(true);
+      else records[owner.ordinal()].setPlayerCoop(false);
+    }
+  }
+
+  @Override
+  public synchronized void receiveChatMessage(ServerChatMessage message)
+  {
+    super.receiveChatMessage(message);
+    chat.getMessage(message);
+  }
+
+  /********** Interface Methods *********/
   @Override
   public PolicyCard[] getDraftedCards()
   {
