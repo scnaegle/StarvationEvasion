@@ -24,6 +24,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.teamrocket.server.GameClock;
 import starvationevasion.vis.ClientTest.CustomLayout;
 import starvationevasion.vis.visuals.Earth;
 
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import static starvationevasion.teamrocket.main.Main.GAME_CLOCK;
 import static starvationevasion.teamrocket.main.Main.getGameController;
 
 /**
@@ -149,6 +151,8 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Label worldTitle;
 
+  private boolean[] selectedCard = new boolean[7];
+
   /***************************************************************************************/
 
   public DraftController()
@@ -161,8 +165,10 @@ public class DraftController implements javafx.fxml.Initializable
         if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
           displayHand();
-          time.setText(Main.GAME_CLOCK.getFormatted());
-          time.setTextFill(Color.FORESTGREEN );
+
+          time.setText(GAME_CLOCK.getFormatted());
+          time.setTextFill(Color.FORESTGREEN);
+
           if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
           {
             time.setTextFill(Color.DARKRED);
@@ -184,6 +190,7 @@ public class DraftController implements javafx.fxml.Initializable
           {
             showMyRegion();
             resetCards();
+            Main.GAME_CLOCK.setTimeLeft(300000);
           }
 
 
@@ -198,6 +205,8 @@ public class DraftController implements javafx.fxml.Initializable
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
   }
+
+
 
   /**
    * When scene first opens, visualizer is loaded and displayed.
@@ -261,7 +270,8 @@ public class DraftController implements javafx.fxml.Initializable
   public void displayEarth()
   {
     earthViewer.startRotate();
-    visPane.add(earthViewer.getEarth(), 1, 1);
+    visPane.add(earthViewer.getSmallEarth(),1,1);
+    //visPane.add(earthViewer.getEarth(), 1, 1);
     visPane.setVisible(true);
 
   }
@@ -277,7 +287,7 @@ public class DraftController implements javafx.fxml.Initializable
     if(event.getSource() == visPane)
     {
       worldPane.setVisible(true);
-      largeEarthPane.add(earthViewer.getEarthOverlay(), 1, 1);
+      largeEarthPane.add(earthViewer.getEarth(), 1, 1);
       earthViewer.startRotate();
 
     }
@@ -334,47 +344,59 @@ public class DraftController implements javafx.fxml.Initializable
     else if (button == addedInputs)
     {
       cardInputs.setVisible(false);
+      if(selectedCard[0]) {tryDraftingCard(card1, card1Image, discard1);}
+      else if(selectedCard[1]){ tryDraftingCard(card2, card2Image, discard2);}
+      else if (selectedCard[2]) {tryDraftingCard(card3, card3Image, discard3);}
+      else if(selectedCard[3]){tryDraftingCard(card4, card4Image, discard4);}
+      else if(selectedCard[4]){tryDraftingCard(card5, card5Image, discard5);}
+      else if(selectedCard[5]){tryDraftingCard(card6, card6Image, discard6);}
+      else if(selectedCard[6]){tryDraftingCard(card7, card7Image, discard7);}
+
 
     }
     else if(button == cancelInputs)
     {
-      //don't draft card
-      cancelDraft();
+      for(int i=0;i<selectedCard.length;i++)
+      {
+        selectedCard[i] = false;
+      }
+      cardInputs.setVisible(false);
     }
     else if (button == card1)
     {
+      selectedCard[0] = true;
       setupAddBox(0);
-      tryDraftingCard(card1, card1Image, discard1);
     }
     else if (button == card2)
     {
+      selectedCard[1] = true;
       setupAddBox(1);
-      tryDraftingCard(card2, card2Image, discard2);
+
     }
     else if (button == card3)
     {
+      selectedCard[2] = true;
       setupAddBox(2);
-      tryDraftingCard(card3, card3Image, discard3);
     }
     else if (button == card4)
     {
+      selectedCard[3] = true;
       setupAddBox(3);
-      tryDraftingCard(card4, card4Image, discard4);
     }
     else if (button == card5)
     {
+      selectedCard[4] = true;
       setupAddBox(4);
-      tryDraftingCard(card5, card5Image, discard5);
     }
     else if (button == card6)
     {
+      selectedCard[5]=true;
       setupAddBox(5);
-      tryDraftingCard(card6, card6Image, discard6);
     }
     else if (button == card7)
     {
+      selectedCard[6] = true;
       setupAddBox(6);
-      tryDraftingCard(card7, card7Image, discard7);
     }
 
     else if (button == drawCardButton)
@@ -486,11 +508,6 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
-  private void cancelDraft()
-  {
-    cardInputs.setVisible(false);
-    //remove drafted card and un-disable card clicked.
-  }
 
 
   /**
