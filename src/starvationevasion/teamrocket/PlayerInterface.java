@@ -17,6 +17,11 @@ import starvationevasion.teamrocket.models.ChatHistory;
 public interface PlayerInterface
 {
   /**
+   * Set the player's region
+   */
+  public void setEnumRegion(EnumRegion enumRegion);
+
+  /**
    * Player's selected region.
    */
   public EnumRegion getEnumRegion();

@@ -27,7 +27,7 @@ public class Player implements PlayerInterface
   /**
    * Player's selected region.
    */
-  public final EnumRegion ENUM_REGION;
+  public EnumRegion ENUM_REGION;
 
   /**
    * AI Level if AI is used
@@ -69,6 +69,14 @@ public class Player implements PlayerInterface
     AI = ai;
     this.controller = controller;
     income = 10000000;
+  }
+
+  public Player(GameController controller) {
+    this(null, null, controller);
+  }
+
+  public synchronized void setEnumRegion(EnumRegion enumRegion) {
+    this.ENUM_REGION = enumRegion;
   }
 
   public EnumRegion getEnumRegion() {
