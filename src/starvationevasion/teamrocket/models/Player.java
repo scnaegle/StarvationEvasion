@@ -21,13 +21,13 @@ public class Player implements PlayerInterface
   private WorldData worldData;
   private Map<EnumRegion, RegionHistory> regionHistories;
   private Map<EnumRegion, PolicyVote[]> policyVotes;
-  private ChatHistory chatHistory;
+  private ChatHistory chatHistory = new ChatHistory();
   private VoteStatus voteStatus;
 
   /**
    * Player's selected region.
    */
-  public final EnumRegion ENUM_REGION;
+  public EnumRegion ENUM_REGION;
 
   /**
    * AI Level if AI is used
@@ -69,6 +69,14 @@ public class Player implements PlayerInterface
     AI = ai;
     this.controller = controller;
     income = 10000000;
+  }
+
+  public Player(GameController controller) {
+    this(null, null, controller);
+  }
+
+  public synchronized void setEnumRegion(EnumRegion enumRegion) {
+    this.ENUM_REGION = enumRegion;
   }
 
   public EnumRegion getEnumRegion() {
@@ -282,5 +290,11 @@ public class Player implements PlayerInterface
   synchronized public void receiveChatMessage(ServerChatMessage message) {
     chatHistory.addMessage(message);
     //TODO AI needs to handle and figure out how to respond.
+  }
+
+  @Override
+  public ChatHistory getChatHistory()
+  {
+    return chatHistory;
   }
 }

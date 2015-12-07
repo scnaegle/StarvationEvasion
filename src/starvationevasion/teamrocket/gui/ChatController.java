@@ -11,10 +11,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
+import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
+import starvationevasion.teamrocket.models.ChatHistory;
+import starvationevasion.teamrocket.models.Player;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 /**
  * Handles the chat scene and gui.
@@ -31,6 +35,7 @@ public class ChatController implements javafx.fxml.Initializable
 
   private CharSequence text;
   private boolean hasText = false;
+
   /**************************/
 
   public ChatController()
@@ -40,11 +45,21 @@ public class ChatController implements javafx.fxml.Initializable
       @Override
       public void handle(ActionEvent event)
       {
-        //Get new messages.
-
-        if(Main.GAME_CLOCK.getTimeLeft() <=0)
+        PlayerInterface player = Main.getGameController().player;
+        if (player != null)
         {
-          //Main.getGameController().finishedCardDraft();
+          Stack<ChatHistory.ChatMessage> history = player.getChatHistory().getMessages();
+
+          String conversation = "";
+          for (ChatHistory.ChatMessage message : history)
+          {
+            //Some messages are null because of the set stack size.
+            if(message != null)
+            {
+              conversation = conversation + message.getMessage() + "\n";
+            }
+          }
+          convo.setText(conversation);
         }
       }
     }));
@@ -64,20 +79,24 @@ public class ChatController implements javafx.fxml.Initializable
   {
     String username = Main.getGameController().getPlayerUsername();
 
-    if(hasText)
+    if (hasText)
     {
-      text = text.toString()+"\n" + username+": " + typeText.getCharacters().toString();
+      text = text.toString() + "\n" + username + ": " + typeText.getCharacters().toString();
     }
-    else text = username+": " + typeText.getCharacters().toString();
+    else
+    {
+      text = username + ": " + typeText.getCharacters().toString();
+    }
 
     convo.setText(text.toString());
     typeText.clear();
     hasText = true;
   }
+
   @FXML
   public void enterMessage(KeyEvent event)
   {
-    if(event.getCode().equals(KeyCode.ENTER))
+    if (event.getCode().equals(KeyCode.ENTER))
     {
       sendMessage();
     }

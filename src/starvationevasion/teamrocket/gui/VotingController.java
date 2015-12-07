@@ -195,8 +195,8 @@ public class VotingController implements javafx.fxml.Initializable
             highlightCards();
             Main.GAME_CLOCK.setTimeLeft(180000);
             myDrafts = Main.getGameController().player.getDraftedCards();
-            System.out.println("card 1: " + myDrafts[0].getCardType());
-            System.out.println("card 2: "+ myDrafts[1].getCardType());
+            if(myDrafts.length >= 1) System.out.println("card 1: " + myDrafts[0].getCardType());
+            if(myDrafts.length >= 2) System.out.println("card 2: "+ myDrafts[1].getCardType());
             myRegion = Main.getGameController().getMyRegion();
           }
 

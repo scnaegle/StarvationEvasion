@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.messages.*;
+import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.messages.EnumGameState;
@@ -116,29 +117,6 @@ public class Client
 
   }
 
-
-  public static void main(String[] args)
-  {
-
-    String host = null;
-    int port = 0;
-
-    try
-    {
-      host = "127.0.0.1";
-      port = 27015;
-      if (port < 1) throw new Exception();
-    }
-    catch (Exception e)
-    {
-      System.out.println("Usage: Client hostname portNumber");
-      System.exit(0);
-    }
-    Client client = new Client(host, port, null);
-
-    //client.send(new Login());
-  }
-
   public synchronized void send(ServerEvent event, Serializable object) {
     Message message = new Message(event, object);
     MessageHandler.send(outputStream, message);
@@ -151,6 +129,40 @@ public class Client
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+
+  public static void main(String[] args) {
+
+//    String host = null;
+//    int port = 0;
+//
+//    try
+//    {
+//      host = "127.0.0.1";
+//      port = ServerConstants.DEFAULT_PORT;
+//      if (port < 1) throw new Exception();
+//    }
+//    catch (Exception e)
+//    {
+//    }
+    String username = System.getenv("SEUSERNAME");
+    String password = System.getenv("SEPASSWORD");
+    String host = System.getenv("SEHOSTNAME");
+    String port = System.getenv("SEPORT");
+    if (username == null || password == null || host == null || port == null) {
+      System.out.println("The AI command will be launched with the following environment variables:\n" +
+        "\t\"SEUSERNAME\": The username to use\n" +
+        "\t\"SEPASSWORD\": the password\n" +
+        "\t\"SEHOSTNAME\": the host of the server\n" +
+        "\t\"SEPORT\": the port to connect to");
+      System.exit(0);
+    }
+    GameController gameController = new GameController(null, true);
+    gameController.tryLogin(username, password, host, port);
+//    Client client = new Client(host, port, gameController);
+
+//    client.send(new Login());
   }
 
 
@@ -176,6 +188,8 @@ public class Client
           gameController.setAvailableRegions((AvailableRegions)msg);
         } else if (msg instanceof ReadyToBegin) {
           gameController.setStartGame((ReadyToBegin) msg);
+        } else if (msg instanceof BeginGame) {
+          gameController.beginGame((BeginGame) msg);
         } else if (msg instanceof PhaseStart) {
           gameController.updateTimer((PhaseStart) msg);
         } else if (msg instanceof GameState) {
@@ -228,6 +242,8 @@ public class Client
           break;
         case ASSIGNED_REGION:
           gameController.setSuccessfulLogin(true);
+          gameController.setAssignedRegion(loginResponse.assignedRegion);
+          gameController.setCanPickRegion(false);
           break;
         case REJOIN:
           gameController.setSuccessfulLogin(false);
@@ -237,6 +253,7 @@ public class Client
         case CHOOSE_REGION:
           System.out.println("Choose regions");
           gameController.setSuccessfulLogin(true);
+          gameController.setCanPickRegion(true);
           break;
       }
     }

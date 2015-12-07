@@ -5,6 +5,7 @@ import starvationevasion.common.messages.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.messages.EnumGameState;
@@ -44,12 +45,18 @@ public class GameController
   private EnumScene currentScene;
   private boolean needToInitialize;
 
-  private boolean AI;
+  private boolean AI = false;
+
+  /**
+   * This for us to keep track of whether or not the player is allowed by the server
+   * to pick another region or if they are specified by the server to have a set one.
+   */
+  private boolean canPickRegion = true;
 
   public int currentYear;
   public int currentTurn;
 
-  GameController(Main main, boolean AI)
+  public GameController(Main main, boolean AI)
   {
     this.MAIN = main;
     for (EnumRegion enumRegion : EnumRegion.values())
@@ -58,7 +65,7 @@ public class GameController
     }
   }
 
-  GameController(Main main) {
+  public GameController(Main main) {
     this(main, false);
   }
 
@@ -92,22 +99,6 @@ public class GameController
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
     startClientAndAttemptLogin("127.0.0.1");
-//    client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
-//
-//      try
-//      {
-//        while(!gotSalt)
-//        {
-//          Thread.sleep(17l);
-//        }
-//      }
-//      catch (InterruptedException e)
-//      {
-//        e.printStackTrace();
-//      }
-//
-//    client.send(new Login(playerUsername, salt, playerPassword));
-//    client.send(new RegionChoice(player.getEnumRegion()));
 
     //Server will need to spawn a bunch of AI Clients
     //Need to detect what zones are left and fill with AI
@@ -309,25 +300,52 @@ public class GameController
     return player.getEnumRegion();
   }
 
+  /**
+   * Set the list of available regions left to choose from
+   * @param availableRegions Available regions to choose from
+   */
   public void setAvailableRegions(AvailableRegions availableRegions)
   {
     this.availableRegions = availableRegions;
-
-    for (Map.Entry<EnumRegion, String> entry : availableRegions.takenRegions.entrySet())
-    {
-      if(Objects.equals(entry.getValue(), playerUsername))
-      {
-        if(entry.getKey() != getMyRegion())
-        {
-          //TODO set our region if assigned by server.
-        }
-      }
-    }
   }
 
+  /**
+   * Get the list of available regions that are left to choose from
+   * @return AvailableRegions Available regions object that contains both the list
+   *         of available regions and the list of already taken regions.
+   */
   public AvailableRegions getAvailableRegions()
   {
     return availableRegions;
+  }
+
+  /**
+   * Set the assigned region. This will create a new player is one hasn't already been
+   * created as in the case of joining a hosted game.
+   */
+  public void setAssignedRegion(EnumRegion region) {
+    if (player == null) {
+      this.player = new Player(region, (AI ? EnumAITypes.BASIC : null), this);
+    } else {
+      player.setEnumRegion(region);
+    }
+  }
+
+  /**
+   * Set whether or not the current player is allowed to pick a new region, as specified
+   * by the game server.
+   * @param canPickRegion boolean True if can pick a region, False otherwise
+   */
+  public void setCanPickRegion(boolean canPickRegion) {
+    this.canPickRegion = canPickRegion;
+  }
+
+  /**
+   * Get whether or not the current player is allowed to pick a new region.
+   * @return boolean True if can pick a region, False otherwise
+   */
+  public boolean getCanPickRegion() {
+    return canPickRegion;
   }
 
   /**
@@ -349,7 +367,7 @@ public class GameController
 
     while(!getSuccessfulLogin()) {
       try {
-        Thread.sleep(500);
+        Thread.sleep(17l);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -410,6 +428,19 @@ public class GameController
   public void setPlayerVote(EnumRegion region, VoteType voteType)
   {
 
+  }
+
+  /**
+   * Parse the BeginGame object from the server and start the game for player
+   * @param beginGame
+   */
+  public void beginGame(BeginGame beginGame) {
+    for(Map.Entry<EnumRegion, String> entry : beginGame.finalRegionChoices.entrySet()) {
+      if (playerUsername == entry.getValue()) {
+        player.setEnumRegion(entry.getKey());
+        break;
+      }
+    }
   }
 
   /**
@@ -477,11 +508,6 @@ public class GameController
     return address.matches(regex);
   }
 
-  public void savePlayerPort(String playerPort)
-  {
-    this.playerPort = playerPort;
-  }
-
   public boolean validPort(String port)
   {
     final String regex = "^\\d{2,6}+$";
@@ -524,20 +550,10 @@ public class GameController
     return playerUsername;
   }
 
-  public void initVisualizer()
-  {
-
-  }
-
   public void updateTimer(PhaseStart phaseStart) {
     Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
     setGameState(phaseStart.currentGameState);
     // TODO update GUI appropriately
-  }
-
-  public int clickedCard(int i)
-  {
-    return 0;
   }
 
   public EnumScene getCurrentScene()
@@ -556,5 +572,11 @@ public class GameController
   {
     this.salt = salt;
     this.gotSalt = true;
+  }
+
+  public void playDrafts(PolicyCard draft1, PolicyCard draft2)
+  {
+    //TODO send to client. No need to update player since turn is over. Player shouldn't need this information.
+
   }
 }

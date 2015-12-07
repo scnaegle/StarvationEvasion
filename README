@@ -187,3 +187,11 @@ Main
             - If a player does not vote the card is automatically abstained
           - Push (vote for)
           - Vote against
+
+
+== Server Setup
+First, create a tsv file (tab delimited) with the usernames, passwords, and Region (if you want to lock it to those). There is an example of this in:
+  data/config/example_password_file.tsv
+
+To start the server you can do something like this:
+  java -classpath out/production/StarvationEvasion/ starvationevasion.server.Server /home/sean/school/StarvationEvasion/data/config/password_file.tsv  java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment

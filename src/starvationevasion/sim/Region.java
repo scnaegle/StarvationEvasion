@@ -4,6 +4,7 @@ import starvationevasion.common.Constant;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.MapPoint;
+import starvationevasion.common.Util;
 import sun.plugin.dom.exception.InvalidStateException;
 
 import java.awt.geom.Area;
@@ -28,6 +29,8 @@ public class Region extends AbstractTerritory
 
   private int revenue;
 
+  public int ethanolProducerTaxCredit = 0;
+
   // all data in metric tons
   private long[] initialProduction1981 = new long[EnumFood.SIZE];
   private long[] initialImports1981 = new long[EnumFood.SIZE];
@@ -47,6 +50,7 @@ public class Region extends AbstractTerritory
     this.region = region;
     if (region.isUS())
     { revenue = PLAYER_START_REVENUE;
+      ethanolProducerTaxCredit = Util.rand.nextInt(15) + Util.rand.nextInt(15);
     }
   }
 
@@ -423,10 +427,15 @@ public class Region extends AbstractTerritory
    * Updates the yield of all territories in the region and aggregates the values for
    * the entire region.
    */
-  public void updateYield()
+  public void updateYield(int year)
   {
     for (Territory t : territories)
-    { t.updateYield();
+    {
+      // replant crops based on the new land used for farming
+      CropOptimizer cropOptimizer = new CropOptimizer(year, t);
+      cropOptimizer.optimizeCrops();
+
+      t.updateYield();
       for (EnumFood crop : EnumFood.values())
       {
         landCrop[crop.ordinal()] += t.landCrop[crop.ordinal()];
@@ -478,14 +487,14 @@ public class Region extends AbstractTerritory
   {
     for (Territory t : getTerritories())
     {
-      double territoryFarmLand = (t.totalFarmLand / 100) * t.getLandTotal();
+      double territoryFarmLand = (t.farmLand1981 / 100.0) * t.landTotal;
       double helperSum = cropLandAreaHelper(t, cropData);
       double landCropRatio = territoryFarmLand / helperSum;
 
       for (CropZoneData zoneData : cropData)
       {
         double cropLand = cropLandAreaHelper(t, zoneData) * landCropRatio;
-        t.setLand1981(zoneData.food, cropLand);
+        t.setCropLand(zoneData.food, (int) cropLand);
       }
     }
   }
@@ -618,9 +627,17 @@ public class Region extends AbstractTerritory
    */
   public void updatePopulation(int year)
   {
+    // Do not recompute territory undernourished statistics in the 1st year, or if
+    // this is a book-keeping region.
+    //
+    boolean updateTerritories = region != null && year != Constant.FIRST_YEAR;
     int people = 0, underfed = 0;
     for (Territory t : territories)
-    {
+    { // Territory.updatePopulation because it updates internal state variables related
+      // to production.
+      //
+      if (updateTerritories) t.updatePopulation(year);
+
       people += t.getPopulation(year);
       underfed += t.getUndernourished();
     }
@@ -629,7 +646,7 @@ public class Region extends AbstractTerritory
 
     // Region population in year 0.
     //
-    population[0] = people;
+    population[year - Constant.FIRST_YEAR] = people;
     undernourished = underfed;
   }
 
