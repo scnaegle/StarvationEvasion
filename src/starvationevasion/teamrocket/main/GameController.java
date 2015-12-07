@@ -407,6 +407,11 @@ public class GameController
     // TODO update GUI with new vote status
   }
 
+  public void setPlayerVote(EnumRegion region, VoteType voteType)
+  {
+
+  }
+
   /**
    * Store the hands of all players
    */
