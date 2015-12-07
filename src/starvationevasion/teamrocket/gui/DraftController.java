@@ -892,7 +892,7 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
-      draft1Card = card;
+      draft1Card = card; //Policy card at position n
     }
     else if (cardsDrafted == 2)
     {
@@ -901,7 +901,7 @@ public class DraftController implements javafx.fxml.Initializable
       discardDraft2.setVisible(true);
       draft2Image.setImage(cardImage.getImage());
       draft2.setVisible(true);
-      draft2Card = card;
+      draft2Card = card; //Policy card at position n
     }
     else
     {
