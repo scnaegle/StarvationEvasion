@@ -3,21 +3,23 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.ServerChatMessage;
+import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.models.Player;
 
 import java.util.Random;
 
 //TODO: AI CHAT!!!!! ASAP
-//TODO: Need to update Player Records, need to take in Array of Policy cards and check if regions voted yes
 public class AI extends Player
 {
+  private AIChatResponse chat;
   /*Game info*/
   private final int NUM_US_REGIONS = EnumRegion.US_REGIONS.length;
   private PlayerRecord[] records;
   private Random generator;
   private int actionsPerformed = 2; //decrease when actions are done during drafting phase
-
+  private EnumPolicy[] discardedCards; //get the policies that were discarded
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
    *
@@ -46,6 +48,8 @@ public class AI extends Player
       PlayerRecord record = new PlayerRecord();
       records[i] = record;
     }
+
+    chat = new AIChatResponse(records);
   }
 
   /**
@@ -55,8 +59,12 @@ public class AI extends Player
    */
   private void removeDiscardedCards(int[] discardCardsPosition) {
     EnumPolicy[] hand = getHand();
+    discardedCards = new EnumPolicy[discardCardsPosition.length];
+    int index = 0;
     for (int i : discardCardsPosition)
     {
+      discardedCards[index] = hand[i];
+      index++;
       hand[i] = null;
     }
     setHand(hand);
@@ -70,7 +78,7 @@ public class AI extends Player
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(5) == 0 && actionsPerformed > 0)
+    if(generator.nextInt(1) == 0 && actionsPerformed > 0)
     {
       actionsPerformed--;
       int numCards = generator.nextInt(4);
@@ -94,6 +102,27 @@ public class AI extends Player
     }
   }
 
+  /***** Override player voting updating and chat receiving ******/
+  @Override
+  public synchronized void updateVoteStatus(VoteStatus voteStatus)
+  {
+    for(PolicyCard card : voteStatus.currentCards)
+    {
+      EnumRegion owner = card.getOwner();
+
+      if(card.didVoteYes(owner))records[owner.ordinal()].setPlayerCoop(true);
+      else records[owner.ordinal()].setPlayerCoop(false);
+    }
+  }
+
+  @Override
+  public synchronized void receiveChatMessage(ServerChatMessage message)
+  {
+    super.receiveChatMessage(message);
+    chat.getMessage(message);
+  }
+
+  /********** Interface Methods *********/
   @Override
   public PolicyCard[] getDraftedCards()
   {
