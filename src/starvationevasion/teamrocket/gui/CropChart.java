@@ -266,7 +266,7 @@ public class CropChart
     if (foods[0] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.FRUIT);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -285,7 +285,7 @@ public class CropChart
     if (foods[1] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.GRAIN);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -303,7 +303,7 @@ public class CropChart
     if (foods[2] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.CITRUS);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -322,7 +322,7 @@ public class CropChart
     if (foods[3] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.FEED);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -341,7 +341,7 @@ public class CropChart
     if (foods[4] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.DAIRY);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -360,7 +360,7 @@ public class CropChart
     if (foods[5] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.FISH);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -380,7 +380,7 @@ public class CropChart
     if (foods[6] == true)
     {
       ArrayList<Integer> data = region.getCropProduced(EnumFood.MEAT);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -401,7 +401,7 @@ public class CropChart
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.NUT);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -422,7 +422,7 @@ public class CropChart
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.OIL);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -443,7 +443,7 @@ public class CropChart
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.POULTRY);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
@@ -464,13 +464,12 @@ public class CropChart
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.VEGGIES);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
         for (int dataout : data)
         {
-          //System.out.println(data);
           series.getData().add(
               new XYChart.Data(1980 + (iterateTurnNumber * 3),
                   dataout));
@@ -485,7 +484,7 @@ public class CropChart
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.SPECIAL);
-      if (data.get(0) != 0)
+      if (data.lastIndexOf(data) != 0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;

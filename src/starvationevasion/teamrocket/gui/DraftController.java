@@ -153,9 +153,9 @@ public class DraftController implements javafx.fxml.Initializable
   private Label worldTitle;
 
   private boolean[] selectedCard = new boolean[7];
-  private Spinner<Integer> draftXControl;
-  private Spinner<Integer> draftYControl;
-  private Spinner<Integer> draftZControl;
+//  private Spinner<Integer> draftXControl;
+//  private Spinner<Integer> draftYControl;
+//  private Spinner<Integer> draftZControl;
   private ComboBox<EnumFood> draftTargetFood;
   private ComboBox<EnumRegion> draftTargetRegion;
 
@@ -242,32 +242,32 @@ public class DraftController implements javafx.fxml.Initializable
     PolicyCard.EnumVariableUnit type = card.getRequiredVariables(PolicyCard.EnumVariable.X);
     if(type != null)
     {
-      draftXControl = getControlForVariable(type);
-      Label label = new Label("X value", draftXControl);
-      textGrid.add(draftXControl, 1, row);
-      textGrid.add(label, 0, row++);
-      label.setVisible(true);
-      draftXControl.setVisible(true);
+//      draftXControl = getControlForVariable(type);
+//      Label label = new Label("X value", draftXControl);
+//      textGrid.add(draftXControl, 1, row);
+//      textGrid.add(label, 0, row++);
+//      label.setVisible(true);
+//      draftXControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
     if(type != null)
     {
-      draftYControl = getControlForVariable(type);
-      Label label = new Label("Y value", draftYControl);
-      textGrid.add(draftYControl, 1, row);
-      textGrid.add(label, 0, row++);
-      label.setVisible(true);
-      draftYControl.setVisible(true);
+//      draftYControl = getControlForVariable(type);
+//      Label label = new Label("Y value", draftYControl);
+//      textGrid.add(draftYControl, 1, row);
+//      textGrid.add(label, 0, row++);
+//      label.setVisible(true);
+//      draftYControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
     if(type != null)
     {
-      draftZControl = getControlForVariable(type);
-      Label label = new Label("Z value", draftZControl);
-      textGrid.add(draftZControl, 1, row);
-      textGrid.add(label, 0, row++);
-      label.setVisible(true);
-      draftZControl.setVisible(true);
+//      draftZControl = getControlForVariable(type);
+//      Label label = new Label("Z value", draftZControl);
+//      textGrid.add(draftZControl, 1, row);
+//      textGrid.add(label, 0, row++);
+//      label.setVisible(true);
+//      draftZControl.setVisible(true);
     }
 
     if(card.getValidTargetFoods() != null)
@@ -293,24 +293,24 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
-  private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
-  {
-    Spinner<Integer> control = null;
-    switch(type)
-    {
-      case MILLION_DOLLAR:
-        control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
-        break;
-      case PERCENT:
-        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
-        break;
-      case UNIT:
-        control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
-        control.setEditable(false);
-        break;
-    }
-    return control;
-  }
+//  private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
+//  {
+//    Spinner<Integer> control = null;
+//    switch(type)
+//    {
+//      case MILLION_DOLLAR:
+//        control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
+//        break;
+//      case PERCENT:
+//        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
+//        break;
+//      case UNIT:
+//        control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
+//        control.setEditable(false);
+//        break;
+//    }
+//    return control;
+//  }
 
 
   public void displayHand()
@@ -852,18 +852,18 @@ public class DraftController implements javafx.fxml.Initializable
   {
     PolicyCard card = getGameController().getCard(cardHandIndex);
 
-    if (card.getRequiredVariables(PolicyCard.EnumVariable.X) != null)
-    {
-      card.setX(draftXControl.getValue());
-    }
-    if (card.getRequiredVariables(PolicyCard.EnumVariable.Y) != null)
-    {
-      card.setY(draftYControl.getValue());
-    }
-    if (card.getRequiredVariables(PolicyCard.EnumVariable.Z) != null)
-    {
-      card.setZ(draftZControl.getValue());
-    }
+//    if (card.getRequiredVariables(PolicyCard.EnumVariable.X) != null)
+//    {
+//      card.setX(draftXControl.getValue());
+//    }
+//    if (card.getRequiredVariables(PolicyCard.EnumVariable.Y) != null)
+//    {
+//      card.setY(draftYControl.getValue());
+//    }
+//    if (card.getRequiredVariables(PolicyCard.EnumVariable.Z) != null)
+//    {
+//      card.setZ(draftZControl.getValue());
+//    }
 
     if (card.getValidTargetFoods() != null)
     {
@@ -875,14 +875,14 @@ public class DraftController implements javafx.fxml.Initializable
       card.setTargetRegion(draftTargetRegion.getValue());
     }
 
-    if(card.validate() != null)
-    {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
-      alert.setResizable(true);
-      alert.setWidth(alert.getContentText().length() * 7);
-      alert.showAndWait();
-      return false;
-    }
+//    if(card.validate() != null)
+//    {
+//      Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
+//      alert.setResizable(true);
+//      alert.setWidth(alert.getContentText().length() * 7);
+//      alert.showAndWait();
+//      return false;
+//    }
 
     cardsDrafted++;
     if (cardsDrafted == 1)
@@ -905,8 +905,8 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else
     {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION, "Already two cards drafted.", ButtonType.CLOSE);
-      alert.showAndWait();
+//      Alert alert = new Alert(Alert.AlertType.INFORMATION, "Already two cards drafted.", ButtonType.CLOSE);
+//      alert.showAndWait();
 
       cardsDrafted = 2;
       return false;
