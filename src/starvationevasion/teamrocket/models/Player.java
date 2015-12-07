@@ -293,6 +293,27 @@ public class Player implements PlayerInterface
     }
   }
 
+  /**
+   * Returns a Map of all the region histories.
+   * @return
+   */
+  public Map<EnumRegion, RegionHistory> getRegionHistories() {
+    return regionHistories;
+  }
+
+  /**
+   * Returns an array of the region histories as apposed to the default
+   * hashmap being stored.
+   * @return
+   */
+  public RegionHistory[] getRegionHistoriesArray() {
+    RegionHistory[] regionHistoriesArray = new RegionHistory[EnumRegion.SIZE];
+    for(Map.Entry<EnumRegion, RegionHistory> entry : regionHistories.entrySet()) {
+      regionHistoriesArray[entry.getKey().ordinal()] = entry.getValue();
+    }
+    return regionHistoriesArray;
+  }
+
   @Override
   synchronized public void setGameState(EnumGameState gameState) {
     this.gameState = gameState;

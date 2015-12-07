@@ -23,6 +23,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.teamrocket.models.RegionHistory;
 import starvationevasion.vis.ClientTest.CustomLayout;
 import starvationevasion.vis.visuals.Earth;
 
@@ -147,6 +148,11 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Label close, close2, close3, close4, close5, close6, close7, close8,
       close9, close10, close11, close12, closeEarthLabel;
+
+  @FXML
+  private TabPane produceGraphs;
+  @FXML
+  private BorderPane PPT, totalRev;
 
   @FXML
   private TextArea nonCitrusText, grainsText, citrusText, feedText, oilText, meatText, dairyText, poultryText,
@@ -381,7 +387,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void buttonPressed(ActionEvent event)
   {
-
+    produceGraphs.setVisible(false);
     Button button = (Button) event.getSource();
     if (button == doneWithCards)
     {
@@ -534,8 +540,10 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       nonCitrusText.setText("Products: \n"+EnumFood.FRUIT.toLongString()+"\n\n" + "Fun fact: \n");
       appleWindow.setVisible(true);
+      //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[]),EnumFood.FRUIT);
 
     }
     else if (button == grainsButton)
@@ -543,6 +551,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       grainsText.setText("Products: \n"+EnumFood.GRAIN.toLongString()+"\n\n" + "Fun fact: \n");
       grainWindow.setVisible(true);
     }
@@ -551,6 +560,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       citrusText.setText("Products: \n"+EnumFood.CITRUS.toLongString()+"\n\n" + "Fun fact: \n");
       citrusWindow.setVisible(true);
     }
@@ -559,6 +569,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       feedText.setText("Products: \n"+EnumFood.FEED.toLongString()+"\n\n" + "Fun fact: \n");
       feedWindow.setVisible(true);
     }
@@ -567,6 +578,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       dairyText.setText("Products: \n"+EnumFood.DAIRY.toLongString()+"\n\n" + "Fun fact: \n");
       dairyWindow.setVisible(true);
     }
@@ -575,6 +587,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       meatText.setText("Products: \n"+EnumFood.MEAT.toLongString()+"\n\n" + "Fun fact: \n");
       meatWindow.setVisible(true);
     }
@@ -583,6 +596,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       poultryText.setText("Products: \n"+EnumFood.POULTRY.toLongString()+"\n\n" + "Fun fact: \n");
       poultryWindow.setVisible(true);
     }
@@ -591,6 +605,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       oilText.setText("Products: \n"+EnumFood.OIL.toLongString()+"\n\n" + "Fun fact: \n");
       oilWindow.setVisible(true);
     }
@@ -599,6 +614,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       specialText.setText("Products: \n"+EnumFood.SPECIAL.toLongString()+"\n\n" + "Fun fact: \n");
       specialWindow.setVisible(true);
     }
@@ -607,6 +623,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       veggieText.setText("Products: \n"+EnumFood.VEGGIES.toLongString()+"\n\n" + "Fun fact: \n");
       veggieWindow.setVisible(true);
     }
@@ -615,6 +632,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       nutText.setText("Products: \n"+EnumFood.NUT.toLongString()+"\n\n" + "Fun fact: \n");
       nutWindow.setVisible(true);
     }
@@ -623,6 +641,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produceGraphs.setVisible(true);
       fishText.setText("Products: \n"+EnumFood.FISH.toLongString()+ "\n\n" + "Fun fact: \n");
       fishWindow.setVisible(true);
     }
@@ -1221,8 +1240,7 @@ public class DraftController implements javafx.fxml.Initializable
       cali.setVisible(true);
       caliLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.CALIFORNIA);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.CALIFORNIA)));
+      makeGraphs(EnumRegion.CALIFORNIA);
 
 
       System.out.println("Selected cali");
@@ -1232,8 +1250,7 @@ public class DraftController implements javafx.fxml.Initializable
       heartland.setVisible(true);
       heartLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.HEARTLAND);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.HEARTLAND)));
+      makeGraphs(EnumRegion.HEARTLAND);
 
       System.out.println("Selected heartland");
     }
@@ -1242,8 +1259,7 @@ public class DraftController implements javafx.fxml.Initializable
       mountSt.setVisible(true);
       mountLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.MOUNTAIN);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.MOUNTAIN)));
+      makeGraphs(EnumRegion.MOUNTAIN);
 
       System.out.println("Selected Mountain States");
     }
@@ -1252,8 +1268,7 @@ public class DraftController implements javafx.fxml.Initializable
       nPlains.setVisible(true);
       nPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_PLAINS);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
+      makeGraphs(EnumRegion.NORTHERN_PLAINS);
 
       System.out.println("Selected North Plains");
     }
@@ -1262,8 +1277,7 @@ public class DraftController implements javafx.fxml.Initializable
       northSt.setVisible(true);
       neLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.NORTHERN_CRESCENT);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      makeGraphs(EnumRegion.NORTHERN_CRESCENT);
 
       System.out.println("Selected Northeast");
     }
@@ -1273,9 +1287,7 @@ public class DraftController implements javafx.fxml.Initializable
       southEast.setVisible(true);
       seLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHEAST);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.SOUTHEAST)));
-
+      makeGraphs(EnumRegion.SOUTHEAST);
       System.out.println("Selected Southeast");
 
     }
@@ -1284,8 +1296,7 @@ public class DraftController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       sPlainLabel.setVisible(true);
       currentRegion.setText("Current Region:  " + EnumRegion.SOUTHERN_PLAINS);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-       .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      makeGraphs(EnumRegion.SOUTHERN_PLAINS);
 
       System.out.println("Selected South Plains");
     }
@@ -1315,45 +1326,51 @@ public class DraftController implements javafx.fxml.Initializable
     if (myRegion == EnumRegion.CALIFORNIA)
     {
       cali.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.CALIFORNIA)));
+      makeGraphs(EnumRegion.CALIFORNIA);
     }
     else if (myRegion == EnumRegion.MOUNTAIN)
     {
       mountSt.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.MOUNTAIN)));
+      makeGraphs(EnumRegion.MOUNTAIN);
     }
     else if (myRegion == EnumRegion.NORTHERN_CRESCENT)
     {
       northSt.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.NORTHERN_CRESCENT)));
+      makeGraphs(EnumRegion.NORTHERN_CRESCENT);
     }
     else if (myRegion == EnumRegion.NORTHERN_PLAINS)
     {
       nPlains.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.NORTHERN_PLAINS)));
+      makeGraphs(EnumRegion.NORTHERN_PLAINS);
     }
     else if (myRegion == EnumRegion.SOUTHEAST)
     {
       southEast.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.SOUTHEAST)));
+      makeGraphs(EnumRegion.SOUTHEAST);
     }
     else if (myRegion == EnumRegion.SOUTHERN_PLAINS)
     {
       sPlains.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.SOUTHERN_PLAINS)));
+      makeGraphs(EnumRegion.SOUTHERN_PLAINS);
     }
     else if (myRegion == EnumRegion.HEARTLAND)
     {
       heartland.setVisible(true);
-      cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-          .getGameController().getRegion(EnumRegion.HEARTLAND)));
+      makeGraphs(EnumRegion.HEARTLAND);
     }
+  }
+
+  /**
+   * Quickly displays graphs for each region when one is selected.
+   * @param region Region currently selected.
+   */
+  private void makeGraphs(EnumRegion region)
+  {
+    cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
+        .getGameController().getRegion(region)));
+    revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(new RegionHistory(region)));
+    //hdiGraph.setCenter(CropChart.makeHDIPieChart(new RegionHistory(region)));
+    popGraph.setCenter(CropChart.makeLineChartRegionPopulation(new RegionHistory(region)));
   }
 
   /**
