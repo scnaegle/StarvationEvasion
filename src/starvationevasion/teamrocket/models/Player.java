@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.models;
 
 import starvationevasion.common.*;
+import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.common.messages.ServerChatMessage;
 import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.server.ServerState;
@@ -13,7 +14,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Stream;
 
-
+/**
+ * Player keeps track of the state of the game
+ * as the game is being played. Player also stores
+ * information for human, and AI that they need
+ * to know about.
+ */
 public class Player implements PlayerInterface
 {
   private ServerState serverState;
@@ -62,6 +68,8 @@ public class Player implements PlayerInterface
    * Creates a new player based on selected region.
    *
    * @param enumRegion the region that the player controls all stats are determined by this.
+   * @param ai level of the player if player is an AI
+   * @param controller link to GameController
    */
   public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller)
   {
@@ -71,6 +79,10 @@ public class Player implements PlayerInterface
     income = 10000000;
   }
 
+  /**
+   * Creates a player using only GameController link
+   * @param controller link to GameController
+   */
   public Player(GameController controller) {
     this(null, null, controller);
   }
@@ -79,27 +91,42 @@ public class Player implements PlayerInterface
     this.ENUM_REGION = enumRegion;
   }
 
+  /**
+   * Get region of player
+   * @return EnumRegion of player
+   */
   public EnumRegion getEnumRegion() {
     return ENUM_REGION;
   }
 
+  /**
+   * Gets the EnumAITypes of the player if
+   * it is an AI
+   * @return EnumAITypes if player is AI, otherwise null for human player
+   */
+  @Override
   public EnumAITypes getAIType() {
     return AI;
   }
+
   /**
-   * Gets the hand of the player
-   * @return player hand
+   * Gets the hand of the player as array of EnumPolicies
+   * @return EnumPolicy[] of player's hand
    */
   public EnumPolicy[] getHand(){return hand;}
 
+  /**
+   * Get the hand of the player, but as an array of PolicyCards
+   * @return PolicyCard[] of player's hand
+   */
   public PolicyCard[] getHandCards() {
     return Stream.of(hand).map(c -> PolicyCard.create(ENUM_REGION, c)).toArray(size -> new PolicyCard[size]);
   }
 
+  @Override
   public PolicyCard getCard(int card_index) {
     return PolicyCard.create(ENUM_REGION, hand[card_index]);
   }
-
 
   /**
    * Update the player's hand with the new hand
@@ -132,20 +159,6 @@ public class Player implements PlayerInterface
     selectedCards.clear();
     selectCard(card1);
     selectCard(card2);
-//    int selectionSize = 2;
-
-//    if(card1 < 0 || card2 < 0) selectionSize = 1;
-//    else if(card1 < 0 && card2 < 0) selectionSize = 0;
-
-//    selectedCards = new EnumPolicy[selectionSize];
-
-//    if(selectionSize > 0)
-//    {
-//      if(card1 < 0) selectedCards[0] = hand[card2];
-//      else selectedCards[0] = hand[card1];
-//    }
-//    if(selectionSize > 1) selectedCards[1] = hand[card2];
-
   }
 
   private void selectCard(int card_index) {
@@ -260,6 +273,7 @@ public class Player implements PlayerInterface
     return gameState;
   }
 
+  @Override
   synchronized public void updateWorldData(WorldData worldData) {
     this.worldData = worldData;
     for(EnumRegion enumRegion : EnumRegion.values()) {
@@ -270,6 +284,7 @@ public class Player implements PlayerInterface
       regionHistory.addUndernourished(regionData.undernourished);
       regionHistory.addHDI(regionData.humanDevelopmentIndex);
       for (EnumFood food : EnumFood.values()) {
+        regionHistory.addPricePerTon(food, worldData.foodPrice[food.ordinal()]);
         regionHistory.addCropProduced(food, regionData.foodProduced[food.ordinal()]);
         regionHistory.addCropRevenue(food, regionData.foodIncome[food.ordinal()]);
         regionHistory.addFoodExported(food, regionData.foodExported[food.ordinal()]);
@@ -278,18 +293,47 @@ public class Player implements PlayerInterface
     }
   }
 
+  /**
+   * Returns a Map of all the region histories.
+   * @return
+   */
+  public Map<EnumRegion, RegionHistory> getRegionHistories() {
+    return regionHistories;
+  }
 
+  /**
+   * Returns an array of the region histories as apposed to the default
+   * hashmap being stored.
+   * @return
+   */
+  public RegionHistory[] getRegionHistoriesArray() {
+    RegionHistory[] regionHistoriesArray = new RegionHistory[EnumRegion.SIZE];
+    for(Map.Entry<EnumRegion, RegionHistory> entry : regionHistories.entrySet()) {
+      regionHistoriesArray[entry.getKey().ordinal()] = entry.getValue();
+    }
+    return regionHistoriesArray;
+  }
+
+  @Override
   synchronized public void setGameState(EnumGameState gameState) {
     this.gameState = gameState;
   }
 
+  @Override
   synchronized public void updateVoteStatus(VoteStatus voteStatus) {
     this.voteStatus = voteStatus;
   }
 
-  synchronized public void receiveChatMessage(ServerChatMessage message) {
+  @Override
+  synchronized public void receiveChatMessage(ServerChatMessage message)
+  {
     chatHistory.addMessage(message);
-    //TODO AI needs to handle and figure out how to respond.
+  }
+
+  @Override
+  synchronized public ClientChatMessage sendChatMessage()
+  {
+    return null;
   }
 
   @Override

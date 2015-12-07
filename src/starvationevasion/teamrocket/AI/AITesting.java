@@ -9,7 +9,9 @@ import starvationevasion.common.messages.VoteStatus;
 import java.util.Arrays;
 
 /**
- * Created by zfalgout on 12/2/15.
+ * Simple test main to see if the AI methods are working
+ *
+ * @author zfalgout
  */
 public class AITesting {
   static AI ai = new AI(EnumRegion.CALIFORNIA, EnumAITypes.BASIC, null);
@@ -124,13 +126,13 @@ public class AITesting {
     System.out.println("No Coop Keyword ******");
     ServerChatMessage message = new ServerChatMessage("Hoop?", EnumRegion.HEARTLAND);
     ai.receiveChatMessage(message);
-    System.out.println(ai.sendMessage().message);
+    System.out.println(ai.sendChatMessage().message);
 
     System.out.println("Coop Keyword ******");
 
     message = new ServerChatMessage("coop?", EnumRegion.HEARTLAND);
     ai.receiveChatMessage(message);
-    System.out.println(ai.sendMessage().message);
+    System.out.println(ai.sendChatMessage().message);
   }
 
   public static void main(String[] args)

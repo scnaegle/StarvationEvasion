@@ -39,6 +39,15 @@ public class TestMainLineGraph extends Application {
     region.addCropProduced(EnumFood.CITRUS, 27);
     region.addCropProduced(EnumFood.CITRUS, 28);
 
+    region.addCropProduced(EnumFood.FRUIT,21);
+    region.addCropProduced(EnumFood.FRUIT,22);
+    region.addCropProduced(EnumFood.FRUIT,19);
+    region.addCropProduced(EnumFood.FRUIT, 14);
+    region.addCropProduced(EnumFood.FRUIT, 24);
+    region.addCropProduced(EnumFood.FRUIT, 26);
+    region.addCropProduced(EnumFood.FRUIT, 28);
+    region.addCropProduced(EnumFood.FRUIT, 22);
+    region.addCropProduced(EnumFood.FRUIT, 21);
 
     region.addPopulation(111);
     region.addPopulation(100);
@@ -56,18 +65,38 @@ public class TestMainLineGraph extends Application {
     region.addCropRevenue(EnumFood.CITRUS, 25);
     region.addCropRevenue(EnumFood.CITRUS, 26);
     region.addCropRevenue(EnumFood.CITRUS, 27);
-    region.addCropRevenue(EnumFood.CITRUS,28);
+    region.addCropRevenue(EnumFood.CITRUS, 28);
+
+    region.addCropProduced(EnumFood.GRAIN, 0);
+
+    region.addCropProduced(EnumFood.FEED,0);
+
+    region.addCropProduced(EnumFood.DAIRY,0);
+
+    region.addCropProduced(EnumFood.FISH,0);
+
+    region.addCropProduced(EnumFood.MEAT,0);
+    region.addCropProduced(EnumFood.NUT,0);
+    region.addCropProduced(EnumFood.OIL,0);
+    region.addCropProduced(EnumFood.POULTRY,0);
+    region.addCropProduced(EnumFood.VEGGIES,0);
+
+    region.addCropProduced(EnumFood.SPECIAL,0);
+
+
 
     regions[0]=region;
     regions[1]=region;
 
 
+    boolean foods[] = {true,true,true,true,true,true,true,true,true,true,true,true};
+
     stage.setTitle("Line Chart Sample");
 //    LineChart<Number,Number> lineChart = CropChart.makeLineChartRegionSpecificFood(
 //        region, EnumFood.CITRUS);
 
-    LineChart<Number,Number> lineChart = CropChart.makeLineChartRegionSpecificFood(
-        region, EnumFood.CITRUS);
+    LineChart<Number,Number> lineChart = CropChart.makeLineChartRegionFood(
+        region, foods);
 
     Scene scene  = new Scene(lineChart,800,600);
 
