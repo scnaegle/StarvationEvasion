@@ -88,7 +88,7 @@ public class GameController
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
 
-    Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath());
+    Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(), null);
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
     startClientAndAttemptLogin("127.0.0.1");
