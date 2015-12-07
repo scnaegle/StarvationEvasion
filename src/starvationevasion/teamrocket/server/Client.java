@@ -172,21 +172,22 @@ public class Client
         } else if (msg instanceof LoginResponse) {
           handleLoginResponse((LoginResponse) msg);
         } else if (msg instanceof AvailableRegions) {
-          handleAvailableRegionsResponse((AvailableRegions) msg);
+          gameController.setAvailableRegions((AvailableRegions)msg);
         } else if (msg instanceof ReadyToBegin) {
-          handleReadyToBeginResponse((ReadyToBegin) msg);
+          gameController.setStartGame((ReadyToBegin) msg);
         } else if (msg instanceof PhaseStart) {
-          handlePhaseStartResponse((PhaseStart) msg);
+          gameController.updateTimer((PhaseStart) msg);
         } else if (msg instanceof GameState) {
-          handleGameStateResponse((GameState) msg);
+          gameController.updateWorldData(((GameState) msg).worldData);
+          gameController.setHand(((GameState) msg).hand);
         } else if (msg instanceof ServerChatMessage) {
-          handleChatMessageResponse((ServerChatMessage) msg);
+          gameController.setChat((ServerChatMessage) msg);
         } else if (msg instanceof ActionResponse) {
           handleActionResponse((ActionResponse) msg);
         } else if (msg instanceof Hello) {
           handleHelloResponse((Hello) msg);
         } else if (msg instanceof VoteStatus) {
-          handleVoteStatusResponse((VoteStatus) msg);
+          gameController.setVoteStatus((VoteStatus) msg);
         } else {
           System.out.println("Unrecognized message from Server = " + msg);
         }
@@ -244,31 +245,6 @@ public class Client
       }
     }
 
-    private void handleAvailableRegionsResponse(AvailableRegions availableRegions) {
-      // TODO Send error message if the region has already been taken.
-      System.out.println("Available regions");
-      gameController.setAvailableRegions(availableRegions);
-    }
-
-    private void handleReadyToBeginResponse(ReadyToBegin readyToBegin) {
-      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
-      gameController.player.setGameState(EnumGameState.BEGINNING);
-    }
-
-    private void handlePhaseStartResponse(PhaseStart phaseStart) {
-      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
-      gameController.player.setGameState(phaseStart.currentGameState);
-    }
-
-    private void handleGameStateResponse(GameState gameState) {
-      gameController.player.updateWorldData(gameState.worldData);
-      gameController.player.setHand(gameState.hand);
-    }
-
-    private void handleChatMessageResponse(ServerChatMessage message) {
-      gameController.setChat(message);
-    }
-
     private void handleActionResponse(ActionResponse actionResponse) {
       switch(actionResponse.responseType) {
         case OK:
@@ -287,10 +263,6 @@ public class Client
           gameController.addErrorMessage(actionResponse.responseMessage);
           break;
       }
-    }
-
-    private void handleVoteStatusResponse(VoteStatus voteStatus) {
-      gameController.player.updateVoteStatus(voteStatus);
     }
   }
 }

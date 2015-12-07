@@ -1,12 +1,7 @@
 package starvationevasion.teamrocket.main;
 
-import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
-import starvationevasion.common.Util;
-import starvationevasion.common.messages.AvailableRegions;
-import starvationevasion.common.messages.Login;
-import starvationevasion.common.messages.RegionChoice;
+import starvationevasion.common.*;
+import starvationevasion.common.messages.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
@@ -343,31 +338,24 @@ public class GameController
   /**
    * Start the game after the game room is done.
    *
-   * @param message
+   * @param readyToBegin
    */
-  public void setStartGame(String message)
+  public void setStartGame(ReadyToBegin readyToBegin)
   {
-
+    Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
+    player.setGameState(EnumGameState.BEGINNING);
+    // TODO update GUI as needed.
   }
 
   /**
    * Store the new Regions
    *
-   * @param newRegionHistories
+   * @param worldData
    */
-  public void setRegionStats(ArrayList<RegionHistory> newRegionHistories)
+  public void updateWorldData(WorldData worldData)
   {
-
-  }
-
-  /**
-   * Sets the cards that will be voted on in voting stage.
-   *
-   * @param cards cards to vote on.
-   */
-  public void setVotingCards(ArrayList<PolicyCard> cards)
-  {
-
+    player.updateWorldData(worldData);
+    // TODO update GUI with the new world data - probably graphs and such
   }
 
   /**
@@ -381,17 +369,23 @@ public class GameController
   /**
    * Set the vote valutes of who has voted for what.
    */
-  public void setVote()
+  public void setVoteStatus(VoteStatus voteStatus)
   {
-
+    player.updateVoteStatus(voteStatus);
+    // TODO update GUI with new vote status
   }
 
   /**
    * Store the hands of all players
    */
-  public void setDraw()
-  {
+  public void setHand(EnumPolicy[] hand) {
+    player.setHand(hand);
+    // TODO update GUI with the new hand
+  }
 
+  public void setGameState(ServerState gameState) {
+    player.setGameState(gameState);
+    // TODO update GUI with the new game state
   }
 
   /**
@@ -399,9 +393,10 @@ public class GameController
    *
    * @param message
    */
-  public void setChat(String message)
+  public void setChat(ServerChatMessage message)
   {
-
+    player.receiveChatMessage(message);
+    //TODO update GUI with new message
   }
 
   public void setSinglePlayerMode(boolean on)
@@ -532,10 +527,10 @@ public class GameController
 
   }
 
-  public void timerUpdate(long timeLeft)
-  {
-
-
+  public void updateTimer(PhaseStart phaseStart) {
+    Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
+    setGameState(phaseStart.currentGameState);
+    // TODO update GUI appropriately
   }
 
   public int clickedCard(int i)
