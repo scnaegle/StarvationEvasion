@@ -313,6 +313,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   public void buttonPressed(ActionEvent event)
   {
+
     Button button = (Button) event.getSource();
     if (button == doneWithCards)
     {
@@ -352,6 +353,10 @@ public class DraftController implements javafx.fxml.Initializable
       else if(selectedCard[5]){tryDraftingCard(card6, card6Image, discard6);}
       else if(selectedCard[6]){tryDraftingCard(card7, card7Image, discard7);}
 
+      for(int i=0;i<selectedCard.length;i++)
+      {
+        selectedCard[i] = false;
+      }
 
     }
     else if(button == cancelInputs)
@@ -877,68 +882,68 @@ public class DraftController implements javafx.fxml.Initializable
 
     if (draft1Image.getImage() == card1Image.getImage())
     {
-      draftedCards[0] = 1;
+      draftedCards[0] = 0;
     }
     else if (draft1Image.getImage() == card2Image.getImage())
     {
-      draftedCards[0] = 2;
+      draftedCards[0] = 1;
     }
     else if (draft1Image.getImage() == card3Image.getImage())
     {
-      draftedCards[0] = 3;
+      draftedCards[0] = 2;
     }
     else if (draft1Image.getImage() == card4Image.getImage())
     {
-      draftedCards[0] = 4;
+      draftedCards[0] = 3;
     }
     else if (draft1Image.getImage() == card5Image.getImage())
     {
-      draftedCards[0] = 5;
+      draftedCards[0] = 4;
     }
     else if (draft1Image.getImage() == card6Image.getImage())
     {
-      draftedCards[0] = 6;
+      draftedCards[0] = 5;
     }
     else if (draft1Image.getImage() == card7Image.getImage())
     {
-      draftedCards[0] = 7;
+      draftedCards[0] = 6;
     }
     else
     {
-      draftedCards[0]=0; //No cards were drafted.
+      draftedCards[0]=-1; //No cards were drafted.
     }
 
     if (draft2Image.getImage() == card1Image.getImage())
     {
-      draftedCards[1] = 1;
+      draftedCards[1] = 0;
     }
     else if (draft2Image.getImage() == card2Image.getImage())
     {
-      draftedCards[1] = 2;
+      draftedCards[1] = 1;
     }
     else if (draft2Image.getImage() == card3Image.getImage())
     {
-      draftedCards[1] = 3;
+      draftedCards[1] = 2;
     }
     else if (draft2Image.getImage() == card4Image.getImage())
     {
-      draftedCards[1] = 4;
+      draftedCards[1] = 3;
     }
     else if (draft2Image.getImage() == card5Image.getImage())
     {
-      draftedCards[1] = 5;
+      draftedCards[1] = 4;
     }
     else if (draft2Image.getImage() == card6Image.getImage())
     {
-      draftedCards[1] = 6;
+      draftedCards[1] = 5;
     }
     else if (draft2Image.getImage() == card7Image.getImage())
     {
-      draftedCards[1] = 7;
+      draftedCards[1] = 6;
     }
     else
     {
-      draftedCards[1] = 0; //No cards were drafted.
+      draftedCards[1] = -1; //No cards were drafted.
     }
 
 

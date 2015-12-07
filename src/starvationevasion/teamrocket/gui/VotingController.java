@@ -527,38 +527,44 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == caliCard1)
     {
+      if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       caliCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes1, caliOpposeVotes1, caliAbstainVotes1);
       c1Votes.setVisible(true);
-      if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
     }
     else if(button == caliCard2)
     {
+      if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       caliCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes2, caliOpposeVotes2, caliAbstainVotes2);
       c2Votes.setVisible(true);
-      if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
     }
     else if(button == mountCard1)
     {
+      if(myRegion == EnumRegion.MOUNTAIN){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       mountCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes1, mountOpposeVotes1, mountAbstainVotes1);
       m1Votes.setVisible(true);
-      if(myRegion == EnumRegion.MOUNTAIN){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
     }
     else if(button == mountCard2)
     {
+      if(myRegion == EnumRegion.MOUNTAIN){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       mountCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes2, mountOpposeVotes2, mountAbstainVotes2);
       m2Votes.setVisible(true);
-      if(myRegion == EnumRegion.MOUNTAIN){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
     }
     else if(button == nPlainCard1)
     {
+      if(myRegion == EnumRegion.NORTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       nPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes1, nPlainOpposeVotes1, nPlainAbstainVotes1);
@@ -566,6 +572,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == nPlainCard2)
     {
+      if(myRegion == EnumRegion.NORTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       nPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes2, nPlainOpposeVotes2, nPlainAbstainVotes2);
@@ -573,6 +581,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == sPlainCard1)
     {
+      if(myRegion == EnumRegion.SOUTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       sPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sPlainAbstainVotes1);
@@ -580,6 +590,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == sPlainCard2)
     {
+      if(myRegion == EnumRegion.SOUTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       sPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sPlainAbstainVotes2);
@@ -587,6 +599,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == neCard1)
     {
+      if(myRegion == EnumRegion.NORTHERN_CRESCENT){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       neCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes1, neOpposeVotes1, neAbstainVotes1);
@@ -594,6 +608,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == neCard2)
     {
+      if(myRegion == EnumRegion.NORTHERN_CRESCENT){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       neCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes2, neOpposeVotes2, neAbstainVotes2);
@@ -601,6 +617,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == seCard1)
     {
+      if(myRegion == EnumRegion.SOUTHEAST){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       seCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes1, seOpposeVotes1, seAbstainVotes1);
@@ -608,6 +626,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == seCard2)
     {
+      if(myRegion == EnumRegion.SOUTHEAST){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       seCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes2, seOpposeVotes2, seAbstainVotes2);
@@ -615,6 +635,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == heartCard1)
     {
+      if(myRegion == EnumRegion.HEARTLAND){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       heartCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes1, heartOpposeVotes1, heartAbstainVotes1);
@@ -622,6 +644,8 @@ public class VotingController implements javafx.fxml.Initializable
     }
     else if(button == heartCard2)
     {
+      if(myRegion == EnumRegion.HEARTLAND){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
+      else{ /*set other cards to other player's cards*/}
       heartCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes2, heartOpposeVotes2, heartAbstainVotes2);
