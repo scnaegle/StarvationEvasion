@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.common.messages.ServerChatMessage;
 import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.teamrocket.main.GameController;
@@ -20,6 +21,7 @@ public class AI extends Player
   private Random generator;
   private int actionsPerformed = 2; //decrease when actions are done during drafting phase
   private EnumPolicy[] discardedCards; //get the policies that were discarded
+  private EnumRegion cooperatingRegion;
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
    *
@@ -49,7 +51,7 @@ public class AI extends Player
       records[i] = record;
     }
 
-    chat = new AIChatResponse(records);
+    chat = new AIChatResponse(records, this, generator);
   }
 
   /**
@@ -78,7 +80,7 @@ public class AI extends Player
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(1) == 0 && actionsPerformed > 0)
+    if(generator.nextInt(5) == 0 && actionsPerformed > 0)
     {
       actionsPerformed--;
       int numCards = generator.nextInt(4);
@@ -102,6 +104,14 @@ public class AI extends Player
     }
   }
 
+  /**
+   * Sets which region the AI is cooperating with
+   * when that region through the chat asked for
+   * cooperating
+   * @param region that AI is working together with
+   */
+  public void setCooperatingRegion(EnumRegion region){cooperatingRegion = region;}
+
   /***** Override player voting updating and chat receiving ******/
   @Override
   public synchronized void updateVoteStatus(VoteStatus voteStatus)
@@ -122,6 +132,11 @@ public class AI extends Player
     chat.getMessage(message);
   }
 
+  public ClientChatMessage sendMessage()
+  {
+    return chat.getResponse();
+  }
+
   /********** Interface Methods *********/
   @Override
   public PolicyCard[] getDraftedCards()
@@ -138,6 +153,12 @@ public class AI extends Player
 
   @Override
   public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
+    if(cooperatingRegion != null && cooperatingRegion.equals(cardPlayedRegion))
+    {
+      cooperatingRegion = null;
+      return 1;
+    }
+
     records[cardPlayedRegion.ordinal()].setPendingVoteCard(PolicyCard.create(cardPlayedRegion,card));
     return AI.vote(records[cardPlayedRegion.ordinal()], generator, ENUM_REGION);
   }

@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.AI;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.ServerChatMessage;
 import starvationevasion.common.messages.VoteStatus;
 
 import java.util.Arrays;
@@ -117,6 +118,21 @@ public class AITesting {
     }
   }
 
+  private static void chatTest()
+  {
+    System.out.println("Test Chat ******");
+    System.out.println("No Coop Keyword ******");
+    ServerChatMessage message = new ServerChatMessage("Hoop?", EnumRegion.HEARTLAND);
+    ai.receiveChatMessage(message);
+    System.out.println(ai.sendMessage().message);
+
+    System.out.println("Coop Keyword ******");
+
+    message = new ServerChatMessage("coop?", EnumRegion.HEARTLAND);
+    ai.receiveChatMessage(message);
+    System.out.println(ai.sendMessage().message);
+  }
+
   public static void main(String[] args)
   {
     makeHand();
@@ -125,5 +141,6 @@ public class AITesting {
     makeHand();
     voteTest();
     playCardTest();
+    chatTest();
   }
 }
