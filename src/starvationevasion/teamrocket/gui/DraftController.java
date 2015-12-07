@@ -539,8 +539,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       PPT.setVisible(true);
-//      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
-//                                                                       .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
+      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
+                                                                       .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
       nonCitrusText.setText("Products: \n" + EnumFood.FRUIT.toLongString() + "\n\n" + "Fun fact: \n");
       appleWindow.setVisible(true);
       //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));
