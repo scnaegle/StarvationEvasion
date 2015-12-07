@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -224,28 +221,28 @@ public class DraftController implements javafx.fxml.Initializable
   private void setupAddBox(int cardIndex)
   {
     //Clear old buttons
-    /*ObservableList<Node> children = inputPane.getChildren();
-    children.removeAll(FXCollections.observableArrayList(inputPane.getChildren()));
+    ObservableList<Node> children = inputPane.getChildren();
+    children.clear();
 
     PolicyCard card = getGameController().player.getCard(cardIndex);
     if(card.getValidTargetFoods() != null)
     {
       ComboBox<EnumFood> food = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
       Label label = new Label("Target Food", food);
-      children.add(label);
       children.add(food);
+      children.add(label);
       label.setVisible(true);
       food.setVisible(true);
     }
     if(card.getValidTargetRegions() != null)
     {
-      //ComboBox<EnumRegion> region = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
-      //Label label = new Label("Target Region", region);
-      //children.add(label);
-      //children.add(region);
-      //label.setVisible(true);
-      //region.setVisible(true);
-    }*/
+      ComboBox<EnumRegion> region = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
+      Label label = new Label("Target Region", region);
+      children.add(region);
+      children.add(label);
+      label.setVisible(true);
+      region.setVisible(true);
+    }
 
     cardInputs.setVisible(true);
   }
