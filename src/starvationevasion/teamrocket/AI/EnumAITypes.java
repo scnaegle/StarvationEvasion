@@ -9,6 +9,13 @@ import java.util.Random;
 /**
  * Different Level types of AI that
  * the AI class can take in
+ *
+ * Each Level of AI is responsible for
+ * implementing the abstract methods
+ * in a way that reflects what that AI level
+ * does
+ *
+ * @author zfalgout 
  */
 public enum EnumAITypes
 {
@@ -21,6 +28,10 @@ public enum EnumAITypes
    * then there is a 1/2 chance to vote against or abstain
    * Discard will favor voting cards, 1/3 chance of discarding non vote card
    * Will try to avoid playing voting cards if possible, 1/5 chance of playing a voting card
+   * When selecting card targets, AI will pick a random Food from the valid food lists
+   * of a card, target regions seem to only be a single region so target region is that
+   * region, and Variable targets that aren't UNIT types will pick something between
+   * 1 and 10, else if UNIT type will always be 2.
    */
   BASIC
     {
