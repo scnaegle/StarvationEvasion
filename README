@@ -194,4 +194,4 @@ First, create a tsv file (tab delimited) with the usernames, passwords, and Regi
   data/config/example_password_file.tsv
 
 To start the server you can do something like this:
-  java -classpath out/production/StarvationEvasion/ starvationevasion.server.Server /home/sean/school/StarvationEvasion/data/config/password_file.tsv  java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment
+  java -classpath out/production/StarvationEvasion/ starvationevasion.server.Server data/config/password_file.tsv  java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment
