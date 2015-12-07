@@ -284,6 +284,7 @@ public class Player implements PlayerInterface
       regionHistory.addUndernourished(regionData.undernourished);
       regionHistory.addHDI(regionData.humanDevelopmentIndex);
       for (EnumFood food : EnumFood.values()) {
+        regionHistory.addPricePerTon(food, worldData.foodPrice[food.ordinal()]);
         regionHistory.addCropProduced(food, regionData.foodProduced[food.ordinal()]);
         regionHistory.addCropRevenue(food, regionData.foodIncome[food.ordinal()]);
         regionHistory.addFoodExported(food, regionData.foodExported[food.ordinal()]);
