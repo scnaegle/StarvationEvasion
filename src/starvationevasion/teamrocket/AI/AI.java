@@ -11,7 +11,27 @@ import starvationevasion.teamrocket.models.Player;
 
 import java.util.Random;
 
-//TODO: AI CHAT!!!!! ASAP
+/**
+ * AI overrides PlayerInterface methods to work with how AI makes decisions
+ * Every AI is dependent upon the EnumAITypes it uses, so different level
+ * AIs should be done in EnumAITypes.
+ *
+ * When AI is made, the first thing it does is set up its own records
+ * for keeping track of how cooperative players are being, and used it
+ * to decide how the AI will vote on cards, and if sent a message for
+ * cooperation, if the AI will cooperate with that player that sent the message.
+ *
+ * After setup, AI is able to run methods player uses to play the game,
+ * AI also can choose how to discard up to 3 cards in a separate method.
+ * AI redirects the methods that need decisions to the EnumAITypes
+ * implementation of those related methods.
+ *
+ * AI will only cooperate with a single player at a time. Once a vote is done
+ * whose card came from that region the AI is cooperating with, the cooperating
+ * region will be reset back to null.
+ *
+ * @author zfalgout
+ */
 public class AI extends Player
 {
   private AIChatResponse chat;
@@ -132,7 +152,8 @@ public class AI extends Player
     chat.getMessage(message);
   }
 
-  public ClientChatMessage sendMessage()
+  @Override
+  public ClientChatMessage sendChatMessage()
   {
     return chat.getResponse();
   }
