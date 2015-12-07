@@ -769,8 +769,10 @@ public class DraftController implements javafx.fxml.Initializable
   private void resetCards()
   {
     draft1.setVisible(false);
+    draft1Image.setImage(null);
     discardDraft1.setVisible(false);
     draft2.setVisible(false);
+    draft2Image.setImage(null);
     discardDraft2.setVisible(false);
 
     card1.setVisible(true);
@@ -1097,6 +1099,7 @@ public class DraftController implements javafx.fxml.Initializable
     }
 
     draft.setVisible(false);
+    draftImage.setImage(null); //Prevents playing undrafted card.
     discardDraft.setVisible(false);
   }
 
