@@ -153,6 +153,11 @@ public class DraftController implements javafx.fxml.Initializable
   private Label worldTitle;
 
   private boolean[] selectedCard = new boolean[7];
+  private Spinner<Integer> draftXControl;
+  private Spinner<Integer> draftYControl;
+  private Spinner<Integer> draftZControl;
+  private ComboBox<EnumFood> draftTargetFood;
+  private ComboBox<EnumRegion> draftTargetRegion;
 
   /***************************************************************************************/
 
@@ -243,70 +248,71 @@ public class DraftController implements javafx.fxml.Initializable
     PolicyCard.EnumVariableUnit type = card.getRequiredVariables(PolicyCard.EnumVariable.X);
     if(type != null)
     {
-      Control control = getControlForVariable(type);
-      Label label = new Label("X value", control);
-      textGrid.add(control, 1, row);
+      draftXControl = getControlForVariable(type);
+      Label label = new Label("X value", draftXControl);
+      textGrid.add(draftXControl, 1, row);
       textGrid.add(label, 0, row++);
       label.setVisible(true);
-      control.setVisible(true);
+      draftXControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
     if(type != null)
     {
-      Control control = getControlForVariable(type);
-      Label label = new Label("Y value", control);
-      textGrid.add(control, 1, row);
+      draftYControl = getControlForVariable(type);
+      Label label = new Label("Y value", draftYControl);
+      textGrid.add(draftYControl, 1, row);
       textGrid.add(label, 0, row++);
       label.setVisible(true);
-      control.setVisible(true);
+      draftYControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
     if(type != null)
     {
-      Control control = getControlForVariable(type);
-      Label label = new Label("Z value", control);
-      textGrid.add(control, 1, row);
+      draftZControl = getControlForVariable(type);
+      Label label = new Label("Z value", draftZControl);
+      textGrid.add(draftZControl, 1, row);
       textGrid.add(label, 0, row++);
       label.setVisible(true);
-      control.setVisible(true);
+      draftZControl.setVisible(true);
     }
 
     if(card.getValidTargetFoods() != null)
     {
-      ComboBox<EnumFood> comboBox = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
-      Label label = new Label("Target Food", comboBox);
-      textGrid.add(comboBox, 1, row);
+      draftTargetFood = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
+      Label label = new Label("Target Food", draftTargetFood);
+      textGrid.add(draftTargetFood, 1, row);
       textGrid.add(label, 0, row++);
       label.setVisible(true);
-      comboBox.setVisible(true);
+      draftTargetFood.setVisible(true);
     }
     if(card.getValidTargetRegions() != null)
     {
-      ComboBox<EnumRegion> comboBox = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
-      Label label = new Label("Target Region", comboBox);
-      textGrid.add(comboBox, 1, row);
+      draftTargetRegion = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions()
+      )));
+      Label label = new Label("Target Region", draftTargetRegion);
+      textGrid.add(draftTargetRegion, 1, row);
       textGrid.add(label, 0, row++);
       label.setVisible(true);
-      comboBox.setVisible(true);
+      draftTargetRegion.setVisible(true);
     }
 
 
   }
 
-  private Control getControlForVariable(PolicyCard.EnumVariableUnit type)
+  private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
   {
-    Control control = null;
+    Spinner<Integer> control = null;
     switch(type)
     {
       case MILLION_DOLLAR:
-        control = new Spinner<>(0, Integer.MAX_VALUE, 10, 1);
+        control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
         break;
       case PERCENT:
-        control = new Spinner<>(0.0,100.0, 50.0, 1.0);
+        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
         break;
       case UNIT:
-        control = new Spinner<Integer>(0, 10, 7);
-        ((Spinner)control).setEditable(false);
+        control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
+        control.setEditable(false);
         break;
     }
     return control;
@@ -408,18 +414,69 @@ public class DraftController implements javafx.fxml.Initializable
     //This is the button inside the cardInputs pane.
     else if (button == addedInputs)
     {
-      cardInputs.setVisible(false);
-      if(selectedCard[0]) {tryDraftingCard(card1, card1Image, discard1, 0);}
-      else if(selectedCard[1]){ tryDraftingCard(card2, card2Image, discard2, 1);}
-      else if (selectedCard[2]) {tryDraftingCard(card3, card3Image, discard3, 2);}
-      else if(selectedCard[3]){tryDraftingCard(card4, card4Image, discard4, 3);}
-      else if(selectedCard[4]){tryDraftingCard(card5, card5Image, discard5, 4);}
-      else if(selectedCard[5]){tryDraftingCard(card6, card6Image, discard6, 5);}
-      else if(selectedCard[6]){tryDraftingCard(card7, card7Image, discard7, 6);}
+      Button cardButton = null;
+      ImageView cardImage = null;
+      Label discard = null;
+      int cardIndex = -1;
 
-      for(int i=0;i<selectedCard.length;i++)
+      if (selectedCard[0])
       {
-        selectedCard[i] = false;
+        cardButton = card1;
+        cardImage = card1Image;
+        discard = discard1;
+        cardIndex = 0;
+      }
+      else if (selectedCard[1])
+      {
+        cardButton = card2;
+        cardImage = card2Image;
+        discard = discard2;
+        cardIndex = 1;
+      }
+      else if (selectedCard[2])
+      {
+        cardButton = card3;
+        cardImage = card3Image;
+        discard = discard3;
+        cardIndex = 2;
+      }
+      else if (selectedCard[3])
+      {
+        cardButton = card4;
+        cardImage = card4Image;
+        discard = discard4;
+        cardIndex = 3;
+      }
+      else if (selectedCard[4])
+      {
+        cardButton = card5;
+        cardImage = card5Image;
+        discard = discard5;
+        cardIndex = 4;
+      }
+      else if (selectedCard[5])
+      {
+        cardButton = card6;
+        cardImage = card6Image;
+        discard = discard6;
+        cardIndex = 5;
+      }
+      else if (selectedCard[6])
+      {
+        cardButton = card7;
+        cardImage = card7Image;
+        discard = discard7;
+        cardIndex = 6;
+      }
+
+      if(tryDraftingCard(cardButton, cardImage, discard, cardIndex))
+      {
+        cardInputs.setVisible(false);
+
+        for (int i = 0; i < selectedCard.length; i++)
+        {
+          selectedCard[i] = false;
+        }
       }
 
     }
@@ -793,16 +850,50 @@ public class DraftController implements javafx.fxml.Initializable
   /**
    * Called after card in hand is clicked on.
    * Will draft card as long as there's not already 2 cards drafted.
-   *  @param card    Card clicked
+   * @param cardButton    Card clicked
    * @param discard Discard option 'X'
    * @param cardHandIndex index in hand to draft.
    */
-  private void tryDraftingCard(Button card, ImageView cardImage, Label discard, int cardHandIndex)
+  private boolean tryDraftingCard(Button cardButton, ImageView cardImage, Label discard, int cardHandIndex)
   {
+    PolicyCard card = getGameController().getCard(cardHandIndex);
+
+    if (card.getRequiredVariables(PolicyCard.EnumVariable.X) != null)
+    {
+      card.setX(draftXControl.getValue());
+    }
+    if (card.getRequiredVariables(PolicyCard.EnumVariable.Y) != null)
+    {
+      card.setY(draftYControl.getValue());
+    }
+    if (card.getRequiredVariables(PolicyCard.EnumVariable.Z) != null)
+    {
+      card.setZ(draftZControl.getValue());
+    }
+
+    if (card.getValidTargetFoods() != null)
+    {
+      card.setTargetFood(draftTargetFood.getValue());
+    }
+
+    if (card.getValidTargetRegions() != null)
+    {
+      card.setTargetRegion(draftTargetRegion.getValue());
+    }
+
+    if(card.validate() != null)
+    {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
+      alert.setResizable(true);
+      alert.setWidth(alert.getContentText().length() * 7);
+      alert.showAndWait();
+      return false;
+    }
+
     cardsDrafted++;
     if (cardsDrafted == 1)
     {
-      card.setDisable(true);
+      cardButton.setDisable(true);
       discard.setDisable(true);
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
@@ -810,7 +901,7 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else if (cardsDrafted == 2)
     {
-      card.setDisable(true);
+      cardButton.setDisable(true);
       discard.setDisable(true);
       discardDraft2.setVisible(true);
       draft2Image.setImage(cardImage.getImage());
@@ -818,11 +909,14 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else
     {
-      //show error window and ask user if they want to swap cards
-      //re-enable card put back
-      System.out.println("Already two cards drafted.");
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, "Already two cards drafted.", ButtonType.CLOSE);
+      alert.showAndWait();
+
       cardsDrafted = 2;
+      return false;
     }
+
+    return true;
   }
 
   /**
