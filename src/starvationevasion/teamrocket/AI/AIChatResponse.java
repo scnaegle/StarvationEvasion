@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket.AI;
 
+import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.common.messages.ServerChatMessage;
 
@@ -7,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by zfalgout on 12/6/15.
@@ -15,12 +17,17 @@ public class AIChatResponse
 {
   private ArrayList<String> unknownMessageResponses = new ArrayList<String>();
   private String[] coopKeywords = {"coop", "cooperate", "co-operate", "join", "together", "team"};
+  private final String COOP_RESPONSE = "I will join you";
   private PlayerRecord[] records;
   private ServerChatMessage message;
+  private AI linkedAI;
+  private Random generator;
 
-  public AIChatResponse(PlayerRecord[] records)
+  public AIChatResponse(PlayerRecord[] records, AI ai, Random generator)
   {
     this.records = records;
+    linkedAI = ai;
+    this.generator = generator;
     loadResponses();
   }
 
@@ -55,20 +62,43 @@ public class AIChatResponse
   /**
    * Get the AI's response to the message sent
    * in getMessage
-   * @return ClientChatMessage response of AI to previous getMessage
+   * @return ClientChatMessage response of AI to previous getMessage, or null if no previous message received
    */
   public ClientChatMessage getResponse()
   {
-    ClientChatMessage response = null;
+    boolean cooping = false;
+
     if(message != null)
     {
-      //TODO: make message to send back to person that sent message in getMessage
+      if(records[message.sender.ordinal()].isPlayerCooperative())
+      {
+
+        if(message.card == null)
+        {
+          for(String keyword : coopKeywords)
+          {
+
+            if(message.message.toLowerCase().contains(keyword)) cooping = true;
+          }
+        }
+
+        else cooping = true;
+      }
+
+      EnumRegion[] regions = {message.sender};
+
+      if(cooping)
+      {
+        linkedAI.setCooperatingRegion(message.sender);
+        message = null;
+        return new ClientChatMessage(COOP_RESPONSE, regions);
+      }
+
+      message = null;
+      return new ClientChatMessage(unknownMessageResponses.get(generator.nextInt(unknownMessageResponses.size())), regions);
+
     }
-    else
-    {
-      //TODO: make message for multiple regions
-    }
-    message = null;
-    return response;
+
+    return null;
   }
 }

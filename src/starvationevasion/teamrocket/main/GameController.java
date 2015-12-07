@@ -425,9 +425,16 @@ public class GameController
     // TODO update GUI with new vote status
   }
 
-  public void setPlayerVote(EnumRegion region, VoteType voteType)
+  /**
+   * Send a message to the server with the current player's vote preference.
+   * This takes the region that the card belongs to and the voteType preference
+   * for the player.
+   * @param cardOwner the region that the card belongs to
+   * @param voteType player's voting preference.
+   */
+  public void setPlayerVote(EnumRegion cardOwner, VoteType voteType)
   {
-
+    client.send(new Vote(cardOwner, voteType));
   }
 
   /**
