@@ -92,22 +92,6 @@ public class GameController
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
     startClientAndAttemptLogin("127.0.0.1");
-//    client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
-//
-//      try
-//      {
-//        while(!gotSalt)
-//        {
-//          Thread.sleep(17l);
-//        }
-//      }
-//      catch (InterruptedException e)
-//      {
-//        e.printStackTrace();
-//      }
-//
-//    client.send(new Login(playerUsername, salt, playerPassword));
-//    client.send(new RegionChoice(player.getEnumRegion()));
 
     //Server will need to spawn a bunch of AI Clients
     //Need to detect what zones are left and fill with AI
@@ -524,20 +508,10 @@ public class GameController
     return playerUsername;
   }
 
-  public void initVisualizer()
-  {
-
-  }
-
   public void updateTimer(PhaseStart phaseStart) {
     Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
     setGameState(phaseStart.currentGameState);
     // TODO update GUI appropriately
-  }
-
-  public int clickedCard(int i)
-  {
-    return 0;
   }
 
   public EnumScene getCurrentScene()
