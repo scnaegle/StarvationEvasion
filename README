@@ -92,7 +92,8 @@ Main
          6: Game Room Scene (gameRoom)
 
   - Welcome Scene
-    - Intial Scene that is accesed when the game starts
+    - Initial scene that is accessed when the game starts
+      -Made by our good friend in the IFDM department, Beatriz.
     - Shows a small intro video to our game that just represents our game as a
       whole, showing images of food, and a person, and goals of the game
     - Displays a question boxes that will determine what type of game a player
@@ -102,7 +103,7 @@ Main
         - Join Multiplayer Game
 
   - Login Scene
-    - Is accesed if player picks Host, or Join Multiplayer game.
+    - Is accessed if player picks Host, or Join Multiplayer game
     - Contains a text box where a player will enter his username
     - Contains a text box where a player will enter his password
     - Contains a text box that a player will input the IP address
@@ -169,8 +170,7 @@ Main
 
   - Voting Scene
     - Timer (Top Left)
-      - Amount of time left in the voting phase
-      - The timer will change color depending on how much time is left
+      - Amount of time left in the voting phase     - The timer will change color depending on how much time is left
     - Graphs (Top Middle)
       - A pie chart that displays the players HDI for the nurished vs.
         malnurished people this turn (Left)

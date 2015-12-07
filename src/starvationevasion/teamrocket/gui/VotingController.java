@@ -180,6 +180,16 @@ public class VotingController implements javafx.fxml.Initializable
 
           time.setText(Main.GAME_CLOCK.getFormatted());
 
+          time.setTextFill(Color.FORESTGREEN);
+          if (Main.GAME_CLOCK.getMinutes() < 1)
+          {
+            time.setTextFill(Color.RED);
+          }
+          else if(Main.GAME_CLOCK.getMinutes()<2)
+          {
+            time.setTextFill(Color.ORANGE);
+          }
+
           if (Main.getGameController().initGUI())
           {
             highlightCards();
@@ -189,6 +199,8 @@ public class VotingController implements javafx.fxml.Initializable
             if(myDrafts.length >= 2) System.out.println("card 2: "+ myDrafts[1].getCardType());
             myRegion = Main.getGameController().getMyRegion();
           }
+
+
 
           if (Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
