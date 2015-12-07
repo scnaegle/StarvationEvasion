@@ -5,14 +5,12 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.event.Event;
 import javafx.scene.input.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import starvationevasion.vis.controller.SimParser;
-import starvationevasion.vis.model.Coordinate;
 
 
 /**
@@ -30,23 +28,16 @@ public class UserEventHandler  implements EventHandler
   private Earth earth;
   private Scale earthScale;
   private double LARGE_EARTH_RADIUS;
+  private VisualizerLayout visLayout;
 
 
-  public UserEventHandler(Earth earth)
+  public UserEventHandler(Earth earth, VisualizerLayout visLayout)
   {
     this.earth = earth;
+    this.visLayout = visLayout;
     this.earthGroup = earth.getEarth();
 //    earthScale = new Scale();
-//    earthGroup.getTransforms().add(earthScale);
-  }
-
-  protected void setLargeEarthRadius(double radius)
-  {
-    this.LARGE_EARTH_RADIUS = radius;
-  }
-
-  protected void earthScroll(MouseDragEvent event)
-  {
+//    earth.getTransforms().add(earthScale);
     Rotate groupXRotate, groupYRotate;
     earthGroup.getTransforms().setAll(
         groupXRotate = new Rotate(0, Rotate.X_AXIS),
@@ -54,6 +45,35 @@ public class UserEventHandler  implements EventHandler
     );
     groupXRotate.angleProperty().bind(angleX);
     groupYRotate.angleProperty().bind(angleY);
+
+  }
+
+  protected void setLargeEarthRadius(double radius)
+  {
+    this.LARGE_EARTH_RADIUS = radius;
+  }
+
+  /**
+   * Based on anchors that have been set when intially click, start rotating. Inside method there is a variable called
+   * scale. Adjusting this double value will cause the rotation to be slower or faster. 1 = normal speed, less than 1
+   * means slower, and greater than 1 means faster.
+   *
+   * @param event Event should contain x and y of scene.
+   */
+  protected void earthScroll(MouseEvent event)
+  {
+    double scale = .1; //Adjust this to slow down rotations,
+    angleX.set(anchorAngleX - ((anchorY - event.getSceneY()) * scale));
+    angleY.set(anchorAngleY + ((anchorX - event.getSceneX()) * scale));
+  }
+
+  /**
+   * Before starting to rotate, set some anchor points to rotate against
+   *
+   * @param event Event should contain x and y
+   */
+  protected void earthStartScroll(MouseEvent event)
+  {
     anchorX = event.getSceneX();
     anchorY = event.getSceneY();
     anchorAngleX = angleX.get();
@@ -103,23 +123,15 @@ public class UserEventHandler  implements EventHandler
 
   protected void latLongHandler(MouseEvent event)
   {
-
     PickResult pickResult = event.getPickResult();
-    Point3D point = pickResult.getIntersectedPoint();
-
-    double x = point.getX();
-    double y = point.getY();
-    double z = point.getZ();
-    double lat = Math.toDegrees(Math.acos(y / LARGE_EARTH_RADIUS) - Math.PI / 2); //theta
-    double lon = Math.toDegrees(Math.atan(x / z)); //phi
-    if (z > 0) lon += (180 * Math.signum(-lon));
-    Coordinate c = new Coordinate(lon, lat);
-//      System.out.println(lon + " " + lat + " " + point);
+    Point2D point = pickResult.getIntersectedTexCoord(); //in percentages
+    double lat = (point.getY() - 0.5) * -180;
+    double lon = (point.getX() - 0.5) * 360;
+    visLayout.setLatLong(lat, lon);
   }
 
   public void displayEarthInformation(MouseEvent event)
   {
-
     PickResult pickResult = event.getPickResult();
 
       /* Pick point on texture to derive lat long from java x y axis */
@@ -127,16 +139,17 @@ public class UserEventHandler  implements EventHandler
     double lat = (point.getY() - 0.5) * -180;
     double lon = (point.getX() - 0.5) * 360;
     String regionName = SIM_PARSER.parse(lat, lon);
+    visLayout.setRegionString(regionName);
   }
 
 
   @Override
   public void handle(Event event)
   {
-    if (event instanceof MouseDragEvent)
+    if (event.getEventType().equals(MouseDragEvent.MOUSE_DRAGGED))
     {
-      System.out.println("Drag");
-      earthScroll((MouseDragEvent) event);
+      earth.pauseRotation();
+      earthScroll((MouseEvent) event);
       event.consume();
     } else if (event instanceof ScrollEvent)
     {
@@ -146,14 +159,22 @@ public class UserEventHandler  implements EventHandler
     } else if (event instanceof ZoomEvent)
     {
       earthZoom((ZoomEvent) event);
+    } else if (event instanceof MouseEvent)
+    {
+      if ((event.getEventType().equals(MouseEvent.MOUSE_CLICKED)
+          || event.getEventType().equals(MouseEvent.MOUSE_MOVED)))
+      {
+        if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)) earth.pauseRotation();
+        displayEarthInformation((MouseEvent) event);
+        latLongHandler((MouseEvent) event);
+        event.consume();
+      }
+      earthStartScroll((MouseEvent) event);
+      earth.pauseRotation();
+
     }
-    event.consume();
   }
-//    else if(event instanceof MouseEvent)
-//    {
-//      displayEarthInformation((MouseEvent) event);
-//      latLongHandler((MouseEvent) event);
-//    }
 }
+
 
 
