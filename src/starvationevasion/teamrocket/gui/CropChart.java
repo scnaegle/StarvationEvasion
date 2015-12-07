@@ -17,42 +17,46 @@ import java.util.Stack;
 
 /**
  * This class has 9 different types of charts.
- *
+ * <p>
  * makeRegionFoodPieChart(EnumRegion region)
- *  - This is used to make a pie chart of the crops produced for the last turn
- *  - This should go in the Drafting scene and be matched up with the regions
- *
- *  makeOneRegionRevenuePieChart(EnumRegion region)
- *  - This is used to make a pie chart of the revenue of the crops for the region
- *    for the last turn
- *  - This should go in the Drafting scene and be matched up with the regions
- *
+ * - This is used to make a pie chart of the crops produced for the last turn
+ * - This should go in the Drafting scene and be matched up with the regions
+ * <p>
+ * makeOneRegionRevenuePieChart(EnumRegion region)
+ * - This is used to make a pie chart of the revenue of the crops for the region
+ * for the last turn
+ * - This should go in the Drafting scene and be matched up with the regions
+ * <p>
  * makeHDIPieChart(RegionHistory region)
- *  - This is a pie chart to represent the percentage of malnushied vs nurished
- *    population for the last turn
- *  - This should go in the voting phase
- *
- *  makeTotalRevenueAllRegionPieChart(RegionHistory[] region)
- *    - This is used to make a pie chart of the total revenue for all the regions
- *      for the last turn
- *    - This should go on the drafting scene
- *
- *  makePopulationPieChart(RegionHistory[] region)
- *    - This makes a population pie chart for all of the regions and how much of
- *      the worlds population has.
- *    - This could go on the drafting scene
- *
- *  makeLineChartRegionSpecificFood(RegionHistory region, EnumFood food)
- *    - This makes a line chart for a specific food and for a specific region
- *    - This can on the voting or drafting scene
- *
- *  makeLineChartRegionPopulation(RegionHistory region)
- *    - This is used to make a line chart of a population
- *    - This can go in the voting scene
- *
- *  makeLineChartRegionRevenue(RegionHistory region)
- *    - This will give a line charge of a of a regions total revenue over time
- *    - This can go to the voting scene
+ * - This is a pie chart to represent the percentage of malnushied vs nurished
+ * population for the last turn
+ * - This should go in the voting phase
+ * <p>
+ * makeTotalRevenueAllRegionPieChart(RegionHistory[] region)
+ * - This is used to make a pie chart of the total revenue for all the regions
+ * for the last turn
+ * - This should go on the drafting scene
+ * <p>
+ * makePopulationPieChart(RegionHistory[] region)
+ * - This makes a population pie chart for all of the regions and how much of
+ * the worlds population has.
+ * - This could go on the drafting scene
+ * <p>
+ * makeLineChartRegionSpecificFood(RegionHistory region, EnumFood food)
+ * - This makes a line chart for a specific food and for a specific region
+ * - This can on the voting or drafting scene
+ * <p>
+ * makeLineChartRegionPopulation(RegionHistory region)
+ * - This is used to make a line chart of a population
+ * - This can go in the voting scene
+ * <p>
+ * makeLineChartRegionRevenue(RegionHistory region)
+ * - This will give a line charge of a of a regions total revenue over time
+ * - This can go to the voting scene
+ * <p>
+ * makeLineChartRegionFood(RegionHistory region, boolean[] foods)
+ * - This will give a line chart of all the crops
+ * - The booleans are lined up with crops in order to toggle on or off.
  */
 
 
@@ -145,11 +149,12 @@ public class CropChart
    * @param region the region that we want the pie chart for
    * @return a pie chart of the regions revenue
    */
-  public static PieChart makeTotalRevenueAllRegionPieChart(RegionHistory[] region)
+  public static PieChart makeTotalRevenueAllRegionPieChart(
+      RegionHistory[] region)
   {
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for(RegionHistory regions : region)
+    for (RegionHistory regions : region)
     {
       dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
           regions.getLastTotalRevenue()));
@@ -177,7 +182,7 @@ public class CropChart
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    for(RegionHistory regions : region)
+    for (RegionHistory regions : region)
     {
       dataList.add(new PieChart.Data(regions.getEnumRegion().name(),
           regions.getLastPopulation()));
@@ -232,8 +237,278 @@ public class CropChart
     return lineChart;
   }
 
+  public static LineChart makeLineChartRegionFood(RegionHistory region,
+                                                  boolean[] foods)
+  {
+
+    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
+    final NumberAxis yAxis = new NumberAxis();
+    xAxis.setLabel("Year");
+    //creating the chart
+    LineChart<Number, Number> lineChart =
+        new LineChart<Number, Number>(xAxis, yAxis);
+
+    /**
+     * foods[0] - non citrus
+     * foods[1] - grains
+     * foods[2] - citrus
+     * foods[3] - feed crops
+     * foods[4] - dairy
+     * foods[5] - fish
+     * foods[6] - red meats
+     * foods[7] - nuts
+     * foods[8] - oil plants
+     * foods[9] - poultry
+     * foods[10] - vegitables
+     * foods[11] - specical crops
+     */
+
+    if (foods[0] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.FRUIT);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Fruit");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[1] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.GRAIN);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Grains");
+        lineChart.getData().add(series);
+      }
+    }
+    if (foods[2] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.CITRUS);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Citrus");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[3] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.FEED);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Feed");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[4] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.DAIRY);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Dairy");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[5] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.FISH);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Fish");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[6] == true)
+    {
+      ArrayList<Integer> data = region.getCropProduced(EnumFood.MEAT);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Meat");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[7] == true)
+    {
+      ArrayList<Integer> data =
+          region.getCropProduced(EnumFood.NUT);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Nut");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[8] == true)
+    {
+      ArrayList<Integer> data =
+          region.getCropProduced(EnumFood.OIL);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Oil");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[9] == true)
+    {
+      ArrayList<Integer> data =
+          region.getCropProduced(EnumFood.POULTRY);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Poultry");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[10] == true)
+    {
+      ArrayList<Integer> data =
+          region.getCropProduced(EnumFood.VEGGIES);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Veggies");
+        lineChart.getData().add(series);
+      }
+    }
+
+    if (foods[11] == true)
+    {
+      ArrayList<Integer> data =
+          region.getCropProduced(EnumFood.SPECIAL);
+      if (data.get(0) != 0)
+      {
+        XYChart.Series series = new XYChart.Series();
+        int iterateTurnNumber = 0;
+        for (int dataout : data)
+        {
+          //System.out.println(data);
+          series.getData().add(
+              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                  dataout));
+          iterateTurnNumber++;
+        }
+        series.setName("Special");
+        lineChart.getData().add(series);
+      }
+    }
+
+    return lineChart;
+  }
+
+
   /**
-   * Makes a line chart of the data from our crops and regions, which spans
+   * Makes a line chart of the data from our crops and regions,
+   * which spans
    * the entire
    * turns
    *
@@ -241,8 +516,9 @@ public class CropChart
    * @param food    the type of food we are graphinf
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartForSpecificFoodRevenue(RegionHistory[] regions,
-                                                              EnumFood food)
+  public static LineChart makeLineChartForSpecificFoodRevenue(
+      RegionHistory[] regions,
+      EnumFood food)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
@@ -252,12 +528,11 @@ public class CropChart
         new LineChart<Number, Number>(xAxis, yAxis);
     ArrayList<Integer> tempArrayList = new ArrayList<>();
 
-    for (int i=0;i<26;i++)
+    for (int i = 0; i < 26; i++)
     {
-        tempArrayList.add(0);
+      tempArrayList.add(0);
     }
 
-    int totalRevenue = 0;
     for (RegionHistory region : regions)
     {
       int i = 0;
@@ -265,9 +540,9 @@ public class CropChart
       ArrayList<Integer> data = region.getCropRevenue(food);
       for (int values : data)
       {
-          tempVarible = tempArrayList.get(i);
-          tempArrayList.set(i, values + tempVarible);
-          i++;
+        tempVarible = tempArrayList.get(i);
+        tempArrayList.set(i, values + tempVarible);
+        i++;
       }
 
     }
@@ -282,7 +557,8 @@ public class CropChart
     {
       System.out.println(list);
       series.getData()
-            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3), list));
+            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                list));
       iterateTurnNumber++;
     }
 
@@ -297,7 +573,8 @@ public class CropChart
    * @param region the region that we want the population from
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartRegionPopulation(RegionHistory region)
+  public static LineChart makeLineChartRegionPopulation
+  (RegionHistory region)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
@@ -318,7 +595,8 @@ public class CropChart
     for (Integer populations : population)
     {
       series.getData()
-            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3), populations));
+            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                populations));
       iterateTurnNumber++;
     }
 
@@ -333,7 +611,8 @@ public class CropChart
    * @param region the region that we want the population from
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartRegionRevenue(RegionHistory region)
+  public static LineChart makeLineChartRegionRevenue(RegionHistory
+                                                         region)
   {
     final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
     final NumberAxis yAxis = new NumberAxis();
@@ -351,7 +630,8 @@ public class CropChart
     for (Integer revenues : revenue)
     {
       series.getData()
-            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3), revenues));
+            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3),
+                revenues));
       iterateTurnNumber++;
     }
 

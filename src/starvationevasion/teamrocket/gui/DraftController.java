@@ -168,22 +168,13 @@ public class DraftController implements javafx.fxml.Initializable
 
           time.setText(GAME_CLOCK.getFormatted());
           time.setTextFill(Color.FORESTGREEN);
-
-          if (Main.GAME_CLOCK.getMinutes() < 1 && Main.GAME_CLOCK.getSeconds() < 10000 )
-          {
-            time.setTextFill(Color.DARKRED);
-          }
-          else if (Main.GAME_CLOCK.getMinutes() < 1)
+          if (Main.GAME_CLOCK.getMinutes() < 1)
           {
             time.setTextFill(Color.RED);
           }
           else if(Main.GAME_CLOCK.getMinutes()<2)
           {
             time.setTextFill(Color.ORANGE);
-          }
-          else if(Main.GAME_CLOCK.getMinutes()<3)
-          {
-            time.setTextFill(Color.YELLOW);
           }
 
           if (getGameController().initGUI())
