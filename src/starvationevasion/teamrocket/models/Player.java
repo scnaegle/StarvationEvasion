@@ -3,6 +3,7 @@ package starvationevasion.teamrocket.models;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import starvationevasion.common.*;
+import starvationevasion.common.messages.ServerChatMessage;
 import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.AI.EnumAITypes;
@@ -281,5 +282,10 @@ public class Player implements PlayerInterface
 
   synchronized public void updateVoteStatus(VoteStatus voteStatus) {
     this.voteStatus = voteStatus;
+  }
+
+  synchronized public void receiveChatMessage(ServerChatMessage message) {
+    chatHistory.addMessage(message);
+    //TODO AI needs to handle and figure out how to respond.
   }
 }

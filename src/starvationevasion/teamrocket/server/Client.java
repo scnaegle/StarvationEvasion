@@ -266,7 +266,7 @@ public class Client
     }
 
     private void handleChatMessageResponse(ServerChatMessage message) {
-
+      gameController.setChat(message);
     }
 
     private void handleActionResponse(ActionResponse actionResponse) {
