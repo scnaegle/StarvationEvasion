@@ -8,6 +8,8 @@ import starvationevasion.common.MapPoint;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 
 /**
  * Region class extends AbstractAgriculturalUnit, includes methods for accessing its
@@ -343,27 +345,117 @@ public class Region extends AbstractTerritory
   }
 
   /**
+   * Estimates the initial yield of all US states the US bookkeeping region.
+   */
+  public void estimateInitialUSYield()
+  {
+    // For consistency, find the US 1981 population by summing the population of
+	// each state.  Note, the population in the data file is in 1000s of people.
+    //
+    long population = 0;
+    for (Territory t : territories) 
+	{ if (t.getName().startsWith("US-")) population += t.getPopulation(1981);
+	}
+
+    // category divided by the region�s population in 1000s of people.
+    //
+    for (EnumFood crop : EnumFood.values())
+    {
+      long income = 0;
+      for (Territory t : territories)
+      { if (t.getName().startsWith("US-")) income += t.getCropIncome(crop);
+      }
+
+      // The 1981 need for each category of food per 1000 people is the domestic consumption
+      // of the crop.
+      //
+      double need = getInitialConsumption(crop, 1981) / (population * 1000);
+
+      // Imports & exports per capita for all regions.
+      //
+      double cropImport = (double) initialImports1981[crop.ordinal()] / population;
+      double cropExport = (double) initialExports1981[crop.ordinal()] / population;
+
+      for (Territory t : territories)
+      { // Skip the 'umbrella' territory.
+	    //
+        if (t.getName().startsWith("US-") == false) continue;
+
+	    t.setCropNeedPerCapita(crop, need);
+
+        double r = (double) t.getCropIncome(crop) / income;
+        t.setCropProduction(crop, (long) (initialProduction1981[crop.ordinal()] * r));
+
+        t.setCropImport(crop, (long) (cropImport * t.getPopulation(1981)));
+        t.setCropExport(crop, (long) (cropExport * t.getPopulation(1981)));
+      }
+    }
+
+    for (Territory t : territories) t.updateYield();
+  }
+
+
+  /**
    * Estimates the initial yield of all territories in the region.
    */
   public void estimateInitialYield()
   {
-    long[] regionalIncome = new long[EnumFood.SIZE];
-    for (Territory t : territories)
+    if (region == null)
     {
-      for (EnumFood food : EnumFood.values()) regionalIncome[food.ordinal()] += t.getCropIncome(food);
+      // At present the only Region that does not correspond to the region enum is
+      // the special US bookkeeping region.  This region is special because there
+      // are income numbers in the csv file that can be translated to production
+      // numbers.
+      //
+      estimateInitialUSYield();
+      return;
+	  }
+
+    // For United States regions, this data will be populated when the special book-
+    // keeping region is visited (above).
+    //
+    if (region.isUS() == true) return;
+
+    // For all non-US regions find the region 1981 population by summing the population
+    // of each Territory in the region.
+    //
+    // Note, the population in the data file is in 1000s of people.
+    //
+    long population = 0;
+    for (Territory t : territories)
+    { // If this territory is not a US territory then add its population to the tally.
+	  // US regions are handled in estimateInitialUSYield();
+      //
+      if (t.getName().startsWith("US-") == false) population += t.getPopulation(1981);
     }
 
-    // Now we can take the ratio of icome to total income to set the initial production
-    // for the region.
+    // category divided by the region's population in 1000s of people.
     //
-    for (Territory t : territories)
+    for (EnumFood crop : EnumFood.values())
     {
-      for (EnumFood food : EnumFood.values())
-      {
-        double r = (double) t.getCropIncome(food) / regionalIncome[food.ordinal()];
-        t.setCropProduction(food, (long) (r * initialProduction1981[food.ordinal()]));
-        t.setCropExport(food, (long) (r * initialExports1981[food.ordinal()]));
-        t.setCropImport(food, (long) (r * initialImports1981[food.ordinal()]));
+      // The 1981 need for each region and category of food per 1000 people is
+      // the domestic consumption of the crop.
+      //
+      double need = getInitialConsumption(crop, 1981) / (population * 1000);
+
+      // Production per capita for non-US regions.
+      //
+      double cropProduction = (double) initialProduction1981[crop.ordinal()] / population;
+
+      // Imports & exports per capita for all regions.
+      //
+      double cropImport = (double) initialImports1981[crop.ordinal()] / population;
+      double cropExport = (double) initialExports1981[crop.ordinal()] / population;
+
+      for (Territory t : territories)
+      { 
+        if (t.getName().startsWith("US-") == false) 
+		    {
+	        t.setCropNeedPerCapita(crop, need);
+          t.setCropProduction(crop, (long) (cropProduction * t.getPopulation(1981)));
+          t.setCropImport(crop, (long) (cropImport * t.getPopulation(1981)));
+          t.setCropExport(crop, (long) (cropExport * t.getPopulation(1981)));
+        }
       }
     }
 
@@ -395,12 +487,80 @@ public class Region extends AbstractTerritory
     }
   }
 
+
+  /**
+   * Estimates the initial crop budget for a all of the territories in the region by multiplying the territory
+   * consumption of the crop by its cost.
+   *
+   * @param cropData crop data loaded from "/data/sim/CropData.csv"
+   */
+  public void estimateInitialBudget(List<CropZoneData> cropData)
+  {
+    for (CropZoneData zoneData : cropData)
+    {
+      long cropConsumptionPerCapita = getInitialConsumption(zoneData.food, 1981) / getPopulation(1981);
+      for (Territory t : getTerritories())
+      {
+        long territoryCropConsumption = cropConsumptionPerCapita * t.getPopulation(1981);
+        long budget = territoryCropConsumption * zoneData.pricePerMetricTon;
+        t.setCropBudget(zoneData.food, budget);
+      }
+    }
+  }
+
+  public void estimateInitialCropLandArea(List<CropZoneData> cropData)
+  {
+    if (region == null)
+    {
+      estimateInitialUSCropLandArea(cropData);
+    }
+  }
+
+  public void estimateInitialUSCropLandArea(List<CropZoneData> cropData)
+  {
+    // from spec, 1981 total farm land is 0.7 of 2014 farm land
+    for (CropZoneData zoneData : cropData)
+    {
+      for (Territory t : getTerritories())
+      {
+        double cropLand = cropLandAreaHelper(t, zoneData) * ((t.totalFarmLand * 0.7) / cropLandAreaHelper(t, cropData));
+        double cropYield = getTerritoryProduction(t, zoneData.food) / cropLand;
+
+        t.setLand1981(zoneData.food, cropLand);
+        t.setYield1981(zoneData.food, cropYield);
+      }
+    }
+  }
+
+  // defined to be the temp function in the spec
+  private double cropLandAreaHelper(Territory t, CropZoneData zoneData)
+  {
+    return getTerritoryProduction(t, zoneData.food) / zoneData.tonsPerKM2;
+  }
+
+  // finds the sum of the temp function defined in the spec
+  private double cropLandAreaHelper(Territory t, List<CropZoneData> zoneData)
+  {
+    double sum = 0;
+    for (CropZoneData zone : zoneData)
+    {
+      sum += cropLandAreaHelper(t, zone);
+    }
+    return sum;
+  }
+
+  private double getTerritoryProduction(Territory t, EnumFood food)
+  {
+    long cropProductionPerCapita = getInitialProduction(food, 1981) / getPopulation(1981);
+    return cropProductionPerCapita * t.getPopulation(1981);
+  }
+
   /**
    * A region is a collection of one or more territories.
    */
   public void aggregateTerritoryFields(int year)
   {
-    System.out.println("========> aggregateTerritoryFields("+year+")  territories="+ territories.size());
+    if (VERBOSE) System.out.println("========> aggregateTerritoryFields("+year+")  territories="+ territories.size());
 
     population[year - Constant.FIRST_YEAR] = 0;
     births = 0;
@@ -429,7 +589,7 @@ public class Region extends AbstractTerritory
       {
         cropIncome[i]     += part.cropIncome[i];
         cropProduction[i] += part.cropProduction[i];
-        if (part.cropProduction[i] > 0)
+        if (VERBOSE && part.cropProduction[i] > 0)
         { System.out.println("Region.aggregateTerritoryFields(): " + region +": cropProduction["+EnumFood.values()[i]+"] ="+cropProduction[i]);
         }
         landCrop[i]       += part.landCrop[i];

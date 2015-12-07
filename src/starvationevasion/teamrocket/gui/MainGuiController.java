@@ -185,23 +185,21 @@ public class MainGuiController implements javafx.fxml.Initializable
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      String portNum = Main.getGameController().checkPort(
-          port.getCharacters().toString());
-      String IPAddress = Main.getGameController().checkAddress(
-          ipAddress.getCharacters().toString());
-      if (portNum.equals("bad"))
+      boolean validPort = Main.getGameController().validPort(port.getCharacters().toString());
+      boolean validAddress = Main.getGameController().validAddress(ipAddress.getCharacters().toString());
+      if(!validPort)
       {
         portError.setVisible(true);
       }
-      if(IPAddress.equals("bad") )
+      if(!validAddress)
       {
         addressError.setVisible(true);
       }
-      if(!input || portNum.equals("bad") || IPAddress.equals("bad"))
+      if(!input || !validAddress || !validAddress)
       {
         return;
       }
-      if( setLoginInformation())
+      if(setLoginInformation())
       {
         //go to gameRoom
         try

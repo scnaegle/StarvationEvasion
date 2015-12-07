@@ -8,11 +8,53 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import starvationevasion.common.EnumFood;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.models.RegionHistory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+
+/**
+ * This class has 9 different types of charts.
+ *
+ * makeRegionFoodPieChart(EnumRegion region)
+ *  - This is used to make a pie chart of the crops produced for the last turn
+ *  - This should go in the Drafting scene and be matched up with the regions
+ *
+ *  makeOneRegionRevenuePieChart(EnumRegion region)
+ *  - This is used to make a pie chart of the revenue of the crops for the region
+ *    for the last turn
+ *  - This should go in the Drafting scene and be matched up with the regions
+ *
+ * makeHDIPieChart(RegionHistory region)
+ *  - This is a pie chart to represent the percentage of malnushied vs nurished
+ *    population for the last turn
+ *  - This should go in the voting phase
+ *
+ *  makeTotalRevenueAllRegionPieChart(RegionHistory[] region)
+ *    - This is used to make a pie chart of the total revenue for all the regions
+ *      for the last turn
+ *    - This should go on the drafting scene
+ *
+ *  makePopulationPieChart(RegionHistory[] region)
+ *    - This makes a population pie chart for all of the regions and how much of
+ *      the worlds population has.
+ *    - This could go on the drafting scene
+ *
+ *  makeLineChartRegionSpecificFood(RegionHistory region, EnumFood food)
+ *    - This makes a line chart for a specific food and for a specific region
+ *    - This can on the voting or drafting scene
+ *
+ *  makeLineChartRegionPopulation(RegionHistory region)
+ *    - This is used to make a line chart of a population
+ *    - This can go in the voting scene
+ *
+ *  makeLineChartRegionRevenue(RegionHistory region)
+ *    - This will give a line charge of a of a regions total revenue over time
+ *    - This can go to the voting scene
+ */
+
 
 /**
  * This class is used to make the charts such as the pie chart and
@@ -22,8 +64,7 @@ public class CropChart
 {
   /**
    * Makes a pie chart to add to the GUI of a region and what it is producing
-   * for
-   * it's crops this turn.
+   * for it's crops this turn.
    *
    * @param region the region that we are making the pie chart for.
    * @return Returns a pie chart to add to the gui.
@@ -41,7 +82,7 @@ public class CropChart
         FXCollections.observableArrayList(dataList);
     PieChart chart = new PieChart(pieChartData);
 
-    chart.setTitle("Crops");
+    chart.setTitle("Crops Produced");
     chart.setLegendSide(Side.BOTTOM);
     chart.setVisible(true);
     return chart;
@@ -135,7 +176,6 @@ public class CropChart
   {
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
-
 
     for(RegionHistory regions : region)
     {

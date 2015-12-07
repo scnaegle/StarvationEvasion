@@ -93,7 +93,6 @@ public class Model
   private Region[] regionList = new Region[EnumRegion.SIZE + 1];
 
   private SeaLevel seaLevel;
-  private CropData cropData;
   private CropCSVLoader cropLoader = null;
 
   public Model(int startYear)
@@ -162,6 +161,8 @@ public class Model
     // Note that this includes the book-keeping regions.
     //
     for (Region region : regionList) region.estimateInitialYield();
+    for (Region region : regionList) region.estimateInitialBudget(cropLoader.getCategoryData());
+    for (Region region : regionList) region.estimateInitialCropLandArea(cropLoader.getCategoryData());
 
     // Now iterate over the enumeration to optimize planting for each game
     // region.
@@ -276,6 +277,12 @@ public class Model
   private void updateLandUse()
   {
     // TODO : Land use is based on policies.
+    // Notes :
+    // Start with how much each country is producing v/s how much land they are using.
+    // This gives us a yield factor.  If a country with a high yield applies irrigation
+    // won't benefit as much as countries with a low yield.  Make an 'S' curve (bezier)
+    // with a fit quadratic equation.
+    //
   }
 
   /**
@@ -310,17 +317,14 @@ public class Model
 
   private void updateFarmProductYield()
   {
-    // Notes :
-    // Start with how much each country is producing v/s how much land they are using.
-    // This gives us a yield factor.  If a country with a high yield applies irrigation
-    // won't benefit as much as countries with a low yield.  Make an 'S' curve (bezier)
-    // with a fit quadratic equation.
+    // Iterate over all of the regions, including the book keeping regions.  Each
+    // region invokes a territory update and then computes an aggregate number
+    // for the region.  Territories that are in both game and book-keeping regions
+    // may compute their yield twice, but this has no side effects.
     //
-    for (int i = 0; i < EnumRegion.SIZE ; i++)
+    for (Region region : regionList)
     {
-      for (Territory territory : regionList[i].getTerritories()) {
-        territory.updateYield();
-      }
+        region.updateYield();
     }
   }
 

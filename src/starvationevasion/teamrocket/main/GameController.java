@@ -91,22 +91,23 @@ public class GameController
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath());
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
-    client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
-
-      try
-      {
-        while(!gotSalt)
-        {
-          Thread.sleep(17l);
-        }
-      }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
-      }
-
-    client.send(new Login(playerUsername, salt, playerPassword));
-    client.send(new RegionChoice(player.getEnumRegion()));
+    startClientAndAttemptLogin("127.0.0.1");
+//    client = new Client("127.0.0.1", ServerConstants.DEFAULT_PORT, this);
+//
+//      try
+//      {
+//        while(!gotSalt)
+//        {
+//          Thread.sleep(17l);
+//        }
+//      }
+//      catch (InterruptedException e)
+//      {
+//        e.printStackTrace();
+//      }
+//
+//    client.send(new Login(playerUsername, salt, playerPassword));
+//    client.send(new RegionChoice(player.getEnumRegion()));
 
     //Server will need to spawn a bunch of AI Clients
     //Need to detect what zones are left and fill with AI
@@ -118,6 +119,29 @@ public class GameController
     //
 
     return this.player;
+  }
+
+
+  private void startClientAndAttemptLogin(String host) {
+    if (host != null) {
+      client = new Client(host, ServerConstants.DEFAULT_PORT, this);
+    } else {
+      client = new Client(playerIP, Integer.parseInt(playerPort), this);
+    }
+
+    try
+    {
+      while(!gotSalt)
+      {
+        Thread.sleep(17l);
+      }
+    }
+    catch (InterruptedException e)
+    {
+      e.printStackTrace();
+    }
+
+    client.send(new Login(playerUsername, salt, playerPassword));
   }
 
 
@@ -265,7 +289,7 @@ public class GameController
   }
 
   /**
-   * returns the region corrospoinding to the Enum a region is passed in
+   * returns the region corresponding to the Enum a region is passed in
    *
    * @param enumRegion the enum of a region
    * @return the region
@@ -321,7 +345,15 @@ public class GameController
     this.playerPassword = password;
     this.playerIP = ipAddress;
     this.playerPort = networkPort;
+    startClientAndAttemptLogin(null);
 
+    while(!getSuccessfulLogin()) {
+      try {
+        Thread.sleep(500);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
     return true;
   }
 
@@ -433,33 +465,11 @@ public class GameController
     return mode;
   }
 
-  public void savePlayerUsername(String playerUsername)
-  {
-    this.playerUsername = playerUsername;
-  }
-
-  public void savePlayerPassword(String playerPassword)
-  {
-    this.playerPassword = playerPassword;
-  }
-
-  public void savePlayerIP(String playerIP)
-  {
-    this.playerIP = playerIP;
-  }
-
-  public String checkAddress(String address)
+  public boolean validAddress(String address)
   {
     final String regex = "^\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+$";
 
-    if (address.matches(regex))
-    {
-      return "good";
-    }
-    else
-    {
-      return "bad";
-    }
+    return address.matches(regex);
   }
 
   public void savePlayerPort(String playerPort)
@@ -467,18 +477,11 @@ public class GameController
     this.playerPort = playerPort;
   }
 
-  public String checkPort(String port)
+  public boolean validPort(String port)
   {
-    final String regex = "^\\d{2,4}+$";
+    final String regex = "^\\d{2,6}+$";
 
-    if (port.matches(regex))
-    {
-      return "good";
-    }
-    else
-    {
-      return "bad";
-    }
+    return port.matches(regex);
   }
 
   public String getPlayerIP()
@@ -509,12 +512,6 @@ public class GameController
   public boolean getSuccessfulLogin()
   {
     return successfulLogin;
-  }
-
-  public boolean verifyIPAddress()
-  {
-    //parse ipaddress and make sure its good
-    return true;
   }
 
   public String getPlayerUsername()

@@ -167,6 +167,7 @@ public class Client
       Object msg;
       try {
         msg = inputStream.readObject();
+        System.out.println("received from server: " + msg);
         if (msg instanceof Response) {
           handleResponse((Response) msg);
         } else if (msg instanceof LoginResponse) {
@@ -185,7 +186,7 @@ public class Client
         } else if (msg instanceof ActionResponse) {
           handleActionResponse((ActionResponse) msg);
         } else if (msg instanceof Hello) {
-          handleHelloResponse((Hello) msg);
+          gameController.setSalt(((Hello) msg).loginNonce);
         } else if (msg instanceof VoteStatus) {
           gameController.setVoteStatus((VoteStatus) msg);
         } else {
@@ -195,11 +196,6 @@ public class Client
         e.printStackTrace();
       }
 
-    }
-
-    private void handleHelloResponse(Hello response)
-    {
-      gameController.setSalt(response.loginNonce);
     }
 
     private void handleResponse(Response response) {
