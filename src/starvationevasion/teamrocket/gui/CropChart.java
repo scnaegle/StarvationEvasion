@@ -259,14 +259,14 @@ public class CropChart
     LineChart<Number, Number> lineChart =
         new LineChart<Number, Number>(xAxis, yAxis);
 
-    ArrayList<Integer> data = region.getPricePerTon(food);
+    ArrayList<Double> data = region.getPricePerTon(food);
 
     XYChart.Series series = new XYChart.Series();
 
 
     int iterateTurnNumber = 0;
     int actualTurnNumber = 5;
-    for (int dataout : data)
+    for (double dataout : data)
     {
       //System.out.println(data);
       series.getData().add(
