@@ -83,7 +83,7 @@ public class VotingController implements javafx.fxml.Initializable
   private Rectangle c1rect, c2rect, m1rect, m2rect, np1rect, np2rect, ne1rect, ne2rect, sp1rect, sp2rect, se1rect,
       se2rect, h1rect, h2rect;
 
-  //Actual labels displaying total votes
+  //Main labels displaying total votes
   @FXML
   private Label c1support, c1oppose, c1abstain;
   @FXML
@@ -113,6 +113,7 @@ public class VotingController implements javafx.fxml.Initializable
   @FXML
   private Label h2support,h2oppose,h2abstain;
 
+  /* VOTE LABELS ON POPUP WINDOW */
   private int supc1votes,oppc1votes,abstc1votes = 0;
   private int supc2votes,oppc2votes,abstc2votes = 0;
   private int supm1votes,oppm1votes,abstm1votes = 0;
@@ -512,7 +513,8 @@ public class VotingController implements javafx.fxml.Initializable
     Button button = (Button)event.getSource();
     if(button == doneVoting)
     {
-    hideAllVoteLabels();
+      hideAllVoteLabels();
+
 
     //save choices
     //update variables
