@@ -1,7 +1,7 @@
 package starvationevasion.teamrocket.AI;
 
 import starvationevasion.common.EnumRegion;
-import starvationevasion.teamrocket.models.Card;
+import starvationevasion.common.PolicyCard;
 
 /**
  * Keeps track of useful information on a player
@@ -10,20 +10,9 @@ import starvationevasion.teamrocket.models.Card;
  */
 public class PlayerRecord
 {
-  private EnumRegion region;
   private boolean cooperative = true;
-  private Card pendingVoteCard;
-
-  /**
-   * Set up the record for the player
-   * associated with the given region
-   * @param controllingRegion of the player associated with this record
-   */
-  public PlayerRecord(EnumRegion controllingRegion)
-  {
-    region = controllingRegion;
-  }
-
+  private PolicyCard pendingVoteCard;
+  
   /**
    * Updates the co-operability from the last turn
    * of the player this record is associated with
@@ -41,13 +30,13 @@ public class PlayerRecord
    * Updates this record to know the card that is needing a vote for
    * @param card that will be voted on
    */
-  public void setPendingVoteCard(Card card){pendingVoteCard = card;}
+  public void setPendingVoteCard(PolicyCard card){pendingVoteCard = card;}
 
   /**
    * Get the card that is being voted on for the player
    * associated with this record
    * @return card that will be voted on
    */
-  public Card getPendingVoteCard(){return pendingVoteCard;}
+  public PolicyCard getPendingVoteCard(){return pendingVoteCard;}
 
 }

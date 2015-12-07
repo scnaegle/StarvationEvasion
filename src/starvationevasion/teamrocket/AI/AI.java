@@ -9,7 +9,7 @@ import starvationevasion.teamrocket.models.Player;
 import java.util.Random;
 
 //TODO: AI CHAT!!!!! ASAP
-//TODO: Need to update Player Records
+//TODO: Need to update Player Records, need to take in Array of Policy cards and check if regions voted yes
 public class AI extends Player
 {
   /*Game info*/
@@ -43,7 +43,7 @@ public class AI extends Player
 
     for(int i = 0; i < NUM_US_REGIONS; i++)
     {
-      PlayerRecord record = new PlayerRecord(EnumRegion.US_REGIONS[i]);
+      PlayerRecord record = new PlayerRecord();
       records[i] = record;
     }
   }
@@ -109,6 +109,7 @@ public class AI extends Player
 
   @Override
   public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
-    return AI.vote(records[cardPlayedRegion.ordinal()], generator);
+    records[cardPlayedRegion.ordinal()].setPendingVoteCard(PolicyCard.create(cardPlayedRegion,card));
+    return AI.vote(records[cardPlayedRegion.ordinal()], generator, ENUM_REGION);
   }
 }

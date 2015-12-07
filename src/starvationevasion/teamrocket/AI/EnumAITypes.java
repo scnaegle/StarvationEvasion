@@ -14,17 +14,30 @@ public enum EnumAITypes
 {
   /**
    * BASIC level of AI
-   * Randomly chooses a vote
+   * If player has been cooperative, AI will always vote for that players card
+   * if the target region isn't the AI's, but if the region is the AI's then
+   * there is a 1/4 chance it will vote for, other wise it will have a 1/2
+   * chance to vote against or abstain. If player wasn't cooperative
+   * then there is a 1/2 chance to vote against or abstain
    * Discard will favor voting cards, 1/3 chance of discarding non vote card
    * Will try to avoid playing voting cards if possible, 1/5 chance of playing a voting card
    */
   BASIC
     {
       @Override
-      public int vote(PlayerRecord record, Random generator)
+      public int vote(PlayerRecord record, Random generator, EnumRegion region)
       {
-        return generator.nextInt(3) - 1;
-      } //Java Optionals
+        if(record.isPlayerCooperative())
+        {
+          if(record.getPendingVoteCard().getValidTargetRegions().equals(region))
+          {
+            if(generator.nextInt(4) == 0) return 1;
+            return generator.nextInt(2) - 1;
+          }
+          return 1;
+        }
+        return generator.nextInt(2) - 1;
+      }
 
       @Override
       public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
@@ -132,9 +145,10 @@ public enum EnumAITypes
    * How to vote for each level of the AI
    * @param record of the player to see how cooperative players are
    * @param generator random generator to choose random options
+   * @param region of the AI
    * @return -1 for vote against, 0 for abstain, +1 for vote for
    */
-  public abstract int vote(PlayerRecord record, Random generator);
+  public abstract int vote(PlayerRecord record, Random generator, EnumRegion region);
 
   /**
    * Discards X number of cards and gets new hand
