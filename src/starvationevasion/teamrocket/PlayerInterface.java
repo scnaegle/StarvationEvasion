@@ -4,6 +4,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.WorldData;
+import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.common.messages.ServerChatMessage;
 import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.server.ServerState;
@@ -12,7 +13,7 @@ import starvationevasion.teamrocket.messages.EnumGameState;
 import starvationevasion.teamrocket.models.ChatHistory;
 
 /**
- * Created by zfalgout on 11/14/15.
+ * Methods that define what to call for a Player
  */
 public interface PlayerInterface
 {
@@ -68,8 +69,17 @@ public interface PlayerInterface
    */
   public void addCard(EnumPolicy card);
 
+  /**
+   * Sets the hand of the player
+   * @param hand of the player
+   */
   public void setHand(EnumPolicy[] hand);
 
+  /**
+   * Gets the card at the specific index
+   * @param card_index index of card being asked for
+   * @return PolicyCard for the card at that index in the hand
+   */
   public PolicyCard getCard(int card_index);
 
   /**
@@ -89,10 +99,23 @@ public interface PlayerInterface
 
   public void updateWorldData(WorldData worldData);
 
+  /**
+   * Update the votes all the players did for each card
+   * @param voteStatus of each player on each card
+   */
   public void updateVoteStatus(VoteStatus voteStatus);
 
-
+  /**
+   * Get chat message from the server
+   * @param message from other player from server
+   */
   public void receiveChatMessage(ServerChatMessage message);
+
+  /**
+   * Get the chat message from the player
+   * @return message
+   */
+  public ClientChatMessage sendChatMessage();
 
   ChatHistory getChatHistory();
 }

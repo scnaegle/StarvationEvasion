@@ -9,7 +9,9 @@ import starvationevasion.common.messages.VoteStatus;
 import java.util.Arrays;
 
 /**
- * Created by zfalgout on 12/2/15.
+ * Simple test main to see if the AI methods are working
+ *
+ * @author zfalgout
  */
 public class AITesting {
   static AI ai = new AI(EnumRegion.CALIFORNIA, EnumAITypes.BASIC, null);

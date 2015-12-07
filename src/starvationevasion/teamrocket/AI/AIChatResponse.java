@@ -11,7 +11,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by zfalgout on 12/6/15.
+ * AIChatResponse deals with messages it may receive from other players.
+ * If the player has been cooperating, then if the String message contains any
+ * of the coopKeywords, AI will cooperate with that player on the next voting phase.
+ * If no String message is there, but a policy card is, AI will automatically cooperate
+ * with that player.
+ *
+ * If a String message is sent, but doesn't contain any of the coopKeywords in the message,
+ * then AI will create a String message to send back that is a random phrase chosen from
+ * the ResponseList file.
+ *
+ * If no message was received from the server before getResponse is called, then null
+ * is returned, and should be checked for to avoid sending null back to the server.
+ *
+ * @author zfalgout
  */
 public class AIChatResponse
 {

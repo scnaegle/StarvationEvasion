@@ -1,12 +1,17 @@
 package starvationevasion.teamrocket.AI;
 
-import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
 /**
  * Keeps track of useful information on a player
  * associated with a single PlayerRecord for
  * the AI to use and make "smart" decisions
+ *
+ * Is designed to hold information that the AI
+ * can use to base decisions about cooperating,
+ * and votes for.
+ *
+ * @author zfalgout
  */
 public class PlayerRecord
 {
