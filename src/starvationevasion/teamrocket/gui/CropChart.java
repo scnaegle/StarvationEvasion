@@ -66,6 +66,9 @@ import java.util.Stack;
  */
 public class CropChart
 {
+  public static final int YEAR_START = 1981;
+  public static final int YEAR_END = 2050;
+
   /**
    * Makes a pie chart to add to the GUI of a region and what it is producing
    * for it's crops this turn.
@@ -210,7 +213,7 @@ public class CropChart
   public static LineChart makeLineChartRegionSpecificFood(RegionHistory region,
                                                           EnumFood food)
   {
-    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
+    final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
@@ -228,7 +231,7 @@ public class CropChart
     {
       //System.out.println(data);
       series.getData().add(
-          new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+          new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
       iterateTurnNumber++;
     }
 
@@ -241,7 +244,7 @@ public class CropChart
                                                   boolean[] foods)
   {
 
-    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
+    final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
@@ -274,7 +277,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
           iterateTurnNumber++;
         }
         series.setName("Fruit");
@@ -293,7 +296,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
           iterateTurnNumber++;
         }
         series.setName("Grains");
@@ -311,7 +314,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
           iterateTurnNumber++;
         }
         series.setName("Citrus");
@@ -330,7 +333,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
           iterateTurnNumber++;
         }
         series.setName("Feed");
@@ -349,7 +352,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3), dataout));
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
           iterateTurnNumber++;
         }
         series.setName("Dairy");
@@ -368,7 +371,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -388,7 +391,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -409,7 +412,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -430,7 +433,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -451,7 +454,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -464,14 +467,15 @@ public class CropChart
     {
       ArrayList<Integer> data =
           region.getCropProduced(EnumFood.VEGGIES);
-      if (data.lastIndexOf(data) != 0)
+      if (data.lastIndexOf(data)!=0)
       {
         XYChart.Series series = new XYChart.Series();
         int iterateTurnNumber = 0;
         for (int dataout : data)
         {
+          //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -492,7 +496,7 @@ public class CropChart
         {
           //System.out.println(data);
           series.getData().add(
-              new XYChart.Data(1980 + (iterateTurnNumber * 3),
+              new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                   dataout));
           iterateTurnNumber++;
         }
@@ -519,7 +523,7 @@ public class CropChart
       RegionHistory[] regions,
       EnumFood food)
   {
-    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
+    final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
@@ -556,7 +560,7 @@ public class CropChart
     {
       System.out.println(list);
       series.getData()
-            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3),
+            .add(new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                 list));
       iterateTurnNumber++;
     }
@@ -575,7 +579,7 @@ public class CropChart
   public static LineChart makeLineChartRegionPopulation
   (RegionHistory region)
   {
-    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
+    final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
@@ -594,7 +598,7 @@ public class CropChart
     for (Integer populations : population)
     {
       series.getData()
-            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3),
+            .add(new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                 populations));
       iterateTurnNumber++;
     }
@@ -613,7 +617,7 @@ public class CropChart
   public static LineChart makeLineChartRegionRevenue(RegionHistory
                                                          region)
   {
-    final NumberAxis xAxis = new NumberAxis(1980, 2052, 3);
+    final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     //creating the chart
@@ -629,7 +633,7 @@ public class CropChart
     for (Integer revenues : revenue)
     {
       series.getData()
-            .add(new XYChart.Data(1980 + (iterateTurnNumber * 3),
+            .add(new XYChart.Data(YEAR_START + (iterateTurnNumber * 3),
                 revenues));
       iterateTurnNumber++;
     }

@@ -83,7 +83,7 @@ public class TestMainLineGraph extends Application {
 
     region.addCropProduced(EnumFood.SPECIAL,0);
 
-   
+
 
     regions[0]=region;
     regions[1]=region;

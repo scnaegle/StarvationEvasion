@@ -10,22 +10,21 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
+import starvationevasion.teamrocket.server.GameClock;
 import starvationevasion.vis.ClientTest.CustomLayout;
 import starvationevasion.vis.visuals.Earth;
 
@@ -153,14 +152,6 @@ public class DraftController implements javafx.fxml.Initializable
   private Label worldTitle;
 
   private boolean[] selectedCard = new boolean[7];
-//  private Spinner<Integer> draftXControl;
-//  private Spinner<Integer> draftYControl;
-//  private Spinner<Integer> draftZControl;
-  private ComboBox<EnumFood> draftTargetFood;
-  private ComboBox<EnumRegion> draftTargetRegion;
-
-  private PolicyCard draft1Card;
-  private PolicyCard draft2Card;
 
   /***************************************************************************************/
 
@@ -222,95 +213,32 @@ public class DraftController implements javafx.fxml.Initializable
 
   private void setupAddBox(int cardIndex)
   {
-    cardInputs.setVisible(true);
-    PolicyCard card = getGameController().player.getCard(cardIndex);
     //Clear old buttons
-    ObservableList<Node> children = inputPane.getChildren();
-    children.clear();
+    /*ObservableList<Node> children = inputPane.getChildren();
+    children.removeAll(FXCollections.observableArrayList(inputPane.getChildren()));
 
-    GridPane textGrid = new GridPane();
-    textGrid.setMaxWidth(inputPane.getWidth());
-    textGrid.setMaxHeight(inputPane.getHeight());
-    children.add(textGrid);
-    int row = 0; //Track what row in the grid we are at.
-
-    Text text = new Text(card.getGameText());
-    text.setWrappingWidth(400);
-
-    textGrid.add(text, 0, row++);
-
-    PolicyCard.EnumVariableUnit type = card.getRequiredVariables(PolicyCard.EnumVariable.X);
-    if(type != null)
-    {
-//      draftXControl = getControlForVariable(type);
-//      Label label = new Label("X value", draftXControl);
-//      textGrid.add(draftXControl, 1, row);
-//      textGrid.add(label, 0, row++);
-//      label.setVisible(true);
-//      draftXControl.setVisible(true);
-    }
-    type = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
-    if(type != null)
-    {
-//      draftYControl = getControlForVariable(type);
-//      Label label = new Label("Y value", draftYControl);
-//      textGrid.add(draftYControl, 1, row);
-//      textGrid.add(label, 0, row++);
-//      label.setVisible(true);
-//      draftYControl.setVisible(true);
-    }
-    type = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
-    if(type != null)
-    {
-//      draftZControl = getControlForVariable(type);
-//      Label label = new Label("Z value", draftZControl);
-//      textGrid.add(draftZControl, 1, row);
-//      textGrid.add(label, 0, row++);
-//      label.setVisible(true);
-//      draftZControl.setVisible(true);
-    }
-
+    PolicyCard card = getGameController().player.getCard(cardIndex);
     if(card.getValidTargetFoods() != null)
     {
-      draftTargetFood = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
-      Label label = new Label("Target Food", draftTargetFood);
-      textGrid.add(draftTargetFood, 1, row);
-      textGrid.add(label, 0, row++);
+      ComboBox<EnumFood> food = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
+      Label label = new Label("Target Food", food);
+      children.add(label);
+      children.add(food);
       label.setVisible(true);
-      draftTargetFood.setVisible(true);
+      food.setVisible(true);
     }
     if(card.getValidTargetRegions() != null)
     {
-      draftTargetRegion = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions()
-      )));
-      Label label = new Label("Target Region", draftTargetRegion);
-      textGrid.add(draftTargetRegion, 1, row);
-      textGrid.add(label, 0, row++);
-      label.setVisible(true);
-      draftTargetRegion.setVisible(true);
-    }
+      //ComboBox<EnumRegion> region = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions())));
+      //Label label = new Label("Target Region", region);
+      //children.add(label);
+      //children.add(region);
+      //label.setVisible(true);
+      //region.setVisible(true);
+    }*/
 
-
+    cardInputs.setVisible(true);
   }
-
-//  private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
-//  {
-//    Spinner<Integer> control = null;
-//    switch(type)
-//    {
-//      case MILLION_DOLLAR:
-//        control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
-//        break;
-//      case PERCENT:
-//        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
-//        break;
-//      case UNIT:
-//        control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
-//        control.setEditable(false);
-//        break;
-//    }
-//    return control;
-//  }
 
 
   public void displayHand()
@@ -405,72 +333,20 @@ public class DraftController implements javafx.fxml.Initializable
     {
       closeProduceWindows();
     }
-    //This is the button inside the cardInputs pane.
     else if (button == addedInputs)
     {
-      Button cardButton = null;
-      ImageView cardImage = null;
-      Label discard = null;
-      int cardIndex = -1;
+      cardInputs.setVisible(false);
+      if(selectedCard[0]) {tryDraftingCard(card1, card1Image, discard1);}
+      else if(selectedCard[1]){ tryDraftingCard(card2, card2Image, discard2);}
+      else if (selectedCard[2]) {tryDraftingCard(card3, card3Image, discard3);}
+      else if(selectedCard[3]){tryDraftingCard(card4, card4Image, discard4);}
+      else if(selectedCard[4]){tryDraftingCard(card5, card5Image, discard5);}
+      else if(selectedCard[5]){tryDraftingCard(card6, card6Image, discard6);}
+      else if(selectedCard[6]){tryDraftingCard(card7, card7Image, discard7);}
 
-      if (selectedCard[0])
+      for(int i=0;i<selectedCard.length;i++)
       {
-        cardButton = card1;
-        cardImage = card1Image;
-        discard = discard1;
-        cardIndex = 0;
-      }
-      else if (selectedCard[1])
-      {
-        cardButton = card2;
-        cardImage = card2Image;
-        discard = discard2;
-        cardIndex = 1;
-      }
-      else if (selectedCard[2])
-      {
-        cardButton = card3;
-        cardImage = card3Image;
-        discard = discard3;
-        cardIndex = 2;
-      }
-      else if (selectedCard[3])
-      {
-        cardButton = card4;
-        cardImage = card4Image;
-        discard = discard4;
-        cardIndex = 3;
-      }
-      else if (selectedCard[4])
-      {
-        cardButton = card5;
-        cardImage = card5Image;
-        discard = discard5;
-        cardIndex = 4;
-      }
-      else if (selectedCard[5])
-      {
-        cardButton = card6;
-        cardImage = card6Image;
-        discard = discard6;
-        cardIndex = 5;
-      }
-      else if (selectedCard[6])
-      {
-        cardButton = card7;
-        cardImage = card7Image;
-        discard = discard7;
-        cardIndex = 6;
-      }
-
-      if(tryDraftingCard(cardButton, cardImage, discard, cardIndex))
-      {
-        cardInputs.setVisible(false);
-
-        for (int i = 0; i < selectedCard.length; i++)
-        {
-          selectedCard[i] = false;
-        }
+        selectedCard[i] = false;
       }
 
     }
@@ -844,75 +720,43 @@ public class DraftController implements javafx.fxml.Initializable
   /**
    * Called after card in hand is clicked on.
    * Will draft card as long as there's not already 2 cards drafted.
-   * @param cardButton    Card clicked
+   *
+   * @param card    Card clicked
    * @param discard Discard option 'X'
-   * @param cardHandIndex index in hand to draft.
    */
-  private boolean tryDraftingCard(Button cardButton, ImageView cardImage, Label discard, int cardHandIndex)
+  private void tryDraftingCard(Button card, ImageView cardImage, Label discard)
   {
-    PolicyCard card = getGameController().getCard(cardHandIndex);
-
-//    if (card.getRequiredVariables(PolicyCard.EnumVariable.X) != null)
+//    if(legal)
 //    {
-//      card.setX(draftXControl.getValue());
-//    }
-//    if (card.getRequiredVariables(PolicyCard.EnumVariable.Y) != null)
-//    {
-//      card.setY(draftYControl.getValue());
-//    }
-//    if (card.getRequiredVariables(PolicyCard.EnumVariable.Z) != null)
-//    {
-//      card.setZ(draftZControl.getValue());
-//    }
-
-    if (card.getValidTargetFoods() != null)
-    {
-      card.setTargetFood(draftTargetFood.getValue());
-    }
-
-    if (card.getValidTargetRegions() != null)
-    {
-      card.setTargetRegion(draftTargetRegion.getValue());
-    }
-
-//    if(card.validate() != null)
-//    {
-//      Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
-//      alert.setResizable(true);
-//      alert.setWidth(alert.getContentText().length() * 7);
-//      alert.showAndWait();
-//      return false;
-//    }
-
     cardsDrafted++;
     if (cardsDrafted == 1)
     {
-      cardButton.setDisable(true);
+      card.setDisable(true);
       discard.setDisable(true);
       discardDraft1.setVisible(true);
       draft1Image.setImage(cardImage.getImage());
       draft1.setVisible(true);
-      draft1Card = card;
     }
     else if (cardsDrafted == 2)
     {
-      cardButton.setDisable(true);
+      card.setDisable(true);
       discard.setDisable(true);
       discardDraft2.setVisible(true);
       draft2Image.setImage(cardImage.getImage());
       draft2.setVisible(true);
-      draft2Card = card;
     }
     else
     {
-//      Alert alert = new Alert(Alert.AlertType.INFORMATION, "Already two cards drafted.", ButtonType.CLOSE);
-//      alert.showAndWait();
-
+      //show error window and ask user if they want to swap cards
+      //re-enable card put back
+      System.out.println("Already two cards drafted.");
       cardsDrafted = 2;
-      return false;
     }
-
-    return true;
+//  else
+//  { Display error message
+//  }
+//
+//
   }
 
   /**
@@ -921,10 +765,8 @@ public class DraftController implements javafx.fxml.Initializable
   private void resetCards()
   {
     draft1.setVisible(false);
-    draft1Image.setImage(null);
     discardDraft1.setVisible(false);
     draft2.setVisible(false);
-    draft2Image.setImage(null);
     discardDraft2.setVisible(false);
 
     card1.setVisible(true);
@@ -960,9 +802,6 @@ public class DraftController implements javafx.fxml.Initializable
     discardedNum.setText("" + disNum);
     numCardsinHand = 7;
     cardsDrafted = 0;
-
-    draft1Card = null;
-    draft2Card = null;
   }
 
 
@@ -1030,7 +869,76 @@ public class DraftController implements javafx.fxml.Initializable
    */
   private void saveDraftedCards()
   {
-    getGameController().playDrafts(draft1Card, draft2Card);
+    int[] draftedCards = new int[2];
+
+    if (draft1Image.getImage() == card1Image.getImage())
+    {
+      draftedCards[0] = 0;
+    }
+    else if (draft1Image.getImage() == card2Image.getImage())
+    {
+      draftedCards[0] = 1;
+    }
+    else if (draft1Image.getImage() == card3Image.getImage())
+    {
+      draftedCards[0] = 2;
+    }
+    else if (draft1Image.getImage() == card4Image.getImage())
+    {
+      draftedCards[0] = 3;
+    }
+    else if (draft1Image.getImage() == card5Image.getImage())
+    {
+      draftedCards[0] = 4;
+    }
+    else if (draft1Image.getImage() == card6Image.getImage())
+    {
+      draftedCards[0] = 5;
+    }
+    else if (draft1Image.getImage() == card7Image.getImage())
+    {
+      draftedCards[0] = 6;
+    }
+    else
+    {
+      draftedCards[0]=-1; //No cards were drafted.
+    }
+
+    if (draft2Image.getImage() == card1Image.getImage())
+    {
+      draftedCards[1] = 0;
+    }
+    else if (draft2Image.getImage() == card2Image.getImage())
+    {
+      draftedCards[1] = 1;
+    }
+    else if (draft2Image.getImage() == card3Image.getImage())
+    {
+      draftedCards[1] = 2;
+    }
+    else if (draft2Image.getImage() == card4Image.getImage())
+    {
+      draftedCards[1] = 3;
+    }
+    else if (draft2Image.getImage() == card5Image.getImage())
+    {
+      draftedCards[1] = 4;
+    }
+    else if (draft2Image.getImage() == card6Image.getImage())
+    {
+      draftedCards[1] = 5;
+    }
+    else if (draft2Image.getImage() == card7Image.getImage())
+    {
+      draftedCards[1] = 6;
+    }
+    else
+    {
+      draftedCards[1] = -1; //No cards were drafted.
+    }
+
+
+    getGameController().playerAction(draftedCards, true);
   }
 
 
@@ -1116,83 +1024,103 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else if (discard == discardDraft1)
     {
-      //Swap card2 with card1 and undraft card2
-      //This keeps things consistent.
-      if(cardsDrafted == 2)
+      cardsDrafted--;
+      if (draft1Image.getImage() == card1Image.getImage())
       {
-
-        Image temp = draft1Image.getImage();
-        draft1Image.setImage(draft2Image.getImage());
-        draft2Image.setImage(temp);
-
-        draft1Card = draft2Card;
-        draft2Card = null;
-
-        unDraft(draft2Image, discardDraft2, draft2);
+        card1.setDisable(false);
+        discard1.setDisable(false);
+        card1Image.setDisable(false);
       }
-      else
+      else if (draft1Image.getImage() == card2Image.getImage())
       {
-        draft1Card = null;
-        unDraft(draft1Image, discardDraft1, draft1);
+        card2.setDisable(false);
+        discard2.setDisable(false);
+        card2Image.setDisable(false);
       }
+      else if (draft1Image.getImage() == card3Image.getImage())
+      {
+        card3.setDisable(false);
+        discard3.setDisable(false);
+        card3Image.setDisable(false);
+      }
+      else if (draft1Image.getImage() == card4Image.getImage())
+      {
+        card4.setDisable(false);
+        discard4.setDisable(false);
+        card4Image.setDisable(false);
+      }
+      else if (draft1Image.getImage() == card5Image.getImage())
+      {
+        card5.setDisable(false);
+        discard5.setDisable(false);
+        card5Image.setDisable(false);
+      }
+      else if (draft1Image.getImage() == card6Image.getImage())
+      {
+        card6.setDisable(false);
+        discard6.setDisable(false);
+        card6Image.setDisable(false);
+      }
+      else if (draft1Image.getImage() == card7Image.getImage())
+      {
+        card7.setDisable(false);
+        discard7.setDisable(false);
+        card7Image.setDisable(false);
+      }
+
+      draft1.setVisible(false);
+      discardDraft1.setVisible(false);
 
     }
     else if (discard == discardDraft2)
     {
-      draft2Card = null;
-      unDraft(draft2Image, discardDraft2, draft2);
-    }
-  }
+      cardsDrafted--;
+      if (draft2Image.getImage() == card1Image.getImage())
+      {
+        card1.setDisable(false);
+        discard1.setDisable(false);
+        card1Image.setDisable(false);
+      }
+      else if (draft2Image.getImage() == card2Image.getImage())
+      {
+        card2.setDisable(false);
+        discard2.setDisable(false);
+        card2Image.setDisable(false);
+      }
+      else if (draft2Image.getImage() == card3Image.getImage())
+      {
+        card3.setDisable(false);
+        discard3.setDisable(false);
+        card3Image.setDisable(false);
+      }
+      else if (draft2Image.getImage() == card4Image.getImage())
+      {
+        card4.setDisable(false);
+        discard4.setDisable(false);
+        card4Image.setDisable(false);
+      }
+      else if (draft2Image.getImage() == card5Image.getImage())
+      {
+        card5.setDisable(false);
+        discard5.setDisable(false);
+        card5Image.setDisable(false);
+      }
+      else if (draft2Image.getImage() == card6Image.getImage())
+      {
+        card6.setDisable(false);
+        discard6.setDisable(false);
+        card6Image.setDisable(false);
+      }
+      else if (draft2Image.getImage() == card7Image.getImage())
+      {
+        card7.setDisable(false);
+        card7Image.setDisable(false);
+        discard7.setDisable(false);
+      }
+      draft2.setVisible(false);
+      discardDraft2.setVisible(false);
 
-  private void unDraft(ImageView draftImage, Label discardDraft, Button draft)
-  {
-    cardsDrafted--;
-    if (draftImage.getImage() == card1Image.getImage() && card1Image.isDisabled())
-    {
-      card1.setDisable(false);
-      discard1.setDisable(false);
-      card1Image.setDisable(false);
     }
-    else if (draftImage.getImage() == card2Image.getImage() && card2Image.isDisabled())
-    {
-      card2.setDisable(false);
-      discard2.setDisable(false);
-      card2Image.setDisable(false);
-    }
-    else if (draftImage.getImage() == card3Image.getImage() && card3Image.isDisabled())
-    {
-      card3.setDisable(false);
-      discard3.setDisable(false);
-      card3Image.setDisable(false);
-    }
-    else if (draftImage.getImage() == card4Image.getImage() && card4Image.isDisabled())
-    {
-      card4.setDisable(false);
-      discard4.setDisable(false);
-      card4Image.setDisable(false);
-    }
-    else if (draftImage.getImage() == card5Image.getImage() && card5Image.isDisabled())
-    {
-      card5.setDisable(false);
-      discard5.setDisable(false);
-      card5Image.setDisable(false);
-    }
-    else if (draftImage.getImage() == card6Image.getImage() && card6Image.isDisabled())
-    {
-      card6.setDisable(false);
-      discard6.setDisable(false);
-      card6Image.setDisable(false);
-    }
-    else if (draftImage.getImage() == card7Image.getImage() && card7Image.isDisabled())
-    {
-      card7.setDisable(false);
-      discard7.setDisable(false);
-      card7Image.setDisable(false);
-    }
-
-    draft.setVisible(false);
-    draftImage.setImage(null); //Prevents playing undrafted card.
-    discardDraft.setVisible(false);
   }
 
 
