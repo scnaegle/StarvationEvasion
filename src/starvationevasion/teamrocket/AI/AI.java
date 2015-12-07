@@ -19,7 +19,7 @@ public class AI extends Player
   private PlayerRecord[] records;
   private Random generator;
   private int actionsPerformed = 2; //decrease when actions are done during drafting phase
-
+  private EnumPolicy[] discardedCards; //get the policies that were discarded
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
    *
@@ -59,8 +59,12 @@ public class AI extends Player
    */
   private void removeDiscardedCards(int[] discardCardsPosition) {
     EnumPolicy[] hand = getHand();
+    discardedCards = new EnumPolicy[discardCardsPosition.length];
+    int index = 0;
     for (int i : discardCardsPosition)
     {
+      discardedCards[index] = hand[i];
+      index++;
       hand[i] = null;
     }
     setHand(hand);
@@ -74,7 +78,7 @@ public class AI extends Player
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(5) == 0 && actionsPerformed > 0)
+    if(generator.nextInt(1) == 0 && actionsPerformed > 0)
     {
       actionsPerformed--;
       int numCards = generator.nextInt(4);
