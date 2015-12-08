@@ -80,7 +80,7 @@ public class GameController
     startGame(region);
 
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
-        new String[]{"java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment"});
+        "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
     startClientAndAttemptLogin("127.0.0.1");
@@ -568,5 +568,10 @@ public class GameController
     drafts[0] = draft1;
     drafts[1] = draft2;
     return drafts;
+  }
+
+  public void sendMessage(String message)
+  {
+    client.send(new ClientChatMessage(message, EnumRegion.US_REGIONS));
   }
 }
