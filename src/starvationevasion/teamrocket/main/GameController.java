@@ -572,8 +572,8 @@ public class GameController
   }
 
   /**
-   *
-   * @return
+   * Gets it if a player sucessfully logged in
+   * @return if it was succseful login
    */
   public Boolean getSuccessfulLogin()
   {
@@ -683,6 +683,11 @@ public class GameController
     return drafts;
   }
 
+  /**
+   * sends a message to the server
+   *
+   * @param message the message
+   */
   public void sendMessage(String message)
   {
     client.send(new ClientChatMessage(message, EnumRegion.US_REGIONS));

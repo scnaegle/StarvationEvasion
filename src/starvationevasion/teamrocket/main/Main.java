@@ -135,10 +135,6 @@ public class Main extends Application
     stage.setY(primaryScreenBounds.getMinY());
   }
 
-  /**
-   * starting the game up
-   * @param args
-   */
   public static void main(String[] args)
   {
     launch(args);
@@ -146,7 +142,7 @@ public class Main extends Application
 
   /**
    * tells client that we just finished the changing the scenes
-   * @return
+   * @return boolean scene switched
    */
   public static boolean justSwitchedScenes()
   {

@@ -107,7 +107,7 @@ public class ChatController implements javafx.fxml.Initializable
   /**
    * Enters a message to send
    *
-   * @param event
+   * @param event Enter Key
    */
   @FXML
   public void enterMessage(KeyEvent event)
