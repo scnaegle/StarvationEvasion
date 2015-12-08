@@ -13,12 +13,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -58,10 +60,10 @@ public class GameroomController implements javafx.fxml.Initializable
         if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
-
+          connectUsers();
           if (Main.getGameController().initGUI())
           {
-            connectUsers();
+
           }
           if (Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
@@ -76,10 +78,29 @@ public class GameroomController implements javafx.fxml.Initializable
   }
   public void connectUsers()
   {
-    //if(user1 has logged in)
-    user1.setText(Main.getGameController().getPlayerUsername());
+    AvailableRegions availableRegions = Main.getGameController().getAvailableRegions();
+    Map<EnumRegion, String> takenRegions = availableRegions.takenRegions;
+
+    user1.setText((takenRegions.get(EnumRegion.CALIFORNIA) != null) ? takenRegions.get(EnumRegion.CALIFORNIA) : "Free");
     user1.setVisible(true);
-    //if(user2 has logged in)....
+
+    user2.setText((takenRegions.get(EnumRegion.HEARTLAND) != null) ? takenRegions.get(EnumRegion.HEARTLAND) : "Free");
+    user2.setVisible(true);
+
+    user3.setText((takenRegions.get(EnumRegion.NORTHERN_PLAINS) != null) ? takenRegions.get(EnumRegion.NORTHERN_PLAINS) : "Free");
+    user3.setVisible(true);
+
+    user4.setText((takenRegions.get(EnumRegion.SOUTHEAST) != null) ? takenRegions.get(EnumRegion.SOUTHEAST) : "Free");
+    user4.setVisible(true);
+
+    user5.setText((takenRegions.get(EnumRegion.NORTHERN_CRESCENT) != null) ? takenRegions.get(EnumRegion.NORTHERN_CRESCENT) : "Free");
+    user5.setVisible(true);
+
+    user6.setText((takenRegions.get(EnumRegion.SOUTHERN_PLAINS) != null) ? takenRegions.get(EnumRegion.SOUTHERN_PLAINS) : "Free");
+    user6.setVisible(true);
+
+    user7.setText((takenRegions.get(EnumRegion.MOUNTAIN) != null) ? takenRegions.get(EnumRegion.MOUNTAIN) : "Free");
+    user7.setVisible(true);
 
   }
 
