@@ -395,14 +395,113 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+  private void switchWindow(int initial, int next, Pane window1, Pane window2)
+  {
+    produce[initial] = false;
+    produce[next] = true;
+    window1.setVisible(false);
+    window2.setVisible(true);
+  }
+
+
+
   private void nextProduce()
   {
-
+    if(produce[0]){ //to grains
+      switchWindow(0, 1, appleWindow, grainWindow);
+      leftArrow.setVisible(true);
+    }
+    else if(produce[1]) //to citrus
+    {
+      switchWindow(1, 2, grainWindow, citrusWindow);
+    }
+    else if(produce[2]) //to feed
+    {
+      switchWindow(2, 3, citrusWindow, feedWindow);
+    }
+    else if(produce[3])
+    {
+      switchWindow(3, 4, feedWindow, dairyWindow);
+    }
+    else if(produce[4])
+    {
+      switchWindow(4,5,dairyWindow,fishWindow);
+    }
+    else if(produce[5])
+    {
+      switchWindow(5,6,fishWindow,meatWindow);
+    }
+    else if(produce[6])
+    {
+      switchWindow(6,7,meatWindow,nutWindow);
+    }
+    else if(produce[7])
+    {
+      switchWindow(7,8,nutWindow,oilWindow);
+    }
+    else if(produce[8])
+    {
+      switchWindow(8,9,oilWindow,poultryWindow);
+    }
+    else if(produce[9])
+    {
+      switchWindow(9,10,poultryWindow,veggieWindow);
+    }
+    else if(produce[10])
+    {
+      switchWindow(10,11,veggieWindow,specialWindow);
+      rightArrow.setVisible(false);
+    }
   }
 
   private void prevProduce()
   {
-
+    if(produce[11])
+    {
+      switchWindow(11,10,specialWindow,veggieWindow);
+      rightArrow.setVisible(false);
+    }
+    else if(produce[10])
+    {
+      switchWindow(10, 9, veggieWindow, poultryWindow);
+    }
+    else if(produce[9])
+    {
+      switchWindow(9, 8, poultryWindow,oilWindow);
+    }
+    else if(produce[8])
+    {
+      switchWindow(8, 7, oilWindow,nutWindow);
+    }
+    else if(produce[7])
+    {
+      switchWindow(7, 6, nutWindow, meatWindow );
+    }
+    else if(produce[6])
+    {
+      switchWindow(6, 5, meatWindow,fishWindow);
+    }
+    else if(produce[5])
+    {
+      switchWindow(5, 4, fishWindow,dairyWindow);
+    }
+    else if(produce[4])
+    {
+      switchWindow(4,3, dairyWindow,feedWindow );
+    }
+    else if(produce[3]) //to citrus
+    {
+      switchWindow(3,2,  feedWindow,citrusWindow);
+    }
+    else if(produce[2]) //to grains
+    {
+      switchWindow(2,1, citrusWindow,grainWindow);
+    }
+    else if(produce[1]){ //to apple
+      switchWindow(1,0, grainWindow,appleWindow);
+      leftArrow.setVisible(false);
+      rightArrow.setVisible(true);
+    }
   }
 
   /**
@@ -440,6 +539,8 @@ public class DraftController implements javafx.fxml.Initializable
         button == closeWindow12)
     {
       closeProduceWindows();
+      rightArrow.setVisible(false);
+      leftArrow.setVisible(false);
     }
     //This is the button inside the cardInputs pane.
     else if (button == addedInputs)
@@ -566,9 +667,11 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[0] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(false);
       PPT.setVisible(true);
-      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
-                                                                       .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
+//      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
+//                                                                       .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
       nonCitrusText.setText("Products: \n" + EnumFood.FRUIT.toLongString() + "\n\n" + "Fun fact: \n");
       appleWindow.setVisible(true);
       //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));
@@ -580,6 +683,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[1] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       grainsText.setText("Products: \n"+EnumFood.GRAIN.toLongString()+"\n\n" + "Fun fact: \n");
       grainWindow.setVisible(true);
@@ -590,6 +695,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[2] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       citrusText.setText("Products: \n"+EnumFood.CITRUS.toLongString()+"\n\n" + "Fun fact: \n");
       citrusWindow.setVisible(true);
@@ -600,6 +707,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[3] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       feedText.setText("Products: \n"+EnumFood.FEED.toLongString()+"\n\n" + "Fun fact: \n");
       feedWindow.setVisible(true);
@@ -610,6 +719,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[4] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       dairyText.setText("Products: \n"+EnumFood.DAIRY.toLongString()+"\n\n" + "Fun fact: \n");
       dairyWindow.setVisible(true);
@@ -620,6 +731,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[5] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       meatText.setText("Products: \n"+EnumFood.MEAT.toLongString()+"\n\n" + "Fun fact: \n");
       meatWindow.setVisible(true);
@@ -630,6 +743,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[6] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       poultryText.setText("Products: \n"+EnumFood.POULTRY.toLongString()+"\n\n" + "Fun fact: \n");
       poultryWindow.setVisible(true);
@@ -640,6 +755,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[7] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       oilText.setText("Products: \n"+EnumFood.OIL.toLongString()+"\n\n" + "Fun fact: \n");
       oilWindow.setVisible(true);
@@ -650,6 +767,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[8] = true;
+      rightArrow.setVisible(false);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       specialText.setText("Products: \n"+EnumFood.SPECIAL.toLongString()+"\n\n" + "Fun fact: \n");
       specialWindow.setVisible(true);
@@ -660,6 +779,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[9] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       veggieText.setText("Products: \n"+EnumFood.VEGGIES.toLongString()+"\n\n" + "Fun fact: \n");
       veggieWindow.setVisible(true);
@@ -670,6 +791,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[10] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       nutText.setText("Products: \n"+EnumFood.NUT.toLongString()+"\n\n" + "Fun fact: \n");
       nutWindow.setVisible(true);
@@ -680,6 +803,8 @@ public class DraftController implements javafx.fxml.Initializable
       //if policy card, use product for card
       //else display facts
       produce[11] = true;
+      rightArrow.setVisible(true);
+      leftArrow.setVisible(true);
       PPT.setVisible(true);
       fishText.setText("Products: \n"+EnumFood.FISH.toLongString()+ "\n\n" + "Fun fact: \n");
       fishWindow.setVisible(true);
