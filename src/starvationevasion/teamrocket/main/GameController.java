@@ -9,7 +9,6 @@ import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.messages.EnumGameState;
-import starvationevasion.teamrocket.models.ClientGameState;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.RegionHistory;
 import starvationevasion.teamrocket.server.Client;
@@ -81,7 +80,7 @@ public class GameController
     this.player = new Player(region, null, this);
 
     //BEGIN placeholder hand code should be removed once hand is retrieved from the server
-   EnumPolicy[] hand = new EnumPolicy[7];
+    EnumPolicy[] hand = new EnumPolicy[7];
 
     for (int i = 0; i < 7; i++)
     {
