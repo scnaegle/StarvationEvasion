@@ -1000,7 +1000,7 @@ public class VotingController implements javafx.fxml.Initializable
 
 
   /**
-   * Keeps track of the user's vote: Approve, Obstain, or Oppose.
+   * Keeps track of the user's vote: Approve, Abstain, or Oppose.
    * Updates labels and integers as necessary.
    *
    * @param event Action event.
