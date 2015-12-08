@@ -61,6 +61,7 @@ public class GameController
     {
       regions.put(enumRegion, new RegionHistory(enumRegion));
     }
+    this.player = new Player(this);
   }
 
   public GameController(Main main) {
@@ -76,22 +77,7 @@ public class GameController
    */
   public PlayerInterface startSinglePlayerGame(EnumRegion region)
   {
-    destroyGame(); //Destroy old game if exists.
-    this.player = new Player(region, null, this);
-
-    //BEGIN placeholder hand code should be removed once hand is retrieved from the server
-    EnumPolicy[] hand = new EnumPolicy[7];
-
-    for (int i = 0; i < 7; i++)
-    {
-      EnumPolicy policy = EnumPolicy.values()[Util.rand.nextInt(EnumPolicy.values().length)];
-      hand[i] = policy; //PolicyCard.create(player.ENUM_REGION, policy);
-    }
-    player.setHand(hand);
-    //END placeholder code.
-
-    needToInitialize = true;
-    changeScene(EnumScene.DRAFT_PHASE);
+    startGame(region);
 
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
         new String[]{"java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment"});
@@ -105,6 +91,13 @@ public class GameController
     }
 
     return this.player;
+  }
+
+  public void startGame(EnumRegion region)
+  {
+    this.player.setEnumRegion(region);
+    needToInitialize = true;
+    changeScene(EnumScene.DRAFT_PHASE);
   }
 
 
@@ -243,15 +236,6 @@ public class GameController
         player.selectedCards(-1, -1);
       }
     }
-  }
-
-  /**
-   * Destroys the current game cleanly.
-   */
-  private void destroyGame()
-  {
-    //Destruction code for old game. Make sure it is garbage collectable, end
-    // any timers, threads, etc.
   }
 
   /**
