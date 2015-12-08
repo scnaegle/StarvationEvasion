@@ -31,8 +31,7 @@ public class GameroomController implements javafx.fxml.Initializable
   private Button doneGameRoom;
 
   @FXML
-  private Label user1, user2, user3, user4, user5, user6, user7, user1Region, user2Region, user3Region, user4Region,
-      user5Region, user6Region, user7Region, countdown;
+  private Label user1, user2, user3, user4, user5, user6, user7, countdown;
 
   @FXML
   private ImageView cali, heartland, mountSt, northSt, nPlains, sPlains, southEast;
@@ -94,11 +93,6 @@ public class GameroomController implements javafx.fxml.Initializable
     }
   }
 
-  public void showUsersRegion()
-  {
-    user1Region.setText("" + myRegion);
-    user1Region.setVisible(true);
-  }
 
   @FXML
   public void buttonPressed(ActionEvent event)
@@ -163,7 +157,6 @@ public class GameroomController implements javafx.fxml.Initializable
       myRegion = EnumRegion.SOUTHERN_PLAINS;
     }
     Main.getGameController().setSelectRegion(new RegionChoice(myRegion));
-    showUsersRegion();
   }
 
   private void makeAllInvisible()
