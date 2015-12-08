@@ -199,6 +199,9 @@ public class RegionHistory
   }
 
   public void addFarmArea(EnumFood food, int value) {
+    if (farmArea.get(food) == null) {
+      farmArea.put(food, new ArrayList<Integer>());
+    }
     farmArea.get(food).add(value);
   }
 
