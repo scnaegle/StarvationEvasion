@@ -326,7 +326,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   public void displayHand()
   {
-    //System.out.println(Main.getGameController().getCard(1));
+    for(int i = 0; i < 7; i++)
+    {
+      if(getGameController().getCard(i) == null) return;
+    }
     card1Image.setImage(CardImage.getCardImage(getGameController().getCard(0).getCardType()));
     card2Image.setImage(CardImage.getCardImage(getGameController().getCard(1).getCardType()));
     card3Image.setImage(CardImage.getCardImage(getGameController().getCard(2).getCardType()));

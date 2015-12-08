@@ -126,9 +126,12 @@ public class Player implements PlayerInterface
 
   @Override
   public PolicyCard getCard(int card_index) {
-    try {
+    if(hand != null && hand[card_index] != null)
+    {
       return PolicyCard.create(ENUM_REGION, hand[card_index]);
-    } catch (NullPointerException e) {
+    }
+    else
+    {
       return null;
     }
   }
