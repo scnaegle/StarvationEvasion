@@ -81,7 +81,7 @@ public class GameroomController
   }
 
   /**
-   * connects users to the server.
+   * Connects users to game while game is loading.
    */
   public void connectUsers()
   {

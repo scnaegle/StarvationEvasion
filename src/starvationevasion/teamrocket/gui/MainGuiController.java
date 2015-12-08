@@ -30,10 +30,9 @@ public class MainGuiController
   private Label time;
 
   @FXML
-  private RadioButton singlePlayer, multiPlayer, joinMultiPlayer;
+  private RadioButton singlePlayer, joinMultiPlayer;
 
   private boolean singlePlayerMode = true;
-  private boolean newMultiPlayerMode = false;
   private boolean joinMultiPlayerMode = false;
   @FXML
   private Label gamePlayError;
@@ -92,7 +91,6 @@ public class MainGuiController
 
     //need to reset modes if another button is pressed
     singlePlayerMode = false;
-    newMultiPlayerMode = false;
     joinMultiPlayerMode = false;
 
     Main.getGameController().setSinglePlayerMode(false);
@@ -102,7 +100,6 @@ public class MainGuiController
     {
       singlePlayerMode = true;
       Main.getGameController().setSinglePlayerMode(true);
-      multiPlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
     }
     else if(gamePlay == joinMultiPlayer)
@@ -110,7 +107,6 @@ public class MainGuiController
       joinMultiPlayerMode = true;
       Main.getGameController().setJoinMultiPlayerMode(true);
       singlePlayer.setSelected(false);
-      multiPlayer.setSelected(false);
     }
   }
 
@@ -215,6 +211,10 @@ public class MainGuiController
   }
 
 
+  /**
+   * Makes sure that the user fills in all login text fields before continuing.
+   * @return True if login good.
+   */
   private boolean verifyLoginInput()
   {
     emptyFieldError.setVisible(false);
@@ -235,7 +235,7 @@ public class MainGuiController
   private boolean verifyGamePlay()
   {
     gamePlayError.setVisible(false);
-    if(!singlePlayer.isSelected() && !multiPlayer.isSelected() && !joinMultiPlayer.isSelected())
+    if(!singlePlayer.isSelected() && !joinMultiPlayer.isSelected())
     {
       gamePlayError.setVisible(true);
       return false;
@@ -244,7 +244,10 @@ public class MainGuiController
   }
 
 
-
+  /**
+   * Saves the region that the user clicks and sets it as their region.
+   * @return Player's region.
+   */
   private EnumRegion saveRegion()
   {
     nothingSelected.setVisible(false);
@@ -310,42 +313,36 @@ public class MainGuiController
     {
       cali.setVisible(true);
       caliSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected cali");
     }
     else if (ImageRegion.HEARTLAND1.contains(x, y))
     {
       heartland.setVisible(true);
       heartlandSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected heartland");
     }
     else if (ImageRegion.MOUNTAINST1.contains(x, y))
     {
       mountSt.setVisible(true);
       mountainSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected Mountain States");
     }
     else if (ImageRegion.NORTHPLAINS1.contains(x, y))
     {
       nPlains.setVisible(true);
       nPlainSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected North Plains");
     }
     else if (ImageRegion.NORTHEAST1.contains(x, y))
     {
       northSt.setVisible(true);
       northeastSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected Northeast");
     }
     else if (ImageRegion.SOUTHEAST1.contains(x, y))
     {
       southEast.setVisible(true);
       southeastSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected Southeast");
 
     }
@@ -353,7 +350,6 @@ public class MainGuiController
     {
       sPlains.setVisible(true);
       sPlainSelected = true;
-      //initialRegionSelected = true;
       System.out.println("Selected South Plains");
     }
   }
