@@ -11,6 +11,7 @@ import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -25,8 +26,8 @@ public class Player implements PlayerInterface
   private ServerState serverState;
   private EnumGameState gameState;
   private WorldData worldData;
-  private Map<EnumRegion, RegionHistory> regionHistories;
-  private Map<EnumRegion, PolicyVote[]> policyVotes;
+  private Map<EnumRegion, RegionHistory> regionHistories = new HashMap<>();
+  private Map<EnumRegion, PolicyVote[]> policyVotes = new HashMap<>();
   private ChatHistory chatHistory = new ChatHistory();
   private VoteStatus voteStatus;
 
