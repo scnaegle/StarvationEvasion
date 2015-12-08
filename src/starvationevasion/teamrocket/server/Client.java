@@ -123,7 +123,7 @@ public class Client
    * @param payload Serializable object that should be one of the types above.
    */
   public synchronized void send(Serializable payload) {
-    System.out.println("Sending to server: " + payload);
+    System.out.println("[" + gameController.getPlayerUsername() + "] Sending to server: " + payload);
     try {
       outputStream.writeObject(payload);
     } catch (IOException e) {
@@ -163,6 +163,13 @@ public class Client
 //    Client client = new Client(host, port, gameController);
 
 //    client.send(new Login());
+    while(true) {
+      try {
+        Thread.sleep(17l);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
 
