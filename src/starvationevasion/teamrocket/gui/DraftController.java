@@ -207,6 +207,7 @@ public class DraftController implements javafx.fxml.Initializable
           if (getGameController().initGUI())
           {
             Main.getGameController().openChat();
+            setMainLabel();
             showMyRegion();
             setWindowTexts();
             resetCards();
