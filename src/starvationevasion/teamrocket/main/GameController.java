@@ -13,6 +13,13 @@ import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.RegionHistory;
 import starvationevasion.teamrocket.server.Client;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 /**
@@ -87,16 +94,28 @@ public class GameController
    */
   public PlayerInterface startSinglePlayerGame(EnumRegion region)
   {
-
-    Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
-        "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
-    server.setDaemon(true);
-    server.start(); //start() needs to be public to start our own copy.
-    startClientAndAttemptLogin("127.0.0.1");
-    if(waitForLoginResponse()) {
-      setChosenRegion(region);
-    } else {
-      //TODO show error and try again
+    boolean fromJar = GameController.class.getResource("/config/sologame.tsv").getPath().startsWith("jar:");
+    Server server = null;
+    Path soloGamePath = FileSystems.getDefault().getPath(".", "sologame.tsv");
+    try {
+      Files.write(soloGamePath, "player\tpass".getBytes(), StandardOpenOption.CREATE);
+      if (fromJar) {
+        server = new Server(soloGamePath.toString(),
+            ("java -cp " + System.getProperty("user.dir") + "starvationevasion.teamrocket.server.Client --environment").split(" "));
+      } else {
+        server = new Server(soloGamePath.toString(),
+            "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
+      }
+      server.setDaemon(true);
+      server.start(); //start() needs to be public to start our own copy.
+      startClientAndAttemptLogin("127.0.0.1");
+      if(waitForLoginResponse()) {
+        setChosenRegion(region);
+      } else {
+        //TODO show error and try again
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
     needToInitialize = true;
