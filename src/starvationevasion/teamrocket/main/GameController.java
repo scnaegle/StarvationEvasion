@@ -678,15 +678,14 @@ public class GameController
     if (draft1 != null)
     {
       this.draft1 = draft1;
+      client.send(new DraftCard(draft1));
     }
 
     if (draft2 != null)
     {
       this.draft2 = draft2;
+      client.send(new DraftCard(draft2));
     }
-
-    client.send(new DraftCard(draft1));
-    client.send(new DraftCard(draft2));
   }
 
   /**
