@@ -80,6 +80,10 @@ public class GameroomController implements javafx.fxml.Initializable
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
   }
+
+  /**
+   * Connects users to game while game is loading.
+   */
   public void connectUsers()
   {
     AvailableRegions availableRegions = Main.getGameController().getAvailableRegions();
@@ -114,21 +118,6 @@ public class GameroomController implements javafx.fxml.Initializable
 
   }
 
-  @FXML
-  public void buttonPressed(ActionEvent event)
-  {
-    //For testing purposes
-    if(event.getSource() == doneGameRoom)
-  {
-    try{
-      this.player = Main.getGameController().startSinglePlayerGame(myRegion);
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-  }
-  }
 
   /**
    * Method specifically for the smaller map inside of gameRoom.fxml.

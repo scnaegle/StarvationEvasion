@@ -1,6 +1,5 @@
 package starvationevasion.teamrocket.gui;
 
-import com.sun.scenario.effect.Crop;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -10,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -25,7 +25,6 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.RegionHistory;
-import starvationevasion.vis.ClientTest.CustomLayout;
 import starvationevasion.vis.visuals.Earth;
 
 import java.net.URL;
@@ -185,6 +184,7 @@ public class DraftController implements javafx.fxml.Initializable
       {
         if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
+
           displayHand();
 
           time.setText(GAME_CLOCK.getFormatted());
@@ -200,6 +200,7 @@ public class DraftController implements javafx.fxml.Initializable
 
           if (getGameController().initGUI())
           {
+            Main.getGameController().openChat();
             showMyRegion();
             setWindowTexts();
             resetCards();
@@ -233,6 +234,11 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Determines what each card needs as an input and shows specific boxes and drop downs
+   * depending on what the cards need.
+   * @param cardIndex Card in the hand.
+   */
   private void setupAddBox(int cardIndex)
   {
     cardInputs.setVisible(true);
@@ -326,6 +332,9 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * On scene open, the hand gets displayed.
+   */
   public void displayHand()
   {
     for(int i = 0; i < 7; i++)
@@ -479,7 +488,7 @@ public class DraftController implements javafx.fxml.Initializable
     if(produce[11]) // to veggies
     {
       switchWindow(11,10,specialWindow,veggieWindow);
-      rightArrow.setVisible(false);
+      rightArrow.setVisible(true);
     }
     else if(produce[10]) // to poultry
     {
@@ -520,10 +529,12 @@ public class DraftController implements javafx.fxml.Initializable
     else if(produce[1]){ //to apple
       switchWindow(1,0, grainWindow,appleWindow);
       leftArrow.setVisible(false);
-      rightArrow.setVisible(true);
     }
   }
 
+  /**
+   * On scene open, the produce windows get their texts set.
+   */
   private void setWindowTexts()
   {
     setText(nonCitrusText,EnumFood.FRUIT);
@@ -541,6 +552,11 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Sets text for each produce window textarea with specific information.
+   * @param text Text area.
+   * @param food Specific food.
+   */
   private void setText(TextArea text, EnumFood food)
   {
     text.setText("Products: \n" + food.toLongString() + "\n\n" + "Fun fact: \n");
@@ -705,139 +721,132 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else if (button == appleButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[0] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(false);
       PPT.setVisible(true);
-//      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
-//                                    .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
-
+      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
       appleWindow.setVisible(true);
-      //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));
-
     }
     else if (button == grainsButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[1] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.GRAIN));
+
       grainWindow.setVisible(true);
     }
     else if (button == citrusButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[2] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.CITRUS));
+
       citrusWindow.setVisible(true);
     }
     else if (button == feedButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[3] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.FEED));
+
       feedWindow.setVisible(true);
     }
     else if (button == dairyButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[4] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.DAIRY));
+
       dairyWindow.setVisible(true);
     }
     else if (button == meatButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[5] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.MEAT));
+
       meatWindow.setVisible(true);
     }
     else if (button == poultryButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[6] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.POULTRY));
+
       poultryWindow.setVisible(true);
     }
     else if (button == oilButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[7] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.OIL));
+
       oilWindow.setVisible(true);
     }
     else if (button == specialButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[8] = true;
       rightArrow.setVisible(false);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.SPECIAL));
+
       specialWindow.setVisible(true);
     }
     else if (button == veggieButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[9] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.VEGGIES));
+
       veggieWindow.setVisible(true);
     }
     else if (button == nutButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[10] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.NUT));
+
       nutWindow.setVisible(true);
     }
     else if (button == fishButton)
     {
-      //see whether it's for a policy card or for viewing
-      //if policy card, use product for card
-      //else display facts
       produce[11] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
+      PPT.setCenter(
+          CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.FISH));
+
       fishWindow.setVisible(true);
     }
     else if(button == closeEarth)
@@ -1564,7 +1573,7 @@ public class DraftController implements javafx.fxml.Initializable
     cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
         .getGameController().getRegion(region)));
 //    revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(player.getRegionHistories().get(region)));
-    //hdiGraph.setCenter(CropChart.makeHDIPieChart(new RegionHistory(region)));
+    hdiGraph.setCenter(CropChart.makeHDIPieChart(new RegionHistory(region)));
    // popGraph.setCenter(CropChart.makeLineChartRegionPopulation(player.getRegionHistories().get(region)));
     revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(new RegionHistory(region)));
     popGraph.setCenter(CropChart.makeLineChartRegionRevenue(new RegionHistory(region)));
