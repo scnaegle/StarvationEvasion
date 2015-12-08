@@ -216,7 +216,6 @@ public class DraftController implements javafx.fxml.Initializable
           if (Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
             getGameController().playDrafts(draft1Card, draft2Card);
-            Main.getGameController().finishedCardDraft();
           }
         }
       }
@@ -585,14 +584,6 @@ public class DraftController implements javafx.fxml.Initializable
     {
       //make sure card has been played, show error label if not
       saveDraftedCards();
-      try
-      {
-        getGameController().finishedCardDraft();
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
     }
     else if (button == closeWindow || button == closeWindow2 ||
         button == closeWindow3 ||
