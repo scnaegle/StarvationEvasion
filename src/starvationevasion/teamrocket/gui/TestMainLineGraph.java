@@ -69,7 +69,7 @@ public class TestMainLineGraph extends Application {
 
     region.addCropProduced(EnumFood.GRAIN, 0);
 
-    region.addCropProduced(EnumFood.FEED,0);
+    region.addCropProduced(EnumFood.FEED, 0);
 
     region.addCropProduced(EnumFood.DAIRY,0);
 
@@ -83,7 +83,13 @@ public class TestMainLineGraph extends Application {
 
     region.addCropProduced(EnumFood.SPECIAL,0);
 
-
+    region.addPricePerTon(EnumFood.CITRUS, 22);
+    region.addPricePerTon(EnumFood.CITRUS, 22);
+    region.addPricePerTon(EnumFood.CITRUS, 22);
+    region.addPricePerTon(EnumFood.CITRUS, 22);
+    region.addPricePerTon(EnumFood.CITRUS, 22);
+    region.addPricePerTon(EnumFood.CITRUS, 22);
+    region.addPricePerTon(EnumFood.CITRUS, 22);
 
     regions[0]=region;
     regions[1]=region;
@@ -95,8 +101,8 @@ public class TestMainLineGraph extends Application {
 //    LineChart<Number,Number> lineChart = CropChart.makeLineChartRegionSpecificFood(
 //        region, EnumFood.CITRUS);
 
-    LineChart<Number,Number> lineChart = CropChart.makeLineChartRegionFood(
-        region, foods);
+    LineChart<Number,Number> lineChart = CropChart.makeLineChartPricePerMetricTonFood(
+        region, EnumFood.CITRUS);
 
     Scene scene  = new Scene(lineChart,800,600);
 

@@ -27,10 +27,11 @@ public class Main extends Application
   /**
    * Refresh rate in milliseconds. 17 ms = 60hz
    */
-  public static final short GUI_REFRESH_RATE = 17;
+  public static final short GUI_REFRESH_RATE = 500;
   private static boolean sceneChanged = true;
 
   private Stage primaryStage;
+  private MediaPlayer videoPlayer;
 
   public static GameController getGameController()
   {
@@ -54,7 +55,8 @@ public class Main extends Application
     Group root = new Group();
 
     Media video = new Media(Main.class.getResource("/images/animation.mp4").toString());
-    MediaPlayer videoPlayer = new MediaPlayer(video);
+
+    videoPlayer = new MediaPlayer(video);
     MediaView viewer = new MediaView(videoPlayer);
 
     primaryStage.setTitle("Starvation Evasion");
@@ -77,6 +79,8 @@ public class Main extends Application
         if(key.getCode() == KeyCode.SPACE)
         {
           gameController.changeScene(EnumScene.WELCOME);
+          videoPlayer.stop();
+          videoPlayer = null;
         }
       }
     });

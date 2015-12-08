@@ -61,6 +61,7 @@ public class RegionHistory
     {
       cropRevenue.put(food, new ArrayList<Integer>());
       cropProduced.put(food, new ArrayList<Integer>());
+      pricePerTon.put(food,new ArrayList<Double>());
     }
     // This is where a regions starting crops are determined.
     // This might be replaced with something from the simulator or possibly

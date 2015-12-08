@@ -195,3 +195,15 @@ First, create a tsv file (tab delimited) with the usernames, passwords, and Regi
 
 To start the server you can do something like this:
   java -classpath out/production/StarvationEvasion/ starvationevasion.server.Server data/config/password_file.tsv  java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment
+
+================================================================================
+AI Cooperation
+================================================================================
+To team up with an AI to vote on the player's card, a chat message needs to be sent to the ai.
+For cooperation, the AI is expecting at least one of the following words in the message, or the card
+you are proposing to play, in order to decide if the AI will team up with the player
+
+keyword list: "coop", "cooperate", "co-operate", "join", "together", "team"
+
+If non of these words are in the message sent to the AI and random response will
+be sent back to the player.
