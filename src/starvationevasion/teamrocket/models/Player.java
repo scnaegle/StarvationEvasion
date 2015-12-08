@@ -167,7 +167,11 @@ public class Player implements PlayerInterface
    * Update the player's hand with the new hand
    * @param hand of new cards
    */
-  public synchronized void setHand(EnumPolicy[] hand){this.hand = hand;}
+  public synchronized void setHand(EnumPolicy[] hand){
+    if (hand == null) return;
+    if (hand.length < 1) return;
+    this.hand = hand;
+  }
 
   /**
    * Get the current income of the player
