@@ -5,10 +5,8 @@ package starvationevasion.teamrocket.messages;
  */
 public enum EnumGameState {
   GAME_ROOM,
-  LOGIN,
   DRAFTING,
   VOTING,
   BEGINNING,
-  VISUALIZATION,
   END
 }

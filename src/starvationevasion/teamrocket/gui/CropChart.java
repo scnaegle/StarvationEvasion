@@ -133,8 +133,8 @@ public class CropChart
 
     ArrayList<PieChart.Data> dataList = new ArrayList<>();
 
-    dataList.add(new PieChart.Data("Malnurished", 1 - region.getLastHDI()));
-    dataList.add(new PieChart.Data("Nurished", region.getLastHDI()));
+    dataList.add(new PieChart.Data("Malnurished", region.getLastHDI()));
+    dataList.add(new PieChart.Data("Nurished", 1 - region.getLastHDI()));
 
     ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(dataList);

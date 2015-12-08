@@ -14,6 +14,7 @@ public class Message implements Serializable {
     this.payload = payload;
   }
 
+
   public ServerEvent getServerEvent() {
     return server_event;
   }
