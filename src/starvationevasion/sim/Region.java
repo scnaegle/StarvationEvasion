@@ -42,7 +42,7 @@ public class Region extends AbstractTerritory
   /**
    * Territory constructor
    *
-   * @param region
+   * @param region the region that we want
    */
   public Region(EnumRegion region)
   {
@@ -642,7 +642,7 @@ public class Region extends AbstractTerritory
 
   /**
    * Updates the region population for the year.
-   * @param year
+   * @param year the year that we want
    */
   public void updatePopulation(int year)
   {

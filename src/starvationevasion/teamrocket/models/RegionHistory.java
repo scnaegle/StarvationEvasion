@@ -207,7 +207,7 @@ public class RegionHistory
 
   /**
    * adds a measure of the popualtion for a turn.
-   * @param nextPopulation
+   * @param nextPopulation adds to the population
    */
   public void addPopulation(int nextPopulation)
   {
@@ -217,7 +217,7 @@ public class RegionHistory
   /**
    * get the population for the last turn.
    *
-   * @return
+   * @return the last population
    */
   public int getLastPopulation()
   {
@@ -251,40 +251,23 @@ public class RegionHistory
 
 
   /**
+   * The amount of malutrition that a person wants
    *
-   * @param nextMalNut
+   * @param nextMalNut the next value of Malnution
    */
   public void addUndernourished(double nextMalNut)
   {
     undernourished.add(nextMalNut);
   }
 
-//  /**
-//   *
-//   * @param nextMalNut
-//   */
-//  public void addMicronutrientMalnourished(int nextMalNut)
-//  {
-//    micronutrientMalnourished.add(nextMalNut);
-//  }
-
   /**
-   *
-   * @return
+   *get the amount of undernorished people
+   * @return the number of under noruished people
    */
   public ArrayList<Double> getUndernourished()
   {
     return undernourished;
   }
-
-//  /**
-//   *
-//   * @return
-//   */
-//  public ArrayList<Integer> getMicronutrientMalnourished()
-//  {
-//    return micronutrientMalnourished;
-//  }
 
   /**
    * This was supposed to add a HDI, but apperently that will be given to us.
@@ -297,8 +280,8 @@ public class RegionHistory
   }
 
   /**
-   *
-   * @return
+   * gets the last HDI for a turn
+   * @return the last index of the HDI
    */
   public Double getLastHDI()
   {
@@ -310,31 +293,14 @@ public class RegionHistory
   }
 
   /**
+   * Gets the HDI of an arraylist
    *
-   * @return
+   * @return get the HDI of a arraylist
    */
   public ArrayList<Double> getHDI()
   {
     return HDI;
   }
-
-  /**
-   *
-   * @return
-   */
-  public int getLastProteinEnergyMalnourished()
-  {
-    return undernourished.lastIndexOf(undernourished);
-  }
-
-//  /**
-//   *
-//   * @return
-//   */
-//  public int getLastMicronutrientMalnourished()
-//  {
-//    return micronutrientMalnourished.lastIndexOf(micronutrientMalnourished);
-//  }
 
   /**
    * get an array list of the population.

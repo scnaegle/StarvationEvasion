@@ -393,7 +393,7 @@ public class MainGuiController
 
   /**
    * Determines what needs to happen on a given scene.
-   * @param timeLeft
+   * @param timeLeft the time left
    */
   public void timerUpdate(long timeLeft)
   {
