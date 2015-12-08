@@ -18,6 +18,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.common.messages.VoteType;
+import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.RegionHistory;
 
@@ -539,111 +540,61 @@ public class VotingController implements javafx.fxml.Initializable
    */
   private boolean isVotable(Button card)
   {
-    try
-    {
       if (card == caliCard1)
       {
-        if (myRegion == EnumRegion.CALIFORNIA && draftedCards.get(EnumRegion.CALIFORNIA)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+        return false;
       }
       if (card == caliCard2)
-      {
-        if (myRegion == EnumRegion.CALIFORNIA && draftedCards.get(EnumRegion.CALIFORNIA)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+      {return true;
       }
       if (card == mountCard1)
       {
-        if (myRegion == EnumRegion.MOUNTAIN && draftedCards.get(EnumRegion.MOUNTAIN)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+       return false;
       }
       if (card == mountCard2)
       {
-        if (myRegion == EnumRegion.MOUNTAIN && draftedCards.get(EnumRegion.MOUNTAIN)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+       return true;
       }
       if (card == nPlainCard1)
       {
-        if (myRegion == EnumRegion.NORTHERN_PLAINS && draftedCards.get(EnumRegion.NORTHERN_PLAINS)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+        return false;
       }
       if (card == nPlainCard2)
       {
-        if (myRegion == EnumRegion.NORTHERN_PLAINS && draftedCards.get(EnumRegion.NORTHERN_PLAINS)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+        return true;
       }
       if (card == neCard1)
       {
-        if (myRegion == EnumRegion.NORTHERN_CRESCENT && draftedCards.get(EnumRegion.NORTHERN_CRESCENT)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+        return true;
       }
       if (card == neCard2)
       {
-        if (myRegion == EnumRegion.NORTHERN_CRESCENT && draftedCards.get(EnumRegion.NORTHERN_CRESCENT)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+        return false;
       }
       if (card == sPlainCard1)
       {
-        if (myRegion == EnumRegion.SOUTHERN_PLAINS && draftedCards.get(EnumRegion.SOUTHERN_PLAINS)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+        return true;
       }
       if (card == sPlainCard2)
       {
-        if (myRegion == EnumRegion.SOUTHERN_PLAINS && draftedCards.get(EnumRegion.SOUTHERN_PLAINS)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+        return false;
       }
       if (card == seCard1)
       {
-        if (myRegion == EnumRegion.SOUTHEAST && draftedCards.get(EnumRegion.SOUTHEAST)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+        return false;
       }
       if (card == seCard2)
       {
-        if (myRegion == EnumRegion.SOUTHEAST && draftedCards.get(EnumRegion.SOUTHEAST)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+        return true;
       }
       if (card == heartCard1)
       {
-        if (myRegion == EnumRegion.HEARTLAND && draftedCards.get(EnumRegion.HEARTLAND)[0].votesRequired() != 0)
-        {
-          return true;
-        }
+       return true;
       }
       if (card == heartCard2)
       {
-        if (myRegion == EnumRegion.HEARTLAND && draftedCards.get(EnumRegion.HEARTLAND)[1].votesRequired() != 0)
-        {
-          return true;
-        }
+        return false;
       }
-    }
-    catch (NullPointerException e)
-    {
-      //Sorry don't have time to catch individually.
-    }
     return false;
   }
 
@@ -661,9 +612,10 @@ public class VotingController implements javafx.fxml.Initializable
     if (button == doneVoting)
     {
       hideAllVoteLabels();
-      Main.getGameController().setPlayerVote(myRegion, vote);
-      System.out.println("I voted " + vote);
+//      Main.getGameController().setPlayerVote(myRegion, vote);
+//      System.out.println("I voted " + vote);
 
+      Main.getGameController().switchToScene(ServerState.DRAFTING);
     }
     else if (button == caliCard1)
     {

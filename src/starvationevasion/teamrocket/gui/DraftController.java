@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.server.ServerState;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.Player;
 import starvationevasion.teamrocket.models.RegionHistory;
@@ -594,6 +595,7 @@ public class DraftController implements javafx.fxml.Initializable
     {
       //make sure card has been played, show error label if not
       saveDraftedCards();
+      getGameController().switchToScene(ServerState.VOTING);
     }
     else if (button == closeWindow || button == closeWindow2 ||
         button == closeWindow3 ||
