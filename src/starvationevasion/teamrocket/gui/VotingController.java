@@ -22,6 +22,7 @@ import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.RegionHistory;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
@@ -160,6 +161,7 @@ public class VotingController implements javafx.fxml.Initializable
   private boolean heartCard2Selected = false;
 
   private boolean votable = false;
+  private HashMap<EnumRegion, PolicyCard[]> draftedCards;
 
   PolicyCard[] myDrafts;
   EnumRegion myRegion;
@@ -186,6 +188,24 @@ public class VotingController implements javafx.fxml.Initializable
 
           highlightCards();
           VoteStatus votes = Main.getGameController().player.getVoteStatus();
+
+          draftedCards = new HashMap<>();
+          for (EnumRegion region : EnumRegion.US_REGIONS)
+          {
+            draftedCards.put(region, new PolicyCard[2]);
+          }
+
+          for (PolicyCard card : votes.currentCards)
+          {
+            if (draftedCards.get(card.getOwner())[0] == null)
+            {
+              draftedCards.get(card.getOwner())[0] = card;
+            }
+            else
+            {
+              draftedCards.get(card.getOwner())[1] = card;
+            }
+          }
 
           time.setText(Main.GAME_CLOCK.getFormatted());
 
@@ -519,107 +539,112 @@ public class VotingController implements javafx.fxml.Initializable
    */
   private boolean isVotable(Button card)
   {
-
-    if (card == caliCard1)
+    try
     {
-      if (myRegion == EnumRegion.CALIFORNIA && myDrafts[0].votesRequired() != 0)
+      if (card == caliCard1)
       {
-        return true;
+        if (myRegion == EnumRegion.CALIFORNIA && draftedCards.get(EnumRegion.CALIFORNIA)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == caliCard2)
+      {
+        if (myRegion == EnumRegion.CALIFORNIA && draftedCards.get(EnumRegion.CALIFORNIA)[1].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == mountCard1)
+      {
+        if (myRegion == EnumRegion.MOUNTAIN && draftedCards.get(EnumRegion.MOUNTAIN)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == mountCard2)
+      {
+        if (myRegion == EnumRegion.MOUNTAIN && draftedCards.get(EnumRegion.MOUNTAIN)[1].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == nPlainCard1)
+      {
+        if (myRegion == EnumRegion.NORTHERN_PLAINS && draftedCards.get(EnumRegion.NORTHERN_PLAINS)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == nPlainCard2)
+      {
+        if (myRegion == EnumRegion.NORTHERN_PLAINS && draftedCards.get(EnumRegion.NORTHERN_PLAINS)[1].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == neCard1)
+      {
+        if (myRegion == EnumRegion.NORTHERN_CRESCENT && draftedCards.get(EnumRegion.NORTHERN_CRESCENT)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == neCard2)
+      {
+        if (myRegion == EnumRegion.NORTHERN_CRESCENT && draftedCards.get(EnumRegion.NORTHERN_CRESCENT)[1].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == sPlainCard1)
+      {
+        if (myRegion == EnumRegion.SOUTHERN_PLAINS && draftedCards.get(EnumRegion.SOUTHERN_PLAINS)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == sPlainCard2)
+      {
+        if (myRegion == EnumRegion.SOUTHERN_PLAINS && draftedCards.get(EnumRegion.SOUTHERN_PLAINS)[1].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == seCard1)
+      {
+        if (myRegion == EnumRegion.SOUTHEAST && draftedCards.get(EnumRegion.SOUTHEAST)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == seCard2)
+      {
+        if (myRegion == EnumRegion.SOUTHEAST && draftedCards.get(EnumRegion.SOUTHEAST)[1].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == heartCard1)
+      {
+        if (myRegion == EnumRegion.HEARTLAND && draftedCards.get(EnumRegion.HEARTLAND)[0].votesRequired() != 0)
+        {
+          return true;
+        }
+      }
+      if (card == heartCard2)
+      {
+        if (myRegion == EnumRegion.HEARTLAND && draftedCards.get(EnumRegion.HEARTLAND)[1].votesRequired() != 0)
+        {
+          return true;
+        }
       }
     }
-    if (card == caliCard2)
+    catch (NullPointerException e)
     {
-      if (myRegion == EnumRegion.CALIFORNIA && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
+      //Sorry don't have time to catch individually.
     }
-    if (card == mountCard1)
-    {
-      if (myRegion == EnumRegion.MOUNTAIN && myDrafts[0].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == mountCard2)
-    {
-      if (myRegion == EnumRegion.MOUNTAIN && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == nPlainCard1)
-    {
-      if (myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[0].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == nPlainCard2)
-    {
-      if (myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == neCard1)
-    {
-      if (myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[0].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == neCard2)
-    {
-      if (myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == sPlainCard1)
-    {
-      if (myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[0].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == sPlainCard2)
-    {
-      if (myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == seCard1)
-    {
-      if (myRegion == EnumRegion.SOUTHEAST && myDrafts[0].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == seCard2)
-    {
-      if (myRegion == EnumRegion.SOUTHEAST && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == heartCard1)
-    {
-      if (myRegion == EnumRegion.HEARTLAND && myDrafts[0].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-    if (card == heartCard2)
-    {
-      if (myRegion == EnumRegion.HEARTLAND && myDrafts[1].votesRequired() != 0)
-      {
-        return true;
-      }
-    }
-
-    return true;
+    return false;
   }
 
 
@@ -645,7 +670,7 @@ public class VotingController implements javafx.fxml.Initializable
 
       if (myRegion == EnumRegion.CALIFORNIA)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -658,7 +683,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.CALIFORNIA)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -671,7 +696,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.MOUNTAIN)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -684,7 +709,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.MOUNTAIN)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -697,7 +722,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.NORTHERN_PLAINS)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -710,7 +735,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.NORTHERN_PLAINS)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -723,7 +748,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.SOUTHERN_PLAINS)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -736,7 +761,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.SOUTHERN_PLAINS)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -749,7 +774,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.NORTHERN_CRESCENT)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -762,7 +787,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.NORTHERN_CRESCENT)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -775,7 +800,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.SOUTHEAST)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -788,7 +813,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.SOUTHEAST)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -801,7 +826,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.HEARTLAND)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[0].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
@@ -814,7 +839,7 @@ public class VotingController implements javafx.fxml.Initializable
     {
       if (myRegion == EnumRegion.HEARTLAND)
       {
-        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+        voteCard.setImage(CardImage.getCardImage(draftedCards.get(myRegion)[1].getCardType()));
       }
       else
       { /*set other cards to other player's cards*/}
