@@ -114,4 +114,6 @@ public interface PlayerInterface
 
   public VoteStatus getVoteStatus();
 
+  public PolicyCard[] getDraftedCards();
+
 }
