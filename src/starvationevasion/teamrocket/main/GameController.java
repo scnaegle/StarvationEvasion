@@ -243,40 +243,6 @@ public class GameController
   }
 
   /**
-   * Handles the actions the player can do, play or discard cards, from
-   * the GUI and update the Player class with this information
-   *
-   * @param cardPositions array of card positions that is related to the action being down
-   * @param playedCard    True is the cards are being played, False if cards are being discarded
-   */
-  public void playerAction(int[] cardPositions, boolean playedCard)
-  {
-    if (!playedCard)
-    {
-      for (int i = 0; i < cardPositions.length; i++)
-      {
-        player.discardCard(cardPositions[i]);
-      }
-    }
-
-    else
-    {
-      if (cardPositions.length == 1)
-      {
-        player.selectedCards(cardPositions[0], -1);
-      }
-      else if (cardPositions.length == 2)
-      {
-        player.selectedCards(cardPositions[0], cardPositions[1]);
-      }
-      else
-      {
-        player.selectedCards(-1, -1);
-      }
-    }
-  }
-
-  /**
    * returns the region corresponding to the Enum a region is passed in
    *
    * @param enumRegion the enum of a region

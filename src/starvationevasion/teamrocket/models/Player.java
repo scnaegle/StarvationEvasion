@@ -23,10 +23,6 @@ import java.util.stream.Stream;
  */
 public class Player implements PlayerInterface
 {
-  /**
-   * State of the server
-   */
-  private ServerState serverState;
 
   /**
    * Client's game state
@@ -152,10 +148,10 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  public PolicyCard getCard(int card_index) {
-    if(hand != null && card_index < hand.length && hand[card_index] != null)
+  public PolicyCard getCard(int cardIndex) {
+    if(hand != null && cardIndex < hand.length && hand[cardIndex] != null)
     {
-      return PolicyCard.create(ENUM_REGION, hand[card_index]);
+      return PolicyCard.create(ENUM_REGION, hand[cardIndex]);
     }
     else
     {
@@ -185,67 +181,10 @@ public class Player implements PlayerInterface
    */
   public void updateIncome(int income){this.income = income;}
 
-  /**
-   * Set the selected cards from the GUI so the player knows
-   * which cards were selected
-   * If there is no card position, then -1 should be passed for
-   * that card position
-   * @param card1 position in hand of first card
-   * @param card2 position in hand of second card
-   */
-  public void selectedCards(int card1, int card2)
-  {
-    selectedCards.clear();
-    selectCard(card1);
-    selectCard(card2);
-  }
-
-  private void selectCard(int card_index) {
-    try {
-      if (!selectedCards.contains(hand[card_index])) {
-        PolicyCard card = PolicyCard.create(ENUM_REGION, hand[card_index]);
-        selectedCards.add(card);
-      }
-    } catch (IndexOutOfBoundsException e) {
-      // do nothing
-    }
-  }
-
-  /**
-   * count nulls in array
-   * @return num of nulls
-   */
-  private  int countNulls()
-  {
-    int nullCount = 0;
-
-    for(int i = 0; i < hand.length; i++)
-    {
-      if(hand[i] == null) nullCount++;
-    }
-    return nullCount;
-  }
-
-  /**
-   * Gets the size of the hand
-   * Needs to count number of nulls to see
-   * how many cards have still in hand
-   * @return number of cards left in hand
-   */
-  public int getHandSize()
-  {
-    return hand.length - countNulls();
-  }
-
   /********Interface Methods ***********/
   @Override
   public String getLogIn() {
     return logIn;
-  }
-
-  @Override
-  public PolicyCard[] getDraftedCards() {
-    return selectedCards.toArray(new PolicyCard[selectedCards.size()]);
   }
 
   @Override
@@ -256,25 +195,13 @@ public class Player implements PlayerInterface
   @Override
   public void discardCard(int cardPosition)
   {
-    hand[cardPosition] = null;
+    //hand[cardPosition] = null;
   }
-
-  @Override
-  public void addCard(EnumPolicy card)
-  {
-    for(int i = 0; i < hand.length; i++)
-    {
-      if(hand[i] == null)
-      {
-        hand[i] = card;
-        break;
-      }
-    }
-  }
-
 
   synchronized public void setGameState(ServerState serverState) {
-    this.serverState = serverState;
+    /*
+    State of the server
+   */
     switch(serverState) {
       case LOGIN:
         this.gameState = EnumGameState.GAME_ROOM;

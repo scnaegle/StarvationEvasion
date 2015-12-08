@@ -40,13 +40,6 @@ public interface PlayerInterface
    */
   public String getLogIn();
 
-  /**
-   * Gets an array of all the cards that
-   * are being played.
-   * @return array of Cards that are selected to play
-   */
-  public PolicyCard[] getDraftedCards();
-
 
   /**
    * Player votes on the given card that
@@ -63,11 +56,6 @@ public interface PlayerInterface
    * @param cardPosition position in hand of card
    */
   public void discardCard(int cardPosition);
-
-  /**
-   * Adds a single card to the player's hand
-   */
-  public void addCard(EnumPolicy card);
 
   /**
    * Sets the hand of the player
@@ -87,16 +75,6 @@ public interface PlayerInterface
    * @return PolicyCard for the card at that index in the hand
    */
   public PolicyCard getCard(int card_index);
-
-  /**
-   * Set the selected cards from the GUI so the player knows
-   * which cards were selected
-   * If there is no card position, then -1 should be passed for
-   * that card position
-   * @param card1 position in hand of first card
-   * @param card2 position in hand of second card
-   */
-  public void selectedCards(int card1, int card2);
 
 
   public void setGameState(ServerState serverState);

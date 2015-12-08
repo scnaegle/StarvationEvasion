@@ -162,20 +162,6 @@ public class AI extends Player
     return chat.getResponse();
   }
 
-  /********** Interface Methods *********/
-  @Override
-  public PolicyCard[] getDraftedCards()
-  {
-    if(actionsPerformed > 0)
-    {
-      PolicyCard[] cards = AI.selectCards(getHandCards(),generator, actionsPerformed);
-      setCardTargets(cards);
-      actionsPerformed = 2;
-      return cards;
-    }
-    return null;
-  }
-
   @Override
   public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
     if(cooperatingRegion != null && cooperatingRegion.equals(cardPlayedRegion))
