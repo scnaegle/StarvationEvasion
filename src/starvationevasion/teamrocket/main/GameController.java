@@ -77,7 +77,6 @@ public class GameController
    */
   public PlayerInterface startSinglePlayerGame(EnumRegion region)
   {
-    startGame(region);
 
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
         "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
@@ -90,12 +89,17 @@ public class GameController
       //TODO show error and try again
     }
 
+    needToInitialize = true;
+    changeScene(EnumScene.GAME_ROOM);
     return this.player;
   }
 
   public void startGame(EnumRegion region)
   {
-    this.player.setEnumRegion(region);
+    if(region != null)
+    {
+      this.player.setEnumRegion(region);
+    }
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
   }

@@ -376,4 +376,10 @@ public class Player implements PlayerInterface
   {
     return chatHistory;
   }
+
+  @Override
+  public VoteStatus getVoteStatus()
+  {
+    return voteStatus;
+  }
 }

@@ -123,5 +123,7 @@ public interface PlayerInterface
    */
   public ClientChatMessage sendChatMessage();
 
-  ChatHistory getChatHistory();
+   public ChatHistory getChatHistory();
+  public VoteStatus getVoteStatus();
+
 }
