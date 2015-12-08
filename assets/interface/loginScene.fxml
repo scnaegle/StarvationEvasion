@@ -19,10 +19,10 @@
           </font>
         </Label>
         <Label font="$x1" layoutX="67.0" layoutY="161.0" text="Enter your password:" />
-        <PasswordField fx:id="password" layoutX="67.0" layoutY="183.0" prefHeight="25.0" prefWidth="269.0" />
-        <Label font="$x1" layoutX="67.0" layoutY="255.0" text="Enter your IP Address:" />
         <TextField fx:id="username" layoutX="67.0" layoutY="86.0" prefHeight="25.310546875" prefWidth="269.0" />
+        <PasswordField fx:id="password" layoutX="67.0" layoutY="183.0" prefHeight="25.0" prefWidth="269.0" />
         <TextField fx:id="ipAddress" disable="false" layoutX="67.0" layoutY="280.0" prefHeight="25.310546875" prefWidth="269.0" promptText="Ex. 192.168.1.1" text="" />
+        <Label font="$x1" layoutX="67.0" layoutY="255.0" text="Enter your IP Address:" />
         <Button id="continue" fx:id="login" layoutX="137.0" layoutY="388.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.310546875" prefWidth="129.0" text="Continue" />
         <Label fx:id="addressError" layoutX="67.0" layoutY="317.0" text="Incorrect IP Address" textFill="RED" visible="false" />
       </children>
