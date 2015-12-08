@@ -1,5 +1,6 @@
 package starvationevasion.teamrocket.gui;
 
+import com.sun.scenario.effect.Crop;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -163,9 +164,9 @@ public class DraftController implements javafx.fxml.Initializable
   private Label worldTitle;
 
   private boolean[] selectedCard = new boolean[7];
-//  private Spinner<Integer> draftXControl;
-//  private Spinner<Integer> draftYControl;
-//  private Spinner<Integer> draftZControl;
+  private Spinner<Integer> draftXControl;
+  private Spinner<Integer> draftYControl;
+  private Spinner<Integer> draftZControl;
   private ComboBox<EnumFood> draftTargetFood;
   private ComboBox<EnumRegion> draftTargetRegion;
 
@@ -200,6 +201,7 @@ public class DraftController implements javafx.fxml.Initializable
           if (getGameController().initGUI())
           {
             showMyRegion();
+            setWindowTexts();
             resetCards();
             Main.GAME_CLOCK.setTimeLeft(300000);
           }
@@ -253,32 +255,32 @@ public class DraftController implements javafx.fxml.Initializable
     PolicyCard.EnumVariableUnit type = card.getRequiredVariables(PolicyCard.EnumVariable.X);
     if(type != null)
     {
-//      draftXControl = getControlForVariable(type);
-//      Label label = new Label("X value", draftXControl);
-//      textGrid.add(draftXControl, 1, row);
-//      textGrid.add(label, 0, row++);
-//      label.setVisible(true);
-//      draftXControl.setVisible(true);
+      draftXControl = getControlForVariable(type);
+      Label label = new Label("X value", draftXControl);
+      textGrid.add(draftXControl, 1, row);
+      textGrid.add(label, 0, row++);
+      label.setVisible(true);
+      draftXControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
     if(type != null)
     {
-//      draftYControl = getControlForVariable(type);
-//      Label label = new Label("Y value", draftYControl);
-//      textGrid.add(draftYControl, 1, row);
-//      textGrid.add(label, 0, row++);
-//      label.setVisible(true);
-//      draftYControl.setVisible(true);
+      draftYControl = getControlForVariable(type);
+      Label label = new Label("Y value", draftYControl);
+      textGrid.add(draftYControl, 1, row);
+      textGrid.add(label, 0, row++);
+      label.setVisible(true);
+      draftYControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
     if(type != null)
     {
-//      draftZControl = getControlForVariable(type);
-//      Label label = new Label("Z value", draftZControl);
-//      textGrid.add(draftZControl, 1, row);
-//      textGrid.add(label, 0, row++);
-//      label.setVisible(true);
-//      draftZControl.setVisible(true);
+      draftZControl = getControlForVariable(type);
+      Label label = new Label("Z value", draftZControl);
+      textGrid.add(draftZControl, 1, row);
+      textGrid.add(label, 0, row++);
+      label.setVisible(true);
+      draftZControl.setVisible(true);
     }
 
     if(card.getValidTargetFoods() != null)
@@ -304,24 +306,24 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
-//  private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
-//  {
-//    Spinner<Integer> control = null;
-//    switch(type)
-//    {
-//      case MILLION_DOLLAR:
-//        control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
-//        break;
-//      case PERCENT:
-//        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
-//        break;
-//      case UNIT:
-//        control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
-//        control.setEditable(false);
-//        break;
-//    }
-//    return control;
-//  }
+  private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
+  {
+    Spinner<Integer> control = null;
+    switch(type)
+    {
+      case MILLION_DOLLAR:
+        control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
+        break;
+      case PERCENT:
+        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
+        break;
+      case UNIT:
+        control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
+        control.setEditable(false);
+        break;
+    }
+    return control;
+  }
 
 
   public void displayHand()
@@ -400,6 +402,13 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+  /**
+   * Allows produce windows to be switched.
+   * @param initial Initial index of open window.
+   * @param next Next window to open.
+   * @param window1 Current window pane.
+   * @param window2 Next window pane to be open.
+   */
   private void switchWindow(int initial, int next, Pane window1, Pane window2)
   {
     produce[initial] = false;
@@ -409,7 +418,9 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * Opens window panes to the right of the current pane.
+   */
   private void nextProduce()
   {
     if(produce[0]){ //to grains
@@ -459,6 +470,10 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * Opens window panes to the left of the current pane.
+   */
   private void prevProduce()
   {
     if(produce[11]) // to veggies
@@ -507,6 +522,28 @@ public class DraftController implements javafx.fxml.Initializable
       leftArrow.setVisible(false);
       rightArrow.setVisible(true);
     }
+  }
+
+  private void setWindowTexts()
+  {
+    setText(nonCitrusText,EnumFood.FRUIT);
+    setText(grainsText,EnumFood.GRAIN);
+    setText(citrusText,EnumFood.CITRUS);
+    setText(dairyText, EnumFood.DAIRY);
+    setText(meatText, EnumFood.MEAT);
+    setText(feedText, EnumFood.FEED);
+    setText(poultryText, EnumFood.POULTRY);
+    setText(oilText, EnumFood.OIL);
+    setText(specialText, EnumFood.SPECIAL);
+    setText(nutText, EnumFood.NUT);
+    setText(fishText, EnumFood.FISH);
+    setText(veggieText, EnumFood.VEGGIES);
+
+  }
+
+  private void setText(TextArea text, EnumFood food)
+  {
+    text.setText("Products: \n" + food.toLongString() + "\n\n" + "Fun fact: \n");
   }
 
   /**
@@ -677,7 +714,7 @@ public class DraftController implements javafx.fxml.Initializable
       PPT.setVisible(true);
 //      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
 //                                    .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
-      nonCitrusText.setText("Products: \n" + EnumFood.FRUIT.toLongString() + "\n\n" + "Fun fact: \n");
+
       appleWindow.setVisible(true);
       //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));
 
@@ -691,7 +728,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      grainsText.setText("Products: \n"+EnumFood.GRAIN.toLongString()+"\n\n" + "Fun fact: \n");
       grainWindow.setVisible(true);
     }
     else if (button == citrusButton)
@@ -703,7 +739,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      citrusText.setText("Products: \n"+EnumFood.CITRUS.toLongString()+"\n\n" + "Fun fact: \n");
       citrusWindow.setVisible(true);
     }
     else if (button == feedButton)
@@ -715,7 +750,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      feedText.setText("Products: \n"+EnumFood.FEED.toLongString()+"\n\n" + "Fun fact: \n");
       feedWindow.setVisible(true);
     }
     else if (button == dairyButton)
@@ -727,7 +761,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      dairyText.setText("Products: \n"+EnumFood.DAIRY.toLongString()+"\n\n" + "Fun fact: \n");
       dairyWindow.setVisible(true);
     }
     else if (button == meatButton)
@@ -739,7 +772,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      meatText.setText("Products: \n"+EnumFood.MEAT.toLongString()+"\n\n" + "Fun fact: \n");
       meatWindow.setVisible(true);
     }
     else if (button == poultryButton)
@@ -751,7 +783,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      poultryText.setText("Products: \n"+EnumFood.POULTRY.toLongString()+"\n\n" + "Fun fact: \n");
       poultryWindow.setVisible(true);
     }
     else if (button == oilButton)
@@ -763,7 +794,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      oilText.setText("Products: \n"+EnumFood.OIL.toLongString()+"\n\n" + "Fun fact: \n");
       oilWindow.setVisible(true);
     }
     else if (button == specialButton)
@@ -775,7 +805,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(false);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      specialText.setText("Products: \n"+EnumFood.SPECIAL.toLongString()+"\n\n" + "Fun fact: \n");
       specialWindow.setVisible(true);
     }
     else if (button == veggieButton)
@@ -787,7 +816,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      veggieText.setText("Products: \n"+EnumFood.VEGGIES.toLongString()+"\n\n" + "Fun fact: \n");
       veggieWindow.setVisible(true);
     }
     else if (button == nutButton)
@@ -799,7 +827,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      nutText.setText("Products: \n"+EnumFood.NUT.toLongString()+"\n\n" + "Fun fact: \n");
       nutWindow.setVisible(true);
     }
     else if (button == fishButton)
@@ -811,7 +838,6 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);
       PPT.setVisible(true);
-      fishText.setText("Products: \n"+EnumFood.FISH.toLongString()+ "\n\n" + "Fun fact: \n");
       fishWindow.setVisible(true);
     }
     else if(button == closeEarth)
@@ -1047,15 +1073,15 @@ public class DraftController implements javafx.fxml.Initializable
 
     if (card.getRequiredVariables(PolicyCard.EnumVariable.X) != null)
     {
-//      card.setX(draftXControl.getValue());
+      card.setX(draftXControl.getValue());
     }
     if (card.getRequiredVariables(PolicyCard.EnumVariable.Y) != null)
     {
-//      card.setY(draftYControl.getValue());
+      card.setY(draftYControl.getValue());
     }
     if (card.getRequiredVariables(PolicyCard.EnumVariable.Z) != null)
     {
-//      card.setZ(draftZControl.getValue());
+      card.setZ(draftZControl.getValue());
     }
 
     if (card.getValidTargetFoods() != null)
@@ -1070,11 +1096,11 @@ public class DraftController implements javafx.fxml.Initializable
 
     if(card.validate() != null)
     {
-//      Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
-//      alert.setResizable(true);
-//      alert.setWidth(alert.getContentText().length() * 7);
-//      alert.showAndWait();
-//      return false;
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
+      alert.setResizable(true);
+      alert.setWidth(alert.getContentText().length() * 7);
+      alert.showAndWait();
+      return false;
     }
 
     cardsDrafted++;
@@ -1098,8 +1124,8 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else
     {
-//      Alert alert = new Alert(Alert.AlertType.INFORMATION, "Already two cards drafted.", ButtonType.CLOSE);
-//      alert.showAndWait();
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, "Already two cards drafted.", ButtonType.CLOSE);
+      alert.showAndWait();
 
       cardsDrafted = 2;
       return false;
@@ -1537,9 +1563,11 @@ public class DraftController implements javafx.fxml.Initializable
   {
     cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
         .getGameController().getRegion(region)));
-    revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(new RegionHistory(region)));
+//    revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(player.getRegionHistories().get(region)));
     //hdiGraph.setCenter(CropChart.makeHDIPieChart(new RegionHistory(region)));
-    popGraph.setCenter(CropChart.makeLineChartRegionPopulation(new RegionHistory(region)));
+   // popGraph.setCenter(CropChart.makeLineChartRegionPopulation(player.getRegionHistories().get(region)));
+    revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(new RegionHistory(region)));
+    popGraph.setCenter(CropChart.makeLineChartRegionRevenue(new RegionHistory(region)));
   }
 
   /**

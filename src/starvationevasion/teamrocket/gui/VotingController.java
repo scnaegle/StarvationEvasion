@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,6 +18,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.teamrocket.main.Main;
+import starvationevasion.teamrocket.models.RegionHistory;
 
 import javax.smartcardio.Card;
 import java.awt.event.MouseEvent;
@@ -163,6 +165,10 @@ public class VotingController implements javafx.fxml.Initializable
   PolicyCard[] myDrafts;
   EnumRegion myRegion;
 
+  /* GRAPHS */
+  @FXML
+  private BorderPane graph1, graph2, graph3;
+
   /********************************************************************************/
 
   /**
@@ -197,6 +203,7 @@ public class VotingController implements javafx.fxml.Initializable
             if(myDrafts[0] != null) System.out.println("card 1: " + myDrafts[0].getCardType());
             if(myDrafts[1] != null) System.out.println("card 2: "+ myDrafts[1].getCardType());
             myRegion = Main.getGameController().getMyRegion();
+            showGraphs();
           }
 
 
@@ -216,6 +223,15 @@ public class VotingController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Displays graphs on scene open.
+   */
+  private void showGraphs()
+  {
+    graph1.setCenter(CropChart.makeHDIPieChart(new RegionHistory(myRegion)));
+    graph2.setCenter(CropChart.makeRegionFoodPieChart(new RegionHistory(myRegion)));
+    graph3.setCenter(CropChart.makeLineChartRegionRevenue(new RegionHistory(myRegion)));
+  }
   /**
    * When controller is initialized, this method gets called and defaults whatever method is called from inside it.
    * Parameters are not necessary to use.
@@ -538,7 +554,7 @@ public class VotingController implements javafx.fxml.Initializable
       if( myRegion == EnumRegion.HEARTLAND && myDrafts[1].votesRequired() != 0)return true;
     }
 
-    return false;
+    return true;
   }
 
 
@@ -557,7 +573,7 @@ public class VotingController implements javafx.fxml.Initializable
 
 
     //save choices
-    //update variables
+
     try
     {
       Main.getGameController().finishedVoting();
@@ -695,7 +711,7 @@ public class VotingController implements javafx.fxml.Initializable
       h2Votes.setVisible(true);
     }
 
-    else if(button == submitVote)
+    else if(button == submitVote) //Button on large view of card
     {
       CardPane.setVisible(false);
       if(caliCard1Selected)
@@ -840,7 +856,7 @@ public class VotingController implements javafx.fxml.Initializable
       }
 
       deselectCards();
-      //update main labels
+
     }
   }
 

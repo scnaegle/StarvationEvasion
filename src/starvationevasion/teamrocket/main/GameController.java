@@ -453,11 +453,6 @@ public class GameController
   }
 
 
-  public void setNewMultiPlayerMode(boolean on)
-  {
-    newMultiPlayer = on;
-  }
-
   public void setJoinMultiPlayerMode(boolean on)
   {
     joinMultiPlayer = on;
@@ -469,10 +464,6 @@ public class GameController
     if (singlePlayer)
     {
       mode = "singlePlayer";
-    }
-    else if (newMultiPlayer)
-    {
-      mode = "newMultiPlayer";
     }
     else if (joinMultiPlayer)
     {
