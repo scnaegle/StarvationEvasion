@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 <AnchorPane id="AnchorPane" fx:id="endGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.EndSceneController">
   <children>
     <ImageView id="welcome" fitHeight="760.0" fitWidth="1038.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
