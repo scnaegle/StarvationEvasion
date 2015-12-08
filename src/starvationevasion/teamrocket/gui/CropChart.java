@@ -246,7 +246,7 @@ public class CropChart
    * turns
    *
    * @param region the region of the food
-   * @param food   the type of food we are graphinf
+   * @param food   the type of food we are graphs
    * @return a line chart for being displayed.
    */
   public static LineChart makeLineChartPricePerMetricTonFood(RegionHistory region,
@@ -273,18 +273,17 @@ public class CropChart
           new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
       iterateTurnNumber++;
     }
-    series.getData().add(new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), 12));
-
     series.setName(food.name());
     lineChart.getData().add(series);
     return lineChart;
   }
 
   /**
+   * Makes a line chart of all the crops of the regions
    *
-   * @param region
-   * @param foods
-   * @return
+   * @param region the region that we want
+   * @param foods booleans to tell what we want
+   * @return a line chart of the foods
    */
   public static LineChart makeLineChartRegionFood(RegionHistory region,
                                                   boolean[] foods)
@@ -556,10 +555,8 @@ public class CropChart
 
 
   /**
-   * Makes a line chart of the data from our crops and regions,
-   * which spans
-   * the entire
-   * turns
+   * Makes a line chart of the data from our crops and regions, which spans
+   * the game
    *
    * @param regions the region of the food
    * @param food    the type of food we are graphinf
@@ -611,7 +608,7 @@ public class CropChart
       iterateTurnNumber++;
     }
 
-    series.setName("My portfolio");
+    series.setName("Revenue");
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -622,8 +619,7 @@ public class CropChart
    * @param region the region that we want the population from
    * @return a line chart for being displayed.
    */
-  public static LineChart makeLineChartRegionPopulation
-  (RegionHistory region)
+  public static LineChart makeLineChartRegionPopulation(RegionHistory region)
   {
     final NumberAxis xAxis = new NumberAxis(YEAR_START, YEAR_END, 3);
     final NumberAxis yAxis = new NumberAxis();
@@ -649,7 +645,7 @@ public class CropChart
       iterateTurnNumber++;
     }
 
-    series.setName("My portfolio");
+    series.setName("Population");
     lineChart.getData().add(series);
     return lineChart;
   }
@@ -684,7 +680,7 @@ public class CropChart
       iterateTurnNumber++;
     }
 
-    series.setName("My portfolio");
+    series.setName("Revenue");
     lineChart.getData().add(series);
     return lineChart;
   }

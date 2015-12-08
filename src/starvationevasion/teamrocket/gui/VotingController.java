@@ -487,11 +487,11 @@ public class VotingController implements javafx.fxml.Initializable
 
 
   /**
-   * For testing purposes currently
-   * @param card
-   * @return
+   * If a card is votable this allows for the player to vote on it
+   *
+   * @param card the card tha the player sets
+   * @return button pushed
    */
-
   private boolean isVotable(Button card)
   {
 

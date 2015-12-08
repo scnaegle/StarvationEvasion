@@ -38,10 +38,17 @@ public class ChatController implements javafx.fxml.Initializable
 
   /**************************/
 
+  /**
+   * Used to make control the chat boxes
+   */
   public ChatController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
     {
+      /**
+       * handles an event if a message is inputted
+       * @param event message is inputted
+       */
       @Override
       public void handle(ActionEvent event)
       {
@@ -74,6 +81,9 @@ public class ChatController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * Sends a message
+   */
   @FXML
   public void sendMessage()
   {
@@ -93,6 +103,11 @@ public class ChatController implements javafx.fxml.Initializable
     hasText = true;
   }
 
+  /**
+   * Enters a message to send
+   *
+   * @param event
+   */
   @FXML
   public void enterMessage(KeyEvent event)
   {

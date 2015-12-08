@@ -175,10 +175,18 @@ public class DraftController implements javafx.fxml.Initializable
 
   /***************************************************************************************/
 
+  /**
+   * controls the draft scene and how we are running it/
+   */
   public DraftController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
     {
+      /**
+       * Listens to the timer in order to change the color of the clock and tell
+       * the client when the turn is over
+       * @param event a certain value on the timer is updated
+       */
       @Override
       public void handle(ActionEvent event)
       {
@@ -324,6 +332,9 @@ public class DraftController implements javafx.fxml.Initializable
 //  }
 
 
+  /**
+   * displays the hand that the player has
+   */
   public void displayHand()
   {
     //System.out.println(Main.getGameController().getCard(1));

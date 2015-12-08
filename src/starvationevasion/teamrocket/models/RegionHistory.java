@@ -292,6 +292,7 @@ public class RegionHistory
 //    HDI.add(((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished())) /(double) getLastPopulation());
     HDI.add(humanDevelopmentIndex);
   }
+
   /**
    *
    * @return

@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * Handles the welcome scene, choose region scene, and login scene.
  */
-public class MainGuiController implements javafx.fxml.Initializable
+public class MainGuiController
 {
   /* BEGINNING SCENES AND THEIR BUTTONS */
   @FXML
@@ -67,10 +67,6 @@ public class MainGuiController implements javafx.fxml.Initializable
   private boolean southeastSelected;
   private boolean sPlainSelected;
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
-  {
-  }
 
   /**
    * Passes login information to GameController.
@@ -404,7 +400,11 @@ public class MainGuiController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * Finds a the shape of a polygon
+   *
+   * @param event The area that the mouse is scrolling over
+   */
   @FXML
   public void findPolygon(MouseEvent event)
   {

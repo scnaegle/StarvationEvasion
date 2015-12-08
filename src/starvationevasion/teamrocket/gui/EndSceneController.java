@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 /**
  * Handles the end scene and displays a winning label or losing label depending on HDI score by 2052.
  */
-public class EndSceneController implements javafx.fxml.Initializable
+public class EndSceneController
 {
   @FXML
   private Label winLabel, lose1Label, lose2Label, first, second, third, fourth, fifth, sixth, seventh,
@@ -17,11 +17,6 @@ public class EndSceneController implements javafx.fxml.Initializable
   private boolean winner;
 
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
-  {
-
-  }
 
   private void showGameLabel()
   {

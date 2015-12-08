@@ -18,6 +18,11 @@ public class ImageRegion
       16.0,89.0,
       16.0,85.0,
       23.0,70.0};
+
+
+    /**
+     * The california Polygon
+     */
   public static Polygon CALIFORNIA = new Polygon(caliPts);
 
   private static double[] mountPts = {41.0,4.0,
@@ -38,6 +43,10 @@ public class ImageRegion
       23.0,67.0,
       34.0,37.0,
       40.0,12.0};
+
+    /**
+     * The mountain Polygon
+     */
   public static Polygon MOUNTAINST = new Polygon(mountPts);
 
   private static double[] heartPts = {241.0,90.0,
@@ -57,6 +66,9 @@ public class ImageRegion
       247.0,119.0,
       240.0,105.0,
       240.0,90.0};
+    /**
+     * The Heartland Polygon
+     */
   public static Polygon HEARTLAND = new Polygon(heartPts);
 
   private static double[] nePts = {274.0,54.0,
@@ -96,6 +108,9 @@ public class ImageRegion
       297.0,48.0,
       291.0,54.0,
       274.0,54.0};
+    /**
+     * The Northeast Polygon
+     */
   public static Polygon NORTHEAST = new Polygon(nePts);
 
   private static double[] sePts = {282.0,222.0,
@@ -134,6 +149,10 @@ public class ImageRegion
       300.0,227.0,
       299.0,222.0,
       283.0,223.0};
+
+    /**
+     * The Southeast Polygon
+     */
   public static Polygon SOUTHEAST = new Polygon(sePts);
 
   private static double[] nPlainPts = {188.0,27.0,
@@ -155,7 +174,11 @@ public class ImageRegion
       180.0,110.0,
       188.0,31.0,
       188.0,27.0};
-  public static Polygon NORTHPLAINS = new Polygon(nPlainPts);
+
+    /**
+     * The Northplains Polygon
+     */
+    public static Polygon NORTHPLAINS = new Polygon(nPlainPts);
 
   private static double[] sPlainPts = {185.0,157.0,
       178.0,209.0,
@@ -183,6 +206,9 @@ public class ImageRegion
       255.0,164.0,
       255.0,158.0,
       184.0,157.0,};
+    /**
+     * The Southplains Polygon
+     */
   public static Polygon SOUTHPLAINS = new Polygon(sPlainPts);
 
   /* POLYGONS FOR BIGGER MAP WHEN FIRST CHOOSING PLAYER REGION */
@@ -201,6 +227,7 @@ public class ImageRegion
       29.0,148.0,
       25.0,134.0,
       35.0,113.0};
+
   public static Polygon CALIFORNIA1 = new Polygon(calipts);
 
   private static double[] mountpts = {36.0,108.0,

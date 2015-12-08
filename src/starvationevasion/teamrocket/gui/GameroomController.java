@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 /**
  * Handles the game room scene.
  */
-public class GameroomController implements javafx.fxml.Initializable
+public class GameroomController
 {
   /* USERNAMES AND LABELS FOR GAMEROOM */
   @FXML
@@ -44,11 +44,10 @@ public class GameroomController implements javafx.fxml.Initializable
 
 
   /*************************************************************************/
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
-  {
-  }
 
+  /**
+   * Controls the game room scene where player sync up.
+   */
   public GameroomController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
@@ -80,6 +79,10 @@ public class GameroomController implements javafx.fxml.Initializable
     updater.setCycleCount(Timeline.INDEFINITE);
     updater.play();
   }
+
+  /**
+   * connects users to the server.
+   */
   public void connectUsers()
   {
     AvailableRegions availableRegions = Main.getGameController().getAvailableRegions();
@@ -114,6 +117,11 @@ public class GameroomController implements javafx.fxml.Initializable
 
   }
 
+  /**
+   * the button is pressed and will start the game
+   *
+   * @param event the button is pressed
+   */
   @FXML
   public void buttonPressed(ActionEvent event)
   {

@@ -595,4 +595,6 @@ public class GameController
     drafts[1] = draft2;
     return drafts;
   }
+
+
 }
