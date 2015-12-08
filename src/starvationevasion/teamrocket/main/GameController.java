@@ -374,16 +374,6 @@ public class GameController
   }
 
   /**
-   * This method handles when a region selection is performed.
-   *
-   * @param choice The region choice
-   */
-  public void setSelectRegion(RegionChoice choice)
-  {
-
-  }
-
-  /**
    * Start the game after the game room is done.
    *
    * @param readyToBegin

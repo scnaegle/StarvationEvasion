@@ -183,7 +183,7 @@ public class GameroomController implements javafx.fxml.Initializable
       sPlains.setVisible(true);
       myRegion = EnumRegion.SOUTHERN_PLAINS;
     }
-    Main.getGameController().setSelectRegion(new RegionChoice(myRegion));
+    Main.getGameController().setChosenRegion(myRegion);
   }
 
   private void makeAllInvisible()
