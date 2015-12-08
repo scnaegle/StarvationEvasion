@@ -5,6 +5,7 @@ import starvationevasion.common.messages.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
 import starvationevasion.server.ServerState;
+import starvationevasion.teamrocket.AI.AI;
 import starvationevasion.teamrocket.AI.EnumAITypes;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.gui.EnumScene;
@@ -51,7 +52,7 @@ public class GameController
   private EnumScene currentScene;
   private boolean needToInitialize;
 
-  private boolean AI = false;
+  private boolean ai = false;
 
   /**
    * This for us to keep track of whether or not the player is allowed by the server
@@ -69,11 +70,11 @@ public class GameController
    * The main controller that talks with the GUI in order to hear player input
    *
    * @param main The main class
-   * @param AI   Decides if there is an AI
+   * @param ai   Decides if there is an ai
    */
-  public GameController(Main main, boolean AI)
+  public GameController(Main main, boolean ai)
   {
-    this.AI = AI;
+    this.ai = ai;
     this.MAIN = main;
     for (EnumRegion enumRegion : EnumRegion.values())
     {
@@ -310,7 +311,7 @@ public class GameController
   {
     if (player == null)
     {
-      this.player = new Player(region, (AI ? EnumAITypes.BASIC : null), this);
+      this.player = new Player(region, (ai ? EnumAITypes.BASIC : null), this);
     }
     else
     {
@@ -369,7 +370,7 @@ public class GameController
    */
   public void setStartGame(ReadyToBegin readyToBegin)
   {
-    if (!AI)
+    if (!ai)
     {
       Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
     }
@@ -478,7 +479,10 @@ public class GameController
   public void setChat(ServerChatMessage message)
   {
     player.receiveChatMessage(message);
-    //TODO update GUI with new message
+
+    if (ai) {
+      client.send(player.sendChatMessage());
+    }
   }
 
   /**
@@ -624,7 +628,7 @@ public class GameController
    */
   public void updateTimer(PhaseStart phaseStart)
   {
-    if (!AI)
+    if (!ai)
     {
       Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
     }
@@ -711,7 +715,7 @@ public class GameController
 
   public void setPhaseStart(PhaseStart phaseStart)
   {
-    if (!AI)
+    if (!ai)
     {
       switch (phaseStart.currentGameState)
       {
