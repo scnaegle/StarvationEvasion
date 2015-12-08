@@ -59,7 +59,7 @@ public class GameroomController implements javafx.fxml.Initializable
         if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
-          if(Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10 && Main.GAME_CLOCK.getSeconds() >=0)
+          if(Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10000 && Main.GAME_CLOCK.getSeconds() >=0)
           {
             countdown.setVisible(true);
           }
