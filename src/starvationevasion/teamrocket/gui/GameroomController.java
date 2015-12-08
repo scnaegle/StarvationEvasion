@@ -52,6 +52,12 @@ public class GameroomController
       @Override
       public void handle(ActionEvent event)
       {
+        if(Main.getGameController().getCurrentScene() != EnumScene.GAME_ROOM && modal != null)
+        {
+          modal.hide();
+          modal = null;
+        }
+
         if (Main.getGameController().getCurrentScene() != Main.getGameController().desiredScene)
         {
           Main.getGameController().changeScene(Main.getGameController().desiredScene);
