@@ -168,9 +168,9 @@ public class Player implements PlayerInterface
    * @param hand of new cards
    */
   public synchronized void setHand(EnumPolicy[] hand){
-    if (hand == null) return;
-    if (hand.length < 1) return;
-    this.hand = hand;
+    if (hand != null && hand.length > 0) {
+      this.hand = hand;
+    }
   }
 
   /**
