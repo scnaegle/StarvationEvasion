@@ -530,7 +530,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card6Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/foodrelief.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -539,7 +539,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card7Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/foreignaid.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -548,7 +548,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card5Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/feedsubsidy.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -557,7 +557,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card4Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/educatewomen.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -566,7 +566,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card2Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/ethanoltax.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -575,7 +575,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card1Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/cleanriver.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -584,7 +584,7 @@
               <graphic>
                 <ImageView id="insideCard" fx:id="card3Image" fitHeight="80.31053161621094" fitWidth="66.92544027241728" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/covertintel.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../images/card.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>

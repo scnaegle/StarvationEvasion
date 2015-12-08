@@ -76,6 +76,12 @@ public interface PlayerInterface
   public void setHand(EnumPolicy[] hand);
 
   /**
+   * Returns the player's hand.
+   * @return array of EnumPolicies.
+   */
+  public EnumPolicy[] getHand();
+
+  /**
    * Gets the card at the specific index
    * @param card_index index of card being asked for
    * @return PolicyCard for the card at that index in the hand
