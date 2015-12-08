@@ -23,12 +23,34 @@ import java.util.stream.Stream;
  */
 public class Player implements PlayerInterface
 {
+  /**
+   * State of the server
+   */
   private ServerState serverState;
+
+  /**
+   * Client's game state
+   */
   private EnumGameState gameState;
+
+  /**
+   * World data information from the simulation
+   */
   private WorldData worldData;
+
+  /**
+   * All history for each turn and each region
+   */
   private Map<EnumRegion, RegionHistory> regionHistories = new HashMap<>();
-  private Map<EnumRegion, PolicyVote[]> policyVotes = new HashMap<>();
+
+  /**
+   * Chat messaging history for player
+   */
   private ChatHistory chatHistory = new ChatHistory();
+
+  /**
+   * The current voting status
+   */
   private VoteStatus voteStatus;
 
   /**
