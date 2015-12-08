@@ -82,7 +82,7 @@ public class GameroomController
               @Override
               public void run()
               {
-                modal = new Alert(Alert.AlertType.INFORMATION, "The server is now loading please wait.");
+                modal = new Alert(Alert.AlertType.INFORMATION, "The server is now loading please wait.\nThis can take between 2 and 10 minutes!");
                 modal.show();
               }
             });
