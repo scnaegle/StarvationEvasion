@@ -1,9 +1,6 @@
 package starvationevasion.teamrocket.main;
 
-import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
-import starvationevasion.common.WorldData;
+import starvationevasion.common.*;
 import starvationevasion.common.messages.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
@@ -387,7 +384,8 @@ public class GameController
    */
   public void updateWorldData(WorldData worldData)
   {
-
+    this.currentYear = worldData.year;
+    this.currentTurn = (currentYear - Constant.FIRST_YEAR) / 3;
     player.updateWorldData(worldData);
     // TODO update GUI with the new world data - probably graphs and such
   }
