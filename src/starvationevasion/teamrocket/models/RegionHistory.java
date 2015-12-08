@@ -303,6 +303,8 @@ public class RegionHistory
   {
 //    return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
 //        /(double) getLastPopulation();
+    if (HDI == null) return 0d;
+    if (HDI.isEmpty()) return 0d;
     return Iterables.getLast(HDI);
   }
 
