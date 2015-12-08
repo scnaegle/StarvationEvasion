@@ -142,6 +142,5 @@
         <Font size="70.0" />
       </font>
     </Label>
-    <Button fx:id="doneGameRoom" layoutX="834.0" layoutY="39.0" mnemonicParsing="false" onAction="#buttonPressed" text="next" />
   </children>
 </AnchorPane>
