@@ -138,10 +138,14 @@ public class AI extends Player
   {
     for(PolicyCard card : voteStatus.currentCards)
     {
-      EnumRegion owner = card.getOwner();
-
-      if(card.didVoteYes(owner))records[owner.ordinal()].setPlayerCoop(true);
-      else records[owner.ordinal()].setPlayerCoop(false);
+      for(EnumRegion region : EnumRegion.US_REGIONS)
+      {
+        if(!region.equals(ENUM_REGION) && card.isEligibleToVote(region))
+        {
+          if(card.didVoteYes(region))records[region.ordinal()].setPlayerCoop(true);
+          else records[region.ordinal()].setPlayerCoop(false);
+        }
+      }
     }
   }
 

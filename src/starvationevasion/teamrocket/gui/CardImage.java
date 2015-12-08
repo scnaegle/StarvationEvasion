@@ -49,7 +49,11 @@ public class CardImage
     cards.put(EnumPolicy.MyPlate_Promotion_Campaign, myPlate);
   }
 
-
+  /**
+   *
+   * @param policy
+   * @return
+   */
   public static Image getCardImage(EnumPolicy policy)
   {
     return cards.get(policy);

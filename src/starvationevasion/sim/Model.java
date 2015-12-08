@@ -3,11 +3,11 @@ package starvationevasion.sim;
 import starvationevasion.common.*;
 import starvationevasion.io.WorldLoader;
 import starvationevasion.io.CropCSVLoader;
+import starvationevasion.sim.events.AbstractEvent;
+import starvationevasion.sim.events.Drought;
+import starvationevasion.sim.events.Hurricane;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,6 +77,8 @@ import java.util.logging.Logger;
 
 public class Model
 {
+  public static double EVENT_CHANCE = 0.02;
+
   EnumRegion debugRegion = EnumRegion.CALIFORNIA;
   private final static Logger LOGGER = Logger.getGlobal(); // getLogger(Model.class.getName())
 
@@ -98,7 +100,7 @@ public class Model
   private SeaLevel seaLevel;
   private CropCSVLoader cropLoader = null;
 
-  private List<AbstractEvent<?>> specialEvents = new ArrayList<>();
+  private List<AbstractEvent> specialEvents = new ArrayList<>();
 
   public Model(int startYear)
   {
@@ -112,6 +114,11 @@ public class Model
   public Region getRegion(EnumRegion r)
   {
     return regionList[r.ordinal()];
+  }
+
+  public List<AbstractEvent> getSpecialEvents()
+  {
+    return specialEvents;
   }
 
   /**
@@ -370,7 +377,7 @@ public class Model
     // TODO: 12/6/2015 Alfred is working on this.
     //
     if (debugLevel.intValue() < Level.INFO.intValue())
-    { Simulator.dbg.println("******************************************* No special events");
+    { Simulator.dbg.println("******************************************* Generating special events");
     }
 
     //check current year.
@@ -387,17 +394,28 @@ public class Model
       //through policy. 
     }
 
-    // temporary code just to let special events happen
+    // Temporary code just to make special events happen in the absence of Alfred's timeline.
+    //
     int attempts = 5;
-    double chance = 0.5;
     Random rand = new Random();
     while (attempts > 0)
     {
-      if (rand.nextFloat() < chance)
+      if (rand.nextFloat() < EVENT_CHANCE)
       {
         if (rand.nextBoolean())
         {
           // do a hurricane
+          Region us = regionList[EnumRegion.SIZE];
+          int idx = rand.nextInt(us.getTerritories().size()-1) + 1;
+          for (Territory territory : us.getTerritories())
+          {
+            if (idx == 0)
+            {
+              specialEvents.add(new Hurricane(territory));
+              break;
+            }
+            idx--;
+          }
         }
         else
         {
@@ -413,14 +431,17 @@ public class Model
 
   private void applySpecialEvents()
   {
-    for (AbstractEvent<?> event : specialEvents)
+    if (specialEvents.isEmpty()) return;
+
+    for (Iterator<AbstractEvent> iterator = specialEvents.iterator(); iterator.hasNext(); )
     {
+      AbstractEvent event = iterator.next();
       event.applyEffects();
 
       // remove the event if its duration is 0.
       if (event.getDuration() < 1)
       {
-        specialEvents.remove(event);
+        iterator.remove();
       }
     }
   }
@@ -545,8 +566,9 @@ public class Model
     //
     Simulator.dbg.println("Region " + region.getName() + " climate : ");
     for (Territory territory : region.getTerritories())
-    { // MapPoint capitol = territory.getCapitolLocation();
-      LandTile tile = territory.getLandTiles().iterator().next();
+    {
+      MapPoint capitol = territory.getCapitolLocation();
+      LandTile tile = world.getTileManager().getTile(capitol.longitude, capitol.latitude);
       Simulator.dbg.println("\t" + territory.getName() + ": " + tile.toDetailedString());
     }
   }

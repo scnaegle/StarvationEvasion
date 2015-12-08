@@ -54,6 +54,12 @@ public class GameController
   public int currentYear;
   public int currentTurn;
 
+  /**
+   * The main controller that talks with the GUI in order to hear player input
+   *
+   * @param main The main class
+   * @param AI Decides if there is an AI
+   */
   public GameController(Main main, boolean AI)
   {
     this.MAIN = main;
@@ -77,7 +83,6 @@ public class GameController
    */
   public PlayerInterface startSinglePlayerGame(EnumRegion region)
   {
-    startGame(region);
 
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
         "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
@@ -90,12 +95,22 @@ public class GameController
       //TODO show error and try again
     }
 
+    needToInitialize = true;
+    changeScene(EnumScene.GAME_ROOM);
     return this.player;
   }
 
+  /**
+   * initalizes the game and starts it
+   *
+   * @param region starts it for the region of the player
+   */
   public void startGame(EnumRegion region)
   {
-    this.player.setEnumRegion(region);
+    if(region != null)
+    {
+      this.player.setEnumRegion(region);
+    }
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
   }
@@ -125,7 +140,10 @@ public class GameController
     return true;
   }
 
-
+  /**
+   * switches to a certain scene depending on what we want
+   * @param serverState the type of state that we want to switch to
+   */
   public void switchToScene(ServerState serverState)
   {
     switch (serverState)
@@ -174,12 +192,20 @@ public class GameController
     changeScene(EnumScene.LOGIN);
   }
 
+  /**
+   * switches to game scene
+   */
   public void switchToGameScene()
   {
     needToInitialize = true;
     changeScene(EnumScene.GAME_ROOM);
   }
 
+  /**
+   * changes the scene that the player is in
+   *
+   * @param nextScene the next scene that people want to
+   */
   void changeScene(EnumScene nextScene)
   {
     currentScene = nextScene;
@@ -187,6 +213,9 @@ public class GameController
 
   }
 
+  /**
+   * opens the chat for the player to use
+   */
   public void openChat()
   {
     MAIN.openChat();
@@ -328,10 +357,10 @@ public class GameController
   /**
    * Tries to login into the designated server.
    *
-   * @param username
-   * @param password
-   * @param ipAddress
-   * @return
+   * @param username The user name
+   * @param password The password
+   * @param ipAddress The IPAddress
+   * @return True if this they are able to log in
    */
   public boolean tryLogin(String username, String password, String ipAddress)
   {
@@ -348,7 +377,7 @@ public class GameController
   /**
    * Start the game after the game room is done.
    *
-   * @param readyToBegin
+   * @param readyToBegin decider to allow the player to be ready to start the game
    */
   public void setStartGame(ReadyToBegin readyToBegin)
   {
@@ -362,7 +391,7 @@ public class GameController
   /**
    * Store the new Regions
    *
-   * @param worldData
+   * @param worldData passed in data from the sim
    */
   public void updateWorldData(WorldData worldData)
   {
@@ -412,7 +441,7 @@ public class GameController
 
   /**
    * Parse the BeginGame object from the server and start the game for player
-   * @param beginGame
+   * @param beginGame Allows the game the game to begin
    */
   public void beginGame(BeginGame beginGame) {
     for(Map.Entry<EnumRegion, String> entry : beginGame.finalRegionChoices.entrySet()) {
@@ -431,6 +460,11 @@ public class GameController
     // TODO update GUI with the new hand
   }
 
+  /**
+   * Sets the new game state
+   *
+   * @param gameState the game state of what we want
+   */
   public void setGameState(ServerState gameState) {
     player.setGameState(gameState);
     // TODO update GUI with the new game state
@@ -439,7 +473,7 @@ public class GameController
   /**
    * Process new chat message.
    *
-   * @param message
+   * @param message the message that we are passing
    */
   public void setChat(ServerChatMessage message)
   {
@@ -447,17 +481,31 @@ public class GameController
     //TODO update GUI with new message
   }
 
+  /**
+   * Sets the single player mode
+   *
+   * @param on boolean to decide if this is single player
+   */
   public void setSinglePlayerMode(boolean on)
   {
     singlePlayer = on;
   }
 
-
+  /**
+   * Sets the multiplayer mode
+   *
+   * @param on decides if this is multiplayer
+   */
   public void setJoinMultiPlayerMode(boolean on)
   {
     joinMultiPlayer = on;
   }
 
+  /**
+   * gets the playerMode that people can play
+   *
+   * @return the Playermode
+   */
   public String getPlayerMode()
   {
     String mode = null;
@@ -472,6 +520,11 @@ public class GameController
     return mode;
   }
 
+  /**
+   * lookss to see if it is given a valid IP address
+   * @param address the IP adress
+   * @return if it is a vlaid IP or not
+   */
   public boolean validAddress(String address)
   {
     final String regex = "^\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+\\.\\d{1,3}+$";
@@ -479,31 +532,60 @@ public class GameController
     return address.matches(regex);
   }
 
+  /**
+   * Gets the IP address
+   * @return the IP address
+   */
   public String getPlayerIP()
   {
     return playerIP;
   }
 
+  /**
+   * Adds an error message
+   *
+   * @param error_message The error message
+   */
   public void addErrorMessage(String error_message)
   {
     error_messages.push(error_message);
   }
 
+  /**
+   * Gets the error messages
+   *
+   * @return returns the error message
+   */
   public String getErrorMessage()
   {
     return error_messages.pop();
   }
 
+  /**
+   * Successful login was succsessful
+   *
+   * @param successfulLogin login was successful
+   */
   public void setSuccessfulLogin(Boolean successfulLogin)
   {
     this.successfulLogin = successfulLogin;
   }
 
+  /**
+   *
+   * @return
+   */
   public Boolean getSuccessfulLogin()
   {
     return successfulLogin;
   }
 
+  /**
+   * Since we need to wait to see if our login request was accepted, let's
+   * spin in a loop until we get a login response back whether it was accepted
+   * or denied.
+   * @return True if login was successful, False otherwise
+   */
   public boolean waitForLoginResponse() {
     while(getSuccessfulLogin() == null) {
       try {
@@ -516,11 +598,20 @@ public class GameController
     return getSuccessfulLogin();
   }
 
+  /**
+   * gets the players username
+   * @return the username
+   */
   public String getPlayerUsername()
   {
     return playerUsername;
   }
 
+  /**
+   * updates the timer.
+   *
+   * @param phaseStart starts the timer
+   */
   public void updateTimer(PhaseStart phaseStart) {
     if (!AI) {
       Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
@@ -529,11 +620,19 @@ public class GameController
     // TODO update GUI appropriately
   }
 
+  /**
+   * gets the currentScene
+   * @return the current scene
+   */
   public EnumScene getCurrentScene()
   {
     return currentScene;
   }
 
+  /**
+   * initlizes the GUI
+   * @return the initalGUI
+   */
   public boolean initGUI()
   {
     boolean status = needToInitialize;
@@ -541,12 +640,21 @@ public class GameController
     return status;
   }
 
+  /**
+   * Salts the password
+   * @param salt string to salt the password
+   */
   public void setSalt(String salt)
   {
     this.salt = salt;
     this.gotSalt = true;
   }
 
+  /**
+   * draft cards that a player can use
+   * @param draft1 the first card a player drafts
+   * @param draft2 the second card a player drafts
+   */
   public void playDrafts(PolicyCard draft1, PolicyCard draft2)
   {
     if(draft1 != null)
@@ -558,10 +666,15 @@ public class GameController
     {
       this.draft2 = draft2;
     }
-    //TODO send to client. No need to update player since turn is over. Player shouldn't need this information.
 
+    client.send(new DraftCard(draft1));
+    client.send(new DraftCard(draft2));
   }
 
+  /**
+   * Gets the drafted cards that players have played
+   * @return the policy cards
+   */
   public PolicyCard[] getDraftedCards()
   {
     PolicyCard[] drafts = new PolicyCard[2];

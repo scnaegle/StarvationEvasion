@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.VoteStatus;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.RegionHistory;
 
@@ -184,6 +185,9 @@ public class VotingController implements javafx.fxml.Initializable
         if(Main.getGameController().getCurrentScene() == EnumScene.VOTE_PHASE)
         {
 
+          highlightCards();
+          VoteStatus votes = Main.getGameController().player.getVoteStatus();
+
           time.setText(Main.GAME_CLOCK.getFormatted());
 
           time.setTextFill(Color.FORESTGREEN);
@@ -198,7 +202,7 @@ public class VotingController implements javafx.fxml.Initializable
 
           if (Main.getGameController().initGUI())
           {
-            highlightCards();
+
             myDrafts = Main.getGameController().getDraftedCards();
             if(myDrafts[0] != null) System.out.println("card 1: " + myDrafts[0].getCardType());
             if(myDrafts[1] != null) System.out.println("card 2: "+ myDrafts[1].getCardType());
@@ -503,11 +507,11 @@ public class VotingController implements javafx.fxml.Initializable
 
 
   /**
-   * For testing purposes currently
-   * @param card
-   * @return
+   * If a card is votable this allows for the player to vote on it
+   *
+   * @param card the card tha the player sets
+   * @return button pushed
    */
-
   private boolean isVotable(Button card)
   {
 

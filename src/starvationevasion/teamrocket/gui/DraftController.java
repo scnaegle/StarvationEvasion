@@ -9,7 +9,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -175,16 +174,23 @@ public class DraftController implements javafx.fxml.Initializable
 
   /***************************************************************************************/
 
+  /**
+   * controls the draft scene and how we are running it/
+   */
   public DraftController()
   {
     Timeline updater = new Timeline(new KeyFrame(Duration.millis(Main.GUI_REFRESH_RATE), new EventHandler<ActionEvent>()
     {
+      /**
+       * Listens to the timer in order to change the color of the clock and tell
+       * the client when the turn is over
+       * @param event a certain value on the timer is updated
+       */
       @Override
       public void handle(ActionEvent event)
       {
         if (getGameController().getCurrentScene() == EnumScene.DRAFT_PHASE)
         {
-
           displayHand();
 
           time.setText(GAME_CLOCK.getFormatted());
@@ -204,13 +210,13 @@ public class DraftController implements javafx.fxml.Initializable
             showMyRegion();
             setWindowTexts();
             resetCards();
-            Main.GAME_CLOCK.setTimeLeft(300000);
           }
 
 
           if (Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
-            //Main.getGameController().finishedCardDraft();
+            getGameController().playDrafts(draft1Card, draft2Card);
+            Main.getGameController().finishedCardDraft();
           }
         }
       }
@@ -488,7 +494,7 @@ public class DraftController implements javafx.fxml.Initializable
     if(produce[11]) // to veggies
     {
       switchWindow(11,10,specialWindow,veggieWindow);
-      rightArrow.setVisible(true);
+      rightArrow.setVisible(false);
     }
     else if(produce[10]) // to poultry
     {
@@ -796,6 +802,9 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else if (button == oilButton)
     {
+      //see whether it's for a policy card or for viewing
+      //if policy card, use product for card
+      //else display facts
       produce[7] = true;
       rightArrow.setVisible(true);
       leftArrow.setVisible(true);

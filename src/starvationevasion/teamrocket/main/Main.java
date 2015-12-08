@@ -43,6 +43,11 @@ public class Main extends Application
     Main.gameController = gameController;
   }
 
+  /**
+   * start tbe stage
+   * @param primaryStage chossing the main stage
+   * @throws Exception if it is not valid
+   */
   @Override
   public void start(Stage primaryStage) throws Exception
   {
@@ -73,6 +78,11 @@ public class Main extends Application
     }
     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
     {
+      /**
+       * When the space is pressed it leaves out of the video
+       *
+       * @param key The spacebar button
+       */
       @Override
       public void handle(KeyEvent key)
       {
@@ -125,11 +135,19 @@ public class Main extends Application
     stage.setY(primaryScreenBounds.getMinY());
   }
 
+  /**
+   * starting the game up
+   * @param args
+   */
   public static void main(String[] args)
   {
     launch(args);
   }
 
+  /**
+   * tells client that we just finished the changing the scenes
+   * @return
+   */
   public static boolean justSwitchedScenes()
   {
     return sceneChanged;
