@@ -385,4 +385,9 @@ public class Player implements PlayerInterface
   {
     return voteStatus;
   }
+
+  @Override
+  public PolicyCard[] getDraftedCards() {
+    return selectedCards.toArray(new PolicyCard[selectedCards.size()]);
+  }
 }
