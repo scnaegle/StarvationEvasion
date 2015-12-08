@@ -435,7 +435,8 @@ public class GameController
    */
   public void beginGame(BeginGame beginGame) {
     for(Map.Entry<EnumRegion, String> entry : beginGame.finalRegionChoices.entrySet()) {
-      if (playerUsername == entry.getValue()) {
+      if (Objects.equals(playerUsername, entry.getValue()))
+      {
         player.setEnumRegion(entry.getKey());
         break;
       }
