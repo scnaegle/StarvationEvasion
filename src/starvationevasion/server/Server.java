@@ -79,6 +79,7 @@ public class Server extends Thread
 
   private void waitForConnections()
   {
+    System.out.println("Started on " + serverSocket.getInetAddress() + " on port " + serverSocket.getLocalPort());
     System.out.println("Waiting for clients to connect...");
     while (true)
     {
@@ -371,7 +372,8 @@ public class Server extends Thread
     }
     final AvailableRegions availableRegions = getAvailableRegions();
     broadcast(availableRegions);
-    if (getCurrentState() == ServerState.LOGIN && availableRegions.availableRegions.size() == 0)
+//    if (getCurrentState() == ServerState.LOGIN && availableRegions.availableRegions.size() == 0)
+    if (getCurrentState() == ServerState.LOGIN && availableRegions.takenRegions.size() == passwordFile.credentialMap.size())
     {
       beginToStartGame();
     }
@@ -394,6 +396,7 @@ public class Server extends Thread
   {
     List<String> aiNames = Arrays.asList(ServerConstants.AI_NAMES);
     Collections.shuffle(aiNames);
+    System.out.println("[Server] Starting AI clients...." + aiNames);
     aiNames.stream()
         .limit(getAvailableRegions()
             .availableRegions.size()).forEach(
