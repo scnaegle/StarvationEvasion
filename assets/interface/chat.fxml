@@ -7,15 +7,15 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.ChatController">
+<AnchorPane id="AnchorPane" fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.ChatController">
   <children>
     <Label layoutX="112.0" layoutY="14.0" text="Chat">
       <font>
         <Font name="Avenir Next Demi Bold" size="35.0" />
       </font>
     </Label>
-    <TextField fx:id="typeText" layoutX="24.0" layoutY="710.0" onKeyPressed="#enterMessage" prefHeight="27.0" prefWidth="200.0" />
-    <TextArea fx:id="convo" editable="false" layoutX="24.0" layoutY="62.0" prefHeight="643.0" prefWidth="250.0" wrapText="true" />
-    <Button fx:id="send" layoutX="222.0" layoutY="710.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" text="Send" />
+    <TextField fx:id="typeText" layoutX="24.0" layoutY="660.0" onKeyPressed="#enterMessage" prefHeight="27.0" prefWidth="200.0" />
+    <TextArea fx:id="convo" editable="false" layoutX="24.0" layoutY="62.0" prefHeight="598.0" prefWidth="250.0" wrapText="true" />
+    <Button fx:id="send" layoutX="222.0" layoutY="660.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" text="Send" />
   </children>
 </AnchorPane>

@@ -150,6 +150,9 @@ public class DraftController implements javafx.fxml.Initializable
       close9, close10, close11, close12, closeEarthLabel;
 
   @FXML
+  private ImageView rightArrow, leftArrow;
+
+  @FXML
   private BorderPane PPT; //graph for produce
 
   @FXML
@@ -170,6 +173,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   private PolicyCard draft1Card;
   private PolicyCard draft2Card;
+  private boolean[] produce = new boolean[12];
 
   /***************************************************************************************/
 
@@ -378,6 +382,29 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  @FXML
+  public void switchProduce(MouseEvent event)
+  {
+    if(event.getSource() == leftArrow)
+    {
+      prevProduce();
+    }
+    else if(event.getSource() == rightArrow)
+    {
+      nextProduce();
+    }
+  }
+
+  private void nextProduce()
+  {
+
+  }
+
+  private void prevProduce()
+  {
+
+  }
+
   /**
    * Listens for button presses and acts appropriately.
    * @param event Action event.
@@ -533,11 +560,12 @@ public class DraftController implements javafx.fxml.Initializable
       //draw card from deck.
       drawNewCard();
     }
-    else if (event.getSource() == appleButton)
+    else if (button == appleButton)
     {
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[0] = true;
       PPT.setVisible(true);
       PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
                                                                        .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
@@ -551,6 +579,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[1] = true;
       PPT.setVisible(true);
       grainsText.setText("Products: \n"+EnumFood.GRAIN.toLongString()+"\n\n" + "Fun fact: \n");
       grainWindow.setVisible(true);
@@ -560,6 +589,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[2] = true;
       PPT.setVisible(true);
       citrusText.setText("Products: \n"+EnumFood.CITRUS.toLongString()+"\n\n" + "Fun fact: \n");
       citrusWindow.setVisible(true);
@@ -569,6 +599,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[3] = true;
       PPT.setVisible(true);
       feedText.setText("Products: \n"+EnumFood.FEED.toLongString()+"\n\n" + "Fun fact: \n");
       feedWindow.setVisible(true);
@@ -578,6 +609,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[4] = true;
       PPT.setVisible(true);
       dairyText.setText("Products: \n"+EnumFood.DAIRY.toLongString()+"\n\n" + "Fun fact: \n");
       dairyWindow.setVisible(true);
@@ -587,6 +619,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[5] = true;
       PPT.setVisible(true);
       meatText.setText("Products: \n"+EnumFood.MEAT.toLongString()+"\n\n" + "Fun fact: \n");
       meatWindow.setVisible(true);
@@ -596,6 +629,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[6] = true;
       PPT.setVisible(true);
       poultryText.setText("Products: \n"+EnumFood.POULTRY.toLongString()+"\n\n" + "Fun fact: \n");
       poultryWindow.setVisible(true);
@@ -605,6 +639,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[7] = true;
       PPT.setVisible(true);
       oilText.setText("Products: \n"+EnumFood.OIL.toLongString()+"\n\n" + "Fun fact: \n");
       oilWindow.setVisible(true);
@@ -614,6 +649,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[8] = true;
       PPT.setVisible(true);
       specialText.setText("Products: \n"+EnumFood.SPECIAL.toLongString()+"\n\n" + "Fun fact: \n");
       specialWindow.setVisible(true);
@@ -623,6 +659,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[9] = true;
       PPT.setVisible(true);
       veggieText.setText("Products: \n"+EnumFood.VEGGIES.toLongString()+"\n\n" + "Fun fact: \n");
       veggieWindow.setVisible(true);
@@ -632,6 +669,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[10] = true;
       PPT.setVisible(true);
       nutText.setText("Products: \n"+EnumFood.NUT.toLongString()+"\n\n" + "Fun fact: \n");
       nutWindow.setVisible(true);
@@ -641,6 +679,7 @@ public class DraftController implements javafx.fxml.Initializable
       //see whether it's for a policy card or for viewing
       //if policy card, use product for card
       //else display facts
+      produce[11] = true;
       PPT.setVisible(true);
       fishText.setText("Products: \n"+EnumFood.FISH.toLongString()+ "\n\n" + "Fun fact: \n");
       fishWindow.setVisible(true);
