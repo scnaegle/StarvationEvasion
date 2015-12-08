@@ -251,7 +251,6 @@ public class Client
           closeAll();
           break;
         case CHOOSE_REGION:
-          System.out.println("Choose regions");
           gameController.setSuccessfulLogin(true);
           gameController.setCanPickRegion(true);
           break;
