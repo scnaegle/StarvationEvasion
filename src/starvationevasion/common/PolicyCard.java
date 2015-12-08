@@ -487,19 +487,9 @@ public abstract class PolicyCard  implements Serializable
   {
     for (EnumVariable variable : EnumVariable.values())
     {
-      int n = -1;
-      switch(variable)
-      {
-        case X:
-          n = varX;
-          break;
-        case Y:
-          n = varY;
-          break;
-        case Z:
-          n = varZ;
-          break;
-      }
+      int n = varX;
+      if (variable == EnumVariable.Y) n = varY;
+      else if (variable == EnumVariable.Z) n = varZ;
 
       EnumVariableUnit unit = getRequiredVariables(variable);
       if (unit == EnumVariableUnit.PERCENT)
