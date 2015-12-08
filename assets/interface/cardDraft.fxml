@@ -839,12 +839,12 @@
             </Text>
           </children>
         </Pane>
-        <ImageView id="arrowLeft" fx:id="leftArrow" fitHeight="45.0" fitWidth="45.0" layoutX="185.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="arrowLeft" fx:id="leftArrow" fitHeight="45.0" fitWidth="45.0" layoutX="185.0" layoutY="376.0" onMouseClicked="#switchProduce" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/arrowLeft.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="arrowRight" fx:id="rightArrow" fitHeight="46.0" fitWidth="46.0" layoutX="797.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="arrowRight" fx:id="rightArrow" fitHeight="46.0" fitWidth="46.0" layoutX="797.0" layoutY="365.0" onMouseClicked="#switchProduce" pickOnBounds="true" preserveRatio="true" visible="false">
           <image>
             <Image url="@../images/arrowRight.png" preserveRatio="true" smooth="true" />
           </image>
