@@ -533,7 +533,7 @@ public class Server extends Thread
       return;
     }
     if (connectedClients.stream().map(ServerWorker::getRegion).anyMatch(
-        s -> s != null && s.equals(passwordFile.regionMap.get(message.username))))
+        s -> s != null && passwordFile.regionMap != null && s.equals(passwordFile.regionMap.get(message.username))))
     {
       client.send(new LoginResponse(LoginResponse.ResponseType.DUPLICATE, null));
       return;
