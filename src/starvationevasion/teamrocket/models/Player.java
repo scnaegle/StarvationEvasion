@@ -330,7 +330,7 @@ public class Player implements PlayerInterface
 
   /**
    * Returns a Map of all the region histories.
-   * @return
+   * @return the history of a region
    */
   public Map<EnumRegion, RegionHistory> getRegionHistories() {
     return regionHistories;
@@ -339,7 +339,8 @@ public class Player implements PlayerInterface
   /**
    * Returns an array of the region histories as apposed to the default
    * hashmap being stored.
-   * @return
+   *
+   * @return Array of history methods
    */
   public RegionHistory[] getRegionHistoriesArray() {
     RegionHistory[] regionHistoriesArray = new RegionHistory[EnumRegion.SIZE];
@@ -349,34 +350,64 @@ public class Player implements PlayerInterface
     return regionHistoriesArray;
   }
 
+  /**
+   * Sets the gamestate that the game is in
+   *
+   * @param gameState game state that we are passing in
+   */
   @Override
   synchronized public void setGameState(EnumGameState gameState) {
     this.gameState = gameState;
   }
 
+  /**
+   * Updates the vote status of the player
+   *
+   * @param voteStatus of each player on each card
+   */
   @Override
   synchronized public void updateVoteStatus(VoteStatus voteStatus) {
     this.voteStatus = voteStatus;
   }
 
+  /**
+   * recieve message from the server
+   *
+   * @param message from other player from server
+   */
   @Override
   synchronized public void receiveChatMessage(ServerChatMessage message)
   {
     chatHistory.addMessage(message);
   }
 
+  /**
+   * Sending chat message
+   *
+   * @return Client chat message
+   */
   @Override
   synchronized public ClientChatMessage sendChatMessage()
   {
     return null;
   }
 
+  /**
+   * Gets the chat history
+   *
+   * @return Gets the chat history
+   */
   @Override
   public ChatHistory getChatHistory()
   {
     return chatHistory;
   }
 
+  /**
+   * gets the vote status
+   *
+   * @return the vote status of a player
+   */
   @Override
   public VoteStatus getVoteStatus()
   {

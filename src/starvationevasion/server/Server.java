@@ -400,7 +400,6 @@ public class Server extends Thread
   {
     List<String> aiNames = Arrays.asList(ServerConstants.AI_NAMES);
     Collections.shuffle(aiNames);
-    System.out.println("[Server] Starting AI clients...." + aiNames);
     aiNames.stream()
         .limit(getAvailableRegions()
             .availableRegions.size()).forEach(
