@@ -578,4 +578,9 @@ public class GameController
     drafts[1] = draft2;
     return drafts;
   }
+
+  public void sendMessage(String message)
+  {
+    client.send(new ClientChatMessage(message, EnumRegion.US_REGIONS));
+  }
 }

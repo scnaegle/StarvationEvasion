@@ -56,7 +56,7 @@ public class ChatController implements javafx.fxml.Initializable
             //Some messages are null because of the set stack size.
             if(message != null)
             {
-              conversation = conversation + message.getMessage() + "\n";
+              conversation = conversation + message.getSender() + ":" + message.getMessage() + "\n";
             }
           }
           convo.setText(conversation);
@@ -88,6 +88,7 @@ public class ChatController implements javafx.fxml.Initializable
       text = username + ": " + typeText.getCharacters().toString();
     }
 
+    Main.getGameController().sendMessage(text.toString());
     convo.setText(text.toString());
     typeText.clear();
     hasText = true;
