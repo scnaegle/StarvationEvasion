@@ -200,6 +200,7 @@ public class DraftController implements javafx.fxml.Initializable
           if (getGameController().initGUI())
           {
             showMyRegion();
+            setWindowTexts();
             resetCards();
             Main.GAME_CLOCK.setTimeLeft(300000);
           }
@@ -397,6 +398,13 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+  /**
+   * Allows produce windows to be switched.
+   * @param initial Initial index of open window.
+   * @param next Next window to open.
+   * @param window1 Current window pane.
+   * @param window2 Next window pane to be open.
+   */
   private void switchWindow(int initial, int next, Pane window1, Pane window2)
   {
     produce[initial] = false;
@@ -406,7 +414,9 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
-
+  /**
+   * Opens window panes to the right of the current pane.
+   */
   private void nextProduce()
   {
     if(produce[0]){ //to grains
@@ -456,6 +466,10 @@ public class DraftController implements javafx.fxml.Initializable
     }
   }
 
+
+  /**
+   * Opens window panes to the left of the current pane.
+   */
   private void prevProduce()
   {
     if(produce[11]) // to veggies
@@ -504,6 +518,28 @@ public class DraftController implements javafx.fxml.Initializable
       leftArrow.setVisible(false);
       rightArrow.setVisible(true);
     }
+  }
+
+  private void setWindowTexts()
+  {
+    setText(nonCitrusText,EnumFood.FRUIT);
+    setText(grainsText,EnumFood.GRAIN);
+    setText(citrusText,EnumFood.CITRUS);
+    setText(dairyText, EnumFood.DAIRY);
+    setText(meatText, EnumFood.MEAT);
+    setText(feedText, EnumFood.FEED);
+    setText(poultryText, EnumFood.POULTRY);
+    setText(oilText, EnumFood.OIL);
+    setText(specialText, EnumFood.SPECIAL);
+    setText(nutText, EnumFood.NUT);
+    setText(fishText, EnumFood.FISH);
+    setText(veggieText, EnumFood.VEGGIES);
+
+  }
+
+  private void setText(TextArea text, EnumFood food)
+  {
+    text.setText("Products: \n" + food.toLongString() + "\n\n" + "Fun fact: \n");
   }
 
   /**
@@ -674,7 +710,7 @@ public class DraftController implements javafx.fxml.Initializable
       PPT.setVisible(true);
 //      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
 //                                    .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
-      nonCitrusText.setText("Products: \n" + EnumFood.FRUIT.toLongString() + "\n\n" + "Fun fact: \n");
+
       appleWindow.setVisible(true);
       //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));
 
