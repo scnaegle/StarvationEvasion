@@ -117,11 +117,16 @@ public class Client
 
   }
 
-  public synchronized void send(ServerEvent event, Serializable object) {
-    Message message = new Message(event, object);
-    MessageHandler.send(outputStream, message);
-  }
-
+  /**
+   * Send a message to the server with one of the following types:
+   * - Login
+   * - RegionChoice
+   * - DraftCard
+   * - Discard
+   * - Vote
+   * - ClientChatMessage
+   * @param payload Serializable object that should be one of the types above.
+   */
   public synchronized void send(Serializable payload) {
     System.out.println("Sending to server: " + payload);
     try {

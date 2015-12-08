@@ -95,10 +95,12 @@ public class GameController
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
 
-    Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(), null);
+    Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
+        new String[]{"java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment"});
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
     startClientAndAttemptLogin("127.0.0.1");
+    setChosenRegion(region);
 
     //Server will need to spawn a bunch of AI Clients
     //Need to detect what zones are left and fill with AI
@@ -392,7 +394,9 @@ public class GameController
    */
   public void setStartGame(ReadyToBegin readyToBegin)
   {
-    Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
+    if (!AI) {
+      Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
+    }
     player.setGameState(EnumGameState.BEGINNING);
     // TODO update GUI as needed.
   }
@@ -436,6 +440,16 @@ public class GameController
   public void setPlayerVote(EnumRegion cardOwner, VoteType voteType)
   {
     client.send(new Vote(cardOwner, voteType));
+  }
+
+  /**
+   * Sends the chosen region to the server
+   * @param region Player's chosen region
+   */
+  public void setChosenRegion(EnumRegion region) {
+    if (canPickRegion) {
+      client.send(new RegionChoice(region));
+    }
   }
 
   /**
@@ -559,7 +573,9 @@ public class GameController
   }
 
   public void updateTimer(PhaseStart phaseStart) {
-    Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
+    if (!AI) {
+      Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
+    }
     setGameState(phaseStart.currentGameState);
     // TODO update GUI appropriately
   }
