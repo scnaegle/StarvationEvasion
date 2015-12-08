@@ -2,15 +2,18 @@ package starvationevasion.teamrocket.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.AvailableRegions;
@@ -41,6 +44,7 @@ public class GameroomController
   private EnumRegion myRegion;
 
   private PlayerInterface player;
+  private Alert modal;
 
 
   /*************************************************************************/
@@ -55,6 +59,11 @@ public class GameroomController
       @Override
       public void handle(ActionEvent event)
       {
+        if(Main.getGameController().getCurrentScene() != Main.getGameController().desiredScene)
+        {
+          Main.getGameController().changeScene(Main.getGameController().desiredScene);
+        }
+
         if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
@@ -67,9 +76,17 @@ public class GameroomController
             countdown.setVisible(false);
           }
 
-          if(Main.GAME_CLOCK.getTimeLeft() <= 0)
+          if(Main.GAME_CLOCK.getTimeLeft() <= 0 &&(modal == null || !modal.isShowing()))
           {
-            Main.getGameController().startGame(myRegion);
+            Platform.runLater(new Runnable()
+            {
+              @Override
+              public void run()
+              {
+                modal = new Alert(Alert.AlertType.INFORMATION, "The server is now loading please wait.");
+                modal.show();
+              }
+            });
           }
           connectUsers();
         }
