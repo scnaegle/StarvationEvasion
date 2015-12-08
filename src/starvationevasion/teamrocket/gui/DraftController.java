@@ -100,24 +100,23 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Label playerRegion;
 
-  private EnumRegion myRegion;
 
 
   /*          GRAPHS FOR EACH REGION           */
-  @FXML
-  private BorderPane statisticsPane;
   @FXML
   private BorderPane hdiGraph, popGraph, revGraph, cropGraph;
   /**************************************************************/
 
 
-
+  /*          VISUALIZER CODE         */
+  Earth earthViewer = new Earth(100, 200);
   @FXML
   public GridPane visPane;
   @FXML
   private GridPane largeEarthPane;
   @FXML
   private Pane worldPane;
+  /*************************************/
 
   /* VARIABLES FOR USER INPUT NEEDED POPUP */
   @FXML
@@ -159,8 +158,7 @@ public class DraftController implements javafx.fxml.Initializable
   private TextArea nonCitrusText, grainsText, citrusText, feedText, oilText, meatText, dairyText, poultryText,
   nutText, specialText, fishText, veggieText;
 
-  private CustomLayout layout;
-  Earth earthViewer = new Earth(100, 200);//, layout);
+
   @FXML
   private Label worldTitle;
 
@@ -382,6 +380,10 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
+  /**
+   * Allows user to switch between produce windows when clicking arrows.
+   * @param event Mouse event.
+   */
   @FXML
   public void switchProduce(MouseEvent event)
   {
@@ -456,12 +458,12 @@ public class DraftController implements javafx.fxml.Initializable
 
   private void prevProduce()
   {
-    if(produce[11])
+    if(produce[11]) // to veggies
     {
       switchWindow(11,10,specialWindow,veggieWindow);
       rightArrow.setVisible(false);
     }
-    else if(produce[10])
+    else if(produce[10]) // to poultry
     {
       switchWindow(10, 9, veggieWindow, poultryWindow);
     }
@@ -671,7 +673,7 @@ public class DraftController implements javafx.fxml.Initializable
       leftArrow.setVisible(false);
       PPT.setVisible(true);
 //      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
-//                                                                       .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
+//                                    .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
       nonCitrusText.setText("Products: \n" + EnumFood.FRUIT.toLongString() + "\n\n" + "Fun fact: \n");
       appleWindow.setVisible(true);
       //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));
