@@ -100,7 +100,6 @@ public class MainGuiController implements javafx.fxml.Initializable
     joinMultiPlayerMode = false;
 
     Main.getGameController().setSinglePlayerMode(false);
-    Main.getGameController().setNewMultiPlayerMode(false);
     Main.getGameController().setJoinMultiPlayerMode(false);
 
     if(gamePlay == singlePlayer)
@@ -108,13 +107,6 @@ public class MainGuiController implements javafx.fxml.Initializable
       singlePlayerMode = true;
       Main.getGameController().setSinglePlayerMode(true);
       multiPlayer.setSelected(false);
-      joinMultiPlayer.setSelected(false);
-    }
-    else if(gamePlay == multiPlayer)
-    {
-      newMultiPlayerMode = true;
-      Main.getGameController().setNewMultiPlayerMode(true);
-      singlePlayer.setSelected(false);
       joinMultiPlayer.setSelected(false);
     }
     else if(gamePlay == joinMultiPlayer)
@@ -155,17 +147,6 @@ public class MainGuiController implements javafx.fxml.Initializable
           e.printStackTrace();
         }
       }
-      else if(newMultiPlayerMode)
-      {
-        //go to gameSetting scene, then gameRoom scene, then game
-        try{
-          Main.getGameController().switchToLoginScene();
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
       else if(joinMultiPlayerMode)
       {
         //go to login scene, then gameRoom, then game
@@ -189,7 +170,7 @@ public class MainGuiController implements javafx.fxml.Initializable
       {
         addressError.setVisible(true);
       }
-      if(!input || !validAddress || !validAddress)
+      if(!input || !validAddress)
       {
         return;
       }
