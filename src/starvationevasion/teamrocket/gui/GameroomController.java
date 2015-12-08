@@ -70,7 +70,7 @@ public class GameroomController implements javafx.fxml.Initializable
 
           if(Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
-            Main.getGameController().startSinglePlayerGame(myRegion);
+            Main.getGameController().startGame(myRegion);
           }
           connectUsers();
         }
