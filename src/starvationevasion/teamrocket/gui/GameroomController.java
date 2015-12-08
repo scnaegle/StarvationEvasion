@@ -59,15 +59,20 @@ public class GameroomController implements javafx.fxml.Initializable
         if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
-          connectUsers();
-          if (Main.getGameController().initGUI())
+          if(Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10 && Main.GAME_CLOCK.getSeconds() >=0)
           {
+            countdown.setVisible(true);
+          }
+          else
+          {
+            countdown.setVisible(false);
+          }
 
-          }
-          if (Main.GAME_CLOCK.getTimeLeft() <= 0)
+          if(Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
-            //Main.getGameController().finishedCardDraft();
+            Main.getGameController().startSinglePlayerGame(myRegion);
           }
+          connectUsers();
         }
       }
     }));
@@ -108,18 +113,6 @@ public class GameroomController implements javafx.fxml.Initializable
     user7.setVisible(true);
 
   }
-
-  public void startCountdown()
-  {
-    countdown.setVisible(true);
-    StringProperty count = new SimpleStringProperty("10");
-    countdown.textProperty().bind(count);
-    for (int i = 10; i >= 0; i--)
-    {
-      count.setValue(i+"");
-    }
-  }
-
 
   @FXML
   public void buttonPressed(ActionEvent event)
