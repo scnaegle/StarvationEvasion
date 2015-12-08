@@ -112,6 +112,9 @@ public class GameController
       } else {
         //TODO show error and try again
       }
+
+      // Clean up file
+      Files.delete(soloGamePath);
     } catch (IOException e) {
       e.printStackTrace();
     }
