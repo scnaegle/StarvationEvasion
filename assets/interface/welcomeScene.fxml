@@ -29,18 +29,17 @@
         <Font size="12.0" />
       </font>
     </Text>
-    <RadioButton fx:id="singlePlayer" layoutX="403.0" layoutY="412.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="38.0" prefWidth="232.0" selected="true" text="New Game Single Player">
+    <RadioButton fx:id="singlePlayer" layoutX="403.0" layoutY="430.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="38.0" prefWidth="232.0" selected="true" text="New Game Single Player">
       <font>
         <Font size="17.0" fx:id="x2" />
       </font>
     </RadioButton>
-    <RadioButton fx:id="multiPlayer" font="$x2" layoutX="403.0" layoutY="455.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="57.0" prefWidth="232.0" text="New Game Multi-Player" />
     <Button fx:id="ready" layoutX="462.0" layoutY="609.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="38.0" prefWidth="109.0" text="READY">
       <font>
         <Font size="18.0" fx:id="x1" />
       </font>
     </Button>
     <Label fx:id="gamePlayError" font="$x2" layoutX="330.0" layoutY="683.0" text="A game type must be chosen in order to play" textFill="RED" visible="false" />
-    <RadioButton id="joinMultiplayer" fx:id="joinMultiPlayer" font="$x2" layoutX="403.0" layoutY="512.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="38.0" prefWidth="218.0" text="Join Game Multi-Player" />
+    <RadioButton id="joinMultiplayer" fx:id="joinMultiPlayer" font="$x2" layoutX="403.0" layoutY="499.0" mnemonicParsing="false" onAction="#chooseGamePlay" prefHeight="38.0" prefWidth="218.0" text="Join Game Multi-Player" />
   </children>
 </AnchorPane>

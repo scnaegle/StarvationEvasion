@@ -58,7 +58,7 @@ public class GameroomController
         if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
-          if(Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10 && Main.GAME_CLOCK.getSeconds() >=0)
+          if(Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10000 && Main.GAME_CLOCK.getSeconds() >=0)
           {
             countdown.setVisible(true);
           }
@@ -69,7 +69,7 @@ public class GameroomController
 
           if(Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
-            Main.getGameController().startSinglePlayerGame(myRegion);
+            Main.getGameController().startGame(myRegion);
           }
           connectUsers();
         }

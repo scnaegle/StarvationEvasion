@@ -9,49 +9,49 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="gameRoom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="starvationevasion.teamrocket.gui.GameroomController">
+<AnchorPane id="AnchorPane" fx:id="gameRoom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="starvationevasion.teamrocket.gui.GameroomController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#66edff" height="760.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="589.0" layoutX="25.0" layoutY="143.0" stroke="WHITE" strokeType="INSIDE" width="473.049072265625" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="338.0" layoutX="517.0" layoutY="162.0" stroke="BLACK" strokeType="INSIDE" width="473.049072265625" />
     <ImageView id="mapImage" fx:id="fullMap" fitHeight="288.663330078125" fitWidth="485.04906040715963" focusTraversable="false" layoutX="517.0" layoutY="200.0" onMouseClicked="#chooseRegion" preserveRatio="true" smooth="true" style="-fx-graphic: url('map.png');" visible="true">
       <image>
-        <Image url="@../images/map.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/map.png" />
       </image>
     </ImageView>
     <ImageView id="mountain" fx:id="mountSt" disable="false" fitHeight="221.91098357438935" fitWidth="182.22616577148438" focusTraversable="false" layoutX="533.0" layoutY="195.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/mountain.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/mountain.png" />
       </image>
     </ImageView>
     <ImageView id="north" fx:id="northSt" disable="false" fitHeight="124.44630432128906" fitWidth="201.31019523714852" focusTraversable="false" layoutX="780.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/north.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/north.png" />
       </image>
     </ImageView>
     <ImageView id="northplains" fx:id="nPlains" disable="false" fitHeight="140.74125626319045" fitWidth="116.0" focusTraversable="false" layoutX="692.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/northplains.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/northplains.png" />
       </image>
     </ImageView>
     <ImageView id="southeast" fx:id="southEast" disable="false" fitHeight="178.87031266679466" fitWidth="155.92825317382812" focusTraversable="false" layoutX="790.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/southeast.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/southeast.png" />
       </image>
     </ImageView>
     <ImageView id="southplains" fx:id="sPlains" disable="false" fitHeight="135.0" fitWidth="177.7429471697126" focusTraversable="false" layoutX="657.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/southplains.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/southplains.png" />
       </image>
     </ImageView>
     <ImageView fx:id="heartland" disable="false" fitHeight="93.21267571248514" fitWidth="112.34365844726562" focusTraversable="false" layoutX="745.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/heartland.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/heartland.png" />
       </image>
     </ImageView>
     <ImageView fx:id="cali" disable="false" fitHeight="129.689453125" fitWidth="77.322733337296" focusTraversable="false" layoutX="525.0" layoutY="264.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-        <Image url="@../images/cali.png" preserveRatio="true" smooth="true" />
+        <Image preserveRatio="true" smooth="true" url="@../images/cali.png" />
       </image>
     </ImageView>
     <Label layoutX="656.0" layoutY="176.0" text="Choose your region">
@@ -126,12 +126,12 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Label layoutX="65.0" layoutY="26.0" prefHeight="85.0" prefWidth="309.0" text="Game Room">
+    <Label layoutX="65.0" layoutY="26.0" prefHeight="85.0" prefWidth="375.0" text="Game Room">
       <font>
         <Font name="Avenir Next Demi Bold" size="50.0" />
       </font>
     </Label>
-    <Label layoutX="359.0" layoutY="48.0" prefHeight="52.0" prefWidth="332.0" text="... connecting to game">
+    <Label layoutX="485.0" layoutY="43.0" prefHeight="52.0" prefWidth="427.0" text="... connecting to game">
       <font>
         <Font name="Avenir Next Demi Bold" size="30.0" />
       </font>

@@ -11,6 +11,7 @@ import starvationevasion.teamrocket.main.GameController;
 import starvationevasion.teamrocket.messages.EnumGameState;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -22,12 +23,34 @@ import java.util.stream.Stream;
  */
 public class Player implements PlayerInterface
 {
+  /**
+   * State of the server
+   */
   private ServerState serverState;
+
+  /**
+   * Client's game state
+   */
   private EnumGameState gameState;
+
+  /**
+   * World data information from the simulation
+   */
   private WorldData worldData;
-  private Map<EnumRegion, RegionHistory> regionHistories;
-  private Map<EnumRegion, PolicyVote[]> policyVotes;
+
+  /**
+   * All history for each turn and each region
+   */
+  private Map<EnumRegion, RegionHistory> regionHistories = new HashMap<>();
+
+  /**
+   * Chat messaging history for player
+   */
   private ChatHistory chatHistory = new ChatHistory();
+
+  /**
+   * The current voting status
+   */
   private VoteStatus voteStatus;
 
   /**
@@ -125,7 +148,14 @@ public class Player implements PlayerInterface
 
   @Override
   public PolicyCard getCard(int card_index) {
-    return PolicyCard.create(ENUM_REGION, hand[card_index]);
+    if(hand != null && hand[card_index] != null)
+    {
+      return PolicyCard.create(ENUM_REGION, hand[card_index]);
+    }
+    else
+    {
+      return null;
+    }
   }
 
   /**
