@@ -20,7 +20,6 @@ public class RegionData implements Serializable
   public int revenueBalance;
 
 
-
   /**
    * This region's population (in thousands of people) during the current year.
    */
@@ -45,9 +44,6 @@ public class RegionData implements Serializable
   public int[] foodProduced = new int[EnumFood.SIZE];
 
 
-
-
-
   /**
    * This is the farm income in millions of dollars from to the region's
    * production of each foodType during the past turn (3 years).<br><br>
@@ -57,8 +53,8 @@ public class RegionData implements Serializable
    * always be greater than this field with is the profet (gross less expenses). Note also
    * that different regions have different efficiency levels depending on the crop, climate,
    * infrastructure, tax breaks, and other factors.<br><br>
-   *
-   *
+   * <p>
+   * <p>
    * Index by EnumFood.ordinal()
    */
   public int[] foodIncome = new int[EnumFood.SIZE];
@@ -68,12 +64,11 @@ public class RegionData implements Serializable
    * This region's food exported (in metric tons) of each foodType during the past turn
    * (3 years) Index by EnumFood.ordinal(). Positive indicates export, negative indicates
    * import.<br><br>
-   *
+   * <p>
    * The region's consumption of for each foodType is:<br>
    * {@link #foodProduced}[i]-{@link #foodExported}[i]
    */
   public int[] foodExported = new int[EnumFood.SIZE];
-
 
 
   /**
@@ -102,15 +97,25 @@ public class RegionData implements Serializable
   public String toString()
   {
     String msg = region.toString();
-    if (region.isUS()) msg += "[$"+revenueBalance + "]";
+    if (region.isUS())
+    {
+      msg += "[$" + revenueBalance + "]";
+    }
 
-    msg += String.format(": pop=%d(%.1f), HDI=%.2f [",population, undernourished, humanDevelopmentIndex);
+    msg += String.format(": pop=%d(%.1f), HDI=%.2f [", population, undernourished, humanDevelopmentIndex);
 
-    for (EnumFood food :EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       msg += String.format("%s:%d+%d",
-        food, foodProduced[food.ordinal()], foodExported[food.ordinal()]);
-      if (food != EnumFood.DAIRY) msg += ", "; else msg += "]";
+                           food, foodProduced[food.ordinal()], foodExported[food.ordinal()]);
+      if (food != EnumFood.DAIRY)
+      {
+        msg += ", ";
+      }
+      else
+      {
+        msg += "]";
+      }
     }
 
     return msg;

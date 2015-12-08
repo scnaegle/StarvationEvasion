@@ -35,7 +35,7 @@ public class Constant
 
   /**
    * The circumference of the earth in kilometers.
-    */
+   */
 
   public static final double EARTH_CIRCUMFERENCE = 40075;
 

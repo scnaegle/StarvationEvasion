@@ -1,19 +1,16 @@
 package starvationevasion.teamrocket.gui;
 
-import javafx.event.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
-import starvationevasion.teamrocket.models.Player;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 /**
@@ -69,9 +66,11 @@ public class MainGuiController
 
   /**
    * Passes login information to GameController.
+   *
    * @return true if connection established; false if failed.
    */
-  public boolean setLoginInformation(){
+  public boolean setLoginInformation()
+  {
     String playerUsername = username.getCharacters().toString();
     String playerPassword = password.getCharacters().toString();
     String playerIPAddress = ipAddress.getCharacters().toString();
@@ -82,12 +81,13 @@ public class MainGuiController
   /**
    * Called by welcome scene. Asks user what kind of game they want to play.
    * Sends user input to GameController.
+   *
    * @param event Action event.
    */
   @FXML
   public void chooseGamePlay(ActionEvent event)
   {
-    RadioButton gamePlay = (RadioButton)event.getSource();
+    RadioButton gamePlay = (RadioButton) event.getSource();
 
     //need to reset modes if another button is pressed
     singlePlayerMode = false;
@@ -96,13 +96,13 @@ public class MainGuiController
     Main.getGameController().setSinglePlayerMode(false);
     Main.getGameController().setJoinMultiPlayerMode(false);
 
-    if(gamePlay == singlePlayer)
+    if (gamePlay == singlePlayer)
     {
       singlePlayerMode = true;
       Main.getGameController().setSinglePlayerMode(true);
       joinMultiPlayer.setSelected(false);
     }
-    else if(gamePlay == joinMultiPlayer)
+    else if (gamePlay == joinMultiPlayer)
     {
       joinMultiPlayerMode = true;
       Main.getGameController().setJoinMultiPlayerMode(true);
@@ -113,22 +113,23 @@ public class MainGuiController
   /**
    * Checks for any buttons pressed.
    * Does appropriate actions depending on button.
+   *
    * @param event Action event.
    */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
     Button button = (Button) event.getSource();
-    if(button == ready)
+    if (button == ready)
     {
       //make sure something was selected
       boolean selectedGame = verifyGamePlay();
-      if(!selectedGame)
+      if (!selectedGame)
       {
         return;
       }
       //load selected version of game (single or multi-player)
-      if(singlePlayerMode)
+      if (singlePlayerMode)
       {
         try
         {
@@ -139,10 +140,11 @@ public class MainGuiController
           e.printStackTrace();
         }
       }
-      else if(joinMultiPlayerMode)
+      else if (joinMultiPlayerMode)
       {
         //go to login scene, then gameRoom, then game
-        try{
+        try
+        {
           Main.getGameController().switchToLoginScene();
         }
         catch (Exception e)
@@ -151,22 +153,22 @@ public class MainGuiController
         }
       }
     }
-    else if(button == login)
+    else if (button == login)
     {
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
       boolean validAddress = Main.getGameController().validAddress(ipAddress.getCharacters().toString());
 
-      if(!validAddress)
+      if (!validAddress)
       {
         addressError.setVisible(true);
       }
-      if(!input || !validAddress)
+      if (!input || !validAddress)
       {
         return;
       }
-      if(setLoginInformation())
+      if (setLoginInformation())
       {
         //go to gameRoom
         try
@@ -186,11 +188,11 @@ public class MainGuiController
       }
     }
 
-    else if(button == pickedRegion)
+    else if (button == pickedRegion)
     {
       myRegion = saveRegion();
 
-      if(myRegion == null)
+      if (myRegion == null)
       {
         return;
       }
@@ -213,13 +215,14 @@ public class MainGuiController
 
   /**
    * Makes sure that the user fills in all login text fields before continuing.
+   *
    * @return True if login good.
    */
   private boolean verifyLoginInput()
   {
     emptyFieldError.setVisible(false);
-    if(username.getCharacters().toString().isEmpty() || password.getCharacters().toString().isEmpty()
-        ||ipAddress.getCharacters().toString().isEmpty())
+    if (username.getCharacters().toString().isEmpty() || password.getCharacters().toString().isEmpty()
+        || ipAddress.getCharacters().toString().isEmpty())
     {
       emptyFieldError.setVisible(true);
       return false;
@@ -228,14 +231,13 @@ public class MainGuiController
   }
 
 
-
   /**
    * @return true if something is selected
    */
   private boolean verifyGamePlay()
   {
     gamePlayError.setVisible(false);
-    if(!singlePlayer.isSelected() && !joinMultiPlayer.isSelected())
+    if (!singlePlayer.isSelected() && !joinMultiPlayer.isSelected())
     {
       gamePlayError.setVisible(true);
       return false;
@@ -246,6 +248,7 @@ public class MainGuiController
 
   /**
    * Saves the region that the user clicks and sets it as their region.
+   *
    * @return Player's region.
    */
   private EnumRegion saveRegion()
@@ -253,31 +256,31 @@ public class MainGuiController
     nothingSelected.setVisible(false);
     EnumRegion playerRegion;
 
-    if(caliSelected)
+    if (caliSelected)
     {
       playerRegion = EnumRegion.CALIFORNIA;
     }
-    else if(mountainSelected)
+    else if (mountainSelected)
     {
       playerRegion = EnumRegion.MOUNTAIN;
     }
-    else if(heartlandSelected)
+    else if (heartlandSelected)
     {
       playerRegion = EnumRegion.HEARTLAND;
     }
-    else if(northeastSelected)
+    else if (northeastSelected)
     {
       playerRegion = EnumRegion.NORTHERN_CRESCENT;
     }
-    else if(southeastSelected)
+    else if (southeastSelected)
     {
       playerRegion = EnumRegion.SOUTHEAST;
     }
-    else if(nPlainSelected)
+    else if (nPlainSelected)
     {
       playerRegion = EnumRegion.NORTHERN_PLAINS;
     }
-    else if(sPlainSelected)
+    else if (sPlainSelected)
     {
       playerRegion = EnumRegion.SOUTHERN_PLAINS;
     }
@@ -393,13 +396,14 @@ public class MainGuiController
 
   /**
    * Determines what needs to happen on a given scene.
+   *
    * @param timeLeft the time left
    */
   public void timerUpdate(long timeLeft)
   {
-    if(time != null)
+    if (time != null)
     {
-      String stringTime = (timeLeft/60000) + ":" + (timeLeft%60000/1000);
+      String stringTime = (timeLeft / 60000) + ":" + (timeLeft % 60000 / 1000);
       //time.setText(stringTime);
     }
 

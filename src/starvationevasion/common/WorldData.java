@@ -1,6 +1,8 @@
 package starvationevasion.common;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+
 /**
  * This structure is populated and returned by the
  * {@link starvationevasion.sim.Simulator#nextTurn(ArrayList)} method.
@@ -42,13 +44,11 @@ public class WorldData implements Serializable
 
   public WorldData()
   {
-    for (int i=0; i<EnumRegion.SIZE; i++)
+    for (int i = 0; i < EnumRegion.SIZE; i++)
     {
       regionData[i] = new RegionData(EnumRegion.values()[i]);
     }
   }
-
-
 
 
   /**
@@ -57,10 +57,17 @@ public class WorldData implements Serializable
   public String toString()
   {
     String msg = "WorldData[" + year + "] =====================================\n     Price: [";
-    for (EnumFood food :EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       msg += String.format("%s:%.0f", food, foodPrice[food.ordinal()]);
-      if (food != EnumFood.DAIRY) msg += ", "; else msg += "]\n";
+      if (food != EnumFood.DAIRY)
+      {
+        msg += ", ";
+      }
+      else
+      {
+        msg += "]\n";
+      }
     }
 
     for (RegionData region : regionData)

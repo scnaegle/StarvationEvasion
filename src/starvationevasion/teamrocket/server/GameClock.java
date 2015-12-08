@@ -43,12 +43,12 @@ public class GameClock
 
   public long getMinutes()
   {
-    return timeLeft/60000;
+    return timeLeft / 60000;
   }
 
   public long getSeconds()
   {
-    return timeLeft%60000;
+    return timeLeft % 60000;
   }
 
   /**
@@ -68,22 +68,24 @@ public class GameClock
 
   public String getFormatted()
   {
-    long minutes = timeLeft/60000;
-    long seconds = timeLeft%60000;
-    if(minutes == 0 && seconds < 10000l)
+    long minutes = timeLeft / 60000;
+    long seconds = timeLeft % 60000;
+    if (minutes == 0 && seconds < 10000l)
     {
-      return String.format("%.2f", (float)seconds/1000);
+      return String.format("%.2f", (float) seconds / 1000);
     }
-    return String.format("%d:%02d", minutes, (seconds/1000));
+    return String.format("%d:%02d", minutes, (seconds / 1000));
 
   }
-
 
 
   private long updateInterval()
   {
     timeLeft = timeLeft - Main.GUI_REFRESH_RATE;
-    if(timeLeft < 0) timeLeft = 0;
+    if (timeLeft < 0)
+    {
+      timeLeft = 0;
+    }
     return timeLeft;
   }
 

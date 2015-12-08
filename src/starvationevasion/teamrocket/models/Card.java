@@ -1,6 +1,5 @@
 package starvationevasion.teamrocket.models;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 
 /**
@@ -17,6 +16,7 @@ public class Card
 
   /**
    * Gets if the card needs votes
+   *
    * @return true if votes needed is > 0
    */
   public boolean needsVotes()

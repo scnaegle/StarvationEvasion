@@ -4,7 +4,8 @@ package starvationevasion.teamrocket.messages;
 /**
  * Created by scnaegl on 11/19/15.
  */
-public enum ServerEvent {
+public enum ServerEvent
+{
   LOGIN,
   PLAYER_JOINED,
   SELECT_REGION,

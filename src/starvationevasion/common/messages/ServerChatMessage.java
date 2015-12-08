@@ -37,13 +37,20 @@ public class ServerChatMessage implements Serializable
 
   /**
    * Constructs the ServerChatMessage that corresponds to a given ClientChatMessage
+   *
    * @param message the ClientChatMessage to use
-   * @param sender the sender of the message
+   * @param sender  the sender of the message
    * @return a new ServerChatMessage
    */
   public static ServerChatMessage constructFromClientMessage(ClientChatMessage message, EnumRegion sender)
   {
-    if (message.message == null) return new ServerChatMessage(message.card, sender);
-    else return new ServerChatMessage(message.message, sender);
+    if (message.message == null)
+    {
+      return new ServerChatMessage(message.card, sender);
+    }
+    else
+    {
+      return new ServerChatMessage(message.message, sender);
+    }
   }
 }

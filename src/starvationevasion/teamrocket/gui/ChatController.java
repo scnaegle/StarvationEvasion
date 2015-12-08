@@ -14,10 +14,7 @@ import javafx.util.Duration;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.ChatHistory;
-import starvationevasion.teamrocket.models.Player;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Stack;
 
 /**
@@ -61,7 +58,7 @@ public class ChatController
           for (ChatHistory.ChatMessage message : history)
           {
             //Some messages are null because of the set stack size.
-            if(message != null)
+            if (message != null)
             {
               conversation = conversation + message.getSender() + ":" + message.getMessage() + "\n";
             }

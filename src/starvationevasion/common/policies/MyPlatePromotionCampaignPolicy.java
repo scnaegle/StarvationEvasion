@@ -1,6 +1,5 @@
 package starvationevasion.common.policies;
 
-import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
 import java.io.Serializable;
@@ -8,39 +7,44 @@ import java.io.Serializable;
 /**
  * Title: {@value #TITLE}<br><br>
  * Game Text: {@value #TEXT}<br><br>
- *
+ * <p>
  * Draft Affects: When drafting this policy, player selects X million dollars.<br><br>
- *
+ * <p>
  * Votes Required: Automatic <br><br>
- *
+ * <p>
  * Model Effects: Model uses four control points of an ease-in-out cubic Bezier
  * function giving shift in food preference demand verses advertising dollars
  * spent. The effect is largest in the region running the campaign, but also
  * effects world regions in direct proportion to that regions import levels of the
  * effected food categories.
-*/
+ */
 public class MyPlatePromotionCampaignPolicy extends PolicyCard implements Serializable
 {
   public static final String TITLE =
-     "MyPlate Promotion Campaign";
+      "MyPlate Promotion Campaign";
 
   public static final String TEXT =
-     "You spend X million dollars on an advertising campaign within your region promoting " +
-     "public awareness of the United States Department of Agriculture's MyPlate nutrition guide.";
-
+      "You spend X million dollars on an advertising campaign within your region promoting " +
+          "public awareness of the United States Department of Agriculture's MyPlate nutrition guide.";
 
 
   /**
    * {@inheritDoc}
-  */
+   */
   @Override
-  public String getTitle(){ return TITLE;}
+  public String getTitle()
+  {
+    return TITLE;
+  }
 
   /**
    * {@inheritDoc}
-  */
+   */
   @Override
-  public String getGameText(){ return TEXT;}
+  public String getGameText()
+  {
+    return TEXT;
+  }
 
   /**
    * {@inheritDoc}
@@ -48,7 +52,10 @@ public class MyPlatePromotionCampaignPolicy extends PolicyCard implements Serial
   @Override
   public EnumVariableUnit getRequiredVariables(EnumVariable variable)
   {
-    if (variable == EnumVariable.X) return EnumVariableUnit.MILLION_DOLLAR;
+    if (variable == EnumVariable.X)
+    {
+      return EnumVariableUnit.MILLION_DOLLAR;
+    }
     return null;
   }
 }

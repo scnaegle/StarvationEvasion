@@ -3,7 +3,8 @@ package starvationevasion.common;
 /**
  * Created by Anand on 12/7/2015.
  */
-public class LandTile {
+public class LandTile
+{
 
   public float elevation = 0;     /* in meters above sea level */
   public float maxAnnualTemp = 0; /* in degrees Celsius. */

@@ -1,10 +1,12 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.messages.*;
-import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.main.GameController;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -54,7 +56,7 @@ public class Client
     catch (IOException e)
     {
       System.err.println("Client Error: Could not open connection to " + host
-          + " on port " + portNumber);
+                             + " on port " + portNumber);
       e.printStackTrace();
       return false;
     }
@@ -87,12 +89,16 @@ public class Client
     System.out.println("Client.closeAll()");
 
     running = false;
-    if (outputStream != null) {
+    if (outputStream != null)
+    {
       // TODO send a message to the server that we are quitting
 //      send(ServerEvent.QUIT, "quit");
-      try {
+      try
+      {
         outputStream.close();
-      } catch (IOException e) {
+      }
+      catch (IOException e)
+      {
         System.err.println("Client Error: Could not close");
         e.printStackTrace();
       }
@@ -121,19 +127,25 @@ public class Client
    * - Discard
    * - Vote
    * - ClientChatMessage
+   *
    * @param payload Serializable object that should be one of the types above.
    */
-  public synchronized void send(Serializable payload) {
+  public synchronized void send(Serializable payload)
+  {
     System.out.println("[" + gameController.getPlayerUsername() + "] Sending to server: " + payload);
-    try {
+    try
+    {
       outputStream.writeObject(payload);
-    } catch (IOException e) {
+    }
+    catch (IOException e)
+    {
       e.printStackTrace();
     }
   }
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args)
+  {
 
 //    String host = null;
 //    int port = 0;
@@ -151,12 +163,13 @@ public class Client
     String password = System.getenv("SEPASSWORD");
     String host = System.getenv("SEHOSTNAME");
     String port = System.getenv("SEPORT");
-    if (username == null || password == null || host == null || port == null) {
+    if (username == null || password == null || host == null || port == null)
+    {
       System.out.println("The AI command will be launched with the following environment variables:\n" +
-        "\t\"SEUSERNAME\": The username to use\n" +
-        "\t\"SEPASSWORD\": the password\n" +
-        "\t\"SEHOSTNAME\": the host of the server\n" +
-        "\t\"SEPORT\": the port to connect to");
+                             "\t\"SEUSERNAME\": The username to use\n" +
+                             "\t\"SEPASSWORD\": the password\n" +
+                             "\t\"SEHOSTNAME\": the host of the server\n" +
+                             "\t\"SEPORT\": the port to connect to");
       System.exit(0);
     }
     GameController gameController = new GameController(null, true);
@@ -164,65 +177,101 @@ public class Client
 //    Client client = new Client(host, port, gameController);
 
 //    client.send(new Login());
-    while(true) {
-      try {
+    while (true)
+    {
+      try
+      {
         Thread.sleep(170l);
-      } catch (InterruptedException e) {
+      }
+      catch (InterruptedException e)
+      {
         e.printStackTrace();
       }
     }
   }
 
 
-  class ClientListener extends Thread {
-    public void run() {
+  class ClientListener extends Thread
+  {
+    public void run()
+    {
       System.out.println("ClientListener.run()");
-      while (running) {
+      while (running)
+      {
         read();
       }
 
     }
 
-    private void read() {
+    private void read()
+    {
       Object msg;
-      try {
+      try
+      {
         msg = inputStream.readObject();
         System.out.println("[" + gameController.getPlayerUsername() + "] received from server: " + msg);
-        if (msg instanceof Response) {
+        if (msg instanceof Response)
+        {
           handleResponse((Response) msg);
-        } else if (msg instanceof LoginResponse) {
+        }
+        else if (msg instanceof LoginResponse)
+        {
           handleLoginResponse((LoginResponse) msg);
-        } else if (msg instanceof AvailableRegions) {
-          gameController.setAvailableRegions((AvailableRegions)msg);
-        } else if (msg instanceof ReadyToBegin) {
+        }
+        else if (msg instanceof AvailableRegions)
+        {
+          gameController.setAvailableRegions((AvailableRegions) msg);
+        }
+        else if (msg instanceof ReadyToBegin)
+        {
           gameController.setStartGame((ReadyToBegin) msg);
-        } else if (msg instanceof BeginGame) {
+        }
+        else if (msg instanceof BeginGame)
+        {
           gameController.beginGame((BeginGame) msg);
-        } else if (msg instanceof PhaseStart) {
+        }
+        else if (msg instanceof PhaseStart)
+        {
           gameController.updateTimer((PhaseStart) msg);
-          gameController.setPhaseStart((PhaseStart)msg);
-        } else if (msg instanceof GameState) {
+          gameController.setPhaseStart((PhaseStart) msg);
+        }
+        else if (msg instanceof GameState)
+        {
           gameController.updateWorldData(((GameState) msg).worldData);
           gameController.setHand(((GameState) msg).hand);
-        } else if (msg instanceof ServerChatMessage) {
+        }
+        else if (msg instanceof ServerChatMessage)
+        {
           gameController.setChat((ServerChatMessage) msg);
-        } else if (msg instanceof ActionResponse) {
+        }
+        else if (msg instanceof ActionResponse)
+        {
           handleActionResponse((ActionResponse) msg);
-        } else if (msg instanceof Hello) {
+        }
+        else if (msg instanceof Hello)
+        {
           gameController.setSalt(((Hello) msg).loginNonce);
-        } else if (msg instanceof VoteStatus) {
+        }
+        else if (msg instanceof VoteStatus)
+        {
           gameController.setVoteStatus((VoteStatus) msg);
-        } else {
+        }
+        else
+        {
           System.out.println("Unrecognized message from Server = " + msg);
         }
-      } catch (IOException | ClassNotFoundException e) {
+      }
+      catch (IOException | ClassNotFoundException e)
+      {
         e.printStackTrace();
       }
 
     }
 
-    private void handleResponse(Response response) {
-      switch(response) {
+    private void handleResponse(Response response)
+    {
+      switch (response)
+      {
         case BAD_MESSAGE:
           gameController.addErrorMessage(("Server received a bad message."));
           break;
@@ -237,8 +286,10 @@ public class Client
       }
     }
 
-    private void handleLoginResponse(LoginResponse loginResponse) {
-      switch (loginResponse.responseType) {
+    private void handleLoginResponse(LoginResponse loginResponse)
+    {
+      switch (loginResponse.responseType)
+      {
         case ACCESS_DENIED:
           gameController.setSuccessfulLogin(false);
           gameController.addErrorMessage("Access was denied for this server.");
@@ -266,8 +317,10 @@ public class Client
       }
     }
 
-    private void handleActionResponse(ActionResponse actionResponse) {
-      switch(actionResponse.responseType) {
+    private void handleActionResponse(ActionResponse actionResponse)
+    {
+      switch (actionResponse.responseType)
+      {
         case OK:
           gameController.player.setHand(actionResponse.playerHand);
           break;

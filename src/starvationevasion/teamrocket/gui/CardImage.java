@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class CardImage
 {
-  private static Map<EnumPolicy,Image> cards = new HashMap<>();
+  private static Map<EnumPolicy, Image> cards = new HashMap<>();
 
   static
   {
@@ -50,7 +50,8 @@ public class CardImage
   }
 
   /**
-   *  Gets the correct card image that relates to that specific policy.
+   * Gets the correct card image that relates to that specific policy.
+   *
    * @param policy Known policy.
    * @return Image related to policy.
    */

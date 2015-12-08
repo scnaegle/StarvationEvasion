@@ -36,6 +36,7 @@ public interface PlayerInterface
   /**
    * Needs to get the log in information
    * for the Player
+   *
    * @return log in info
    */
   public String getLogIn();
@@ -44,7 +45,8 @@ public interface PlayerInterface
   /**
    * Player votes on the given card that
    * was played by that region
-   * @param card that needs voting on
+   *
+   * @param card             that needs voting on
    * @param cardPlayedRegion region that the card was played from
    * @return 1 for vote for, -1 for vote against, 0 for abstain
    */
@@ -53,24 +55,28 @@ public interface PlayerInterface
   /**
    * Player discards the card associated with
    * the given card number
+   *
    * @param cardPosition position in hand of card
    */
   public void discardCard(int cardPosition);
 
   /**
    * Sets the hand of the player
+   *
    * @param hand of the player
    */
   public void setHand(EnumPolicy[] hand);
 
   /**
    * Returns the player's hand.
+   *
    * @return array of EnumPolicies.
    */
   public EnumPolicy[] getHand();
 
   /**
    * Gets the card at the specific index
+   *
    * @param card_index index of card being asked for
    * @return PolicyCard for the card at that index in the hand
    */
@@ -85,23 +91,27 @@ public interface PlayerInterface
 
   /**
    * Update the votes all the players did for each card
+   *
    * @param voteStatus of each player on each card
    */
   public void updateVoteStatus(VoteStatus voteStatus);
 
   /**
    * Get chat message from the server
+   *
    * @param message from other player from server
    */
   public void receiveChatMessage(ServerChatMessage message);
 
   /**
    * Get the chat message from the player
+   *
    * @return message
    */
   public ClientChatMessage sendChatMessage();
 
-   public ChatHistory getChatHistory();
+  public ChatHistory getChatHistory();
+
   public VoteStatus getVoteStatus();
 
 }

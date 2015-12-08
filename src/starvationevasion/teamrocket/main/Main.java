@@ -2,10 +2,8 @@ package starvationevasion.teamrocket.main;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,8 +15,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.server.GameClock;
-
-import java.io.IOException;
 
 public class Main extends Application
 {
@@ -45,6 +41,7 @@ public class Main extends Application
 
   /**
    * start tbe stage
+   *
    * @param primaryStage chossing the main stage
    * @throws Exception if it is not valid
    */
@@ -72,7 +69,7 @@ public class Main extends Application
     primaryStage.setScene(startAnimation);
 
     //Init all the scenes once to prevent loading issues.
-    for(EnumScene enumScene : EnumScene.values())
+    for (EnumScene enumScene : EnumScene.values())
     {
       enumScene.getScene();
     }
@@ -86,7 +83,7 @@ public class Main extends Application
       @Override
       public void handle(KeyEvent key)
       {
-        if(key.getCode() == KeyCode.SPACE)
+        if (key.getCode() == KeyCode.SPACE)
         {
           gameController.changeScene(EnumScene.WELCOME);
           videoPlayer.stop();
@@ -97,8 +94,8 @@ public class Main extends Application
     primaryStage.show();
     videoPlayer.play();
 
-   // primaryStage.setScene(cardDraftScene);
-   // primaryStage.show();
+    // primaryStage.setScene(cardDraftScene);
+    // primaryStage.show();
   }
 
   /**
@@ -142,6 +139,7 @@ public class Main extends Application
 
   /**
    * tells client that we just finished the changing the scenes
+   *
    * @return boolean scene switched
    */
   public static boolean justSwitchedScenes()

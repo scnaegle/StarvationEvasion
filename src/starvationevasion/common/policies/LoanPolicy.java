@@ -7,15 +7,15 @@ import java.io.Serializable;
 
 
 /**
-  * Title: {@value #TITLE}<br><br>
+ * Title: {@value #TITLE}<br><br>
  * Game Text: {@value #TEXT}<br><br>
- *
+ * <p>
  * Draft Affects: When drafting this policy, player selects target player
  * from whom to attempt to borrow and the amount X.<br><br>
- *
+ * <p>
  * Votes Required: {@value #VOTES_REQUIRED}<br>
  * Eligible Regions: Target player only <br><br>
- *
+ * <p>
  * Model Effects: Before resolving any other model effects,
  * X million dollars are transferred from target player to the card owner.
  * Then, on each subsequent year for the next 10 years,
@@ -26,37 +26,45 @@ import java.io.Serializable;
  */
 public class LoanPolicy extends PolicyCard implements Serializable
 {
-    public static final String TITLE = "Loan";
+  public static final String TITLE = "Loan";
 
-    public static final String TEXT =
-      "Target player region lends you X million dollars at 10% interest. "+
-        "Annual loan payments are scheduled from year 2 through year 11 (spanning 4 turns).";
+  public static final String TEXT =
+      "Target player region lends you X million dollars at 10% interest. " +
+          "Annual loan payments are scheduled from year 2 through year 11 (spanning 4 turns).";
 
-    /**
-     * The number of votes required for this policy.  A value of 0 means that
-     * the policy is automatic.
-    */
-    public final static int VOTES_REQUIRED = 2;
+  /**
+   * The number of votes required for this policy.  A value of 0 means that
+   * the policy is automatic.
+   */
+  public final static int VOTES_REQUIRED = 2;
 
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getTitle(){ return TITLE;}
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getGameText(){ return TEXT;}
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public int votesRequired() {return VOTES_REQUIRED;}
+  public String getTitle()
+  {
+    return TITLE;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getGameText()
+  {
+    return TEXT;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int votesRequired()
+  {
+    return VOTES_REQUIRED;
+  }
 
   /**
    * {@inheritDoc}
@@ -65,10 +73,20 @@ public class LoanPolicy extends PolicyCard implements Serializable
   public boolean isEligibleToVote(EnumRegion playerRegion)
   {
     //Note: enums can use == to test value.
-    if (playerRegion == owner) return true;
-    if (targetRegion == null) return false;;
+    if (playerRegion == owner)
+    {
+      return true;
+    }
+    if (targetRegion == null)
+    {
+      return false;
+    }
+    ;
 
-    if (playerRegion != targetRegion) return false;
+    if (playerRegion != targetRegion)
+    {
+      return false;
+    }
     return true;
   }
 
@@ -77,7 +95,8 @@ public class LoanPolicy extends PolicyCard implements Serializable
    */
   @Override
   public EnumRegion[] getValidTargetRegions()
-  { return EnumRegion.US_REGIONS;
+  {
+    return EnumRegion.US_REGIONS;
   }
 
   /**
@@ -86,7 +105,10 @@ public class LoanPolicy extends PolicyCard implements Serializable
   @Override
   public EnumVariableUnit getRequiredVariables(EnumVariable variable)
   {
-    if (variable == EnumVariable.X) return EnumVariableUnit.MILLION_DOLLAR;
+    if (variable == EnumVariable.X)
+    {
+      return EnumVariableUnit.MILLION_DOLLAR;
+    }
     return null;
   }
 }

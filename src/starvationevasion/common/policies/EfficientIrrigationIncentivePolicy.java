@@ -1,8 +1,5 @@
-
 package starvationevasion.common.policies;
 
-import starvationevasion.common.EnumFood;
-import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 
 import java.io.Serializable;
@@ -10,11 +7,11 @@ import java.io.Serializable;
 /**
  * Title: {@value #TITLE}<br><br>
  * Game Text: {@value #TEXT}<br><br>
- *
+ * <p>
  * Draft Affects: When drafting this policy, player selects a percentage X [1% through 100%].<br><br>
- *
+ * <p>
  * Votes Required: Automatic<br><br>
- *
+ * <p>
  * Model Effects: The sim estimates the number and location of farms within
  * the region and the amount spent by those farms on improved irrigation. The
  * model will need a current distribution of irrigation efficiency levels, the
@@ -26,10 +23,10 @@ import java.io.Serializable;
  * costs, aquifer depletion, and/or river flow depletion. Increased irrigation
  * efficiency also reduces pesticides, fertilizer, and turbidity levels in
  * outflowing rivers.<br><br>
- *
+ * <p>
  * X% of the money that the sim estimates is spent for improved irrigation
  * is deducted from the regions tax revenue at the start of the next turn.
-*/
+ */
 public class EfficientIrrigationIncentivePolicy extends PolicyCard implements Serializable
 {
   public static final String TITLE =
@@ -37,23 +34,26 @@ public class EfficientIrrigationIncentivePolicy extends PolicyCard implements Se
 
   public static final String TEXT =
       "From now through the start of the next turn, X% of money spent by farmers " +
-      "in players region for improved irrigation efficiency is tax deductible.";
-
-
+          "in players region for improved irrigation efficiency is tax deductible.";
 
 
   /**
    * {@inheritDoc}
-  */
+   */
   @Override
-  public String getTitle(){ return TITLE;}
+  public String getTitle()
+  {
+    return TITLE;
+  }
 
   /**
    * {@inheritDoc}
-  */
+   */
   @Override
-  public String getGameText(){ return TEXT;}
-
+  public String getGameText()
+  {
+    return TEXT;
+  }
 
 
   /**
@@ -62,7 +62,10 @@ public class EfficientIrrigationIncentivePolicy extends PolicyCard implements Se
   @Override
   public EnumVariableUnit getRequiredVariables(EnumVariable variable)
   {
-    if (variable == EnumVariable.X) return EnumVariableUnit.PERCENT;
+    if (variable == EnumVariable.X)
+    {
+      return EnumVariableUnit.PERCENT;
+    }
     return null;
   }
 }

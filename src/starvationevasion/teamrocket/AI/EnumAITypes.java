@@ -9,13 +9,13 @@ import java.util.Random;
 /**
  * Different Level types of AI that
  * the AI class can take in
- *
+ * <p>
  * Each Level of AI is responsible for
  * implementing the abstract methods
  * in a way that reflects what that AI level
  * does
  *
- * @author zfalgout 
+ * @author zfalgout
  */
 public enum EnumAITypes
 {
@@ -34,129 +34,160 @@ public enum EnumAITypes
    * 1 and 10, else if UNIT type will always be 2.
    */
   BASIC
-    {
-      @Override
-      public int vote(PlayerRecord record, Random generator, EnumRegion region)
       {
-        if(record.isPlayerCooperative())
+        @Override
+        public int vote(PlayerRecord record, Random generator, EnumRegion region)
         {
-          if(record.getPendingVoteCard().getValidTargetRegions().equals(region))
+          if (record.isPlayerCooperative())
           {
-            if(generator.nextInt(4) == 0) return 1;
-            return generator.nextInt(2) - 1;
-          }
-          return 1;
-        }
-        return generator.nextInt(2) - 1;
-      }
-
-      @Override
-      public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
-      {
-        int discardedCardCount = 0;
-        int[] discardCardPosition = new int[discardXNumCards];
-        boolean[] cardDiscarded = new boolean[hand.length];
-
-        for(int i = 0; i < discardCardPosition.length; i++)
-        {
-          discardCardPosition[i] = -1;
-        }
-
-       while(discardedCardCount < discardXNumCards)
-       {
-         int index = 0;
-
-         for(PolicyCard card : hand)
-         {
-           if(!(cardDiscarded[index]) && discardedCardCount < discardXNumCards)
-           {
-             if(card.votesRequired() > 0 || generator.nextInt(3) == 0)
-             {
-               discardCardPosition[discardedCardCount] = index;
-               cardDiscarded[index] = true;
-               discardedCardCount++;
-             }
-           }
-           index++;
-         }
-       }
-        return discardCardPosition;
-      }
-
-      @Override
-      public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay) {
-        int cardsSelected = 0;
-        boolean votingCardPicked = false;
-        PolicyCard[] playedCards = new PolicyCard[numberCardsToPlay];
-
-        while(cardsSelected < numberCardsToPlay)
-        {
-          for(PolicyCard card : hand)
-          {
-            if(cardsSelected < numberCardsToPlay)
+            if (record.getPendingVoteCard().getValidTargetRegions().equals(region))
             {
-              if(card.votesRequired() < 1 || (generator.nextInt(5) == 0 && !votingCardPicked))
+              if (generator.nextInt(4) == 0)
               {
-                playedCards[cardsSelected] = card;
-                cardsSelected++;
-
-                if(card.votesRequired() > 0) votingCardPicked = true;
+                return 1;
               }
+              return generator.nextInt(2) - 1;
+            }
+            return 1;
+          }
+          return generator.nextInt(2) - 1;
+        }
+
+        @Override
+        public int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator)
+        {
+          int discardedCardCount = 0;
+          int[] discardCardPosition = new int[discardXNumCards];
+          boolean[] cardDiscarded = new boolean[hand.length];
+
+          for (int i = 0; i < discardCardPosition.length; i++)
+          {
+            discardCardPosition[i] = -1;
+          }
+
+          while (discardedCardCount < discardXNumCards)
+          {
+            int index = 0;
+
+            for (PolicyCard card : hand)
+            {
+              if (!(cardDiscarded[index]) && discardedCardCount < discardXNumCards)
+              {
+                if (card.votesRequired() > 0 || generator.nextInt(3) == 0)
+                {
+                  discardCardPosition[discardedCardCount] = index;
+                  cardDiscarded[index] = true;
+                  discardedCardCount++;
+                }
+              }
+              index++;
+            }
+          }
+          return discardCardPosition;
+        }
+
+        @Override
+        public PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay)
+        {
+          int cardsSelected = 0;
+          boolean votingCardPicked = false;
+          PolicyCard[] playedCards = new PolicyCard[numberCardsToPlay];
+
+          while (cardsSelected < numberCardsToPlay)
+          {
+            for (PolicyCard card : hand)
+            {
+              if (cardsSelected < numberCardsToPlay)
+              {
+                if (card.votesRequired() < 1 || (generator.nextInt(5) == 0 && !votingCardPicked))
+                {
+                  playedCards[cardsSelected] = card;
+                  cardsSelected++;
+
+                  if (card.votesRequired() > 0)
+                  {
+                    votingCardPicked = true;
+                  }
+                }
+              }
+            }
+
+            if (votingCardPicked)
+            {
+              cardsSelected = numberCardsToPlay;
             }
           }
 
-          if(votingCardPicked) cardsSelected = numberCardsToPlay;
+          return playedCards;
         }
 
-        return playedCards;
-      }
-
-      @Override
-      public void setCardTargets(Random generator, PolicyCard card)
-      {
-        EnumFood[] targetFoods = card.getValidTargetFoods();
-        EnumRegion targetRegion = card.getTargetRegion();
-        PolicyCard.EnumVariableUnit X = card.getRequiredVariables(PolicyCard.EnumVariable.X);
-        PolicyCard.EnumVariableUnit Y = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
-        PolicyCard.EnumVariableUnit Z = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
-
-        if(targetFoods != null)
-          card.setTargetFood(targetFoods[generator.nextInt(targetFoods.length)]);
-
-        if(targetRegion != null) card.setTargetRegion(targetRegion);
-
-        if(X != null)
+        @Override
+        public void setCardTargets(Random generator, PolicyCard card)
         {
-          if(X.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
-                  || X.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
-            card.setX(generator.nextInt(10) + 1);
+          EnumFood[] targetFoods = card.getValidTargetFoods();
+          EnumRegion targetRegion = card.getTargetRegion();
+          PolicyCard.EnumVariableUnit X = card.getRequiredVariables(PolicyCard.EnumVariable.X);
+          PolicyCard.EnumVariableUnit Y = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
+          PolicyCard.EnumVariableUnit Z = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
 
-          else card.setX(2);
-        }
-        if(Y != null)
-        {
-          if(Y.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
-                  || Y.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
-            card.setY(generator.nextInt(10) + 1);
+          if (targetFoods != null)
+          {
+            card.setTargetFood(targetFoods[generator.nextInt(targetFoods.length)]);
+          }
 
-          else card.setY(2);
-        }
-        if(Z != null)
-        {
-          if(Z.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
-                  || Z.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
-            card.setZ(generator.nextInt(10) + 1);
+          if (targetRegion != null)
+          {
+            card.setTargetRegion(targetRegion);
+          }
 
-          else card.setZ(2);
+          if (X != null)
+          {
+            if (X.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
+                || X.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
+            {
+              card.setX(generator.nextInt(10) + 1);
+            }
+
+            else
+            {
+              card.setX(2);
+            }
+          }
+          if (Y != null)
+          {
+            if (Y.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
+                || Y.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
+            {
+              card.setY(generator.nextInt(10) + 1);
+            }
+
+            else
+            {
+              card.setY(2);
+            }
+          }
+          if (Z != null)
+          {
+            if (Z.compareTo(PolicyCard.EnumVariableUnit.MILLION_DOLLAR) == 0
+                || Z.compareTo(PolicyCard.EnumVariableUnit.PERCENT) == 0)
+            {
+              card.setZ(generator.nextInt(10) + 1);
+            }
+
+            else
+            {
+              card.setZ(2);
+            }
+          }
         }
-      }
-    };
+      };
 
   /**
    * How to vote for each level of the AI
-   * @param record of the player to see how cooperative players are
+   *
+   * @param record    of the player to see how cooperative players are
    * @param generator random generator to choose random options
-   * @param region of the AI
+   * @param region    of the AI
    * @return -1 for vote against, 0 for abstain, +1 for vote for
    */
   public abstract int vote(PlayerRecord record, Random generator, EnumRegion region);
@@ -164,25 +195,28 @@ public enum EnumAITypes
   /**
    * Discards X number of cards and gets new hand
    * Corresponds to ai level's decision of discarding
+   *
    * @param discardXNumCards discard x number of cards
-   * @param hand card hand of the ai
-   * @param generator random generator to choose random options
+   * @param hand             card hand of the ai
+   * @param generator        random generator to choose random options
    * @return array containing positions of the cards being discarded
    */
   public abstract int[] discardCards(int discardXNumCards, PolicyCard[] hand, Random generator);
 
   /**
    * AI selects up to 2 cards and returns them
-   * @param hand PolicyCard hand
-   * @param generator random generator to choose randomly
+   *
+   * @param hand              PolicyCard hand
+   * @param generator         random generator to choose randomly
    * @param numberCardsToPlay how many cards to select
    * @return card array of selected cards
    */
-  public abstract  PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay);
+  public abstract PolicyCard[] selectCards(PolicyCard[] hand, Random generator, int numberCardsToPlay);
 
   /**
    * If played cards need a target selected, AI will select
    * what the targets are
+   *
    * @param card that needs targets
    */
   public abstract void setCardTargets(Random generator, PolicyCard card);

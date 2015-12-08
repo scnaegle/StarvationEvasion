@@ -1,6 +1,9 @@
 package starvationevasion.teamrocket.main;
 
-import starvationevasion.common.*;
+import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
+import starvationevasion.common.WorldData;
 import starvationevasion.common.messages.*;
 import starvationevasion.server.Server;
 import starvationevasion.server.ServerConstants;
@@ -18,7 +21,10 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Stack;
 
 /**
  * GameController handles the main game logic and movement between phases.
@@ -66,7 +72,7 @@ public class GameController
    * The main controller that talks with the GUI in order to hear player input
    *
    * @param main The main class
-   * @param AI Decides if there is an AI
+   * @param AI   Decides if there is an AI
    */
   public GameController(Main main, boolean AI)
   {
@@ -79,7 +85,8 @@ public class GameController
     this.player = new Player(this);
   }
 
-  public GameController(Main main) {
+  public GameController(Main main)
+  {
     this(main, false);
   }
 
@@ -95,27 +102,36 @@ public class GameController
     boolean fromJar = GameController.class.getResource("/config/sologame.tsv").getPath().startsWith("jar:");
     Server server = null;
     Path soloGamePath = FileSystems.getDefault().getPath(".", "sologame.tsv");
-    try {
+    try
+    {
       Files.write(soloGamePath, "player\tpass".getBytes(), StandardOpenOption.CREATE);
-      if (fromJar) {
+      if (fromJar)
+      {
         server = new Server(soloGamePath.toString(),
-            ("java -cp " + System.getProperty("user.dir") + "starvationevasion.teamrocket.server.Client --environment").split(" "));
-      } else {
+                            ("java -cp " + System.getProperty("user.dir") + "starvationevasion.teamrocket.server.Client --environment").split(" "));
+      }
+      else
+      {
         server = new Server(soloGamePath.toString(),
-            "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
+                            "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
       }
       server.setDaemon(true);
       server.start(); //start() needs to be public to start our own copy.
       startClientAndAttemptLogin("127.0.0.1");
-      if(waitForLoginResponse()) {
+      if (waitForLoginResponse())
+      {
         setChosenRegion(region);
-      } else {
+      }
+      else
+      {
         //TODO show error and try again
       }
 
       // Clean up file
       Files.delete(soloGamePath);
-    } catch (IOException e) {
+    }
+    catch (IOException e)
+    {
       e.printStackTrace();
     }
 
@@ -124,16 +140,20 @@ public class GameController
     return this.player;
   }
 
-  private boolean startClientAndAttemptLogin(String host) {
+  private boolean startClientAndAttemptLogin(String host)
+  {
     try
     {
-    if (host != null) {
-      client = new Client(host, ServerConstants.DEFAULT_PORT, this);
-    } else {
-      client = new Client(playerIP, ServerConstants.DEFAULT_PORT, this);
-    }
+      if (host != null)
+      {
+        client = new Client(host, ServerConstants.DEFAULT_PORT, this);
+      }
+      else
+      {
+        client = new Client(playerIP, ServerConstants.DEFAULT_PORT, this);
+      }
 
-      while(!gotSalt)
+      while (!gotSalt)
       {
         Thread.sleep(17l);
       }
@@ -150,6 +170,7 @@ public class GameController
 
   /**
    * switches to a certain scene depending on what we want
+   *
    * @param serverState the type of state that we want to switch to
    */
   public void switchToScene(ServerState serverState)
@@ -265,6 +286,7 @@ public class GameController
 
   /**
    * Set the list of available regions left to choose from
+   *
    * @param availableRegions Available regions to choose from
    */
   public void setAvailableRegions(AvailableRegions availableRegions)
@@ -274,8 +296,9 @@ public class GameController
 
   /**
    * Get the list of available regions that are left to choose from
+   *
    * @return AvailableRegions Available regions object that contains both the list
-   *         of available regions and the list of already taken regions.
+   * of available regions and the list of already taken regions.
    */
   public AvailableRegions getAvailableRegions()
   {
@@ -286,10 +309,14 @@ public class GameController
    * Set the assigned region. This will create a new player is one hasn't already been
    * created as in the case of joining a hosted game.
    */
-  public void setAssignedRegion(EnumRegion region) {
-    if (player == null) {
+  public void setAssignedRegion(EnumRegion region)
+  {
+    if (player == null)
+    {
       this.player = new Player(region, (AI ? EnumAITypes.BASIC : null), this);
-    } else {
+    }
+    else
+    {
       player.setEnumRegion(region);
     }
   }
@@ -297,25 +324,29 @@ public class GameController
   /**
    * Set whether or not the current player is allowed to pick a new region, as specified
    * by the game server.
+   *
    * @param canPickRegion boolean True if can pick a region, False otherwise
    */
-  public void setCanPickRegion(boolean canPickRegion) {
+  public void setCanPickRegion(boolean canPickRegion)
+  {
     this.canPickRegion = canPickRegion;
   }
 
   /**
    * Get whether or not the current player is allowed to pick a new region.
+   *
    * @return boolean True if can pick a region, False otherwise
    */
-  public boolean getCanPickRegion() {
+  public boolean getCanPickRegion()
+  {
     return canPickRegion;
   }
 
   /**
    * Tries to login into the designated server.
    *
-   * @param username The user name
-   * @param password The password
+   * @param username  The user name
+   * @param password  The password
    * @param ipAddress The IPAddress
    * @return True if this they are able to log in
    */
@@ -326,7 +357,10 @@ public class GameController
     this.playerIP = ipAddress;
 
     setSuccessfulLogin(null);
-    if(!startClientAndAttemptLogin(null)) return false;
+    if (!startClientAndAttemptLogin(null))
+    {
+      return false;
+    }
 
     return waitForLoginResponse();
   }
@@ -338,7 +372,8 @@ public class GameController
    */
   public void setStartGame(ReadyToBegin readyToBegin)
   {
-    if (!AI) {
+    if (!AI)
+    {
       Main.GAME_CLOCK.setTimeLeft((readyToBegin.gameStartServerTime - readyToBegin.currentServerTime) * 1000);
     }
     player.setGameState(EnumGameState.BEGINNING);
@@ -378,8 +413,9 @@ public class GameController
    * Send a message to the server with the current player's vote preference.
    * This takes the region that the card belongs to and the voteType preference
    * for the player.
+   *
    * @param cardOwner the region that the card belongs to
-   * @param voteType player's voting preference.
+   * @param voteType  player's voting preference.
    */
   public void setPlayerVote(EnumRegion cardOwner, VoteType voteType)
   {
@@ -388,20 +424,26 @@ public class GameController
 
   /**
    * Sends the chosen region to the server
+   *
    * @param region Player's chosen region
    */
-  public void setChosenRegion(EnumRegion region) {
-    if (canPickRegion) {
+  public void setChosenRegion(EnumRegion region)
+  {
+    if (canPickRegion)
+    {
       client.send(new RegionChoice(region));
     }
   }
 
   /**
    * Parse the BeginGame object from the server and start the game for player
+   *
    * @param beginGame Allows the game the game to begin
    */
-  public void beginGame(BeginGame beginGame) {
-    for(Map.Entry<EnumRegion, String> entry : beginGame.finalRegionChoices.entrySet()) {
+  public void beginGame(BeginGame beginGame)
+  {
+    for (Map.Entry<EnumRegion, String> entry : beginGame.finalRegionChoices.entrySet())
+    {
       if (Objects.equals(playerUsername, entry.getValue()))
       {
         player.setEnumRegion(entry.getKey());
@@ -413,7 +455,8 @@ public class GameController
   /**
    * Store the hands of all players
    */
-  public void setHand(EnumPolicy[] hand) {
+  public void setHand(EnumPolicy[] hand)
+  {
     player.setHand(hand);
     // TODO update GUI with the new hand
   }
@@ -423,7 +466,8 @@ public class GameController
    *
    * @param gameState the game state of what we want
    */
-  public void setGameState(ServerState gameState) {
+  public void setGameState(ServerState gameState)
+  {
     player.setGameState(gameState);
     // TODO update GUI with the new game state
   }
@@ -480,6 +524,7 @@ public class GameController
 
   /**
    * lookss to see if it is given a valid IP address
+   *
    * @param address the IP adress
    * @return if it is a vlaid IP or not
    */
@@ -492,6 +537,7 @@ public class GameController
 
   /**
    * Gets the IP address
+   *
    * @return the IP address
    */
   public String getPlayerIP()
@@ -531,6 +577,7 @@ public class GameController
 
   /**
    * Gets it if a player sucessfully logged in
+   *
    * @return if it was succseful login
    */
   public Boolean getSuccessfulLogin()
@@ -542,13 +589,19 @@ public class GameController
    * Since we need to wait to see if our login request was accepted, let's
    * spin in a loop until we get a login response back whether it was accepted
    * or denied.
+   *
    * @return True if login was successful, False otherwise
    */
-  public boolean waitForLoginResponse() {
-    while(getSuccessfulLogin() == null) {
-      try {
+  public boolean waitForLoginResponse()
+  {
+    while (getSuccessfulLogin() == null)
+    {
+      try
+      {
         Thread.sleep(17l);
-      } catch (InterruptedException e) {
+      }
+      catch (InterruptedException e)
+      {
         e.printStackTrace();
         return false;
       }
@@ -558,6 +611,7 @@ public class GameController
 
   /**
    * gets the players username
+   *
    * @return the username
    */
   public String getPlayerUsername()
@@ -570,8 +624,10 @@ public class GameController
    *
    * @param phaseStart starts the timer
    */
-  public void updateTimer(PhaseStart phaseStart) {
-    if (!AI) {
+  public void updateTimer(PhaseStart phaseStart)
+  {
+    if (!AI)
+    {
       Main.GAME_CLOCK.setTimeLeft((phaseStart.phaseEndTime - phaseStart.currentServerTime) * 1000);
     }
     setGameState(phaseStart.currentGameState);
@@ -580,6 +636,7 @@ public class GameController
 
   /**
    * gets the currentScene
+   *
    * @return the current scene
    */
   public EnumScene getCurrentScene()
@@ -589,6 +646,7 @@ public class GameController
 
   /**
    * initlizes the GUI
+   *
    * @return the initalGUI
    */
   public boolean initGUI()
@@ -600,6 +658,7 @@ public class GameController
 
   /**
    * Salts the password
+   *
    * @param salt string to salt the password
    */
   public void setSalt(String salt)
@@ -610,17 +669,18 @@ public class GameController
 
   /**
    * draft cards that a player can use
+   *
    * @param draft1 the first card a player drafts
    * @param draft2 the second card a player drafts
    */
   public void playDrafts(PolicyCard draft1, PolicyCard draft2)
   {
-    if(draft1 != null)
+    if (draft1 != null)
     {
       this.draft1 = draft1;
     }
 
-    if(draft2 != null)
+    if (draft2 != null)
     {
       this.draft2 = draft2;
     }
@@ -631,6 +691,7 @@ public class GameController
 
   /**
    * Gets the drafted cards that players have played
+   *
    * @return the policy cards
    */
   public PolicyCard[] getDraftedCards()
@@ -653,7 +714,7 @@ public class GameController
 
   public void setPhaseStart(PhaseStart phaseStart)
   {
-    if(!AI)
+    if (!AI)
     {
       switch (phaseStart.currentGameState)
       {

@@ -15,17 +15,17 @@ import java.util.Random;
  * AI overrides PlayerInterface methods to work with how AI makes decisions
  * Every AI is dependent upon the EnumAITypes it uses, so different level
  * AIs should be done in EnumAITypes.
- *
+ * <p>
  * When AI is made, the first thing it does is set up its own records
  * for keeping track of how cooperative players are being, and used it
  * to decide how the AI will vote on cards, and if sent a message for
  * cooperation, if the AI will cooperate with that player that sent the message.
- *
+ * <p>
  * After setup, AI is able to run methods player uses to play the game,
  * AI also can choose how to discard up to 3 cards in a separate method.
  * AI redirects the methods that need decisions to the EnumAITypes
  * implementation of those related methods.
- *
+ * <p>
  * AI will only cooperate with a single player at a time. Once a vote is done
  * whose card came from that region the AI is cooperating with, the cooperating
  * region will be reset back to null.
@@ -42,12 +42,13 @@ public class AI extends Player
   private int actionsPerformed = 2; //decrease when actions are done during drafting phase
   private EnumPolicy[] discardedCards; //get the policies that were discarded
   private EnumRegion cooperatingRegion;
+
   /**
    * Makes an AI for a region with a specific level while giving it a hand to use.
    *
    * @param controlledRegion The region the AI is supposed to control
-   * @param aiLevel The difficulty level that the AI plays at
-   * @param gameController The game controller that talks to the ai through
+   * @param aiLevel          The difficulty level that the AI plays at
+   * @param gameController   The game controller that talks to the ai through
    */
   public AI(EnumRegion controlledRegion, EnumAITypes aiLevel, GameController gameController)
   {
@@ -65,7 +66,7 @@ public class AI extends Player
   {
     records = new PlayerRecord[NUM_US_REGIONS];
 
-    for(int i = 0; i < NUM_US_REGIONS; i++)
+    for (int i = 0; i < NUM_US_REGIONS; i++)
     {
       PlayerRecord record = new PlayerRecord();
       records[i] = record;
@@ -77,9 +78,11 @@ public class AI extends Player
   /**
    * Removes all cards that the AI has been selected for discard
    * from the hand of the player
+   *
    * @param discardCardsPosition the position of cards being discarded
    */
-  private void removeDiscardedCards(int[] discardCardsPosition) {
+  private void removeDiscardedCards(int[] discardCardsPosition)
+  {
     EnumPolicy[] hand = getHand();
     discardedCards = new EnumPolicy[discardCardsPosition.length];
     int index = 0;
@@ -96,16 +99,20 @@ public class AI extends Player
   /**
    * AI has a 1 in 5 chance to discard
    * AI picks random choice from 0 to 3 cards to discard
+   *
    * @return True if AI chooses to discard cards, False if it doesn't
    */
   public boolean discardCards()
   {
-    if(generator.nextInt(5) == 0 && actionsPerformed > 0)
+    if (generator.nextInt(5) == 0 && actionsPerformed > 0)
     {
       actionsPerformed--;
       int numCards = generator.nextInt(4);
-      if(numCards == 0) numCards++;
-      removeDiscardedCards(AI.discardCards(numCards,getHandCards(),generator));
+      if (numCards == 0)
+      {
+        numCards++;
+      }
+      removeDiscardedCards(AI.discardCards(numCards, getHandCards(), generator));
       return true;
     }
     return false;
@@ -114,11 +121,12 @@ public class AI extends Player
   /**
    * Sets the targets of cards that are going to be played
    * if those cards need a target selected
+   *
    * @param cards array of cards being played
    */
   private void setCardTargets(PolicyCard[] cards)
   {
-    for(PolicyCard card : cards)
+    for (PolicyCard card : cards)
     {
       AI.setCardTargets(generator, card);
     }
@@ -128,22 +136,34 @@ public class AI extends Player
    * Sets which region the AI is cooperating with
    * when that region through the chat asked for
    * cooperating
+   *
    * @param region that AI is working together with
    */
-  public void setCooperatingRegion(EnumRegion region){cooperatingRegion = region;}
+  public void setCooperatingRegion(EnumRegion region)
+  {
+    cooperatingRegion = region;
+  }
 
-  /***** Override player voting updating and chat receiving ******/
+  /*****
+   * Override player voting updating and chat receiving
+   ******/
   @Override
   public synchronized void updateVoteStatus(VoteStatus voteStatus)
   {
-    for(PolicyCard card : voteStatus.currentCards)
+    for (PolicyCard card : voteStatus.currentCards)
     {
-      for(EnumRegion region : EnumRegion.US_REGIONS)
+      for (EnumRegion region : EnumRegion.US_REGIONS)
       {
-        if(!region.equals(ENUM_REGION) && card.isEligibleToVote(region))
+        if (!region.equals(ENUM_REGION) && card.isEligibleToVote(region))
         {
-          if(card.didVoteYes(region))records[region.ordinal()].setPlayerCoop(true);
-          else records[region.ordinal()].setPlayerCoop(false);
+          if (card.didVoteYes(region))
+          {
+            records[region.ordinal()].setPlayerCoop(true);
+          }
+          else
+          {
+            records[region.ordinal()].setPlayerCoop(false);
+          }
         }
       }
     }
@@ -163,14 +183,15 @@ public class AI extends Player
   }
 
   @Override
-  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
-    if(cooperatingRegion != null && cooperatingRegion.equals(cardPlayedRegion))
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion)
+  {
+    if (cooperatingRegion != null && cooperatingRegion.equals(cardPlayedRegion))
     {
       cooperatingRegion = null;
       return 1;
     }
 
-    records[cardPlayedRegion.ordinal()].setPendingVoteCard(PolicyCard.create(cardPlayedRegion,card));
+    records[cardPlayedRegion.ordinal()].setPendingVoteCard(PolicyCard.create(cardPlayedRegion, card));
     return AI.vote(records[cardPlayedRegion.ordinal()], generator, ENUM_REGION);
   }
 }

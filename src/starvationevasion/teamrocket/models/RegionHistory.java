@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class RegionHistory
 {
-   /**
+  /**
    * Keeps track of the originally selected RegionHistory.
    */
   public final EnumRegion ENUM_REGION;
@@ -31,8 +31,8 @@ public class RegionHistory
   private Player player;
 
   private ArrayList<Double> undernourished = new ArrayList<>();
-//  private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
-  private ArrayList<Double>  HDI = new ArrayList<>();
+  //  private ArrayList<Integer> micronutrientMalnourished = new ArrayList<>();
+  private ArrayList<Double> HDI = new ArrayList<>();
   private ArrayList<Integer> totalRevenue = new ArrayList<>(); //totalRevenue of the player and there country (a way of measuring score)
   private ArrayList<Integer> population = new ArrayList<>(); // population of the people in the region (a way of measuring score)
   private HashMap<EnumFood, ArrayList<Double>> pricePerTon = new HashMap<>();
@@ -57,11 +57,11 @@ public class RegionHistory
     this.ENUM_REGION = enumRegion;
 //    deck = new Deck(this);
 
-    for(EnumFood food : EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       cropRevenue.put(food, new ArrayList<Integer>());
       cropProduced.put(food, new ArrayList<Integer>());
-      pricePerTon.put(food,new ArrayList<Double>());
+      pricePerTon.put(food, new ArrayList<Double>());
     }
     // This is where a regions starting crops are determined.
     // This might be replaced with something from the simulator or possibly
@@ -79,7 +79,7 @@ public class RegionHistory
       case MOUNTAIN:
       default:
         Random rand = new Random();
-        for(EnumFood food : EnumFood.values())
+        for (EnumFood food : EnumFood.values())
         {
 //          addCropProduced(food, rand.nextInt(100));
         }
@@ -107,14 +107,13 @@ public class RegionHistory
   /**
    * adds the amount of revenue for a specfic crop
    *
-   * @param food the type of food revenue
+   * @param food  the type of food revenue
    * @param value the value that the food is being used for
    */
   public void addCropRevenue(EnumFood food, int value)
   {
     cropRevenue.get(food).add(value);
   }
-
 
 
   /**
@@ -125,7 +124,7 @@ public class RegionHistory
   public HashMap<EnumFood, Integer> getLastCropRevenue()
   {
     HashMap<EnumFood, Integer> latestData = new HashMap<>();
-    for(EnumFood food : EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       latestData.put(food, cropRevenue.get(food).lastIndexOf(cropRevenue.get(food)));
     }
@@ -147,7 +146,7 @@ public class RegionHistory
   /**
    * A value of how much of a crop is being produced
    *
-   * @param food The type of food of food we want produced
+   * @param food  The type of food of food we want produced
    * @param value The amount of food that we want produced
    */
   public void addCropProduced(EnumFood food, int value)
@@ -178,15 +177,15 @@ public class RegionHistory
   }
 
   /**
-   *  produces a hashmap of how much food was produced for every food on the
-   *  last turn
+   * produces a hashmap of how much food was produced for every food on the
+   * last turn
    *
-   *  @return a hashmap of all of the crops produced
+   * @return a hashmap of all of the crops produced
    */
   public HashMap<EnumFood, Integer> getLastCropProducedData()
   {
     HashMap<EnumFood, Integer> latestData = new HashMap<>();
-    for(EnumFood food : EnumFood.values())
+    for (EnumFood food : EnumFood.values())
     {
       latestData.put(food, cropProduced.get(food).lastIndexOf(cropProduced.get(food)));
     }
@@ -198,8 +197,10 @@ public class RegionHistory
     cropProduced.get(food).add(value);
   }
 
-  public void addFarmArea(EnumFood food, int value) {
-    if (farmArea.get(food) == null) {
+  public void addFarmArea(EnumFood food, int value)
+  {
+    if (farmArea.get(food) == null)
+    {
       farmArea.put(food, new ArrayList<Integer>());
     }
     farmArea.get(food).add(value);
@@ -207,6 +208,7 @@ public class RegionHistory
 
   /**
    * adds a measure of the popualtion for a turn.
+   *
    * @param nextPopulation adds to the population
    */
   public void addPopulation(int nextPopulation)
@@ -261,7 +263,8 @@ public class RegionHistory
   }
 
   /**
-   *get the amount of undernorished people
+   * get the amount of undernorished people
+   *
    * @return the number of under noruished people
    */
   public ArrayList<Double> getUndernourished()
@@ -281,14 +284,21 @@ public class RegionHistory
 
   /**
    * gets the last HDI for a turn
+   *
    * @return the last index of the HDI
    */
   public Double getLastHDI()
   {
 //    return  ((double) getLastPopulation() - (getLastMicronutrientMalnourished() + getLastProteinEnergyMalnourished()))
 //        /(double) getLastPopulation();
-    if (HDI == null) return 0d;
-    if (HDI.isEmpty()) return 0d;
+    if (HDI == null)
+    {
+      return 0d;
+    }
+    if (HDI.isEmpty())
+    {
+      return 0d;
+    }
     return Iterables.getLast(HDI);
   }
 

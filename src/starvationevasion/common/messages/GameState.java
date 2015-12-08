@@ -1,7 +1,6 @@
 package starvationevasion.common.messages;
 
 import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.RegionData;
 import starvationevasion.common.WorldData;
 
 import java.io.Serializable;

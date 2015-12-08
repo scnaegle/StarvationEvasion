@@ -1,4 +1,5 @@
 package starvationevasion.common.messages;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -14,7 +15,8 @@ public class Login implements Serializable
 
   /**
    * Creates a new login with the given username and salted/hashed password
-   * @param username the username to use
+   *
+   * @param username       the username to use
    * @param hashedPassword the S/H password to use
    */
   public Login(String username, String hashedPassword)
@@ -26,8 +28,9 @@ public class Login implements Serializable
   /**
    * Creates a new login with the given username, and automatically
    * salts and hashes a given password with a given salt.
+   *
    * @param username the username to login with
-   * @param salt the salt to use
+   * @param salt     the salt to use
    * @param password the password to use
    */
   public Login(String username, String salt, String password)
@@ -46,10 +49,10 @@ public class Login implements Serializable
     {
       md = MessageDigest.getInstance(HASH_ALGORITHM);
     }
-    catch(NoSuchAlgorithmException e)
+    catch (NoSuchAlgorithmException e)
     {
       System.out.println(HASH_ALGORITHM +
-          " is not supported on this system! Login will be impossible. Exiting...");
+                             " is not supported on this system! Login will be impossible. Exiting...");
       System.exit(1);
     }
     MESSAGE_DIGEST = md;
@@ -61,12 +64,15 @@ public class Login implements Serializable
    * Converts a byte array to a hexadecimal string.
    * Credit to maybeWeCouldStealAVan on
    * this StackOverflow answer: http://stackoverflow.com/a/9855338
+   *
    * @param bytes the byte array to convert
    * @return the hex string equivalent of bytes
    */
-  public static String bytesToHex(byte[] bytes) {
+  public static String bytesToHex(byte[] bytes)
+  {
     char[] hexChars = new char[bytes.length * 2];
-    for ( int j = 0; j < bytes.length; j++ ) {
+    for (int j = 0; j < bytes.length; j++)
+    {
       int v = bytes[j] & 0xFF;
       hexChars[j * 2] = hexArray[v >>> 4];
       hexChars[j * 2 + 1] = hexArray[v & 0x0F];
@@ -79,7 +85,8 @@ public class Login implements Serializable
    * The algorithm for generation is hash = SHA256(SHA256(salt) + password), where
    * '+' is the concatenation operator, and the salt and password are
    * interpreted as UTF-8 strings of arbitrary length.
-   * @param salt the salt to use
+   *
+   * @param salt     the salt to use
    * @param password the password to use
    * @return the resulting salted/hashed password.
    */

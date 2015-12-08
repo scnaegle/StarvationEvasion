@@ -16,11 +16,11 @@ import java.util.Random;
  * of the coopKeywords, AI will cooperate with that player on the next voting phase.
  * If no String message is there, but a policy card is, AI will automatically cooperate
  * with that player.
- *
+ * <p>
  * If a String message is sent, but doesn't contain any of the coopKeywords in the message,
  * then AI will create a String message to send back that is a random phrase chosen from
  * the ResponseList file.
- *
+ * <p>
  * If no message was received from the server before getResponse is called, then null
  * is returned, and should be checked for to avoid sending null back to the server.
  *
@@ -51,13 +51,15 @@ public class AIChatResponse
   {
     String line;
     BufferedReader txtReader = new BufferedReader(
-            new InputStreamReader(getClass().getResourceAsStream("ResponseList")));
-    try {
-      while((line = txtReader.readLine()) != null)
+        new InputStreamReader(getClass().getResourceAsStream("ResponseList")));
+    try
+    {
+      while ((line = txtReader.readLine()) != null)
       {
         unknownMessageResponses.add(line);
       }
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       e.printStackTrace();
     }
@@ -65,6 +67,7 @@ public class AIChatResponse
 
   /**
    * Get the message from another player
+   *
    * @param message ServerChatMessage from other player
    */
   public void getMessage(ServerChatMessage message)
@@ -75,32 +78,39 @@ public class AIChatResponse
   /**
    * Get the AI's response to the message sent
    * in getMessage
+   *
    * @return ClientChatMessage response of AI to previous getMessage, or null if no previous message received
    */
   public ClientChatMessage getResponse()
   {
     boolean cooping = false;
 
-    if(message != null)
+    if (message != null)
     {
-      if(records[message.sender.ordinal()].isPlayerCooperative())
+      if (records[message.sender.ordinal()].isPlayerCooperative())
       {
 
-        if(message.card == null)
+        if (message.card == null)
         {
-          for(String keyword : coopKeywords)
+          for (String keyword : coopKeywords)
           {
 
-            if(message.message.toLowerCase().contains(keyword)) cooping = true;
+            if (message.message.toLowerCase().contains(keyword))
+            {
+              cooping = true;
+            }
           }
         }
 
-        else cooping = true;
+        else
+        {
+          cooping = true;
+        }
       }
 
       EnumRegion[] regions = {message.sender};
 
-      if(cooping)
+      if (cooping)
       {
         linkedAI.setCooperatingRegion(message.sender);
         message = null;

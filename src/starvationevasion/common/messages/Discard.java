@@ -21,18 +21,23 @@ public class Discard implements Serializable
 
   /**
    * Create a Discard representing a free discard action.
+   *
    * @param discard a non-null EnumPolicy to discard.
    */
   public Discard(EnumPolicy discard)
   {
-    if (discard == null) throw new IllegalArgumentException();
+    if (discard == null)
+    {
+      throw new IllegalArgumentException();
+    }
     isFreeDiscard = true;
-    discards = new EnumPolicy[] {discard};
+    discards = new EnumPolicy[]{discard};
   }
 
   /**
    * Creates a new Discard action that represents a non-free discard action.
    * At least one argument must be non-null.
+   *
    * @param discard1 the first card to discard
    * @param discard2 the second card to discard
    * @param discard3 the third card to discard
@@ -44,6 +49,6 @@ public class Discard implements Serializable
       throw new IllegalArgumentException();
     }
     isFreeDiscard = false;
-    discards = new EnumPolicy[] {discard1, discard2, discard3};
+    discards = new EnumPolicy[]{discard1, discard2, discard3};
   }
 }

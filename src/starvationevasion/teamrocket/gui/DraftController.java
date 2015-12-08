@@ -14,7 +14,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -100,7 +103,6 @@ public class DraftController implements javafx.fxml.Initializable
   private Label playerRegion;
 
 
-
   /*          GRAPHS FOR EACH REGION           */
   @FXML
   private BorderPane hdiGraph, popGraph, revGraph, cropGraph;
@@ -142,7 +144,7 @@ public class DraftController implements javafx.fxml.Initializable
   @FXML
   private Button closeWindow, closeWindow2, closeWindow3, closeWindow4,
       closeWindow5, closeWindow6, closeWindow7,
-      closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12,closeEarth;
+      closeWindow8, closeWindow9, closeWindow10, closeWindow11, closeWindow12, closeEarth;
   @FXML
   private Label close, close2, close3, close4, close5, close6, close7, close8,
       close9, close10, close11, close12, closeEarthLabel;
@@ -155,7 +157,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   @FXML
   private TextArea nonCitrusText, grainsText, citrusText, feedText, oilText, meatText, dairyText, poultryText,
-  nutText, specialText, fishText, veggieText;
+      nutText, specialText, fishText, veggieText;
 
 
   @FXML
@@ -199,7 +201,7 @@ public class DraftController implements javafx.fxml.Initializable
           {
             time.setTextFill(Color.RED);
           }
-          else if(Main.GAME_CLOCK.getMinutes()<2)
+          else if (Main.GAME_CLOCK.getMinutes() < 2)
           {
             time.setTextFill(Color.ORANGE);
           }
@@ -226,10 +228,10 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
-
   /**
    * When scene first opens, visualizer is loaded and displayed.
-   * @param location Location of controller.
+   *
+   * @param location  Location of controller.
    * @param resources resources.
    */
   @Override
@@ -242,6 +244,7 @@ public class DraftController implements javafx.fxml.Initializable
   /**
    * Determines what each card needs as an input and shows specific boxes and drop downs
    * depending on what the cards need.
+   *
    * @param cardIndex Card in the hand.
    */
   private void setupAddBox(int cardIndex)
@@ -264,7 +267,7 @@ public class DraftController implements javafx.fxml.Initializable
     textGrid.add(text, 0, row++);
 
     PolicyCard.EnumVariableUnit type = card.getRequiredVariables(PolicyCard.EnumVariable.X);
-    if(type != null)
+    if (type != null)
     {
       draftXControl = getControlForVariable(type);
       Label label = new Label("X value", draftXControl);
@@ -274,7 +277,7 @@ public class DraftController implements javafx.fxml.Initializable
       draftXControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Y);
-    if(type != null)
+    if (type != null)
     {
       draftYControl = getControlForVariable(type);
       Label label = new Label("Y value", draftYControl);
@@ -284,7 +287,7 @@ public class DraftController implements javafx.fxml.Initializable
       draftYControl.setVisible(true);
     }
     type = card.getRequiredVariables(PolicyCard.EnumVariable.Z);
-    if(type != null)
+    if (type != null)
     {
       draftZControl = getControlForVariable(type);
       Label label = new Label("Z value", draftZControl);
@@ -294,7 +297,7 @@ public class DraftController implements javafx.fxml.Initializable
       draftZControl.setVisible(true);
     }
 
-    if(card.getValidTargetFoods() != null)
+    if (card.getValidTargetFoods() != null)
     {
       draftTargetFood = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetFoods())));
       Label label = new Label("Target Food", draftTargetFood);
@@ -303,7 +306,7 @@ public class DraftController implements javafx.fxml.Initializable
       label.setVisible(true);
       draftTargetFood.setVisible(true);
     }
-    if(card.getValidTargetRegions() != null)
+    if (card.getValidTargetRegions() != null)
     {
       draftTargetRegion = new ComboBox<>(FXCollections.observableArrayList(Arrays.asList(card.getValidTargetRegions()
       )));
@@ -320,13 +323,13 @@ public class DraftController implements javafx.fxml.Initializable
   private Spinner<Integer> getControlForVariable(PolicyCard.EnumVariableUnit type)
   {
     Spinner<Integer> control = null;
-    switch(type)
+    switch (type)
     {
       case MILLION_DOLLAR:
         control = new Spinner<>(PolicyCard.MIN_MILLION_DOLLARS, PolicyCard.MAX_MILLION_DOLLARS, 10, 1);
         break;
       case PERCENT:
-        control = new Spinner<>(PolicyCard.MIN_PERCENT,PolicyCard.MAX_PERCENT, 50, 1);
+        control = new Spinner<>(PolicyCard.MIN_PERCENT, PolicyCard.MAX_PERCENT, 50, 1);
         break;
       case UNIT:
         control = new Spinner<>(0, Integer.MAX_VALUE, 7, 1);
@@ -342,9 +345,12 @@ public class DraftController implements javafx.fxml.Initializable
    */
   public void displayHand()
   {
-    for(int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++)
     {
-      if(getGameController().getCard(i) == null) return;
+      if (getGameController().getCard(i) == null)
+      {
+        return;
+      }
     }
     card1Image.setImage(CardImage.getCardImage(getGameController().getCard(0).getCardType()));
     card2Image.setImage(CardImage.getCardImage(getGameController().getCard(1).getCardType()));
@@ -371,13 +377,14 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Makes smaller earth bigger when clicked.
+   *
    * @param event Mouse event.
    */
   @FXML
   public void showBigEarth(MouseEvent event)
   {
     worldTitle.setVisible(false);
-    if(event.getSource() == visPane)
+    if (event.getSource() == visPane)
     {
       worldPane.setVisible(true);
       largeEarthPane.add(earthViewer.getEarth(), 1, 1);
@@ -389,6 +396,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Updates label when large earth is clicked.
+   *
    * @param event Mouse event.
    */
   @FXML
@@ -401,16 +409,17 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Allows user to switch between produce windows when clicking arrows.
+   *
    * @param event Mouse event.
    */
   @FXML
   public void switchProduce(MouseEvent event)
   {
-    if(event.getSource() == leftArrow)
+    if (event.getSource() == leftArrow)
     {
       prevProduce();
     }
-    else if(event.getSource() == rightArrow)
+    else if (event.getSource() == rightArrow)
     {
       nextProduce();
     }
@@ -418,8 +427,9 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Allows produce windows to be switched.
+   *
    * @param initial Initial index of open window.
-   * @param next Next window to open.
+   * @param next    Next window to open.
    * @param window1 Current window pane.
    * @param window2 Next window pane to be open.
    */
@@ -437,49 +447,50 @@ public class DraftController implements javafx.fxml.Initializable
    */
   private void nextProduce()
   {
-    if(produce[0]){ //to grains
+    if (produce[0])
+    { //to grains
       switchWindow(0, 1, appleWindow, grainWindow);
       leftArrow.setVisible(true);
     }
-    else if(produce[1]) //to citrus
+    else if (produce[1]) //to citrus
     {
       switchWindow(1, 2, grainWindow, citrusWindow);
     }
-    else if(produce[2]) //to feed
+    else if (produce[2]) //to feed
     {
       switchWindow(2, 3, citrusWindow, feedWindow);
     }
-    else if(produce[3])
+    else if (produce[3])
     {
       switchWindow(3, 4, feedWindow, dairyWindow);
     }
-    else if(produce[4])
+    else if (produce[4])
     {
-      switchWindow(4,5,dairyWindow,fishWindow);
+      switchWindow(4, 5, dairyWindow, fishWindow);
     }
-    else if(produce[5])
+    else if (produce[5])
     {
-      switchWindow(5,6,fishWindow,meatWindow);
+      switchWindow(5, 6, fishWindow, meatWindow);
     }
-    else if(produce[6])
+    else if (produce[6])
     {
-      switchWindow(6,7,meatWindow,nutWindow);
+      switchWindow(6, 7, meatWindow, nutWindow);
     }
-    else if(produce[7])
+    else if (produce[7])
     {
-      switchWindow(7,8,nutWindow,oilWindow);
+      switchWindow(7, 8, nutWindow, oilWindow);
     }
-    else if(produce[8])
+    else if (produce[8])
     {
-      switchWindow(8,9,oilWindow,poultryWindow);
+      switchWindow(8, 9, oilWindow, poultryWindow);
     }
-    else if(produce[9])
+    else if (produce[9])
     {
-      switchWindow(9,10,poultryWindow,veggieWindow);
+      switchWindow(9, 10, poultryWindow, veggieWindow);
     }
-    else if(produce[10])
+    else if (produce[10])
     {
-      switchWindow(10,11,veggieWindow,specialWindow);
+      switchWindow(10, 11, veggieWindow, specialWindow);
       rightArrow.setVisible(false);
     }
   }
@@ -490,49 +501,50 @@ public class DraftController implements javafx.fxml.Initializable
    */
   private void prevProduce()
   {
-    if(produce[11]) // to veggies
+    if (produce[11]) // to veggies
     {
-      switchWindow(11,10,specialWindow,veggieWindow);
+      switchWindow(11, 10, specialWindow, veggieWindow);
       rightArrow.setVisible(false);
     }
-    else if(produce[10]) // to poultry
+    else if (produce[10]) // to poultry
     {
       switchWindow(10, 9, veggieWindow, poultryWindow);
     }
-    else if(produce[9])
+    else if (produce[9])
     {
-      switchWindow(9, 8, poultryWindow,oilWindow);
+      switchWindow(9, 8, poultryWindow, oilWindow);
     }
-    else if(produce[8])
+    else if (produce[8])
     {
-      switchWindow(8, 7, oilWindow,nutWindow);
+      switchWindow(8, 7, oilWindow, nutWindow);
     }
-    else if(produce[7])
+    else if (produce[7])
     {
-      switchWindow(7, 6, nutWindow, meatWindow );
+      switchWindow(7, 6, nutWindow, meatWindow);
     }
-    else if(produce[6])
+    else if (produce[6])
     {
-      switchWindow(6, 5, meatWindow,fishWindow);
+      switchWindow(6, 5, meatWindow, fishWindow);
     }
-    else if(produce[5])
+    else if (produce[5])
     {
-      switchWindow(5, 4, fishWindow,dairyWindow);
+      switchWindow(5, 4, fishWindow, dairyWindow);
     }
-    else if(produce[4])
+    else if (produce[4])
     {
-      switchWindow(4,3, dairyWindow,feedWindow );
+      switchWindow(4, 3, dairyWindow, feedWindow);
     }
-    else if(produce[3]) //to citrus
+    else if (produce[3]) //to citrus
     {
-      switchWindow(3,2,  feedWindow,citrusWindow);
+      switchWindow(3, 2, feedWindow, citrusWindow);
     }
-    else if(produce[2]) //to grains
+    else if (produce[2]) //to grains
     {
-      switchWindow(2,1, citrusWindow,grainWindow);
+      switchWindow(2, 1, citrusWindow, grainWindow);
     }
-    else if(produce[1]){ //to apple
-      switchWindow(1,0, grainWindow,appleWindow);
+    else if (produce[1])
+    { //to apple
+      switchWindow(1, 0, grainWindow, appleWindow);
       leftArrow.setVisible(false);
     }
   }
@@ -542,9 +554,9 @@ public class DraftController implements javafx.fxml.Initializable
    */
   private void setWindowTexts()
   {
-    setText(nonCitrusText,EnumFood.FRUIT);
-    setText(grainsText,EnumFood.GRAIN);
-    setText(citrusText,EnumFood.CITRUS);
+    setText(nonCitrusText, EnumFood.FRUIT);
+    setText(grainsText, EnumFood.GRAIN);
+    setText(citrusText, EnumFood.CITRUS);
     setText(dairyText, EnumFood.DAIRY);
     setText(meatText, EnumFood.MEAT);
     setText(feedText, EnumFood.FEED);
@@ -559,6 +571,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Sets text for each produce window textarea with specific information.
+   *
    * @param text Text area.
    * @param food Specific food.
    */
@@ -569,6 +582,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Listens for button presses and acts appropriately.
+   *
    * @param event Action event.
    */
   @FXML
@@ -655,7 +669,7 @@ public class DraftController implements javafx.fxml.Initializable
         cardIndex = 6;
       }
 
-      if(tryDraftingCard(cardButton, cardImage, discard, cardIndex))
+      if (tryDraftingCard(cardButton, cardImage, discard, cardIndex))
       {
         cardInputs.setVisible(false);
 
@@ -666,9 +680,9 @@ public class DraftController implements javafx.fxml.Initializable
       }
 
     }
-    else if(button == cancelInputs)
+    else if (button == cancelInputs)
     {
-      for(int i=0;i<selectedCard.length;i++)
+      for (int i = 0; i < selectedCard.length; i++)
       {
         selectedCard[i] = false;
       }
@@ -702,7 +716,7 @@ public class DraftController implements javafx.fxml.Initializable
     }
     else if (button == card6)
     {
-      selectedCard[5]=true;
+      selectedCard[5] = true;
       setupAddBox(5);
     }
     else if (button == card7)
@@ -722,7 +736,7 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(false);
       PPT.setVisible(true);
-      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
+      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(new RegionHistory(EnumRegion.CALIFORNIA), EnumFood.FRUIT));
       appleWindow.setVisible(true);
     }
     else if (button == grainsButton)
@@ -849,7 +863,7 @@ public class DraftController implements javafx.fxml.Initializable
 
       fishWindow.setVisible(true);
     }
-    else if(button == closeEarth)
+    else if (button == closeEarth)
     {
       worldPane.setVisible(false);
       largeEarthPane.getChildren().remove(earthViewer.getEarthOverlay());
@@ -857,9 +871,9 @@ public class DraftController implements javafx.fxml.Initializable
   }
 
 
-
   /**
    * Makes cards bigger when mouse hovers over them.
+   *
    * @param event Mouse event.
    */
   @FXML
@@ -971,6 +985,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * When mouse leaves card, it returns it back to it's normal size.
+   *
    * @param event Mouse event.
    */
   @FXML
@@ -1072,8 +1087,9 @@ public class DraftController implements javafx.fxml.Initializable
   /**
    * Called after card in hand is clicked on.
    * Will draft card as long as there's not already 2 cards drafted.
+   *
    * @param cardButton    Card clicked
-   * @param discard Discard option 'X'
+   * @param discard       Discard option 'X'
    * @param cardHandIndex index in hand to draft.
    */
   private boolean tryDraftingCard(Button cardButton, ImageView cardImage, Label discard, int cardHandIndex)
@@ -1103,7 +1119,7 @@ public class DraftController implements javafx.fxml.Initializable
       card.setTargetRegion(draftTargetRegion.getValue());
     }
 
-    if(card.validate() != null)
+    if (card.validate() != null)
     {
       Alert alert = new Alert(Alert.AlertType.INFORMATION, card.validate(), ButtonType.CLOSE);
       alert.setResizable(true);
@@ -1266,6 +1282,7 @@ public class DraftController implements javafx.fxml.Initializable
    * Called whenever the user clicks on a black X.
    * Related card is found and removed from hand.
    * Card is sent to the top of the discard pile.
+   *
    * @param event Mouse event.
    */
   @FXML
@@ -1346,7 +1363,7 @@ public class DraftController implements javafx.fxml.Initializable
     {
       //Swap card2 with card1 and undraft card2
       //This keeps things consistent.
-      if(cardsDrafted == 2)
+      if (cardsDrafted == 2)
       {
 
         Image temp = draft1Image.getImage();
@@ -1523,6 +1540,7 @@ public class DraftController implements javafx.fxml.Initializable
   /**
    * Checks to see what player's current region is and highlights it.
    * Also shows graph info on each region when highlighted.
+   *
    * @param myRegion Player's EnumRegion.
    */
   public void highlightMyRegion(EnumRegion myRegion)
@@ -1566,21 +1584,23 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Quickly displays graphs for each region when one is selected.
+   *
    * @param region Region currently selected.
    */
   private void makeGraphs(EnumRegion region)
   {
     cropGraph.setCenter(CropChart.makeRegionFoodPieChart(Main
-        .getGameController().getRegion(region)));
+                                                             .getGameController().getRegion(region)));
 //    revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(player.getRegionHistories().get(region)));
     hdiGraph.setCenter(CropChart.makeHDIPieChart(new RegionHistory(region)));
-   // popGraph.setCenter(CropChart.makeLineChartRegionPopulation(player.getRegionHistories().get(region)));
+    // popGraph.setCenter(CropChart.makeLineChartRegionPopulation(player.getRegionHistories().get(region)));
     revGraph.setCenter(CropChart.makeOneRegionRevenuePieChart(new RegionHistory(region)));
     popGraph.setCenter(CropChart.makeLineChartRegionRevenue(new RegionHistory(region)));
   }
 
   /**
    * When mouse is over product button, show a label with it's name.
+   *
    * @param event Mouse event.
    */
   @FXML
@@ -1658,6 +1678,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Shows region labels when mouse is over a specific region.
+   *
    * @param x X-coordinate on map.
    * @param y Y-coordinate on map.
    */
@@ -1718,6 +1739,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Checks for mouse movements on scene.
+   *
    * @param event Mouse event.
    */
   @FXML
@@ -1764,6 +1786,7 @@ public class DraftController implements javafx.fxml.Initializable
 
   /**
    * Changes text color for produce close[x]
+   *
    * @param color Specific color.
    */
   private void changeTextColor(Color color)

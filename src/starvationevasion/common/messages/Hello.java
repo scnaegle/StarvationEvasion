@@ -34,7 +34,7 @@ public class Hello implements Serializable
   public static String generateRandomLoginNonce()
   {
     return Stream.generate(() ->
-        nonceAlphabet[Util.rand.nextInt(nonceAlphabet.length)])
+                               nonceAlphabet[Util.rand.nextInt(nonceAlphabet.length)])
         .limit(NONCE_SIZE).collect(Collectors.joining());
   }
 }

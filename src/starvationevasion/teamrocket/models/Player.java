@@ -87,7 +87,7 @@ public class Player implements PlayerInterface
    * Creates a new player based on selected region.
    *
    * @param enumRegion the region that the player controls all stats are determined by this.
-   * @param ai level of the player if player is an AI
+   * @param ai         level of the player if player is an AI
    * @param controller link to GameController
    */
   public Player(EnumRegion enumRegion, EnumAITypes ai, GameController controller)
@@ -98,58 +98,73 @@ public class Player implements PlayerInterface
     income = 10000000;
 
     // Initialize our region histories
-    for(EnumRegion region : EnumRegion.values()) {
+    for (EnumRegion region : EnumRegion.values())
+    {
       regionHistories.put(region, new RegionHistory(region));
     }
   }
 
   /**
    * Creates a player using only GameController link
+   *
    * @param controller link to GameController
    */
-  public Player(GameController controller) {
+  public Player(GameController controller)
+  {
     this(null, null, controller);
   }
 
-  public synchronized void setEnumRegion(EnumRegion enumRegion) {
+  public synchronized void setEnumRegion(EnumRegion enumRegion)
+  {
     this.ENUM_REGION = enumRegion;
   }
 
   /**
    * Get region of player
+   *
    * @return EnumRegion of player
    */
-  public EnumRegion getEnumRegion() {
+  public EnumRegion getEnumRegion()
+  {
     return ENUM_REGION;
   }
 
   /**
    * Gets the EnumAITypes of the player if
    * it is an AI
+   *
    * @return EnumAITypes if player is AI, otherwise null for human player
    */
   @Override
-  public EnumAITypes getAIType() {
+  public EnumAITypes getAIType()
+  {
     return AI;
   }
 
   /**
    * Gets the hand of the player as array of EnumPolicies
+   *
    * @return EnumPolicy[] of player's hand
    */
-  public EnumPolicy[] getHand(){return hand;}
+  public EnumPolicy[] getHand()
+  {
+    return hand;
+  }
 
   /**
    * Get the hand of the player, but as an array of PolicyCards
+   *
    * @return PolicyCard[] of player's hand
    */
-  public PolicyCard[] getHandCards() {
+  public PolicyCard[] getHandCards()
+  {
     return Stream.of(hand).map(c -> PolicyCard.create(ENUM_REGION, c)).toArray(size -> new PolicyCard[size]);
   }
 
   @Override
-  public PolicyCard getCard(int cardIndex) {
-    if(hand != null && cardIndex < hand.length && hand[cardIndex] != null)
+  public PolicyCard getCard(int cardIndex)
+  {
+    if (hand != null && cardIndex < hand.length && hand[cardIndex] != null)
     {
       return PolicyCard.create(ENUM_REGION, hand[cardIndex]);
     }
@@ -161,34 +176,49 @@ public class Player implements PlayerInterface
 
   /**
    * Update the player's hand with the new hand
+   *
    * @param hand of new cards
    */
-  public synchronized void setHand(EnumPolicy[] hand){
-    if (hand != null && hand.length > 0) {
+  public synchronized void setHand(EnumPolicy[] hand)
+  {
+    if (hand != null && hand.length > 0)
+    {
       this.hand = hand;
     }
   }
 
   /**
    * Get the current income of the player
+   *
    * @return player's income
    */
-  public int getIncome(){return income;}
+  public int getIncome()
+  {
+    return income;
+  }
 
   /**
    * Updates the player's income to the new income
+   *
    * @param income new income of player
    */
-  public void updateIncome(int income){this.income = income;}
+  public void updateIncome(int income)
+  {
+    this.income = income;
+  }
 
-  /********Interface Methods ***********/
+  /********
+   * Interface Methods
+   ***********/
   @Override
-  public String getLogIn() {
+  public String getLogIn()
+  {
     return logIn;
   }
 
   @Override
-  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion) {
+  public int vote(EnumPolicy card, EnumRegion cardPlayedRegion)
+  {
     return 0;
   }
 
@@ -198,11 +228,13 @@ public class Player implements PlayerInterface
     //hand[cardPosition] = null;
   }
 
-  synchronized public void setGameState(ServerState serverState) {
+  synchronized public void setGameState(ServerState serverState)
+  {
     /*
     State of the server
    */
-    switch(serverState) {
+    switch (serverState)
+    {
       case LOGIN:
         this.gameState = EnumGameState.GAME_ROOM;
         break;
@@ -240,16 +272,19 @@ public class Player implements PlayerInterface
   }
 
   @Override
-  synchronized public void updateWorldData(WorldData worldData) {
+  synchronized public void updateWorldData(WorldData worldData)
+  {
     this.worldData = worldData;
-    for(EnumRegion enumRegion : EnumRegion.values()) {
+    for (EnumRegion enumRegion : EnumRegion.values())
+    {
       RegionHistory regionHistory = regionHistories.get(enumRegion);
       RegionData regionData = worldData.regionData[enumRegion.ordinal()];
       regionHistory.addTotalRevenue(regionData.revenueBalance);
       regionHistory.addPopulation(regionData.population);
       regionHistory.addUndernourished(regionData.undernourished);
       regionHistory.addHDI(regionData.humanDevelopmentIndex);
-      for (EnumFood food : EnumFood.values()) {
+      for (EnumFood food : EnumFood.values())
+      {
         regionHistory.addPricePerTon(food, worldData.foodPrice[food.ordinal()]);
         regionHistory.addCropProduced(food, regionData.foodProduced[food.ordinal()]);
         regionHistory.addCropRevenue(food, regionData.foodIncome[food.ordinal()]);
@@ -261,9 +296,11 @@ public class Player implements PlayerInterface
 
   /**
    * Returns a Map of all the region histories.
+   *
    * @return the history of a region
    */
-  public Map<EnumRegion, RegionHistory> getRegionHistories() {
+  public Map<EnumRegion, RegionHistory> getRegionHistories()
+  {
     return regionHistories;
   }
 
@@ -273,9 +310,11 @@ public class Player implements PlayerInterface
    *
    * @return Array of history methods
    */
-  public RegionHistory[] getRegionHistoriesArray() {
+  public RegionHistory[] getRegionHistoriesArray()
+  {
     RegionHistory[] regionHistoriesArray = new RegionHistory[EnumRegion.SIZE];
-    for(Map.Entry<EnumRegion, RegionHistory> entry : regionHistories.entrySet()) {
+    for (Map.Entry<EnumRegion, RegionHistory> entry : regionHistories.entrySet())
+    {
       regionHistoriesArray[entry.getKey().ordinal()] = entry.getValue();
     }
     return regionHistoriesArray;
@@ -287,7 +326,8 @@ public class Player implements PlayerInterface
    * @param gameState game state that we are passing in
    */
   @Override
-  synchronized public void setGameState(EnumGameState gameState) {
+  synchronized public void setGameState(EnumGameState gameState)
+  {
     this.gameState = gameState;
   }
 
@@ -297,7 +337,8 @@ public class Player implements PlayerInterface
    * @param voteStatus of each player on each card
    */
   @Override
-  synchronized public void updateVoteStatus(VoteStatus voteStatus) {
+  synchronized public void updateVoteStatus(VoteStatus voteStatus)
+  {
     this.voteStatus = voteStatus;
   }
 

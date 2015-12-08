@@ -54,6 +54,7 @@ public enum EnumScene
 
   /**
    * gets the scene that the we are on
+   *
    * @return the scene that we are on
    */
   public Scene getScene()

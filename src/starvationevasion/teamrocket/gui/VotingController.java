@@ -14,7 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.VoteStatus;
@@ -22,8 +21,6 @@ import starvationevasion.common.messages.VoteType;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.RegionHistory;
 
-import javax.smartcardio.Card;
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -115,23 +112,23 @@ public class VotingController implements javafx.fxml.Initializable
   @FXML
   private Label h1support, h1oppose, h1abstain;
   @FXML
-  private Label h2support,h2oppose,h2abstain;
+  private Label h2support, h2oppose, h2abstain;
 
   /* VOTE LABELS ON POPUP WINDOW */
-  private int supc1votes,oppc1votes,abstc1votes = 0;
-  private int supc2votes,oppc2votes,abstc2votes = 0;
-  private int supm1votes,oppm1votes,abstm1votes = 0;
-  private int supm2votes,oppm2votes,abstm2votes = 0;
-  private int supnp1votes,oppnp1votes,abstnp1votes = 0;
-  private int supnp2votes,oppnp2votes,abstnp2votes = 0;
-  private int supne1votes,oppne1votes,abstne1votes = 0;
-  private int supne2votes,oppne2votes,abstne2votes = 0;
-  private int supsp1votes,oppsp1votes,abstsp1votes = 0;
-  private int supsp2votes,oppsp2votes,abstsp2votes = 0;
-  private int supse1votes,oppse1votes,abstse1votes = 0;
-  private int supse2votes,oppse2votes,abstse2votes = 0;
-  private int suph1votes,opph1votes,absth1votes = 0;
-  private int suph2votes,opph2votes,absth2votes = 0;
+  private int supc1votes, oppc1votes, abstc1votes = 0;
+  private int supc2votes, oppc2votes, abstc2votes = 0;
+  private int supm1votes, oppm1votes, abstm1votes = 0;
+  private int supm2votes, oppm2votes, abstm2votes = 0;
+  private int supnp1votes, oppnp1votes, abstnp1votes = 0;
+  private int supnp2votes, oppnp2votes, abstnp2votes = 0;
+  private int supne1votes, oppne1votes, abstne1votes = 0;
+  private int supne2votes, oppne2votes, abstne2votes = 0;
+  private int supsp1votes, oppsp1votes, abstsp1votes = 0;
+  private int supsp2votes, oppsp2votes, abstsp2votes = 0;
+  private int supse1votes, oppse1votes, abstse1votes = 0;
+  private int supse2votes, oppse2votes, abstse2votes = 0;
+  private int suph1votes, opph1votes, absth1votes = 0;
+  private int suph2votes, opph2votes, absth2votes = 0;
 
   @FXML
   private Button doneVoting;
@@ -184,7 +181,7 @@ public class VotingController implements javafx.fxml.Initializable
       @Override
       public void handle(ActionEvent event)
       {
-        if(Main.getGameController().getCurrentScene() == EnumScene.VOTE_PHASE)
+        if (Main.getGameController().getCurrentScene() == EnumScene.VOTE_PHASE)
         {
 
           highlightCards();
@@ -197,7 +194,7 @@ public class VotingController implements javafx.fxml.Initializable
           {
             time.setTextFill(Color.RED);
           }
-          else if(Main.GAME_CLOCK.getMinutes()<2)
+          else if (Main.GAME_CLOCK.getMinutes() < 2)
           {
             time.setTextFill(Color.ORANGE);
           }
@@ -206,12 +203,17 @@ public class VotingController implements javafx.fxml.Initializable
           {
 
             myDrafts = Main.getGameController().getDraftedCards();
-            if(myDrafts[0] != null) System.out.println("card 1: " + myDrafts[0].getCardType());
-            if(myDrafts[1] != null) System.out.println("card 2: "+ myDrafts[1].getCardType());
+            if (myDrafts[0] != null)
+            {
+              System.out.println("card 1: " + myDrafts[0].getCardType());
+            }
+            if (myDrafts[1] != null)
+            {
+              System.out.println("card 2: " + myDrafts[1].getCardType());
+            }
             myRegion = Main.getGameController().getMyRegion();
             showGraphs();
           }
-
 
 
           if (Main.GAME_CLOCK.getTimeLeft() <= 0)
@@ -238,10 +240,12 @@ public class VotingController implements javafx.fxml.Initializable
     graph2.setCenter(CropChart.makeRegionFoodPieChart(new RegionHistory(myRegion)));
     graph3.setCenter(CropChart.makeLineChartRegionRevenue(new RegionHistory(myRegion)));
   }
+
   /**
    * When controller is initialized, this method gets called and defaults whatever method is called from inside it.
    * Parameters are not necessary to use.
-   * @param location default location of controller.
+   *
+   * @param location  default location of controller.
    * @param resources resources.
    */
   @Override
@@ -251,16 +255,15 @@ public class VotingController implements javafx.fxml.Initializable
   }
 
 
-
   /**
    * Highlights cards in the color of user's region if they are votable.
    */
   @FXML
   public void highlightCards()
   {
-    if(Main.getGameController().getMyRegion() == EnumRegion.CALIFORNIA)
+    if (Main.getGameController().getMyRegion() == EnumRegion.CALIFORNIA)
     {
-      Color purple = new Color(.69,.59,.72,1);
+      Color purple = new Color(.69, .59, .72, 1);
       c1rect.setFill(purple);
       c2rect.setFill(purple);
       m1rect.setFill(purple);
@@ -276,9 +279,9 @@ public class VotingController implements javafx.fxml.Initializable
       h1rect.setFill(purple);
       h2rect.setFill(purple);
     }
-    else if(Main.getGameController().getMyRegion() == EnumRegion.MOUNTAIN)
+    else if (Main.getGameController().getMyRegion() == EnumRegion.MOUNTAIN)
     {
-      Color brown = new Color(.68,.54,.43,1);
+      Color brown = new Color(.68, .54, .43, 1);
       c1rect.setFill(brown);
       c2rect.setFill(brown);
       m1rect.setFill(brown);
@@ -294,9 +297,9 @@ public class VotingController implements javafx.fxml.Initializable
       h1rect.setFill(brown);
       h2rect.setFill(brown);
     }
-    else if(Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_PLAINS)
+    else if (Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_PLAINS)
     {
-      Color blue = new Color(.7,.81,.89,1);
+      Color blue = new Color(.7, .81, .89, 1);
       c1rect.setFill(blue);
       c2rect.setFill(blue);
       m1rect.setFill(blue);
@@ -312,9 +315,9 @@ public class VotingController implements javafx.fxml.Initializable
       h1rect.setFill(blue);
       h2rect.setFill(blue);
     }
-    else if(Main.getGameController().getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
+    else if (Main.getGameController().getMyRegion() == EnumRegion.SOUTHERN_PLAINS)
     {
-      Color red = new Color(.91,.6,.6,1);
+      Color red = new Color(.91, .6, .6, 1);
       c1rect.setFill(red);
       c2rect.setFill(red);
       m1rect.setFill(red);
@@ -330,9 +333,9 @@ public class VotingController implements javafx.fxml.Initializable
       h1rect.setFill(red);
       h2rect.setFill(red);
     }
-    else if(Main.getGameController().getMyRegion() == EnumRegion.HEARTLAND)
+    else if (Main.getGameController().getMyRegion() == EnumRegion.HEARTLAND)
     {
-      Color yellow = new Color(.99,.92,.62,1);
+      Color yellow = new Color(.99, .92, .62, 1);
       c1rect.setFill(yellow);
       c2rect.setFill(yellow);
       m1rect.setFill(yellow);
@@ -348,9 +351,9 @@ public class VotingController implements javafx.fxml.Initializable
       h1rect.setFill(yellow);
       h2rect.setFill(yellow);
     }
-    else if(Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
+    else if (Main.getGameController().getMyRegion() == EnumRegion.NORTHERN_CRESCENT)
     {
-      Color green = new Color(.75,.8,.62,1);
+      Color green = new Color(.75, .8, .62, 1);
       c1rect.setFill(green);
       c2rect.setFill(green);
       m1rect.setFill(green);
@@ -366,9 +369,9 @@ public class VotingController implements javafx.fxml.Initializable
       h1rect.setFill(green);
       h2rect.setFill(green);
     }
-    else if(Main.getGameController().getMyRegion() == EnumRegion.SOUTHEAST)
+    else if (Main.getGameController().getMyRegion() == EnumRegion.SOUTHEAST)
     {
-      Color orange = new Color(.97,.66,.37,1);
+      Color orange = new Color(.97, .66, .37, 1);
       c1rect.setFill(orange);
       c2rect.setFill(orange);
       m1rect.setFill(orange);
@@ -385,72 +388,72 @@ public class VotingController implements javafx.fxml.Initializable
       h2rect.setFill(orange);
     }
     disableCards();
-    if(isVotable(caliCard1))
+    if (isVotable(caliCard1))
     {
       caliCard1.setDisable(false);
       c1rect.setVisible(true);
     }
-    if(isVotable(caliCard2))
+    if (isVotable(caliCard2))
     {
       caliCard2.setDisable(false);
       c2rect.setVisible(true);
     }
-    if(isVotable(mountCard1))
+    if (isVotable(mountCard1))
     {
       mountCard1.setDisable(false);
       m1rect.setVisible(true);
     }
-    if(isVotable(mountCard2))
+    if (isVotable(mountCard2))
     {
       mountCard2.setDisable(false);
       m2rect.setVisible(true);
     }
-    if(isVotable(nPlainCard1))
+    if (isVotable(nPlainCard1))
     {
       nPlainCard1.setDisable(false);
       np1rect.setVisible(true);
     }
-    if(isVotable(nPlainCard2))
+    if (isVotable(nPlainCard2))
     {
       nPlainCard2.setDisable(false);
       np2rect.setVisible(true);
     }
-    if(isVotable(neCard1))
+    if (isVotable(neCard1))
     {
       neCard1.setDisable(false);
       ne1rect.setVisible(true);
     }
-    if(isVotable(neCard2))
+    if (isVotable(neCard2))
     {
       neCard2.setDisable(false);
       ne2rect.setVisible(true);
     }
-    if(isVotable(sPlainCard1))
+    if (isVotable(sPlainCard1))
     {
       sPlainCard1.setDisable(false);
       sp1rect.setVisible(true);
     }
-    if(isVotable(sPlainCard2))
+    if (isVotable(sPlainCard2))
     {
       sPlainCard2.setDisable(false);
       sp2rect.setVisible(true);
     }
-    if(isVotable(seCard1))
+    if (isVotable(seCard1))
     {
       seCard1.setDisable(false);
       se1rect.setVisible(true);
     }
-    if(isVotable(seCard2))
+    if (isVotable(seCard2))
     {
       seCard2.setDisable(false);
       se2rect.setVisible(true);
     }
-    if(isVotable(heartCard1))
+    if (isVotable(heartCard1))
     {
       heartCard1.setDisable(false);
       h1rect.setVisible(true);
     }
-    if(isVotable(heartCard2))
+    if (isVotable(heartCard2))
     {
       heartCard2.setDisable(false);
       h2rect.setVisible(true);
@@ -517,47 +520,103 @@ public class VotingController implements javafx.fxml.Initializable
   private boolean isVotable(Button card)
   {
 
-    if(card == caliCard1){
-      if( myRegion == EnumRegion.CALIFORNIA && myDrafts[0].votesRequired() != 0) return true;
+    if (card == caliCard1)
+    {
+      if (myRegion == EnumRegion.CALIFORNIA && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == caliCard2){
-      if( myRegion == EnumRegion.CALIFORNIA && myDrafts[1].votesRequired() != 0) return true;
+    if (card == caliCard2)
+    {
+      if (myRegion == EnumRegion.CALIFORNIA && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == mountCard1){
-      if( myRegion == EnumRegion.MOUNTAIN && myDrafts[0].votesRequired() != 0)return true;
+    if (card == mountCard1)
+    {
+      if (myRegion == EnumRegion.MOUNTAIN && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == mountCard2){
-      if( myRegion == EnumRegion.MOUNTAIN && myDrafts[1].votesRequired() != 0)return true;
+    if (card == mountCard2)
+    {
+      if (myRegion == EnumRegion.MOUNTAIN && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == nPlainCard1){
-      if( myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[0].votesRequired() != 0)return true;
+    if (card == nPlainCard1)
+    {
+      if (myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == nPlainCard2){
-      if( myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[1].votesRequired() != 0)return true;
+    if (card == nPlainCard2)
+    {
+      if (myRegion == EnumRegion.NORTHERN_PLAINS && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == neCard1){
-      if( myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[0].votesRequired() != 0)return true;
+    if (card == neCard1)
+    {
+      if (myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == neCard2) {
-      if( myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[1].votesRequired() != 0)return true;
+    if (card == neCard2)
+    {
+      if (myRegion == EnumRegion.NORTHERN_CRESCENT && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == sPlainCard1){
-      if( myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[0].votesRequired() != 0)return true;
+    if (card == sPlainCard1)
+    {
+      if (myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == sPlainCard2){
-      if( myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[1].votesRequired() != 0)return true;
+    if (card == sPlainCard2)
+    {
+      if (myRegion == EnumRegion.SOUTHERN_PLAINS && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == seCard1){
-      if( myRegion == EnumRegion.SOUTHEAST && myDrafts[0].votesRequired() != 0)return true;
+    if (card == seCard1)
+    {
+      if (myRegion == EnumRegion.SOUTHEAST && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == seCard2){
-      if( myRegion == EnumRegion.SOUTHEAST && myDrafts[1].votesRequired() != 0)return true;
+    if (card == seCard2)
+    {
+      if (myRegion == EnumRegion.SOUTHEAST && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == heartCard1){
-      if( myRegion == EnumRegion.HEARTLAND && myDrafts[0].votesRequired() != 0)return true;
+    if (card == heartCard1)
+    {
+      if (myRegion == EnumRegion.HEARTLAND && myDrafts[0].votesRequired() != 0)
+      {
+        return true;
+      }
     }
-    if(card == heartCard2) {
-      if( myRegion == EnumRegion.HEARTLAND && myDrafts[1].votesRequired() != 0)return true;
+    if (card == heartCard2)
+    {
+      if (myRegion == EnumRegion.HEARTLAND && myDrafts[1].votesRequired() != 0)
+      {
+        return true;
+      }
     }
 
     return true;
@@ -567,289 +626,346 @@ public class VotingController implements javafx.fxml.Initializable
   /**
    * Checks for all button pressed action events.
    * Asks which button is pressed and does the appropriate related action.
+   *
    * @param event Action event.
    */
   @FXML
   public void buttonPressed(ActionEvent event)
   {
-    Button button = (Button)event.getSource();
-    if(button == doneVoting)
+    Button button = (Button) event.getSource();
+    if (button == doneVoting)
     {
       hideAllVoteLabels();
       Main.getGameController().setPlayerVote(myRegion, vote);
-      System.out.println("I voted "+vote);
+      System.out.println("I voted " + vote);
 
     }
-    else if(button == caliCard1)
+    else if (button == caliCard1)
     {
 
-      if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.CALIFORNIA)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       caliCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes1, caliOpposeVotes1, caliAbstainVotes1);
       c1Votes.setVisible(true);
     }
-    else if(button == caliCard2)
+    else if (button == caliCard2)
     {
-      if(myRegion == EnumRegion.CALIFORNIA){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.CALIFORNIA)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       caliCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(caliSupportVotes2, caliOpposeVotes2, caliAbstainVotes2);
       c2Votes.setVisible(true);
     }
-    else if(button == mountCard1)
+    else if (button == mountCard1)
     {
-      if(myRegion == EnumRegion.MOUNTAIN){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.MOUNTAIN)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       mountCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes1, mountOpposeVotes1, mountAbstainVotes1);
       m1Votes.setVisible(true);
     }
-    else if(button == mountCard2)
+    else if (button == mountCard2)
     {
-      if(myRegion == EnumRegion.MOUNTAIN){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.MOUNTAIN)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       mountCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(mountSupportVotes2, mountOpposeVotes2, mountAbstainVotes2);
       m2Votes.setVisible(true);
     }
-    else if(button == nPlainCard1)
+    else if (button == nPlainCard1)
     {
-      if(myRegion == EnumRegion.NORTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.NORTHERN_PLAINS)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       nPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes1, nPlainOpposeVotes1, nPlainAbstainVotes1);
       np1Votes.setVisible(true);
     }
-    else if(button == nPlainCard2)
+    else if (button == nPlainCard2)
     {
-      if(myRegion == EnumRegion.NORTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.NORTHERN_PLAINS)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       nPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(nPlainSupportVotes2, nPlainOpposeVotes2, nPlainAbstainVotes2);
       np2Votes.setVisible(true);
     }
-    else if(button == sPlainCard1)
+    else if (button == sPlainCard1)
     {
-      if(myRegion == EnumRegion.SOUTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.SOUTHERN_PLAINS)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       sPlainCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sPlainAbstainVotes1);
       sp1Votes.setVisible(true);
     }
-    else if(button == sPlainCard2)
+    else if (button == sPlainCard2)
     {
-      if(myRegion == EnumRegion.SOUTHERN_PLAINS){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.SOUTHERN_PLAINS)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       sPlainCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sPlainAbstainVotes2);
       sp2Votes.setVisible(true);
     }
-    else if(button == neCard1)
+    else if (button == neCard1)
     {
-      if(myRegion == EnumRegion.NORTHERN_CRESCENT){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.NORTHERN_CRESCENT)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       neCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes1, neOpposeVotes1, neAbstainVotes1);
       ne1Votes.setVisible(true);
     }
-    else if(button == neCard2)
+    else if (button == neCard2)
     {
-      if(myRegion == EnumRegion.NORTHERN_CRESCENT){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.NORTHERN_CRESCENT)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       neCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(neSupportVotes2, neOpposeVotes2, neAbstainVotes2);
       ne2Votes.setVisible(true);
     }
-    else if(button == seCard1)
+    else if (button == seCard1)
     {
-      if(myRegion == EnumRegion.SOUTHEAST){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.SOUTHEAST)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       seCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes1, seOpposeVotes1, seAbstainVotes1);
       s1Votes.setVisible(true);
     }
-    else if(button == seCard2)
+    else if (button == seCard2)
     {
-      if(myRegion == EnumRegion.SOUTHEAST){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.SOUTHEAST)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       seCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(seSupportVotes2, seOpposeVotes2, seAbstainVotes2);
       s2Votes.setVisible(true);
     }
-    else if(button == heartCard1)
+    else if (button == heartCard1)
     {
-      if(myRegion == EnumRegion.HEARTLAND){voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.HEARTLAND)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[0].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       heartCard1Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes1, heartOpposeVotes1, heartAbstainVotes1);
       h1Votes.setVisible(true);
     }
-    else if(button == heartCard2)
+    else if (button == heartCard2)
     {
-      if(myRegion == EnumRegion.HEARTLAND){voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));}
-      else{ /*set other cards to other player's cards*/}
+      if (myRegion == EnumRegion.HEARTLAND)
+      {
+        voteCard.setImage(CardImage.getCardImage(myDrafts[1].getCardType()));
+      }
+      else
+      { /*set other cards to other player's cards*/}
       heartCard2Selected = true;
       CardPane.setVisible(true);
       updateLabels(heartSupportVotes2, heartOpposeVotes2, heartAbstainVotes2);
       h2Votes.setVisible(true);
     }
 
-    else if(button == submitVote) //Button on large view of card
+    else if (button == submitVote) //Button on large view of card
     {
       CardPane.setVisible(false);
-      if(caliCard1Selected)
+      if (caliCard1Selected)
       {
         supc1votes = caliSupportVotes1;
         oppc1votes = caliOpposeVotes1;
         abstc1votes = caliAbstainVotes1;
 
-        c1support.setText(""+supc1votes);
-        c1oppose.setText(""+oppc1votes);
-        c1abstain.setText(""+abstc1votes);
+        c1support.setText("" + supc1votes);
+        c1oppose.setText("" + oppc1votes);
+        c1abstain.setText("" + abstc1votes);
       }
-      else if(caliCard2Selected)
+      else if (caliCard2Selected)
       {
         supc2votes = caliSupportVotes2;
         oppc2votes = caliOpposeVotes2;
         abstc2votes = caliAbstainVotes2;
 
-        c2support.setText(""+supc2votes);
-        c2oppose.setText(""+oppc2votes);
-        c2abstain.setText(""+abstc2votes);
+        c2support.setText("" + supc2votes);
+        c2oppose.setText("" + oppc2votes);
+        c2abstain.setText("" + abstc2votes);
       }
-      else if(mountCard1Selected)
+      else if (mountCard1Selected)
       {
         supm1votes = mountSupportVotes1;
         oppm1votes = mountOpposeVotes1;
         abstm1votes = mountAbstainVotes1;
 
-        m1support.setText(""+supm1votes);
-        m1oppose.setText(""+oppm1votes);
-        m1abstain.setText(""+abstm1votes);
+        m1support.setText("" + supm1votes);
+        m1oppose.setText("" + oppm1votes);
+        m1abstain.setText("" + abstm1votes);
       }
-      else if(mountCard2Selected)
+      else if (mountCard2Selected)
       {
         supm2votes = mountSupportVotes2;
         oppm2votes = mountOpposeVotes2;
         abstm2votes = mountAbstainVotes2;
 
-        m2support.setText(""+supm2votes);
-        m2oppose.setText(""+oppm2votes);
-        m2abstain.setText(""+abstm2votes);
+        m2support.setText("" + supm2votes);
+        m2oppose.setText("" + oppm2votes);
+        m2abstain.setText("" + abstm2votes);
       }
-      else if(nPlainCard1Selected)
+      else if (nPlainCard1Selected)
       {
         supnp1votes = nPlainSupportVotes1;
         oppnp1votes = nPlainOpposeVotes1;
         abstnp1votes = nPlainAbstainVotes1;
 
-        np1support.setText(""+supnp1votes);
-        np1oppose.setText(""+oppnp1votes);
-        np1abstain.setText(""+abstnp1votes);
+        np1support.setText("" + supnp1votes);
+        np1oppose.setText("" + oppnp1votes);
+        np1abstain.setText("" + abstnp1votes);
       }
-      else if(nPlainCard2Selected)
+      else if (nPlainCard2Selected)
       {
         supnp2votes = nPlainSupportVotes2;
         oppnp2votes = nPlainOpposeVotes2;
         abstnp2votes = nPlainAbstainVotes2;
 
-        np2support.setText(""+supnp2votes);
-        np2oppose.setText(""+oppnp2votes);
-        np2abstain.setText(""+abstnp2votes);
+        np2support.setText("" + supnp2votes);
+        np2oppose.setText("" + oppnp2votes);
+        np2abstain.setText("" + abstnp2votes);
       }
-      else if(neCard1Selected)
+      else if (neCard1Selected)
       {
         supne1votes = neSupportVotes1;
         oppne1votes = neOpposeVotes1;
         abstne1votes = neAbstainVotes1;
 
-        ne1support.setText(""+supne1votes);
-        ne1oppose.setText(""+oppne1votes);
-        ne1abstain.setText(""+abstne1votes);
+        ne1support.setText("" + supne1votes);
+        ne1oppose.setText("" + oppne1votes);
+        ne1abstain.setText("" + abstne1votes);
       }
-      else if(neCard2Selected)
+      else if (neCard2Selected)
       {
         supne2votes = neSupportVotes2;
         oppne2votes = neOpposeVotes2;
         abstne2votes = neAbstainVotes2;
 
-        ne2support.setText(""+supne2votes);
-        ne2oppose.setText(""+oppne2votes);
-        ne2abstain.setText(""+abstne2votes);
+        ne2support.setText("" + supne2votes);
+        ne2oppose.setText("" + oppne2votes);
+        ne2abstain.setText("" + abstne2votes);
       }
-      else if(sPlainCard1Selected)
+      else if (sPlainCard1Selected)
       {
         supsp1votes = sPlainSupportVotes1;
         oppsp1votes = sPlainOpposeVotes1;
         abstsp1votes = sPlainAbstainVotes1;
 
-        sp1support.setText(""+supsp1votes);
-        sp1oppose.setText(""+oppsp1votes);
-        sp1abstain.setText(""+abstsp1votes);
+        sp1support.setText("" + supsp1votes);
+        sp1oppose.setText("" + oppsp1votes);
+        sp1abstain.setText("" + abstsp1votes);
       }
-      else if(sPlainCard2Selected)
+      else if (sPlainCard2Selected)
       {
         supsp2votes = sPlainSupportVotes2;
         oppsp2votes = sPlainOpposeVotes2;
         abstsp2votes = sPlainAbstainVotes2;
 
-        sp2support.setText(""+supsp2votes);
-        sp2oppose.setText(""+oppsp2votes);
-        sp2abstain.setText(""+abstsp2votes);
+        sp2support.setText("" + supsp2votes);
+        sp2oppose.setText("" + oppsp2votes);
+        sp2abstain.setText("" + abstsp2votes);
       }
-      else if(seCard1Selected)
+      else if (seCard1Selected)
       {
         supse1votes = seSupportVotes1;
         oppse1votes = seOpposeVotes1;
         abstse1votes = seAbstainVotes1;
 
-        se1support.setText(""+supse1votes);
-        se1oppose.setText(""+oppse1votes);
-        se1abstain.setText(""+abstse1votes);
+        se1support.setText("" + supse1votes);
+        se1oppose.setText("" + oppse1votes);
+        se1abstain.setText("" + abstse1votes);
       }
-      else if(seCard2Selected)
+      else if (seCard2Selected)
       {
         supse2votes = seSupportVotes2;
         oppse2votes = seOpposeVotes2;
         abstse2votes = seAbstainVotes2;
 
-        se2support.setText(""+supse2votes);
-        se2oppose.setText(""+oppse2votes);
-        se2abstain.setText(""+abstse2votes);
+        se2support.setText("" + supse2votes);
+        se2oppose.setText("" + oppse2votes);
+        se2abstain.setText("" + abstse2votes);
       }
-      else if(heartCard1Selected)
+      else if (heartCard1Selected)
       {
         suph1votes = heartSupportVotes1;
         opph1votes = heartOpposeVotes1;
         absth1votes = heartAbstainVotes1;
 
-        h1support.setText(""+suph1votes);
-        h1oppose.setText(""+opph1votes);
-        h1abstain.setText(""+absth1votes);
+        h1support.setText("" + suph1votes);
+        h1oppose.setText("" + opph1votes);
+        h1abstain.setText("" + absth1votes);
       }
-      else if(heartCard2Selected)
+      else if (heartCard2Selected)
       {
         suph2votes = heartSupportVotes2;
         opph2votes = heartOpposeVotes2;
         absth2votes = heartAbstainVotes2;
 
-        h2support.setText(""+suph2votes);
-        h2oppose.setText(""+opph2votes);
-        h2abstain.setText(""+absth2votes);
+        h2support.setText("" + suph2votes);
+        h2oppose.setText("" + opph2votes);
+        h2abstain.setText("" + absth2votes);
       }
 
       deselectCards();
@@ -861,18 +977,19 @@ public class VotingController implements javafx.fxml.Initializable
   /**
    * Keeps track of the user's vote: Approve, Obstain, or Oppose.
    * Updates labels and integers as necessary.
+   *
    * @param event Action event.
    */
   @FXML
   private void vote(ActionEvent event)
   {
-    Button button = (Button)event.getSource();
+    Button button = (Button) event.getSource();
 
-    if(button == support)
+    if (button == support)
     {
       vote = VoteType.FOR;
 
-      if(caliCard1Selected)
+      if (caliCard1Selected)
       {
         caliSupportVotes1 = 1;
         resetVotesAndLabels(caliAbstainVotes1, caliOpposeVotes1, aVotes, oVotes);
@@ -881,7 +998,7 @@ public class VotingController implements javafx.fxml.Initializable
         sVotes.setText("" + caliSupportVotes1);
 
       }
-      else if(caliCard2Selected)
+      else if (caliCard2Selected)
       {
         caliSupportVotes2 = 1;
         resetVotesAndLabels(caliAbstainVotes2, caliOpposeVotes2, aVotes, oVotes);
@@ -889,7 +1006,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        caliOpposeVotes2 = 0;
         sVotes.setText("" + caliSupportVotes2);
       }
-      else if(mountCard1Selected)
+      else if (mountCard1Selected)
       {
         mountSupportVotes1 = 1;
         resetVotesAndLabels(mountAbstainVotes1, mountOpposeVotes1, aVotes, oVotes);
@@ -897,7 +1014,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        mountOpposeVotes1 = 0;
         sVotes.setText("" + mountSupportVotes1);
       }
-      else if(mountCard2Selected)
+      else if (mountCard2Selected)
       {
         mountSupportVotes2 = 1;
         resetVotesAndLabels(mountAbstainVotes2, mountOpposeVotes2, aVotes, oVotes);
@@ -905,7 +1022,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        mountOpposeVotes2 = 0;
         sVotes.setText("" + mountSupportVotes2);
       }
-      else if(nPlainCard1Selected)
+      else if (nPlainCard1Selected)
       {
         nPlainSupportVotes1 = 1;
         resetVotesAndLabels(nPlainAbstainVotes1, nPlainOpposeVotes1, aVotes, oVotes);
@@ -913,7 +1030,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        nPlainOpposeVotes1 = 0;
         sVotes.setText("" + nPlainSupportVotes1);
       }
-      else if(nPlainCard2Selected)
+      else if (nPlainCard2Selected)
       {
         nPlainSupportVotes2 = 1;
         resetVotesAndLabels(nPlainAbstainVotes2, nPlainOpposeVotes2, aVotes, oVotes);
@@ -921,7 +1038,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        nPlainOpposeVotes2 = 0;
         sVotes.setText("" + nPlainSupportVotes2);
       }
-      else if(sPlainCard1Selected)
+      else if (sPlainCard1Selected)
       {
         sPlainSupportVotes1 = 1;
         resetVotesAndLabels(sPlainAbstainVotes1, sPlainOpposeVotes1, aVotes, oVotes);
@@ -929,7 +1046,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        sPlainOpposeVotes1 = 0;
         sVotes.setText("" + sPlainSupportVotes1);
       }
-      else if(sPlainCard2Selected)
+      else if (sPlainCard2Selected)
       {
         sPlainSupportVotes2 = 1;
         resetVotesAndLabels(sPlainAbstainVotes2, sPlainOpposeVotes2, aVotes, oVotes);
@@ -937,7 +1054,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        sPlainOpposeVotes2 = 0;
         sVotes.setText("" + sPlainSupportVotes2);
       }
-      else if(neCard1Selected)
+      else if (neCard1Selected)
       {
         neSupportVotes1 = 1;
         resetVotesAndLabels(neAbstainVotes1, neOpposeVotes1, aVotes, oVotes);
@@ -945,7 +1062,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        neOpposeVotes1 = 0;
         sVotes.setText("" + neSupportVotes1);
       }
-      else if(neCard2Selected)
+      else if (neCard2Selected)
       {
         neSupportVotes2 = 1;
         resetVotesAndLabels(neAbstainVotes2, neOpposeVotes2, aVotes, oVotes);
@@ -953,7 +1070,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        neOpposeVotes2 = 0;
         sVotes.setText("" + neSupportVotes2);
       }
-      else if(seCard1Selected)
+      else if (seCard1Selected)
       {
         seSupportVotes1 = 1;
         resetVotesAndLabels(seAbstainVotes1, seOpposeVotes1, aVotes, oVotes);
@@ -961,7 +1078,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        seOpposeVotes1 = 0;
         sVotes.setText("" + seSupportVotes1);
       }
-      else if(seCard2Selected)
+      else if (seCard2Selected)
       {
         seSupportVotes2 = 1;
         resetVotesAndLabels(seAbstainVotes2, seOpposeVotes2, aVotes, oVotes);
@@ -969,14 +1086,15 @@ public class VotingController implements javafx.fxml.Initializable
 //        seOpposeVotes2 = 0;
         sVotes.setText("" + seSupportVotes2);
       }
-      else if(heartCard1Selected)
+      else if (heartCard1Selected)
       {
         heartSupportVotes1 = 1;
         resetVotesAndLabels(heartAbstainVotes1, heartOpposeVotes1, aVotes, oVotes);
 //        heartAbstainVotes1 = 0;
 //        heartOpposeVotes1 = 0;
-        sVotes.setText("" + heartSupportVotes1);}
-      else if(heartCard2Selected)
+        sVotes.setText("" + heartSupportVotes1);
+      }
+      else if (heartCard2Selected)
       {
         heartSupportVotes2 = 1;
         resetVotesAndLabels(heartAbstainVotes2, heartOpposeVotes2, aVotes, oVotes);
@@ -985,11 +1103,11 @@ public class VotingController implements javafx.fxml.Initializable
         sVotes.setText("" + heartSupportVotes2);
       }
     }
-    else if(button == oppose)
+    else if (button == oppose)
     {
       vote = VoteType.AGAINST;
 
-      if(caliCard1Selected)
+      if (caliCard1Selected)
       {
         caliOpposeVotes1 = 1;
         resetVotesAndLabels(caliSupportVotes1, caliAbstainVotes1, sVotes, aVotes);
@@ -997,7 +1115,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        caliAbstainVotes1 = 0;
         oVotes.setText("" + caliOpposeVotes1);
       }
-      else if(caliCard2Selected)
+      else if (caliCard2Selected)
       {
         caliOpposeVotes2 = 1;
         resetVotesAndLabels(caliSupportVotes2, caliAbstainVotes2, sVotes, aVotes);
@@ -1005,7 +1123,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        caliAbstainVotes2 = 0;
         oVotes.setText("" + caliOpposeVotes2);
       }
-      else if(mountCard1Selected)
+      else if (mountCard1Selected)
       {
         mountOpposeVotes1 = 1;
         resetVotesAndLabels(mountSupportVotes1, mountAbstainVotes1, sVotes, aVotes);
@@ -1013,7 +1131,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        mountAbstainVotes1 = 0;
         oVotes.setText("" + mountOpposeVotes1);
       }
-      else if(mountCard2Selected)
+      else if (mountCard2Selected)
       {
         mountOpposeVotes2 = 1;
         resetVotesAndLabels(mountSupportVotes2, mountAbstainVotes2, sVotes, aVotes);
@@ -1021,7 +1139,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        mountAbstainVotes2 = 0;
         oVotes.setText("" + mountOpposeVotes2);
       }
-      else if(nPlainCard1Selected)
+      else if (nPlainCard1Selected)
       {
         nPlainOpposeVotes1 = 1;
         resetVotesAndLabels(nPlainSupportVotes1, nPlainAbstainVotes1, sVotes, aVotes);
@@ -1029,7 +1147,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        nPlainAbstainVotes1 = 0;
         oVotes.setText("" + nPlainOpposeVotes1);
       }
-      else if(nPlainCard2Selected)
+      else if (nPlainCard2Selected)
       {
         nPlainOpposeVotes2 = 1;
         resetVotesAndLabels(nPlainSupportVotes2, nPlainAbstainVotes2, sVotes, aVotes);
@@ -1037,7 +1155,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        nPlainAbstainVotes2 = 0;
         oVotes.setText("" + nPlainOpposeVotes2);
       }
-      else if(sPlainCard1Selected)
+      else if (sPlainCard1Selected)
       {
         sPlainOpposeVotes1 = 1;
         resetVotesAndLabels(sPlainSupportVotes1, sPlainAbstainVotes1, sVotes, aVotes);
@@ -1045,7 +1163,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        sPlainAbstainVotes1 = 0;
         oVotes.setText("" + sPlainOpposeVotes1);
       }
-      else if(sPlainCard2Selected)
+      else if (sPlainCard2Selected)
       {
         sPlainOpposeVotes2 = 1;
         resetVotesAndLabels(sPlainSupportVotes2, sPlainAbstainVotes2, sVotes, aVotes);
@@ -1053,7 +1171,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        sPlainAbstainVotes2 = 0;
         oVotes.setText("" + sPlainOpposeVotes2);
       }
-      else if(neCard1Selected)
+      else if (neCard1Selected)
       {
         neOpposeVotes1 = 1;
         resetVotesAndLabels(neSupportVotes1, neAbstainVotes1, sVotes, aVotes);
@@ -1061,7 +1179,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        neAbstainVotes1 = 0;
         oVotes.setText("" + neOpposeVotes1);
       }
-      else if(neCard2Selected)
+      else if (neCard2Selected)
       {
         neOpposeVotes1 = 1;
         resetVotesAndLabels(neSupportVotes1, neAbstainVotes1, sVotes, aVotes);
@@ -1069,7 +1187,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        neAbstainVotes1 = 0;
         oVotes.setText("" + neOpposeVotes1);
       }
-      else if(seCard1Selected)
+      else if (seCard1Selected)
       {
         seOpposeVotes1 = 1;
         resetVotesAndLabels(seSupportVotes1, seAbstainVotes1, sVotes, aVotes);
@@ -1077,7 +1195,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        seAbstainVotes1 = 0;
         oVotes.setText("" + seOpposeVotes1);
       }
-      else if(seCard2Selected)
+      else if (seCard2Selected)
       {
         seOpposeVotes2 = 1;
         resetVotesAndLabels(seSupportVotes2, seAbstainVotes2, sVotes, aVotes);
@@ -1085,7 +1203,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        seAbstainVotes2 = 0;
         oVotes.setText("" + seOpposeVotes2);
       }
-      else if(heartCard1Selected)
+      else if (heartCard1Selected)
       {
         heartOpposeVotes1 = 1;
         resetVotesAndLabels(heartSupportVotes1, heartAbstainVotes1, sVotes, aVotes);
@@ -1093,7 +1211,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        heartAbstainVotes1 = 0;
         oVotes.setText("" + heartOpposeVotes1);
       }
-      else if(heartCard2Selected)
+      else if (heartCard2Selected)
       {
         heartOpposeVotes2 = 1;
         resetVotesAndLabels(heartSupportVotes2, heartAbstainVotes2, sVotes, aVotes);
@@ -1102,10 +1220,10 @@ public class VotingController implements javafx.fxml.Initializable
         oVotes.setText("" + heartOpposeVotes2);
       }
     }
-    else if(button == abstain)
+    else if (button == abstain)
     {
       vote = VoteType.ABSTAIN;
-      if(caliCard1Selected)
+      if (caliCard1Selected)
       {
         caliAbstainVotes1 = 1;
         resetVotesAndLabels(caliSupportVotes1, caliOpposeVotes1, sVotes, oVotes);
@@ -1113,7 +1231,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        caliOpposeVotes1 = 0;
         aVotes.setText("" + caliAbstainVotes1);
       }
-      else if(caliCard2Selected)
+      else if (caliCard2Selected)
       {
         caliAbstainVotes2 = 1;
         resetVotesAndLabels(caliSupportVotes2, caliOpposeVotes2, sVotes, oVotes);
@@ -1121,7 +1239,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        caliOpposeVotes2 = 0;
         aVotes.setText("" + caliAbstainVotes2);
       }
-      else if(mountCard1Selected)
+      else if (mountCard1Selected)
       {
         mountAbstainVotes1 = 1;
         resetVotesAndLabels(mountSupportVotes1, mountOpposeVotes1, sVotes, oVotes);
@@ -1129,7 +1247,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        mountOpposeVotes1 = 0;
         aVotes.setText("" + mountAbstainVotes1);
       }
-      else if(mountCard2Selected)
+      else if (mountCard2Selected)
       {
         mountAbstainVotes2 = 1;
         resetVotesAndLabels(mountSupportVotes2, mountOpposeVotes2, sVotes, oVotes);
@@ -1137,7 +1255,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        mountOpposeVotes2 = 0;
         aVotes.setText("" + mountAbstainVotes2);
       }
-      else if(nPlainCard1Selected)
+      else if (nPlainCard1Selected)
       {
         nPlainAbstainVotes1 = 1;
         resetVotesAndLabels(nPlainSupportVotes1, nPlainOpposeVotes1, sVotes, oVotes);
@@ -1145,7 +1263,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        nPlainOpposeVotes1 = 0;
         aVotes.setText("" + nPlainAbstainVotes1);
       }
-      else if(nPlainCard2Selected)
+      else if (nPlainCard2Selected)
       {
         nPlainAbstainVotes2 = 1;
         resetVotesAndLabels(nPlainSupportVotes2, nPlainOpposeVotes2, sVotes, oVotes);
@@ -1153,7 +1271,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        nPlainOpposeVotes2 = 0;
         aVotes.setText("" + nPlainAbstainVotes2);
       }
-      else if(sPlainCard1Selected)
+      else if (sPlainCard1Selected)
       {
         sPlainAbstainVotes1 = 1;
         resetVotesAndLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sVotes, oVotes);
@@ -1161,7 +1279,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        sPlainOpposeVotes1 = 0;
         aVotes.setText("" + sPlainAbstainVotes1);
       }
-      else if(sPlainCard2Selected)
+      else if (sPlainCard2Selected)
       {
         sPlainAbstainVotes2 = 1;
         resetVotesAndLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sVotes, oVotes);
@@ -1169,7 +1287,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        sPlainOpposeVotes2 = 0;
         aVotes.setText("" + sPlainAbstainVotes2);
       }
-      else if(neCard1Selected)
+      else if (neCard1Selected)
       {
         neAbstainVotes1 = 1;
         resetVotesAndLabels(neSupportVotes1, neOpposeVotes1, sVotes, oVotes);
@@ -1177,7 +1295,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        neOpposeVotes1 = 0;
         aVotes.setText("" + neAbstainVotes1);
       }
-      else if(neCard2Selected)
+      else if (neCard2Selected)
       {
         neAbstainVotes2 = 1;
         resetVotesAndLabels(neSupportVotes2, neOpposeVotes2, sVotes, oVotes);
@@ -1185,7 +1303,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        neOpposeVotes2 = 0;
         aVotes.setText("" + neAbstainVotes2);
       }
-      else if(seCard1Selected)
+      else if (seCard1Selected)
       {
         seAbstainVotes1 = 1;
         resetVotesAndLabels(seSupportVotes1, seOpposeVotes1, sVotes, oVotes);
@@ -1193,7 +1311,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        seOpposeVotes1 = 0;
         aVotes.setText("" + seAbstainVotes1);
       }
-      else if(seCard2Selected)
+      else if (seCard2Selected)
       {
         seAbstainVotes2 = 1;
         resetVotesAndLabels(seSupportVotes2, seOpposeVotes2, sVotes, oVotes);
@@ -1201,7 +1319,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        seOpposeVotes2 = 0;
         aVotes.setText("" + seAbstainVotes2);
       }
-      else if(heartCard1Selected)
+      else if (heartCard1Selected)
       {
         heartAbstainVotes1 = 1;
         resetVotesAndLabels(heartSupportVotes1, heartOpposeVotes1, sVotes, oVotes);
@@ -1209,7 +1327,7 @@ public class VotingController implements javafx.fxml.Initializable
 //        heartOpposeVotes1 = 0;
         aVotes.setText("" + heartAbstainVotes1);
       }
-      else if(heartCard2Selected)
+      else if (heartCard2Selected)
       {
         heartAbstainVotes2 = 1;
         resetVotesAndLabels(heartSupportVotes2, heartOpposeVotes2, sVotes, oVotes);
@@ -1223,37 +1341,39 @@ public class VotingController implements javafx.fxml.Initializable
 
   /**
    * Resets integers and labels after each vote (click).
+   *
    * @param reset1 Integer to reset.
    * @param reset2 Other integer to reset.
-   * @param text1 Label to reset.
-   * @param text2 Other label to reset.
+   * @param text1  Label to reset.
+   * @param text2  Other label to reset.
    */
   private void resetVotesAndLabels(int reset1, int reset2, Label text1, Label text2)
   {
     reset1 = 0;
     reset2 = 0;
 
-    text1.setText(""+reset1);
-    text2.setText(""+reset2);
+    text1.setText("" + reset1);
+    text2.setText("" + reset2);
 
   }
 
   /**
    * On mouseover, a label shows for the user's convenience.
+   *
    * @param event MouseEvent.
    */
   @FXML
   public void mouseOverVote(javafx.scene.input.MouseEvent event)
   {
-    if(event.getSource() == support)
+    if (event.getSource() == support)
     {
       supportLabel.setVisible(true);
     }
-    else if(event.getSource() == oppose)
+    else if (event.getSource() == oppose)
     {
       opposeLabel.setVisible(true);
     }
-    else if(event.getSource() == abstain)
+    else if (event.getSource() == abstain)
     {
       abstainLabel.setVisible(true);
     }
@@ -1321,8 +1441,9 @@ public class VotingController implements javafx.fxml.Initializable
 
   /**
    * Updates main scene labels with whatever the user voted.
+   *
    * @param supportVotes Support votes.
-   * @param opposeVotes Oppose votes.
+   * @param opposeVotes  Oppose votes.
    * @param abstainVotes Abstain votes.
    */
   private void updateLabels(int supportVotes, int opposeVotes, int abstainVotes)

@@ -34,7 +34,8 @@ public class PhaseStart implements Serializable
    * Constructs a new ServerState object with the current time, the given state,
    * and an end time based on the given length. If the length is less than zero,
    * a PhaseStart instance representing a non-time-limited state will be instantiated.
-   * @param state the phase we are entering.
+   *
+   * @param state       the phase we are entering.
    * @param stateLength the length of a phase, in milliseconds, or any negative value for a
    *                    non-time-limited phase
    * @return the constructed PhaseStart object

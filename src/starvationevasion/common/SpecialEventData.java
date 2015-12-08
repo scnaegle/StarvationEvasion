@@ -1,4 +1,5 @@
 package starvationevasion.common;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,7 +13,8 @@ public class SpecialEventData implements Serializable
   }
 
   public enum EnumMonth
-  { January, February, March, April, May, June,
+  {
+    January, February, March, April, May, June,
     July, August, September, October, November, December
   }
 
@@ -30,7 +32,7 @@ public class SpecialEventData implements Serializable
    */
   public String toString()
   {
-    String msg = type + "["+year+":"+month+" -> " + durationInMonths + "months]: " + region;
+    String msg = type + "[" + year + ":" + month + " -> " + durationInMonths + "months]: " + region;
     return msg;
   }
 }

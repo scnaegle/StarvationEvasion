@@ -3,8 +3,6 @@ package starvationevasion.teamrocket.gui;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,18 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.util.Duration;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.AvailableRegions;
-import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.teamrocket.PlayerInterface;
 import starvationevasion.teamrocket.main.Main;
-import starvationevasion.teamrocket.models.Player;
 
-import java.net.URL;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * Handles the game room scene.
@@ -59,15 +52,15 @@ public class GameroomController
       @Override
       public void handle(ActionEvent event)
       {
-        if(Main.getGameController().getCurrentScene() != Main.getGameController().desiredScene)
+        if (Main.getGameController().getCurrentScene() != Main.getGameController().desiredScene)
         {
           Main.getGameController().changeScene(Main.getGameController().desiredScene);
         }
 
-        if(Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
+        if (Main.getGameController().getCurrentScene() == EnumScene.GAME_ROOM)
         {
           countdown.setText(Main.GAME_CLOCK.getFormatted());
-          if(Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10000 && Main.GAME_CLOCK.getSeconds() >=0)
+          if (Main.GAME_CLOCK.getMinutes() == 0 && Main.GAME_CLOCK.getSeconds() <= 10000 && Main.GAME_CLOCK.getSeconds() >= 0)
           {
             countdown.setVisible(true);
           }
@@ -76,7 +69,7 @@ public class GameroomController
             countdown.setVisible(false);
           }
 
-          if(Main.GAME_CLOCK.getTimeLeft() <= 0 &&(modal == null || !modal.isShowing()))
+          if (Main.GAME_CLOCK.getTimeLeft() <= 0 && (modal == null || !modal.isShowing()))
           {
             Platform.runLater(new Runnable()
             {
@@ -106,7 +99,7 @@ public class GameroomController
     Map<EnumRegion, String> takenRegions = availableRegions.takenRegions;
 
     String freeText = "Locked";
-    if(Main.getGameController().getCanPickRegion())
+    if (Main.getGameController().getCanPickRegion())
     {
       freeText = "Free";
     }
@@ -143,16 +136,17 @@ public class GameroomController
   public void buttonPressed(ActionEvent event)
   {
     //For testing purposes
-    if(event.getSource() == doneGameRoom)
-  {
-    try{
-      this.player = Main.getGameController().startSinglePlayerGame(myRegion);
-    }
-    catch (Exception e)
+    if (event.getSource() == doneGameRoom)
     {
-      e.printStackTrace();
+      try
+      {
+        this.player = Main.getGameController().startSinglePlayerGame(myRegion);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
     }
-  }
   }
 
   /**
