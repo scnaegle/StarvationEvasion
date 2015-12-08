@@ -240,6 +240,10 @@ public class DraftController implements javafx.fxml.Initializable
 
   }
 
+  private void setMainLabel()
+  {
+    mainLabel.setText(getGameController().currentYear+", "+getGameController().population+", "+getGameController().HDI);
+  }
   /**
    * Determines what each card needs as an input and shows specific boxes and drop downs
    * depending on what the cards need.

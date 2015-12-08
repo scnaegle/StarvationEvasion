@@ -53,6 +53,8 @@ public class GameController
 
   public int currentYear;
   public int currentTurn;
+  public int population;
+  public int HDI;
 
   /**
    * The main controller that talks with the GUI in order to hear player input
