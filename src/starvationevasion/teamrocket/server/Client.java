@@ -1,6 +1,7 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.messages.*;
+import starvationevasion.teamrocket.gui.EnumScene;
 import starvationevasion.teamrocket.main.GameController;
 
 import java.io.*;
@@ -199,6 +200,7 @@ public class Client
           gameController.beginGame((BeginGame) msg);
         } else if (msg instanceof PhaseStart) {
           gameController.updateTimer((PhaseStart) msg);
+          gameController.setPhaseStart((PhaseStart)msg);
         } else if (msg instanceof GameState) {
           gameController.updateWorldData(((GameState) msg).worldData);
           gameController.setHand(((GameState) msg).hand);

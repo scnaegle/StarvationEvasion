@@ -576,19 +576,9 @@ public class VotingController implements javafx.fxml.Initializable
     if(button == doneVoting)
     {
       hideAllVoteLabels();
-
       Main.getGameController().setPlayerVote(myRegion, vote);
       System.out.println("I voted "+vote);
-    //save choices
 
-    try
-    {
-      Main.getGameController().finishedVoting();
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
     }
     else if(button == caliCard1)
     {
