@@ -558,8 +558,9 @@ public class GameController
     {
       this.draft2 = draft2;
     }
-    //TODO send to client. No need to update player since turn is over. Player shouldn't need this information.
 
+    client.send(new DraftCard(draft1));
+    client.send(new DraftCard(draft2));
   }
 
   public PolicyCard[] getDraftedCards()
