@@ -30,7 +30,6 @@ public class GameController
   private String playerUsername = "player";
   private String playerPassword = "pass";
   private String playerIP;
-  private String playerPort;
   private String salt;
   private boolean gotSalt = false;
 
@@ -100,16 +99,11 @@ public class GameController
     server.setDaemon(true);
     server.start(); //start() needs to be public to start our own copy.
     startClientAndAttemptLogin("127.0.0.1");
-    setChosenRegion(region);
-
-    //Server will need to spawn a bunch of AI Clients
-    //Need to detect what zones are left and fill with AI
-
-
-    //Need to send ready to start message to server
-
-
-    //
+    if(waitForLoginResponse()) {
+      setChosenRegion(region);
+    } else {
+      //TODO show error and try again
+    }
 
     return this.player;
   }
@@ -351,7 +345,6 @@ public class GameController
   /**
    * Tries to login into the designated server.
    *
-   * @param networkPort
    * @param username
    * @param password
    * @param ipAddress
@@ -366,14 +359,7 @@ public class GameController
     setSuccessfulLogin(null);
     if(!startClientAndAttemptLogin(null)) return false;
 
-    while(getSuccessfulLogin()  == null) {
-      try {
-        Thread.sleep(17l);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-    return getSuccessfulLogin();
+    return waitForLoginResponse();
   }
 
   /**
@@ -519,21 +505,9 @@ public class GameController
     return address.matches(regex);
   }
 
-  public boolean validPort(String port)
-  {
-    final String regex = "^\\d{2,6}+$";
-
-    return port.matches(regex);
-  }
-
   public String getPlayerIP()
   {
     return playerIP;
-  }
-
-  public String getPlayerPort()
-  {
-    return playerPort;
   }
 
   public void addErrorMessage(String error_message)
@@ -554,6 +528,18 @@ public class GameController
   public Boolean getSuccessfulLogin()
   {
     return successfulLogin;
+  }
+
+  public boolean waitForLoginResponse() {
+    while(getSuccessfulLogin() == null) {
+      try {
+        Thread.sleep(17l);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+        return false;
+      }
+    }
+    return getSuccessfulLogin();
   }
 
   public String getPlayerUsername()
