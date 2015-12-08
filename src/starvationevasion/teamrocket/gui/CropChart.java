@@ -273,12 +273,19 @@ public class CropChart
           new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), dataout));
       iterateTurnNumber++;
     }
+    series.getData().add(new XYChart.Data(YEAR_START + (iterateTurnNumber * 3), 12));
 
     series.setName(food.name());
     lineChart.getData().add(series);
     return lineChart;
   }
 
+  /**
+   *
+   * @param region
+   * @param foods
+   * @return
+   */
   public static LineChart makeLineChartRegionFood(RegionHistory region,
                                                   boolean[] foods)
   {
