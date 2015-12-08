@@ -58,7 +58,7 @@ public class GameClock
    */
   public void setTimeLeft(long milliLeft)
   {
-    this.timeLeft = milliLeft;
+    this.timeLeft = milliLeft - 1000;
   }
 
   public void stop()

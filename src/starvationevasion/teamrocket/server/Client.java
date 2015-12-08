@@ -165,7 +165,7 @@ public class Client
 //    client.send(new Login());
     while(true) {
       try {
-        Thread.sleep(17l);
+        Thread.sleep(170l);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -186,7 +186,7 @@ public class Client
       Object msg;
       try {
         msg = inputStream.readObject();
-        System.out.println("received from server: " + msg);
+        System.out.println("[" + gameController.getPlayerUsername() + "] received from server: " + msg);
         if (msg instanceof Response) {
           handleResponse((Response) msg);
         } else if (msg instanceof LoginResponse) {

@@ -211,13 +211,13 @@ public class DraftController implements javafx.fxml.Initializable
             showMyRegion();
             setWindowTexts();
             resetCards();
-            Main.GAME_CLOCK.setTimeLeft(300000);
           }
 
 
           if (Main.GAME_CLOCK.getTimeLeft() <= 0)
           {
-            //Main.getGameController().finishedCardDraft();
+            getGameController().playDrafts(draft1Card, draft2Card);
+            Main.getGameController().finishedCardDraft();
           }
         }
       }

@@ -100,6 +100,11 @@ public class Player implements PlayerInterface
     AI = ai;
     this.controller = controller;
     income = 10000000;
+
+    // Initialize our region histories
+    for(EnumRegion region : EnumRegion.values()) {
+      regionHistories.put(region, new RegionHistory(region));
+    }
   }
 
   /**
@@ -370,5 +375,11 @@ public class Player implements PlayerInterface
   public ChatHistory getChatHistory()
   {
     return chatHistory;
+  }
+
+  @Override
+  public VoteStatus getVoteStatus()
+  {
+    return voteStatus;
   }
 }

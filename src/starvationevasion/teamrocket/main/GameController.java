@@ -83,7 +83,6 @@ public class GameController
    */
   public PlayerInterface startSinglePlayerGame(EnumRegion region)
   {
-    startGame(region);
 
     Server server = new Server(GameController.class.getResource("/config/sologame.tsv").getPath(),
         "java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment".split(" "));
@@ -96,6 +95,8 @@ public class GameController
       //TODO show error and try again
     }
 
+    needToInitialize = true;
+    changeScene(EnumScene.GAME_ROOM);
     return this.player;
   }
 
@@ -106,7 +107,10 @@ public class GameController
    */
   public void startGame(EnumRegion region)
   {
-    this.player.setEnumRegion(region);
+    if(region != null)
+    {
+      this.player.setEnumRegion(region);
+    }
     needToInitialize = true;
     changeScene(EnumScene.DRAFT_PHASE);
   }
@@ -576,6 +580,12 @@ public class GameController
     return successfulLogin;
   }
 
+  /**
+   * Since we need to wait to see if our login request was accepted, let's
+   * spin in a loop until we get a login response back whether it was accepted
+   * or denied.
+   * @return True if login was successful, False otherwise
+   */
   public boolean waitForLoginResponse() {
     while(getSuccessfulLogin() == null) {
       try {
@@ -656,8 +666,9 @@ public class GameController
     {
       this.draft2 = draft2;
     }
-    //TODO send to client. No need to update player since turn is over. Player shouldn't need this information.
 
+    client.send(new DraftCard(draft1));
+    client.send(new DraftCard(draft2));
   }
 
   /**
