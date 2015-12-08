@@ -38,7 +38,7 @@ public class GameController
   private PolicyCard draft1, draft2;
 
   private Stack<String> error_messages = new Stack<>();
-  private boolean successfulLogin = false;
+  private Boolean successfulLogin;
   private Client client;
 
   private AvailableRegions availableRegions;
@@ -115,26 +115,28 @@ public class GameController
   }
 
 
-  private void startClientAndAttemptLogin(String host) {
+  private boolean startClientAndAttemptLogin(String host) {
+    try
+    {
     if (host != null) {
       client = new Client(host, ServerConstants.DEFAULT_PORT, this);
     } else {
       client = new Client(playerIP, ServerConstants.DEFAULT_PORT, this);
     }
 
-    try
-    {
       while(!gotSalt)
       {
         Thread.sleep(17l);
       }
     }
-    catch (InterruptedException e)
+    catch (Exception e)
     {
-      e.printStackTrace();
+      return false;
     }
 
     client.send(new Login(playerUsername, salt, playerPassword));
+
+    return true;
   }
 
 
@@ -361,16 +363,17 @@ public class GameController
     this.playerPassword = password;
     this.playerIP = ipAddress;
 
-    startClientAndAttemptLogin(null);
+    setSuccessfulLogin(null);
+    if(!startClientAndAttemptLogin(null)) return false;
 
-    while(!getSuccessfulLogin()) {
+    while(getSuccessfulLogin()  == null) {
       try {
         Thread.sleep(17l);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }
-    return true;
+    return getSuccessfulLogin();
   }
 
   /**
@@ -543,12 +546,12 @@ public class GameController
     return error_messages.pop();
   }
 
-  public void setSuccessfulLogin(boolean successfulLogin)
+  public void setSuccessfulLogin(Boolean successfulLogin)
   {
     this.successfulLogin = successfulLogin;
   }
 
-  public boolean getSuccessfulLogin()
+  public Boolean getSuccessfulLogin()
   {
     return successfulLogin;
   }
