@@ -196,6 +196,9 @@ First, create a tsv file (tab delimited) with the usernames, passwords, and Regi
 To start the server you can do something like this:
   java -classpath out/production/StarvationEvasion/ starvationevasion.server.Server data/config/password_file.tsv  java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment
 
+In IntelliJ just add this part to your Program Arguments:
+  data/config/password_file.tsv  java -classpath out/production/StarvationEvasion/ starvationevasion.teamrocket.server.Client --environment
+
 ================================================================================
 AI Cooperation
 ================================================================================
