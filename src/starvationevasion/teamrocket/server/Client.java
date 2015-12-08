@@ -1,17 +1,11 @@
 package starvationevasion.teamrocket.server;
 
 import starvationevasion.common.messages.*;
-import starvationevasion.server.ServerConstants;
 import starvationevasion.teamrocket.main.GameController;
-import starvationevasion.teamrocket.main.Main;
-import starvationevasion.teamrocket.messages.EnumGameState;
-import starvationevasion.teamrocket.messages.Message;
-import starvationevasion.teamrocket.messages.ServerEvent;
 
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 /**
  * Created by Sean Naegle
@@ -165,7 +159,7 @@ public class Client
       System.exit(0);
     }
     GameController gameController = new GameController(null, true);
-    gameController.tryLogin(username, password, host, port);
+    gameController.tryLogin(username, password, host);
 //    Client client = new Client(host, port, gameController);
 
 //    client.send(new Login());
