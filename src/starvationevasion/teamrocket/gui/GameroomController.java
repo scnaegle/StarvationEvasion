@@ -80,25 +80,31 @@ public class GameroomController implements javafx.fxml.Initializable
     AvailableRegions availableRegions = Main.getGameController().getAvailableRegions();
     Map<EnumRegion, String> takenRegions = availableRegions.takenRegions;
 
-    user1.setText((takenRegions.get(EnumRegion.CALIFORNIA) != null) ? takenRegions.get(EnumRegion.CALIFORNIA) : "Free");
+    String freeText = "Locked";
+    if(Main.getGameController().getCanPickRegion())
+    {
+      freeText = "Free";
+    }
+
+    user1.setText((takenRegions.get(EnumRegion.CALIFORNIA) != null) ? takenRegions.get(EnumRegion.CALIFORNIA) : freeText);
     user1.setVisible(true);
 
-    user2.setText((takenRegions.get(EnumRegion.HEARTLAND) != null) ? takenRegions.get(EnumRegion.HEARTLAND) : "Free");
+    user2.setText((takenRegions.get(EnumRegion.HEARTLAND) != null) ? takenRegions.get(EnumRegion.HEARTLAND) : freeText);
     user2.setVisible(true);
 
-    user3.setText((takenRegions.get(EnumRegion.NORTHERN_PLAINS) != null) ? takenRegions.get(EnumRegion.NORTHERN_PLAINS) : "Free");
+    user3.setText((takenRegions.get(EnumRegion.NORTHERN_PLAINS) != null) ? takenRegions.get(EnumRegion.NORTHERN_PLAINS) : freeText);
     user3.setVisible(true);
 
-    user4.setText((takenRegions.get(EnumRegion.SOUTHEAST) != null) ? takenRegions.get(EnumRegion.SOUTHEAST) : "Free");
+    user4.setText((takenRegions.get(EnumRegion.SOUTHEAST) != null) ? takenRegions.get(EnumRegion.SOUTHEAST) : freeText);
     user4.setVisible(true);
 
-    user5.setText((takenRegions.get(EnumRegion.NORTHERN_CRESCENT) != null) ? takenRegions.get(EnumRegion.NORTHERN_CRESCENT) : "Free");
+    user5.setText((takenRegions.get(EnumRegion.NORTHERN_CRESCENT) != null) ? takenRegions.get(EnumRegion.NORTHERN_CRESCENT) : freeText);
     user5.setVisible(true);
 
-    user6.setText((takenRegions.get(EnumRegion.SOUTHERN_PLAINS) != null) ? takenRegions.get(EnumRegion.SOUTHERN_PLAINS) : "Free");
+    user6.setText((takenRegions.get(EnumRegion.SOUTHERN_PLAINS) != null) ? takenRegions.get(EnumRegion.SOUTHERN_PLAINS) : freeText);
     user6.setVisible(true);
 
-    user7.setText((takenRegions.get(EnumRegion.MOUNTAIN) != null) ? takenRegions.get(EnumRegion.MOUNTAIN) : "Free");
+    user7.setText((takenRegions.get(EnumRegion.MOUNTAIN) != null) ? takenRegions.get(EnumRegion.MOUNTAIN) : freeText);
     user7.setVisible(true);
 
   }
