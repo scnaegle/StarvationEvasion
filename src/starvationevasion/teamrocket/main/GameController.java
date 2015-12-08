@@ -119,7 +119,7 @@ public class GameController
     if (host != null) {
       client = new Client(host, ServerConstants.DEFAULT_PORT, this);
     } else {
-      client = new Client(playerIP, Integer.parseInt(playerPort), this);
+      client = new Client(playerIP, ServerConstants.DEFAULT_PORT, this);
     }
 
     try
@@ -137,10 +137,6 @@ public class GameController
     client.send(new Login(playerUsername, salt, playerPassword));
   }
 
-
-  private void initializeGame(String gameType, String ip, int port)
-  {
-  }
 
   public void switchToScene(ServerState serverState)
   {
@@ -353,18 +349,18 @@ public class GameController
   /**
    * Tries to login into the designated server.
    *
+   * @param networkPort
    * @param username
    * @param password
    * @param ipAddress
-   * @param networkPort
    * @return
    */
-  public boolean tryLogin(String username, String password, String ipAddress, String networkPort)
+  public boolean tryLogin(String username, String password, String ipAddress)
   {
     this.playerUsername = username;
     this.playerPassword = password;
     this.playerIP = ipAddress;
-    this.playerPort = networkPort;
+
     startClientAndAttemptLogin(null);
 
     while(!getSuccessfulLogin()) {

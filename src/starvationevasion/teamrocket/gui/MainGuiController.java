@@ -80,9 +80,8 @@ public class MainGuiController implements javafx.fxml.Initializable
     String playerUsername = username.getCharacters().toString();
     String playerPassword = password.getCharacters().toString();
     String playerIPAddress = ipAddress.getCharacters().toString();
-    String playerNetworkPort = port.getCharacters().toString();
 
-    return Main.getGameController().tryLogin(playerUsername, playerPassword, playerIPAddress, playerNetworkPort);
+    return Main.getGameController().tryLogin(playerUsername, playerPassword, playerIPAddress);
   }
 
   /**
@@ -181,16 +180,11 @@ public class MainGuiController implements javafx.fxml.Initializable
     }
     else if(button == login)
     {
-      portError.setVisible(false);
       addressError.setVisible(false);
       //verify and save input
       boolean input = verifyLoginInput();
-      boolean validPort = Main.getGameController().validPort(port.getCharacters().toString());
       boolean validAddress = Main.getGameController().validAddress(ipAddress.getCharacters().toString());
-      if(!validPort)
-      {
-        portError.setVisible(true);
-      }
+
       if(!validAddress)
       {
         addressError.setVisible(true);
@@ -248,7 +242,7 @@ public class MainGuiController implements javafx.fxml.Initializable
   {
     emptyFieldError.setVisible(false);
     if(username.getCharacters().toString().isEmpty() || password.getCharacters().toString().isEmpty()
-        ||ipAddress.getCharacters().toString().isEmpty() || port.getCharacters().toString().isEmpty())
+        ||ipAddress.getCharacters().toString().isEmpty())
     {
       emptyFieldError.setVisible(true);
       return false;
