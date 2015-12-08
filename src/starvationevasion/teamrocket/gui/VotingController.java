@@ -18,6 +18,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.VoteStatus;
+import starvationevasion.common.messages.VoteType;
 import starvationevasion.teamrocket.main.Main;
 import starvationevasion.teamrocket.models.RegionHistory;
 
@@ -169,6 +170,7 @@ public class VotingController implements javafx.fxml.Initializable
   /* GRAPHS */
   @FXML
   private BorderPane graph1, graph2, graph3;
+  private VoteType vote;
 
   /********************************************************************************/
 
@@ -574,18 +576,9 @@ public class VotingController implements javafx.fxml.Initializable
     if(button == doneVoting)
     {
       hideAllVoteLabels();
+      Main.getGameController().setPlayerVote(myRegion, vote);
+      System.out.println("I voted "+vote);
 
-
-    //save choices
-
-    try
-    {
-      Main.getGameController().finishedVoting();
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
     }
     else if(button == caliCard1)
     {
@@ -877,345 +870,351 @@ public class VotingController implements javafx.fxml.Initializable
 
     if(button == support)
     {
+      vote = VoteType.FOR;
+
       if(caliCard1Selected)
       {
         caliSupportVotes1 = 1;
         resetVotesAndLabels(caliAbstainVotes1, caliOpposeVotes1, aVotes, oVotes);
-        caliAbstainVotes1 = 0;
-        caliOpposeVotes1 = 0;
+//        caliAbstainVotes1 = 0;
+//        caliOpposeVotes1 = 0;
         sVotes.setText("" + caliSupportVotes1);
+
       }
       else if(caliCard2Selected)
       {
         caliSupportVotes2 = 1;
         resetVotesAndLabels(caliAbstainVotes2, caliOpposeVotes2, aVotes, oVotes);
-        caliAbstainVotes2 = 0;
-        caliOpposeVotes2 = 0;
+//        caliAbstainVotes2 = 0;
+//        caliOpposeVotes2 = 0;
         sVotes.setText("" + caliSupportVotes2);
       }
       else if(mountCard1Selected)
       {
         mountSupportVotes1 = 1;
         resetVotesAndLabels(mountAbstainVotes1, mountOpposeVotes1, aVotes, oVotes);
-        mountAbstainVotes1 = 0;
-        mountOpposeVotes1 = 0;
+//        mountAbstainVotes1 = 0;
+//        mountOpposeVotes1 = 0;
         sVotes.setText("" + mountSupportVotes1);
       }
       else if(mountCard2Selected)
       {
         mountSupportVotes2 = 1;
         resetVotesAndLabels(mountAbstainVotes2, mountOpposeVotes2, aVotes, oVotes);
-        mountAbstainVotes2 = 0;
-        mountOpposeVotes2 = 0;
+//        mountAbstainVotes2 = 0;
+//        mountOpposeVotes2 = 0;
         sVotes.setText("" + mountSupportVotes2);
       }
       else if(nPlainCard1Selected)
       {
         nPlainSupportVotes1 = 1;
         resetVotesAndLabels(nPlainAbstainVotes1, nPlainOpposeVotes1, aVotes, oVotes);
-        nPlainAbstainVotes1 = 0;
-        nPlainOpposeVotes1 = 0;
+//        nPlainAbstainVotes1 = 0;
+//        nPlainOpposeVotes1 = 0;
         sVotes.setText("" + nPlainSupportVotes1);
       }
       else if(nPlainCard2Selected)
       {
         nPlainSupportVotes2 = 1;
         resetVotesAndLabels(nPlainAbstainVotes2, nPlainOpposeVotes2, aVotes, oVotes);
-        nPlainAbstainVotes2 = 0;
-        nPlainOpposeVotes2 = 0;
+//        nPlainAbstainVotes2 = 0;
+//        nPlainOpposeVotes2 = 0;
         sVotes.setText("" + nPlainSupportVotes2);
       }
       else if(sPlainCard1Selected)
       {
         sPlainSupportVotes1 = 1;
         resetVotesAndLabels(sPlainAbstainVotes1, sPlainOpposeVotes1, aVotes, oVotes);
-        sPlainAbstainVotes1 = 0;
-        sPlainOpposeVotes1 = 0;
+//        sPlainAbstainVotes1 = 0;
+//        sPlainOpposeVotes1 = 0;
         sVotes.setText("" + sPlainSupportVotes1);
       }
       else if(sPlainCard2Selected)
       {
         sPlainSupportVotes2 = 1;
         resetVotesAndLabels(sPlainAbstainVotes2, sPlainOpposeVotes2, aVotes, oVotes);
-        sPlainAbstainVotes2 = 0;
-        sPlainOpposeVotes2 = 0;
+//        sPlainAbstainVotes2 = 0;
+//        sPlainOpposeVotes2 = 0;
         sVotes.setText("" + sPlainSupportVotes2);
       }
       else if(neCard1Selected)
       {
         neSupportVotes1 = 1;
         resetVotesAndLabels(neAbstainVotes1, neOpposeVotes1, aVotes, oVotes);
-        neAbstainVotes1 = 0;
-        neOpposeVotes1 = 0;
+//        neAbstainVotes1 = 0;
+//        neOpposeVotes1 = 0;
         sVotes.setText("" + neSupportVotes1);
       }
       else if(neCard2Selected)
       {
         neSupportVotes2 = 1;
         resetVotesAndLabels(neAbstainVotes2, neOpposeVotes2, aVotes, oVotes);
-        neAbstainVotes2 = 0;
-        neOpposeVotes2 = 0;
+//        neAbstainVotes2 = 0;
+//        neOpposeVotes2 = 0;
         sVotes.setText("" + neSupportVotes2);
       }
       else if(seCard1Selected)
       {
         seSupportVotes1 = 1;
         resetVotesAndLabels(seAbstainVotes1, seOpposeVotes1, aVotes, oVotes);
-        seAbstainVotes1 = 0;
-        seOpposeVotes1 = 0;
+//        seAbstainVotes1 = 0;
+//        seOpposeVotes1 = 0;
         sVotes.setText("" + seSupportVotes1);
       }
       else if(seCard2Selected)
       {
         seSupportVotes2 = 1;
         resetVotesAndLabels(seAbstainVotes2, seOpposeVotes2, aVotes, oVotes);
-        seAbstainVotes2 = 0;
-        seOpposeVotes2 = 0;
+//        seAbstainVotes2 = 0;
+//        seOpposeVotes2 = 0;
         sVotes.setText("" + seSupportVotes2);
       }
       else if(heartCard1Selected)
       {
         heartSupportVotes1 = 1;
         resetVotesAndLabels(heartAbstainVotes1, heartOpposeVotes1, aVotes, oVotes);
-        heartAbstainVotes1 = 0;
-        heartOpposeVotes1 = 0;
+//        heartAbstainVotes1 = 0;
+//        heartOpposeVotes1 = 0;
         sVotes.setText("" + heartSupportVotes1);}
       else if(heartCard2Selected)
       {
         heartSupportVotes2 = 1;
         resetVotesAndLabels(heartAbstainVotes2, heartOpposeVotes2, aVotes, oVotes);
-        heartAbstainVotes2 = 0;
-        heartOpposeVotes2 = 0;
+//        heartAbstainVotes2 = 0;
+//        heartOpposeVotes2 = 0;
         sVotes.setText("" + heartSupportVotes2);
       }
     }
     else if(button == oppose)
     {
+      vote = VoteType.AGAINST;
+
       if(caliCard1Selected)
       {
         caliOpposeVotes1 = 1;
         resetVotesAndLabels(caliSupportVotes1, caliAbstainVotes1, sVotes, aVotes);
-        caliSupportVotes1 = 0;
-        caliAbstainVotes1 = 0;
+//        caliSupportVotes1 = 0;
+//        caliAbstainVotes1 = 0;
         oVotes.setText("" + caliOpposeVotes1);
       }
       else if(caliCard2Selected)
       {
         caliOpposeVotes2 = 1;
         resetVotesAndLabels(caliSupportVotes2, caliAbstainVotes2, sVotes, aVotes);
-        caliSupportVotes2 = 0;
-        caliAbstainVotes2 = 0;
+//        caliSupportVotes2 = 0;
+//        caliAbstainVotes2 = 0;
         oVotes.setText("" + caliOpposeVotes2);
       }
       else if(mountCard1Selected)
       {
         mountOpposeVotes1 = 1;
         resetVotesAndLabels(mountSupportVotes1, mountAbstainVotes1, sVotes, aVotes);
-        mountSupportVotes1 = 0;
-        mountAbstainVotes1 = 0;
+//        mountSupportVotes1 = 0;
+//        mountAbstainVotes1 = 0;
         oVotes.setText("" + mountOpposeVotes1);
       }
       else if(mountCard2Selected)
       {
         mountOpposeVotes2 = 1;
         resetVotesAndLabels(mountSupportVotes2, mountAbstainVotes2, sVotes, aVotes);
-        mountSupportVotes2 = 0;
-        mountAbstainVotes2 = 0;
+//        mountSupportVotes2 = 0;
+//        mountAbstainVotes2 = 0;
         oVotes.setText("" + mountOpposeVotes2);
       }
       else if(nPlainCard1Selected)
       {
         nPlainOpposeVotes1 = 1;
         resetVotesAndLabels(nPlainSupportVotes1, nPlainAbstainVotes1, sVotes, aVotes);
-        nPlainSupportVotes1 = 0;
-        nPlainAbstainVotes1 = 0;
+//        nPlainSupportVotes1 = 0;
+//        nPlainAbstainVotes1 = 0;
         oVotes.setText("" + nPlainOpposeVotes1);
       }
       else if(nPlainCard2Selected)
       {
         nPlainOpposeVotes2 = 1;
         resetVotesAndLabels(nPlainSupportVotes2, nPlainAbstainVotes2, sVotes, aVotes);
-        nPlainSupportVotes2 = 0;
-        nPlainAbstainVotes2 = 0;
+//        nPlainSupportVotes2 = 0;
+//        nPlainAbstainVotes2 = 0;
         oVotes.setText("" + nPlainOpposeVotes2);
       }
       else if(sPlainCard1Selected)
       {
         sPlainOpposeVotes1 = 1;
         resetVotesAndLabels(sPlainSupportVotes1, sPlainAbstainVotes1, sVotes, aVotes);
-        sPlainSupportVotes1 = 0;
-        sPlainAbstainVotes1 = 0;
+//        sPlainSupportVotes1 = 0;
+//        sPlainAbstainVotes1 = 0;
         oVotes.setText("" + sPlainOpposeVotes1);
       }
       else if(sPlainCard2Selected)
       {
         sPlainOpposeVotes2 = 1;
         resetVotesAndLabels(sPlainSupportVotes2, sPlainAbstainVotes2, sVotes, aVotes);
-        sPlainSupportVotes2 = 0;
-        sPlainAbstainVotes2 = 0;
+//        sPlainSupportVotes2 = 0;
+//        sPlainAbstainVotes2 = 0;
         oVotes.setText("" + sPlainOpposeVotes2);
       }
       else if(neCard1Selected)
       {
         neOpposeVotes1 = 1;
         resetVotesAndLabels(neSupportVotes1, neAbstainVotes1, sVotes, aVotes);
-        neSupportVotes1 = 0;
-        neAbstainVotes1 = 0;
+//        neSupportVotes1 = 0;
+//        neAbstainVotes1 = 0;
         oVotes.setText("" + neOpposeVotes1);
       }
       else if(neCard2Selected)
       {
         neOpposeVotes1 = 1;
         resetVotesAndLabels(neSupportVotes1, neAbstainVotes1, sVotes, aVotes);
-        neSupportVotes1 = 0;
-        neAbstainVotes1 = 0;
+//        neSupportVotes1 = 0;
+//        neAbstainVotes1 = 0;
         oVotes.setText("" + neOpposeVotes1);
       }
       else if(seCard1Selected)
       {
         seOpposeVotes1 = 1;
         resetVotesAndLabels(seSupportVotes1, seAbstainVotes1, sVotes, aVotes);
-        seSupportVotes1 = 0;
-        seAbstainVotes1 = 0;
+//        seSupportVotes1 = 0;
+//        seAbstainVotes1 = 0;
         oVotes.setText("" + seOpposeVotes1);
       }
       else if(seCard2Selected)
       {
         seOpposeVotes2 = 1;
         resetVotesAndLabels(seSupportVotes2, seAbstainVotes2, sVotes, aVotes);
-        seSupportVotes2 = 0;
-        seAbstainVotes2 = 0;
+//        seSupportVotes2 = 0;
+//        seAbstainVotes2 = 0;
         oVotes.setText("" + seOpposeVotes2);
       }
       else if(heartCard1Selected)
       {
         heartOpposeVotes1 = 1;
         resetVotesAndLabels(heartSupportVotes1, heartAbstainVotes1, sVotes, aVotes);
-        heartSupportVotes1 = 0;
-        heartAbstainVotes1 = 0;
+//        heartSupportVotes1 = 0;
+//        heartAbstainVotes1 = 0;
         oVotes.setText("" + heartOpposeVotes1);
       }
       else if(heartCard2Selected)
       {
         heartOpposeVotes2 = 1;
         resetVotesAndLabels(heartSupportVotes2, heartAbstainVotes2, sVotes, aVotes);
-        heartSupportVotes2 = 0;
-        heartAbstainVotes2 = 0;
+//        heartSupportVotes2 = 0;
+//        heartAbstainVotes2 = 0;
         oVotes.setText("" + heartOpposeVotes2);
       }
     }
     else if(button == abstain)
     {
+      vote = VoteType.ABSTAIN;
       if(caliCard1Selected)
       {
         caliAbstainVotes1 = 1;
         resetVotesAndLabels(caliSupportVotes1, caliOpposeVotes1, sVotes, oVotes);
-        caliSupportVotes1 = 0;
-        caliOpposeVotes1 = 0;
+//        caliSupportVotes1 = 0;
+//        caliOpposeVotes1 = 0;
         aVotes.setText("" + caliAbstainVotes1);
       }
       else if(caliCard2Selected)
       {
         caliAbstainVotes2 = 1;
         resetVotesAndLabels(caliSupportVotes2, caliOpposeVotes2, sVotes, oVotes);
-        caliSupportVotes2 = 0;
-        caliOpposeVotes2 = 0;
+//        caliSupportVotes2 = 0;
+//        caliOpposeVotes2 = 0;
         aVotes.setText("" + caliAbstainVotes2);
       }
       else if(mountCard1Selected)
       {
         mountAbstainVotes1 = 1;
         resetVotesAndLabels(mountSupportVotes1, mountOpposeVotes1, sVotes, oVotes);
-        mountSupportVotes1 = 0;
-        mountOpposeVotes1 = 0;
+//        mountSupportVotes1 = 0;
+//        mountOpposeVotes1 = 0;
         aVotes.setText("" + mountAbstainVotes1);
       }
       else if(mountCard2Selected)
       {
         mountAbstainVotes2 = 1;
         resetVotesAndLabels(mountSupportVotes2, mountOpposeVotes2, sVotes, oVotes);
-        mountSupportVotes2 = 0;
-        mountOpposeVotes2 = 0;
+//        mountSupportVotes2 = 0;
+//        mountOpposeVotes2 = 0;
         aVotes.setText("" + mountAbstainVotes2);
       }
       else if(nPlainCard1Selected)
       {
         nPlainAbstainVotes1 = 1;
         resetVotesAndLabels(nPlainSupportVotes1, nPlainOpposeVotes1, sVotes, oVotes);
-        nPlainSupportVotes1 = 0;
-        nPlainOpposeVotes1 = 0;
+//        nPlainSupportVotes1 = 0;
+//        nPlainOpposeVotes1 = 0;
         aVotes.setText("" + nPlainAbstainVotes1);
       }
       else if(nPlainCard2Selected)
       {
         nPlainAbstainVotes2 = 1;
         resetVotesAndLabels(nPlainSupportVotes2, nPlainOpposeVotes2, sVotes, oVotes);
-        nPlainSupportVotes2 = 0;
-        nPlainOpposeVotes2 = 0;
+//        nPlainSupportVotes2 = 0;
+//        nPlainOpposeVotes2 = 0;
         aVotes.setText("" + nPlainAbstainVotes2);
       }
       else if(sPlainCard1Selected)
       {
         sPlainAbstainVotes1 = 1;
         resetVotesAndLabels(sPlainSupportVotes1, sPlainOpposeVotes1, sVotes, oVotes);
-        sPlainSupportVotes1 = 0;
-        sPlainOpposeVotes1 = 0;
+//        sPlainSupportVotes1 = 0;
+//        sPlainOpposeVotes1 = 0;
         aVotes.setText("" + sPlainAbstainVotes1);
       }
       else if(sPlainCard2Selected)
       {
         sPlainAbstainVotes2 = 1;
         resetVotesAndLabels(sPlainSupportVotes2, sPlainOpposeVotes2, sVotes, oVotes);
-        sPlainSupportVotes2 = 0;
-        sPlainOpposeVotes2 = 0;
+//        sPlainSupportVotes2 = 0;
+//        sPlainOpposeVotes2 = 0;
         aVotes.setText("" + sPlainAbstainVotes2);
       }
       else if(neCard1Selected)
       {
         neAbstainVotes1 = 1;
         resetVotesAndLabels(neSupportVotes1, neOpposeVotes1, sVotes, oVotes);
-        neSupportVotes1 = 0;
-        neOpposeVotes1 = 0;
+//        neSupportVotes1 = 0;
+//        neOpposeVotes1 = 0;
         aVotes.setText("" + neAbstainVotes1);
       }
       else if(neCard2Selected)
       {
         neAbstainVotes2 = 1;
         resetVotesAndLabels(neSupportVotes2, neOpposeVotes2, sVotes, oVotes);
-        neSupportVotes2 = 0;
-        neOpposeVotes2 = 0;
+//        neSupportVotes2 = 0;
+//        neOpposeVotes2 = 0;
         aVotes.setText("" + neAbstainVotes2);
       }
       else if(seCard1Selected)
       {
         seAbstainVotes1 = 1;
         resetVotesAndLabels(seSupportVotes1, seOpposeVotes1, sVotes, oVotes);
-        seSupportVotes1 = 0;
-        seOpposeVotes1 = 0;
+//        seSupportVotes1 = 0;
+//        seOpposeVotes1 = 0;
         aVotes.setText("" + seAbstainVotes1);
       }
       else if(seCard2Selected)
       {
         seAbstainVotes2 = 1;
         resetVotesAndLabels(seSupportVotes2, seOpposeVotes2, sVotes, oVotes);
-        seSupportVotes2 = 0;
-        seOpposeVotes2 = 0;
+//        seSupportVotes2 = 0;
+//        seOpposeVotes2 = 0;
         aVotes.setText("" + seAbstainVotes2);
       }
       else if(heartCard1Selected)
       {
         heartAbstainVotes1 = 1;
         resetVotesAndLabels(heartSupportVotes1, heartOpposeVotes1, sVotes, oVotes);
-        heartSupportVotes1 = 0;
-        heartOpposeVotes1 = 0;
+//        heartSupportVotes1 = 0;
+//        heartOpposeVotes1 = 0;
         aVotes.setText("" + heartAbstainVotes1);
       }
       else if(heartCard2Selected)
       {
         heartAbstainVotes2 = 1;
         resetVotesAndLabels(heartSupportVotes2, heartOpposeVotes2, sVotes, oVotes);
-        heartSupportVotes2 = 0;
-        heartOpposeVotes2 = 0;
+//        heartSupportVotes2 = 0;
+//        heartOpposeVotes2 = 0;
         aVotes.setText("" + heartAbstainVotes2);
       }
     }

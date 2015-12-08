@@ -60,6 +60,7 @@ public class GameController
 
   public int currentYear;
   public int currentTurn;
+  public EnumScene desiredScene;
 
   /**
    * The main controller that talks with the GUI in order to hear player input
@@ -69,6 +70,7 @@ public class GameController
    */
   public GameController(Main main, boolean AI)
   {
+    this.AI = AI;
     this.MAIN = main;
     for (EnumRegion enumRegion : EnumRegion.values())
     {
@@ -118,22 +120,6 @@ public class GameController
     changeScene(EnumScene.GAME_ROOM);
     return this.player;
   }
-
-  /**
-   * initalizes the game and starts it
-   *
-   * @param region starts it for the region of the player
-   */
-  public void startGame(EnumRegion region)
-  {
-    if(region != null)
-    {
-      this.player.setEnumRegion(region);
-    }
-    needToInitialize = true;
-    changeScene(EnumScene.DRAFT_PHASE);
-  }
-
 
   private boolean startClientAndAttemptLogin(String host) {
     try
@@ -225,9 +211,10 @@ public class GameController
    *
    * @param nextScene the next scene that people want to
    */
-  void changeScene(EnumScene nextScene)
+  public void changeScene(EnumScene nextScene)
   {
     currentScene = nextScene;
+    desiredScene = nextScene;
     MAIN.setScene(currentScene);
 
   }
@@ -284,24 +271,6 @@ public class GameController
         player.selectedCards(-1, -1);
       }
     }
-  }
-
-  /**
-   * Switches scenes to card drafting scene
-   */
-  public void finishedCardDraft()
-  {
-    needToInitialize = true;
-    changeScene(EnumScene.VOTE_PHASE);
-  }
-
-  /**
-   * switches to the main game scene after voting is finsihed
-   */
-  public void finishedVoting()
-  {
-    needToInitialize = true;
-    changeScene(EnumScene.DRAFT_PHASE);
   }
 
   /**
@@ -591,8 +560,8 @@ public class GameController
   }
 
   /**
-   *
-   * @return
+   * Gets it if a player sucessfully logged in
+   * @return if it was succseful login
    */
   public Boolean getSuccessfulLogin()
   {
@@ -702,8 +671,45 @@ public class GameController
     return drafts;
   }
 
+  /**
+   * sends a message to the server
+   *
+   * @param message the message
+   */
   public void sendMessage(String message)
   {
     client.send(new ClientChatMessage(message, EnumRegion.US_REGIONS));
+  }
+
+  public void setPhaseStart(PhaseStart phaseStart)
+  {
+    if(!AI)
+    {
+      switch (phaseStart.currentGameState)
+      {
+
+        case LOGIN:
+          break;
+        case BEGINNING:
+          break;
+        case DRAWING:
+          break;
+        case DRAFTING:
+          needToInitialize = true;
+          desiredScene = EnumScene.DRAFT_PHASE;
+          break;
+        case VOTING:
+          needToInitialize = true;
+          desiredScene = EnumScene.VOTE_PHASE;
+          break;
+        case WIN:
+
+          break;
+        case LOSE:
+          break;
+        case END:
+          break;
+      }
+    }
   }
 }

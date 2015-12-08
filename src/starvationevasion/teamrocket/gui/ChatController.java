@@ -23,7 +23,7 @@ import java.util.Stack;
 /**
  * Handles the chat scene and gui.
  */
-public class ChatController implements javafx.fxml.Initializable
+public class ChatController
 {
   /* CHAT STUFF */
   @FXML
@@ -75,11 +75,6 @@ public class ChatController implements javafx.fxml.Initializable
     updater.play();
   }
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
-  {
-
-  }
 
   /**
    * Sends a message
@@ -107,7 +102,7 @@ public class ChatController implements javafx.fxml.Initializable
   /**
    * Enters a message to send
    *
-   * @param event
+   * @param event Key event.
    */
   @FXML
   public void enterMessage(KeyEvent event)

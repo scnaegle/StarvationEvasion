@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Maps every card image to a playable policy.
+ * Maps every card image to a playable EnumPolicy.
  */
 public class CardImage
 {
@@ -50,9 +50,9 @@ public class CardImage
   }
 
   /**
-   *
-   * @param policy
-   * @return
+   *  Gets the correct card image that relates to that specific policy.
+   * @param policy Known policy.
+   * @return Image related to policy.
    */
   public static Image getCardImage(EnumPolicy policy)
   {

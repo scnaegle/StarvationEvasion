@@ -83,6 +83,7 @@ public class GameClock
   private long updateInterval()
   {
     timeLeft = timeLeft - Main.GUI_REFRESH_RATE;
+    if(timeLeft < 0) timeLeft = 0;
     return timeLeft;
   }
 
