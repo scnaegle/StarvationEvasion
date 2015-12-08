@@ -93,7 +93,8 @@ public class Client
 
     running = false;
     if (outputStream != null) {
-      send(ServerEvent.QUIT, "quit");
+      // TODO send a message to the server that we are quitting
+//      send(ServerEvent.QUIT, "quit");
       try {
         outputStream.close();
       } catch (IOException e) {
