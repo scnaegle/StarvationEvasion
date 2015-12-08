@@ -504,6 +504,12 @@ public class GameController
     return successfulLogin;
   }
 
+  /**
+   * Since we need to wait to see if our login request was accepted, let's
+   * spin in a loop until we get a login response back whether it was accepted
+   * or denied.
+   * @return True if login was successful, False otherwise
+   */
   public boolean waitForLoginResponse() {
     while(getSuccessfulLogin() == null) {
       try {
