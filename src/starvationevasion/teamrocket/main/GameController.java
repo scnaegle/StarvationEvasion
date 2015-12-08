@@ -351,7 +351,6 @@ public class GameController
   /**
    * Tries to login into the designated server.
    *
-   * @param networkPort
    * @param username
    * @param password
    * @param ipAddress
