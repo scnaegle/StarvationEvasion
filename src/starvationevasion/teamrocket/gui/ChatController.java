@@ -81,7 +81,7 @@ public class ChatController implements javafx.fxml.Initializable
 
     if (hasText)
     {
-      text = text.toString() + "\n" + username + ": " + typeText.getCharacters().toString();
+      text = "\n" + username + ": " + typeText.getCharacters().toString();
     }
     else
     {
