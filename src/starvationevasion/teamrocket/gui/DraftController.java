@@ -708,8 +708,8 @@ public class DraftController implements javafx.fxml.Initializable
       rightArrow.setVisible(true);
       leftArrow.setVisible(false);
       PPT.setVisible(true);
-//      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
-//                                    .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
+      PPT.setCenter(CropChart.makeLineChartPricePerMetricTonFood(player.getRegionHistories()
+                                    .get(EnumRegion.CALIFORNIA),EnumFood.FRUIT));
 
       appleWindow.setVisible(true);
       //totalRev.setCenter(CropChart.makeLineChartForSpecificFoodRevenue(new RegionHistory[7],EnumFood.FRUIT));

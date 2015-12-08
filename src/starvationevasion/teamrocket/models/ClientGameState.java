@@ -205,11 +205,11 @@ public class ClientGameState implements Serializable
 
         String typeOfPlayerGame = gameController.getPlayerMode();
         String ip = gameController.getPlayerIP();
-        String portString = gameController.getPlayerPort();
+        //String portString = gameController.getPlayerPort();
         int portNumber;
         try
         {
-          portNumber = Integer.parseInt(portString);
+         // portNumber = Integer.parseInt(portString);
 //          initlizeGame(typeOfPlayerGame, ip, portNumber);
         }
         catch (IllegalFormatException e)
