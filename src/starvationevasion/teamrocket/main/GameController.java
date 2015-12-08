@@ -447,7 +447,9 @@ public class GameController
    * @param region Player's chosen region
    */
   public void setChosenRegion(EnumRegion region) {
-    client.send(new RegionChoice(region));
+    if (canPickRegion) {
+      client.send(new RegionChoice(region));
+    }
   }
 
   /**
